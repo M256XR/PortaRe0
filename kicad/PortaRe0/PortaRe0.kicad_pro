@@ -609,6 +609,27 @@
     "subpart_first_id": 65,
     "subpart_id_separator": 0
   },
-  "sheets": [],
+  "sheets": [
+    [
+      "479aadc4-f9a0-4ec2-b000-6a17237038f1",
+      "Root"
+    ],
+    [
+      "bbdd0b45-407f-430f-96c4-71b6262b4665",
+      "power"
+    ],
+    [
+      "8e76808d-de08-4fd1-9155-9dd498f0d9f9",
+      "usb_hub"
+    ],
+    [
+      "6a589eb8-1cb5-4d2d-b60c-ea2cdc8e2546",
+      "keyboard"
+    ],
+    [
+      "6f018b3a-f554-45a0-adb8-bf1e4994a5d2",
+      "audio"
+    ]
+  ],
   "text_variables": {}
 }

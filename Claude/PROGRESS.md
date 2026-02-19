@@ -1,0 +1,97 @@
+# PortaRe0 進捗ログ
+
+## 現在のフェーズ
+**Phase 2: 回路設計 ← 進行中**
+
+## 現在の作業箇所
+- KiCad `kicad/PortaRe0/` で powerシートの BQ25895 回路図を作成中
+- 左側ピン（VBUS, D+/D-, SCL/SDA, INT, OTG, CE, ILIM, TS, QON）は配線済み
+- **次のタスク**:
+  1. TS（Pin11）の接続先を GND に修正
+  2. 右側ピン（BAT / SYS / PGND / PAD）追加
+  3. 上側ピン（SW / BTST / REGN / PMID / DSEL）追加
+  4. TPS61023（昇圧DC-DC）回路
+  5. AP2112K（LDO 3.3V）回路
+  6. VL812 usb_hub シート
+  7. RP2040 keyboard シート
+  8. MAX98357A × 2 audio シート
+  9. コネクタ類（SBC接続・外部ポート・FPC 30ピン）
+
+---
+
+## フェーズ完了状況
+
+### Phase 1: 部品選定 ✅ 完了
+- 主要IC 全部の JLCPCB 在庫確認済み
+- BOMファイル確定: `bom/cyberdeck_bom.xlsx`
+- GitHubリポジトリ作成: https://github.com/M256XR/PortaRe0
+- KiCadプロジェクト・ライブラリ設定済み
+- easyeda2kicad で全ICのシンボル/フットプリント取得済み（`kicad/PortaRe0_lib/`）
+
+### Phase 2: 回路設計 🔄 進行中
+- [x] KiCadプロジェクト作成、階層シート構成（power / usb_hub / keyboard / audio）
+- [x] BQ25895 powerシート: 左側ピン配線済み
+- [x] BQ25895 powerシート: TS修正 + 右側・上側ピン完成
+- [ ] TPS61023 回路
+- [ ] AP2112K 回路
+- [ ] VL812 usb_hub シート
+- [ ] RP2040 keyboard シート
+- [ ] MAX98357A × 2 audio シート
+- [ ] コネクタ類
+
+### Phase 3: PCBレイアウト ⏳ 未着手
+### Phase 4: 試作・検証 ⏳ 未着手
+### Phase 5: 筐体設計・組み立て ⏳ 未着手
+
+---
+
+## 未解決の TBD 事項
+
+| 項目 | 解決タイミング |
+|------|--------------|
+| インダクタ値（BQ25895用・TPS61023用） | Phase 2 回路設計中に計算 |
+| FPCケーブル長さ（30ピン 0.5mmピッチ確定済み） | 筐体CAD後 |
+| キルスイッチ型番 | KiCad フットプリント決める時 |
+| キーキャップ型番 | スイッチ嵌合確認後 |
+| ヒンジ機構 | 筐体CAD後 |
+| RTCバッテリー有無 | A7Z実機届いたら確認 |
+| ヒートパイプ取り回し経路 | 筐体CAD後 |
+| WiFiアンテナ配置 | 筐体CAD後 |
+
+---
+
+## 購入待ちリスト
+
+- Cubie A7Z（在庫不安定、要確認）
+- LS055R1SX04 + HDMIコントローラ基板セット（AliExpress）
+- LiPo 6060100（AliExpress）
+- PSP互換アナログスティック（AliExpress）
+- 秋月 マイクロスピーカー 8Ω 23×16×4.6mm × 2個（P-12494 or P-12495）
+- FPCケーブル 30ピン 0.5mmピッチ 複数長さ（筐体CAD後に長さ確定）
+- フラットヒートパイプ 3mm厚（曲げ練習用含め 2〜3本）
+- 小型ヒートシンク 14×9×4mm 程度 × 4個
+
+---
+
+## 直近の決定事項ログ
+
+### 2026-02-19
+- オーディオ：MAX98357AEWL+T × 2（ステレオ）/ スピーカーはモノラル1個 / 3.5mmジャックはステレオ
+- I2S配線：Cubie A7Z GPIO からジャンパ3本（BCLK / LRCLK / SDIN）
+- 冷却：パッシブ（ヒートパイプ + 小型ヒートシンク）/ ファン用スペース確保のみ
+- USB-C ポートは PWR / DATA 刻印で区別
+- 電源スイッチ：モーメンタリ起動 + ロック式キルスイッチ
+- LED制御：RP2040 I2C 経由で BQ25895 を読んで制御
+- アナログスティック：PSP互換品（カーソル操作用）
+- GitHubリポジトリ: PortaRe0 (Public) / D:\Projects\PortaRe0
+- KiCadライブラリ取得済み（easyeda2kicad）
+- JLCPCB パーツ C番号確定:
+  - BQ25895RTWR: C80200
+  - VL812: C69417
+  - RP2040: C2040
+  - TPS61023DRLR: C919459
+  - AP2112K-3.3TRG1: C51118
+  - MAX98357AEWL+T: C2682619
+  - W25Q32JVSSIQ: C82344
+  - BSS138: C52895
+  - 1N4148W: C2099
