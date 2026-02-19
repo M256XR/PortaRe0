@@ -4,14 +4,10 @@
 **Phase 2: 回路設計 ← 進行中**
 
 ## 現在の作業箇所
-- KiCad `kicad/PortaRe0/` で powerシートの BQ25895 回路図を作成中
-- 左側ピン（VBUS, D+/D-, SCL/SDA, INT, OTG, CE, ILIM, TS, QON）は配線済み
+- KiCad `kicad/PortaRe0/` powerシートの BQ25895 回路図完成
 - **次のタスク**:
-  1. TS（Pin11）の接続先を GND に修正
-  2. 右側ピン（BAT / SYS / PGND / PAD）追加
-  3. 上側ピン（SW / BTST / REGN / PMID / DSEL）追加
-  4. TPS61023（昇圧DC-DC）回路
-  5. AP2112K（LDO 3.3V）回路
+  1. TPS61023（昇圧DC-DC）回路（EN回路含む）
+  2. AP2112K（LDO 3.3V）回路
   6. VL812 usb_hub シート
   7. RP2040 keyboard シート
   8. MAX98357A × 2 audio シート
