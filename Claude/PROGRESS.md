@@ -4,11 +4,9 @@
 **Phase 2: 回路設計 ← 進行中**
 
 ## 現在の作業箇所
-- KiCad `kicad/PortaRe0/` powerシートの BQ25895 回路図完成
+- KiCad `kicad/PortaRe0/` powerシート完成（BQ25895 / TPS61023 / AP2112K）
 - **次のタスク**:
-  1. TPS61023（昇圧DC-DC）回路（EN回路含む）
-  2. AP2112K（LDO 3.3V）回路
-  6. VL812 usb_hub シート
+  1. VL812 usb_hub シート（データシート取得済み）
   7. RP2040 keyboard シート
   8. MAX98357A × 2 audio シート
   9. コネクタ類（SBC接続・外部ポート・FPC 30ピン）
@@ -28,8 +26,8 @@
 - [x] KiCadプロジェクト作成、階層シート構成（power / usb_hub / keyboard / audio）
 - [x] BQ25895 powerシート: 左側ピン配線済み
 - [x] BQ25895 powerシート: TS修正 + 右側・上側ピン完成
-- [ ] TPS61023 回路
-- [ ] AP2112K 回路
+- [x] TPS61023 回路（EN回路含む）
+- [x] AP2112K 回路
 - [ ] VL812 usb_hub シート
 - [ ] RP2040 keyboard シート
 - [ ] MAX98357A × 2 audio シート
