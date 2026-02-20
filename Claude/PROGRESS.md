@@ -4,12 +4,11 @@
 **Phase 2: 回路設計 ← 進行中**
 
 ## 現在の作業箇所
-- KiCad `kicad/PortaRe0/` powerシート完成（BQ25895 / TPS61023 / AP2112K）
+- KiCad `kicad/PortaRe0/` power・usb_hubシート完成
 - **次のタスク**:
-  1. VL812 usb_hub シート（データシート取得済み）
-  7. RP2040 keyboard シート
-  8. MAX98357A × 2 audio シート
-  9. コネクタ類（SBC接続・外部ポート・FPC 30ピン）
+  1. RP2040 keyboard シート
+  2. MAX98357A × 2 audio シート
+  3. connectors シート（新規作成）
 
 ---
 
@@ -28,10 +27,10 @@
 - [x] BQ25895 powerシート: TS修正 + 右側・上側ピン完成
 - [x] TPS61023 回路（EN回路含む）
 - [x] AP2112K 回路
-- [ ] VL812 usb_hub シート
+- [x] VL812 usb_hub シート（W25Q32 SPI Flash含む）
 - [ ] RP2040 keyboard シート
 - [ ] MAX98357A × 2 audio シート
-- [ ] コネクタ類
+- [ ] connectors シート（新規作成）
 
 ### Phase 3: PCBレイアウト ⏳ 未着手
 ### Phase 4: 試作・検証 ⏳ 未着手
@@ -68,6 +67,14 @@
 ---
 
 ## 直近の決定事項ログ
+
+### 2026-02-21
+- キルスイッチ：VSYSラインではなくBQ25895出力後（VSYS→SW→TPS61023/AP2112K VIN）に配置確定
+- キーレイアウト確定（66キー / 9×8マトリクス）
+- RP2040 GPIO割り当て確定（29本/30本）
+- パワーシンボル：VSYS / 5V_SYS / +BATT をカスタムパワーシンボルで作成確定
+- connectors シートを新規作成する方針確定
+- VL812 usb_hub シート完成
 
 ### 2026-02-19
 - オーディオ：MAX98357AEWL+T × 2（ステレオ）/ スピーカーはモノラル1個 / 3.5mmジャックはステレオ
