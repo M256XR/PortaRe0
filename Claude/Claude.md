@@ -1,6 +1,7 @@
 # PortaRe0 プロジェクト仕様書
 
 > 確定済みの仕様のみ記載。変更時は PROGRESS.md の決定事項ログにも記録すること。
+> 最初にGithub側で別PCの作業による変更があるか確認すること
 > セッション開始時の読み込み順: CONTEXT.md → PROGRESS.md → PROJECT_PLAN.md → chat_logs/（最新セッションログを必ず読む）→ 必要に応じて過去ログ
 ---
 

@@ -6,8 +6,8 @@
 	(paper "A4")
 	(lib_symbols)
 	(sheet
-		(at 16.51 96.52)
-		(size 90.17 88.9)
+		(at 16.51 62.23)
+		(size 40.64 39.37)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -22,7 +22,7 @@
 		)
 		(uuid "6a589eb8-1cb5-4d2d-b60c-ea2cdc8e2546")
 		(property "Sheetname" "keyboard"
-			(at 16.51 95.8084 0)
+			(at 16.51 61.5184 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -31,7 +31,7 @@
 			)
 		)
 		(property "Sheetfile" "keyboard.kicad_sch"
-			(at 16.51 186.0046 0)
+			(at 16.51 102.1846 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -48,8 +48,8 @@
 		)
 	)
 	(sheet
-		(at 107.95 96.52)
-		(size 90.17 88.9)
+		(at 58.42 62.23)
+		(size 40.64 39.37)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -64,7 +64,7 @@
 		)
 		(uuid "6f018b3a-f554-45a0-adb8-bf1e4994a5d2")
 		(property "Sheetname" "audio"
-			(at 107.95 95.8084 0)
+			(at 58.42 61.5184 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -73,7 +73,7 @@
 			)
 		)
 		(property "Sheetfile" "audio.kicad_sch"
-			(at 107.95 186.0046 0)
+			(at 58.42 102.1846 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -90,8 +90,8 @@
 		)
 	)
 	(sheet
-		(at 107.95 17.78)
-		(size 90.17 77.47)
+		(at 58.42 17.78)
+		(size 40.64 39.37)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -106,7 +106,7 @@
 		)
 		(uuid "8e76808d-de08-4fd1-9155-9dd498f0d9f9")
 		(property "Sheetname" "usb_hub"
-			(at 107.95 17.0684 0)
+			(at 58.42 17.0684 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -115,7 +115,7 @@
 			)
 		)
 		(property "Sheetfile" "usb_hub.kicad_sch"
-			(at 107.95 95.8346 0)
+			(at 58.42 57.7346 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -133,7 +133,7 @@
 	)
 	(sheet
 		(at 16.51 17.78)
-		(size 90.17 77.47)
+		(size 40.64 39.37)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -157,7 +157,7 @@
 			)
 		)
 		(property "Sheetfile" "power.kicad_sch"
-			(at 16.51 95.8346 0)
+			(at 16.51 57.7346 0)
 			(effects
 				(font
 					(size 1.27 1.27)
