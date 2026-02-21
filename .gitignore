@@ -31,7 +31,7 @@ fp-info-cache
 
 # Exported BOM files
 *.xml
-*.csv
+# *.csv  # bom/cyberdeck_bom.csv はバージョン管理対象
 
 # Archived Backups (KiCad 6.0)
 **/*-backups/*.zip

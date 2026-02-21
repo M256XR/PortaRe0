@@ -1,0 +1,38 @@
+カテゴリ,用途,部品名,型番,JLCPCB C番号,数量,備考
+SBC,メインコンピュータ,Cubie A7Z,Cubie A7Z,—,1,Allwinner A733 / 8コア / Micro HDMI + USB-C出力 / 別途購入
+ディスプレイ,LCDパネル,Sharp 5.5インチ液晶,LS055R1SX04,—,1,1440x2560 / MIPI DSI 4レーン / 別途購入（AliExpress）
+ディスプレイ,HDMIコントローラ基板,HDMI→MIPI DSI変換基板,汎用品,—,1,別途購入（AliExpress）
+電源,充電IC,BQ25895RTWR,BQ25895RTWR,C80200,1,USB PD対応 / バッテリー保護内蔵 / QFN-24
+電源,昇圧DC-DC,TPS61023DRLR,TPS61023DRLR,C919459,1,LiPo 3.7V → 5V / 最大3.7A / SOT-563-6
+電源,LDO 3.3V,AP2112K-3.3TRG1,AP2112K-3.3TRG1,C51118,1,5V → 3.3V / 600mA / RP2040用
+電源,BQ25895用インダクタ,1.5µH 3A以上,SWPA4012S1R5MT等,TBD,1,スイッチング周波数1.5MHz / DCR<50mΩ / 要JLCPCB在庫確認
+電源,TPS61023用インダクタ,1µH 3A以上,—,TBD,1,DCR低め / 要JLCPCB在庫確認
+電源,バッテリー,LiPo 6060100,6060100,—,1,約3500mAh / 3.7V / 別途購入（AliExpress）
+電源,モーメンタリスイッチ,起動ボタン,—,—,1,VSYS→ENへ / 型番未定（筐体設計後）
+電源,ロック式スイッチ,キルスイッチ,—,—,1,VSYS→TPS61023/AP2112K VIN間 / 型番未定（筐体設計後）
+USBハブ,USB 3.0 HUBチップ,VL812-Q7,VL812-Q7,C69417,1,QFN-76-EP 9x9mm / JLCPCB PCBA必須
+USBハブ,SPI Flash（VL812用）,W25Q32JVSSIQ,W25Q32JVSSIQ,C82344,1,VL812ファームウェア用 / SPI接続
+USBハブ,クリスタル（VL812用）,25MHz水晶,—,TBD,1,負荷容量12〜18pF / SMD / 要JLCPCB在庫確認
+キーボードMCU,マイコン,RP2040,RP2040,C2040,1,QMK対応 / ADCでアナログスティック / QFN-56
+キーボードMCU,SPI Flash（RP2040用）,W25Q32JVSSIQ,W25Q32JVSSIQ,C82344,1,RP2040プログラム保存 / QSPI接続 / 必須
+キーボードMCU,クリスタル（RP2040用）,X322512MOB4SI,X322512MOB4SI,C70565,1,12MHz / 12pF / ±10ppm / SMD3225-4P / 外付けC 15pF×2
+キースイッチ,SMDタクタイルスイッチ,Alps SKRPABE010,SKRPABE010,C115360,63,63キー / 4.2×3.2mm SMD / JLCPCB在庫54355個確認済み
+ダイオード,スイッチングダイオード,1N4148W,1N4148W,C2099,63,キーマトリクス用（63キー分）
+入力,アナログスティック,3DSスライドパッド,—,—,1,カーソル操作用 / FPC 4ピン 1.0mmピッチ / VCC=3.3V直結OK / ピンアサイン: GND-X-VCC-Y / 別途購入（AliExpress or 中古）
+入力,FPCコネクタ（スティック用）,Molex 5034800440,5034800440,C3170007,1,4P 1.0mmピッチ ZIF ヒンジ式 両面接触 / 3DSスライドパッド接続用 / JLCPCB在庫928個
+オーディオ,I2Sアンプ,MAX98357AEWL+T,MAX98357AEWL+T,C2682619,2,ステレオ構成 / I2S入力
+オーディオ,スピーカー,マイクロスピーカー 8Ω,秋月P-12494 or P-12495,—,1,23×16×4.6mm / 片チャンネルのみ / 別途購入（秋月）
+オーディオ,イヤホンジャック,3.5mm TRRS SMT,—,TBD,1,挿入時スピーカーミュート / 型番未定
+汎用,NchMOSFET,BSS138,BSS138,C52895,適宜,レベルシフト等
+LED,電源LED（緑）,緑色LED,—,TBD,1,TPS61023出力（5V）から電流制限抵抗で駆動
+LED,充電中LED（橙）,橙色LED,—,TBD,1,RP2040 GP24 / BQ25895 I2C読み
+LED,充電完了LED（緑）,緑色LED,—,TBD,1,RP2040 GP25 / BQ25895 I2C読み
+LED,ACT LED,緑色LED,—,TBD,1,RP2040 GP26（ADC0兼用）/ SBC経由制御
+冷却,フラットヒートパイプ,3mm厚フラット銅製ヒートパイプ,—,—,1,SoC→90度曲げ→バッテリー上端 / 別途購入
+冷却,ヒートシンク,小型ヒートシンク,—,—,4,14×9×4mm程度 / サーマルパッド必要 / 別途購入
+コネクタ,外部USB-Cレセプタクル,USB-C レセプタクル SMT,—,TBD,1,DATAポート（VL812 downstream 1）
+コネクタ,外部USB-Aレセプタクル,USB-A レセプタクル SMT,—,TBD,1,汎用USBポート（VL812 downstream 2）
+コネクタ,FPCコネクタ,30ピン 0.5mmピッチ FPCコネクタ,—,TBD,2,SBC接続用サブ基板 / ケーブル長は筐体CAD後に確定
+コネクタ,SWDデバッグコネクタ,SWDコネクタ,—,TBD,1,RP2040デバッグ用
+コンデンサ,電解/セラミック 各種,—,—,—,多数,回路設計に従い適宜
+抵抗,チップ抵抗 各種,—,—,—,多数,回路設計に従い適宜
