@@ -87,7 +87,7 @@ ROW7 GP16: RSft  Spc   Back   Next   Ctrl    Fn    Alt    ---    ---
 | 7 | 5 | Fn | GP16 | GP5 |
 | 7 | 6 | Alt | GP16 | GP6 |
 
-合計: 66キー（空きセル: ROW0×7 + ROW7×2 = 9セル）
+合計: 63キー（空きセル: ROW0×7 + ROW7×2 = 9セル）
 
 ## PCBレイアウト時の配線メモ
 
