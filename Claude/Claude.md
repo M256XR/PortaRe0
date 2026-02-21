@@ -75,8 +75,8 @@ Cubie A7Z Micro HDMI → HDMIコントローラ基板
 - **RP2040** C2040 / QMK対応
 - スイッチ：Alps SKRPABE010（SMD タクタイル 4.2×3.2mm）× 66キー + ショルダー2個（C115360）
 - ダイオード：1N4148W（C2099）× 66個
-- アナログスティック：3DSスライドパッド（カーソル操作用）/ FPC 6ピン 0.5mmピッチ
-- FPCコネクタ：AFC01-S06FCA-00（C262655）/ Bottom Contact ZIF / JLCPCB PCBA対応
+- アナログスティック：3DSスライドパッド（カーソル操作用）/ FPC 4ピン 1.0mmピッチ / VCC=3.3V直結OK
+- FPCコネクタ：Molex 5034800440（C3170007）/ 4P 1.0mm ZIF ヒンジ式 / JLCPCB PCBA対応
 
 ### オーディオ
 
