@@ -34,8 +34,10 @@ Cubie A7Z SBCをベースに、5.5インチディスプレイ・フルキーボ�
 | USBハブ | USB 3.0 HUBチップ | VL812-Q7 | C69417 | 1 upstream / 4 downstream |
 | USBハブ | SPI Flash | W25Q32JVSSIQ | C82344 | VL812用ファームウェア |
 | キーボードMCU | マイコン | RP2040 | C2040 | QMK対応 / ADCでアナログスティック |
-| キースイッチ | SMDタクタイル | Alps SKRPABE010 | — | 60キー + ショルダー2個 |
-| ダイオード | スイッチングダイオード | 1N4148W | C2099 | 62個（キーマトリクス用） |
+| キーボードMCU | SPI Flash | W25Q32JVSSIQ | C82344 | RP2040用プログラム保存（QSPI接続・必須） |
+| キーボードMCU | クリスタル | X322512MOB4SI | C70565 | 12MHz 12pF ±10ppm SMD3225-4P / 外付けC 15pF×2 |
+| キースイッチ | SMDタクタイル | Alps SKRPABE010 | — | 66キー + ショルダー2個 ※マトリクスに含む |
+| ダイオード | スイッチングダイオード | 1N4148W | C2099 | 66個（キーマトリクス用） |
 | オーディオ | I2Sアンプ | MAX98357AEWL+T | C2682619 | ×2（ステレオ） |
 | バッテリー | LiPoセル | 6060100 | — | 約3500mAh / 3.7V |
 | 汎用MOSFET | Nch MOSFET | BSS138 | C52895 | レベルシフト等 |
@@ -147,11 +149,42 @@ LiPo SYS出力 (3.7〜4.2V) → TPS61023 → 5V
 | I2S BCLK | GP21 | 1本 |
 | I2S LRCLK | GP22 | 1本 |
 | I2S SDIN | GP23 | 1本 |
-| LED × 3 | GP24〜GP26 | 3本 |
+| LED_CHG（充電中・橙） | GP24 | 1本 |
+| LED_FULL（充電完了・緑） | GP25 | 1本 |
+| LED_ACT（ACT） | GP26（ADC0兼用） | 1本 |
 | アナログスティック X | GP27（ADC1） | 1本 |
 | アナログスティック Y | GP28（ADC2） | 1本 |
-| 予備 | GP29 | 1本 |
+| 予備 | GP29（ADC3） | 1本 |
 | **合計** | | **29本（30本中）** |
+
+### 3.6 RP2040 クリスタル
+
+| 項目 | 値 |
+|------|----|
+| 型番 | X322512MOB4SI（C70565） |
+| 周波数 | 12MHz |
+| 負荷容量 | 12pF |
+| 精度 | ±10ppm |
+| パッケージ | SMD3225-4P |
+| 外付けC | 15pF × 2（XIN/XOUT各1個） |
+| 接続 | XIN(Pin20) / XOUT(Pin21) |
+
+### 3.7 RP2040 外部SPI Flash接続
+
+RP2040は内蔵Flashを持たないため、外部W25Q32（QSPI接続）が必須。
+
+| W25Q32ピン | RP2040ピン | 処理 |
+|------------|-----------|------|
+| 1 /CS | QSPI_SS (Pin56) | 10kΩ → +3V3 プルアップ |
+| 2 DO (IO1) | QSPI_SD1 (Pin55) | 直結 |
+| 3 /WP (IO2) | QSPI_SD2 (Pin54) | 直結（Quad SPI時はIO2として使用） |
+| 4 GND | GND | GND |
+| 5 DI (IO0) | QSPI_SD0 (Pin53) | 直結 |
+| 6 CLK | QSPI_SCLK (Pin52) | 直結 |
+| 7 /HOLD (IO3) | QSPI_SD3 (Pin51) | 直結（Quad SPI時はIO3として使用） |
+| 8 VCC | +3V3 | 100nF デカップリング |
+
+※VL812用W25Q32とは別部品（合計2個必要）
 
 ---
 
