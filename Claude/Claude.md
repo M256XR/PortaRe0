@@ -38,17 +38,19 @@ Cubie A7Z SBCベースのクラムシェル型ポータブルPC（Cyberdeckス�
 | 部品 | 型番 | JLCPCB C番号 | 役割 |
 |------|------|-------------|------|
 | 充電IC | BQ25895RTWR | C80200 | USB PD充電 / バッテリー保護内蔵 |
-| 昇圧DC-DC | TPS61023DRLR | C919459 | LiPo 3.7V → 5V / 最大3.7A |
+| 昇圧DC-DC #1 | TPS61023DRLR | C919459 | LiPo 3.7V → 5V / システム用（5V_SYS） |
+| 昇圧DC-DC #2 | TPS61023DRLR | C919459 | LiPo 3.7V → 5V / 外部USBポートVBUS専用（USB_5V_SYS） |
 | LDO | AP2112K-3.3TRG1 | C51118 | 5V → 3.3V（RP2040用） |
 | バッテリー | LiPo 6060100 | — | 約3500mAh / 3.7V |
 
 電源フロー:
 ```
 USB-C (充電) → BQ25895 → LiPo 4.2V
-LiPo SYS出力 (3.7〜4.2V) → TPS61023 → 5V
-5V → AP2112K → 3.3V（RP2040用）
-5V → Cubie A7Z / VL812 / HDMIコントローラ基板
+LiPo SYS出力 (3.7〜4.2V) → TPS61023 #1 → 5V_SYS → Cubie A7Z / VL812本体 / HDMIコントローラ基板
+LiPo SYS出力 (3.7〜4.2V) → TPS61023 #2 → USB_5V_SYS → 外部USBポートVBUS（RP2040 #1 GP24でEN制御）
+5V_SYS → AP2112K → 3.3V（RP2040用）
 ```
+注意: BQ25895 SYSラインは最大5〜6A流れる可能性あり → PCBパターン極太で引くこと
 
 電源スイッチ:
 - 起動：モーメンタリボタン → TPS61023 EN ピン High
@@ -63,13 +65,19 @@ LiPo SYS出力 (3.7〜4.2V) → TPS61023 → 5V
 USB 接続構成:
 ```
 Cubie A7Z USB-C (USB3.0) → VL812 upstream
-VL812 downstream 1 → 外部USB-C レセプタクル（刻印:DATA）
-VL812 downstream 2 → 外部USB-A レセプタクル
+VL812 downstream 1 → 外部USB-A レセプタクル（TPS2042BDR経由 / ESD保護: USBLC6-2SC6）
+VL812 downstream 2 → 外部USB-C レセプタクル（TPS2042BDR経由 / ESD保護: USBLC6-2SC6）
 VL812 downstream 3 → RP2040 #1（キーボード）
 VL812 downstream 4 → RP2040 #2（オーディオ）
 Cubie A7Z USB-C (USB2.0) → BQ25895（充電入力 / 刻印:PWR）
 Cubie A7Z Micro HDMI → HDMIコントローラ基板
 ```
+
+外部USBポート電源構成:
+- TPS2042BDR（C138720）: VL812 /USBHPE制御、/USBHOC過電流検知
+- USBLC6-2SC6（C7519）: Port1/2各1個、ESD保護
+- 外部VBUS専用TPS61023 #2（USB_5V_SYS）: RP2040 #1 GP24で制御
+- 注意: 外部USBポートはデータ転送・小型デバイス用（HDD等大電流機器は非推奨）
 
 ### キーボード・入力
 
@@ -91,7 +99,7 @@ Cubie A7Z Micro HDMI → HDMIコントローラ基板
 | GP21 | LED_CHG（橙 / BQ25895 I2C読み） |
 | GP22 | LED_FULL（緑 / BQ25895 I2C読み） |
 | GP23 | LED_ACT（緑 / OS動作表示） |
-| GP24 | 予備 |
+| GP24 | USB_VBUS_EN（TPS61023 #2 EN制御） |
 | GP25 | 予備 |
 | GP26 | 予備 |
 | GP27（ADC1） | アナログスティック X |
@@ -114,10 +122,11 @@ Cubie A7Z Micro HDMI → HDMIコントローラ基板
 | GP0 | I2S BCLK |
 | GP1 | I2S LRCLK |
 | GP2 | I2S SDIN |
-| GP3 | SD_MODE制御（MAX98357A × 2 同時） |
-| GP4 | TPA6132A2 Enable |
-| GP5 | イヤホン挿入検出（ジャック内蔵SW） |
-| GP6〜GP29 | 予備 |
+| GP3 | SD_MODE制御（MAX98357A × 2 / U8は220kΩ直列でRight ch設定） |
+| GP4 | XSMT（PCM5102A ミュート制御） |
+| GP5 | HP_EN（TPA6132A2 Enable） |
+| GP6 | HP_DET（イヤホン挿入検出） |
+| GP7〜GP29 | 予備 |
 
 **信号フロー：**
 ```

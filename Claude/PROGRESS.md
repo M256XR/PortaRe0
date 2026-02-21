@@ -78,6 +78,26 @@
 
 ## 直近の決定事項ログ
 
+### 2026-02-22（session11）
+- 外部USBポート電源・保護回路確定
+  - TPS2042BDR（C138720）: VL812 /USBHPE制御のパワースイッチ（Active-Low）
+  - USBLC6-2SC6（C7519）: Port1/2各1個ESD保護
+  - TPS61023 #2追加: 外部USBポートVBUS専用昇圧（USB_5V_SYS）
+  - RP2040 #1 GP24 → USB_VBUS_EN（TPS61023 #2 EN制御）
+  - 注意: 外部USBポートは小型デバイス用（HDD等大電流機器非推奨）
+  - 注意: BQ25895 SYSライン最大5〜6A → PCBパターン極太必須
+- VL812 downstream割り当て確定
+  - Port1 → USB-A外部（TPS2042BDR / USBLC6-2SC6）
+  - Port2 → USB-C外部（TPS2042BDR / USBLC6-2SC6）
+  - Port3 → RP2040 #1
+  - Port4 → RP2040 #2
+- VBUSDET修正方針: Upstream VBUSから56kΩ+100kΩ分圧（約3.2V）
+- EXTPWRON修正方針: 3V3_HUBへ10kΩプルアップのみ
+- MAX98357A SD_MODE修正: U8（Right ch）に220kΩ直列追加
+- TPA6132A2 HPVSS修正: GND直結→1µFコンデンサ経由
+- LED回路修正: 向きと接続方式修正済み
+- RP2040 #1/#2 TESTEN→GND接続修正
+
 ### 2026-02-21（session10）
 - RP2040を#1（キーボード）/ #2（オーディオ）の2個構成に変更
   - USB Audio + HID Compositeの実装難易度が高いため分離
@@ -88,7 +108,7 @@
   - TPA6132A2: ヘッドフォンアンプ（Enable端子でRP2040制御）
 - スピーカー変更：秋月品 → Nintendo Switch互換品 8Ω 20×14×4mm × 2個（L/R独立）
 - GPIO再割り当て：
-  - RP2040 #1: GP21=LED_CHG / GP22=LED_FULL / GP23=LED_ACT、GP24〜26=予備
+  - RP2040 #1: GP21=LED_CHG / GP22=LED_FULL / GP23=LED_ACT、GP24=USB_VBUS_EN、GP25〜26=予備
   - RP2040 #2: GP0=BCLK, GP1=LRCLK, GP2=SDIN, GP3=SD_MODE, GP4=XSMT, GP5=HP_EN, GP6=HP_DET
 
 ### 2026-02-21（session09）
