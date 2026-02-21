@@ -1,0 +1,66 @@
+2026-02-21 session09 ログ要約
+
+## 作業内容
+
+### BOM整備
+- 全セッションログ確認、確定部品を集約してcyberdeck_bom.csv新規作成
+- openpyxlでcyberdeck_bom.xlsxを色分け・オートフィルタ付きで自動生成
+- SKRPABE010: C115360（JLCPCBで在庫54,355個確認）→ BOM・PROGRESS.md・Claude.mdに反映
+- Cubie A7Z注文済み確認
+
+### アナログスティック選定
+- PSP互換品 / 秋月JT8P / 3DSスライドパッド の3択を比較検討
+- 秋月JT8Pはキャップ互換性なしで実質NG
+- 3DSスライドパッドに決定（感触◎・薄型・キャップは純正流用）
+
+### FPCコネクタ選定（3DSスライドパッド用）
+- 当初C262655（AFC01-S06FCA-00 6P/0.5mm）を選定 → 4pinと判明し変更
+- ピンアサイン確定: GND / X軸 / VCC(3.3V) / Y軸
+- Molex 5034800440（C3170007）: 4P 1.0mm ZIF に変更
+- VCC 1.8V問題: 内部はポテンショメータなので3.3V直結でOKと確認（追加部品不要）
+- easyeda2kicadでライブラリ取得、kicad/PortaRe0_lib/に保存
+
+### キーマトリクス割り当て
+- KLEのJSONをパースして物理配置ベースのマトリクス自動生成を試みたが失敗
+  （行間オフセットでクラスタリングが機能しない問題）
+- 手動でmatrix.mdを作成 → 合計63キー確定（当初66キーは誤り）
+- keyboard-layout.jsonの壊れた外側[]を修正
+- QMK用info.jsonを新規作成（matrix_pins: cols=GP0-8, rows=GP9-16, diode: COL2ROW）
+
+### keyboard.kicad_schの完成
+- COL/ROWはNet Label（シート内完結）に変更（Global Labelから修正）
+- ダイオード向き: ROW─[>|]─[SW]─COL（アノードがROW側）
+- アナログスティック: FPCコネクタ（Molex 5034800440）+ 100nFデカップリング
+  - Pin1=GND, Pin2=X軸→GP27, Pin3=VCC→+3V3, Pin4=Y軸→GP28
+- LED×3: GP24(橙/充電中) / GP25(緑/充電完了) / GP26(緑/ACT) / 各330Ω
+- 端の余り配線を修正してコミット
+
+### ドキュメント・BOM更新
+- README.md: 概要表・フェーズ進捗・C番号一覧を全面更新
+- PROGRESS.md: keyboardシート完成を反映、購入済みリスト整理
+- .gitignore: *.csvをコメントアウトしてcyberdeck_bom.csvを管理対象に
+- git push完了
+
+### オーディオ設計（MAX98357A×2）
+- スピーカー: Switch互換品（8Ω/20×14×4mm）に変更（秋月品から変更）
+- ステレオ2ch構成、スルーホールパッドをaudioシート内に直置き
+- SD_MODE仕様確定:
+  - Left ch: VDD直結（Left ch選択）
+  - Right ch: 210kΩ → +3V3（Right ch選択）
+  - GAIN_SLOTはSD_MODEと独立ピン、デフォルト9dB（オープン）
+- Net Label命名: SPK_L+ / SPK_L- / SPK_R+ / SPK_R-
+- KiCadでaudio.kicad_sch作業中（本セッション末時点で未コミット）
+
+### connectorシート構成決定
+- 案B採用: USB-A/USB-CはUSBハブシートに直置き
+  コネクタシートはサブ基板FPC専用 + HDMIコントローラ接続用
+
+## 確定部品
+- アナログスティック: 3DSスライドパッド
+- FPCコネクタ: Molex 5034800440（C3170007）
+- スピーカー: Switch互換品 8Ω 20×14×4mm（Amazon/AliExpressで調達）
+
+## 残り作業
+- audio.kicad_sch完成・コミット
+- connectors.kicad_sch作成
+- PCBレイアウト
