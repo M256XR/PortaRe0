@@ -8549,6 +8549,7 @@
 	(symbol
 		(lib_id "Device:LED_Small")
 		(at 201.93 214.63 0)
+		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -8902,8 +8903,8 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "1badbd75-d551-499b-bfc5-afb6261f9ad6")
-		(property "Reference" "U7"
-			(at 107.95 79.756 0)
+		(property "Reference" "RP2040#1"
+			(at 107.95 74.168 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8981,7 +8982,7 @@
 		(instances
 			(project ""
 				(path "/479aadc4-f9a0-4ec2-b000-6a17237038f1/6a589eb8-1cb5-4d2d-b60c-ea2cdc8e2546"
-					(reference "U7")
+					(reference "RP2040#1")
 					(unit 1)
 				)
 			)
@@ -14299,6 +14300,7 @@
 	(symbol
 		(lib_id "Device:LED_Small")
 		(at 201.93 220.98 0)
+		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -16626,6 +16628,7 @@
 	(symbol
 		(lib_id "Device:LED_Small")
 		(at 201.93 208.28 0)
+		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -16784,7 +16787,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "RP2040"
+		(property "Value" "RP2040#1"
 			(at 104.14 175.26 0)
 			(effects
 				(font
