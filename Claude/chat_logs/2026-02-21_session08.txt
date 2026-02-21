@@ -1,0 +1,102 @@
+PortaRe0 チャットログ要約
+セッション: 08（2026-02-21）
+Claude Project: PortaRe0
+
+================================================================
+セッション 08 - RP2040 keyboardシート作業・各種設計確認
+================================================================
+日時: 2026-02-21
+
+主な内容:
+- RP2040ピン仕様確認・外部Flash必須確認
+- クリスタル選定・JLCPCB在庫確認
+- VL812用W25Q32接続確認（問題なし）
+- keyboard シート作業（RP2040本体〜GPIO完了）
+
+================================================================
+RP2040 設計確認事項
+================================================================
+
+外部SPI Flash（W25Q32）必須:
+  RP2040は内蔵Flashなし → QSPI接続の外部Flashが必須
+  接続方法:
+    /CS  (Pin56) → 10kΩ → +3V3（プルアップ）
+    SD0  (Pin53) → W25Q32 DI(IO0) 直結
+    SD1  (Pin55) → W25Q32 DO(IO1) 直結
+    SD2  (Pin54) → W25Q32 /WP(IO2) 直結（Quad SPI使用）
+    SD3  (Pin51) → W25Q32 /HOLD(IO3) 直結（Quad SPI使用）
+    SCLK (Pin52) → W25Q32 CLK 直結
+    VCC  (Pin8)  → +3V3 + 100nF → GND
+  BOOTSEL: QSPI_SS(Pin56) ── 1kΩ ── Global Label: BOOTSEL
+
+電源デカップリング:
+  IOVDD (Pin1,10,22,33,42,49): 各100nF → GND（6個）
+  VREG_IN (Pin44): 100nF → GND
+  VREG_VOUT (Pin45): 1µF → GND → DVDD(Pin23,50)へ
+  DVDD (Pin23,50): 各100nF → GND（2個）
+  ADC_AVDD (Pin43): 100nF → GND
+  USB_VDD (Pin48): 100nF → GND
+  合計: 100nF×9個 + 1µF×1個
+
+================================================================
+クリスタル確定
+================================================================
+
+選定部品: X322512MOB4SI（C70565）
+  - 周波数: 12MHz
+  - 負荷容量: 12pF
+  - 精度: ±10ppm
+  - パッケージ: SMD3225-4P
+  - JLCPCB在庫: 196,028個
+  - 価格: $0.04
+
+KiCadシンボル: Device:Crystal_GND23（4ピン）
+KiCadフットプリント: Crystal:Crystal_SMD_3225-4Pin_3.2x2.5mm
+外付けC: 15pF × 2（XIN/XOUT各1個）
+
+接続:
+  XIN(Pin20)  ──┬── Crystal_GND23 Pin1
+                └── 15pF → GND
+  XOUT(Pin21) ──┬── Crystal_GND23 Pin4
+                └── 15pF → GND
+  Crystal Pin2,3 → GND
+
+================================================================
+VL812用W25Q32 接続確認
+================================================================
+
+session07で配線済みの内容を確認 → 問題なし
+  VL812はSPI（4線）接続・Quad未使用
+  /WP・/HOLDは10kΩ→+3V3_HUBプルアップ
+  各SPI線に100kΩプルダウン
+  RP2040用（Quad SPI）とは接続方法が異なるが、別部品なので修正不要
+
+================================================================
+keyboard シート 完了内容
+================================================================
+
+① RP2040本体配置
+② 電源デカップリング（IOVDD×6 + VREG + ADC_AVDD + USB_VDD）
+③ VREG_IN → VREG_VOUT → DVDD 接続
+④ クリスタル（Crystal_GND23 / 12MHz / 15pF×2）
+⑤ QSPI Flash（W25Q32）接続 + BOOTSEL引き出し
+⑥ RUN(Pin26): 10kΩ → +3V3
+⑦ SWD: Global Label（SWDIO / SWCLK）
+⑧ USB: 27Ω直列抵抗 + Global Label（USB_DP / USB_DM）
+⑨ GPIO Global Label（13本）:
+     I2C_SCL, I2C_SDA, BQ_INT, RP2040_EN
+     I2S_BCLK, I2S_LRCLK, I2S_SDIN
+     LED_CHG, LED_FULL, LED_ACT
+     STICK_X, STICK_Y
+⑩ キーマトリクス Global Label（17本）:
+     COL0〜COL8（GP0〜GP8）
+     ROW0〜ROW7（GP9〜GP16）
+
+================================================================
+次のアクション
+================================================================
+1. keyboard シート: キースイッチ＆ダイオードマトリクス配線
+2. keyboard シート: アナログスティック回路
+3. keyboard シート: LED回路
+4. MAX98357A × 2 audio シート
+5. connectors シート（新規作成）
