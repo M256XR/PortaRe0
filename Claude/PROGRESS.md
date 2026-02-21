@@ -82,14 +82,14 @@
 - RP2040を#1（キーボード）/ #2（オーディオ）の2個構成に変更
   - USB Audio + HID Compositeの実装難易度が高いため分離
   - VL812 DP4（空きポート）にRP2040 #2を接続
-- LED：個別LED×3のまま変更なし（GP24=CHG橙 / GP25=FULL緑 / GP26=ACT緑 / 330Ω）
+- LED：個別LED×3のまま変更なし（GP21=CHG橙 / GP22=FULL緑 / GP23=ACT緑 / 330Ω）
 - イヤホン構成確定：PCM5102APWR（C107671）+ TPA6132A2RTER（C69901）
   - PCM5102A: I2S→ステレオアナログDAC
   - TPA6132A2: ヘッドフォンアンプ（Enable端子でRP2040制御）
 - スピーカー変更：秋月品 → Nintendo Switch互換品 8Ω 20×14×4mm × 2個（L/R独立）
 - GPIO再割り当て：
   - RP2040 #1: GP21=LED_CHG / GP22=LED_FULL / GP23=LED_ACT、GP24〜26=予備
-  - RP2040 #2: GP0=BCLK, GP1=LRCLK, GP2=SDIN, GP3=SD_MODE, GP4=HPアンプEnable, GP5=挿入検出
+  - RP2040 #2: GP0=BCLK, GP1=LRCLK, GP2=SDIN, GP3=SD_MODE, GP4=XSMT, GP5=HP_EN, GP6=HP_DET
 
 ### 2026-02-21（session09）
 - キー数確定: 63キー（KLEパースにより確定 / 従来の66は誤り）
@@ -137,3 +137,5 @@
 | FPCコネクタ（スティック用） | Molex 5034800440 | C3170007 |
 | イヤホン用DAC | PCM5102APWR | C107671 |
 | ヘッドフォンアンプ | TPA6132A2RTER | C69901 |
+| USBパワースイッチ | TPS2052BDR | C130049 |
+| USB ESD保護 | USBLC6-2SC6 | C7519 |
