@@ -30,8 +30,8 @@
   - RP2040本体・電源デカップリング・クリスタル・QSPI Flash・USB・SWD
   - キーマトリクス 63キー（9COL×8ROW / Net Label）
   - 3DSスライドパッド（Molex 5034800440 FPCコネクタ / GP27,GP28）
-  - LED × 3（GP24=CHG橙 / GP25=FULL緑 / GP26=ACT緑 / 330Ω）
-- [ ] MAX98357A × 2 audio シート
+  - LED × 3（GP21=CHG橙 / GP22=FULL緑 / GP23=ACT緑 / 330Ω）
+- [ ] audio シート（RP2040 #2 + MAX98357A×2 + PCM5102A + TPA6132A2構成で新規作成）
 - [ ] connectors シート（新規作成）
 
 ### Phase 3: PCBレイアウト ⏳ 未着手
@@ -78,6 +78,19 @@
 
 ## 直近の決定事項ログ
 
+### 2026-02-21（session10）
+- RP2040を#1（キーボード）/ #2（オーディオ）の2個構成に変更
+  - USB Audio + HID Compositeの実装難易度が高いため分離
+  - VL812 DP4（空きポート）にRP2040 #2を接続
+- LED：個別LED×3のまま変更なし（GP24=CHG橙 / GP25=FULL緑 / GP26=ACT緑 / 330Ω）
+- イヤホン構成確定：PCM5102APWR（C107671）+ TPA6132A2RTER（C69901）
+  - PCM5102A: I2S→ステレオアナログDAC
+  - TPA6132A2: ヘッドフォンアンプ（Enable端子でRP2040制御）
+- スピーカー変更：秋月品 → Nintendo Switch互換品 8Ω 20×14×4mm × 2個（L/R独立）
+- GPIO再割り当て：
+  - RP2040 #1: GP21=LED_CHG / GP22=LED_FULL / GP23=LED_ACT、GP24〜26=予備
+  - RP2040 #2: GP0=BCLK, GP1=LRCLK, GP2=SDIN, GP3=SD_MODE, GP4=HPアンプEnable, GP5=挿入検出
+
 ### 2026-02-21（session09）
 - キー数確定: 63キー（KLEパースにより確定 / 従来の66は誤り）
 - ダイオード数確定: 63個
@@ -122,3 +135,5 @@
 | ダイオード | 1N4148W | C2099 |
 | MOSFET | BSS138 | C52895 |
 | FPCコネクタ（スティック用） | Molex 5034800440 | C3170007 |
+| イヤホン用DAC | PCM5102APWR | C107671 |
+| ヘッドフォンアンプ | TPA6132A2RTER | C69901 |

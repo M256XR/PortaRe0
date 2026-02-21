@@ -2940,7 +2940,7 @@
 		(uuid "510164d8-252f-4e35-9170-c52a489a6daf")
 	)
 	(junction
-		(at 72.39 175.26)
+		(at 46.99 175.26)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "52afc07f-56c8-4488-961c-c75de9c028ac")
@@ -3048,7 +3048,7 @@
 		(uuid "b195ab14-41a0-4c1a-9a62-fc45ff751958")
 	)
 	(junction
-		(at 60.96 175.26)
+		(at 35.56 175.26)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "b8972b06-a72d-42e7-8dfe-a86ae443f3cc")
@@ -3359,7 +3359,7 @@
 	)
 	(wire
 		(pts
-			(xy 72.39 175.26) (xy 95.25 175.26)
+			(xy 46.99 175.26) (xy 95.25 175.26)
 		)
 		(stroke
 			(width 0)
@@ -3456,6 +3456,16 @@
 			(type default)
 		)
 		(uuid "3c78499a-cca7-4adb-9233-51b7e6dfa374")
+	)
+	(wire
+		(pts
+			(xy 91.44 172.72) (xy 95.25 172.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3dfd7bbb-77c0-496a-a5c0-152e3b9b1319")
 	)
 	(wire
 		(pts
@@ -3599,6 +3609,16 @@
 	)
 	(wire
 		(pts
+			(xy 91.44 170.18) (xy 95.25 170.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5ce61deb-c0f2-442e-b4b0-8e26d8c3cdae")
+	)
+	(wire
+		(pts
 			(xy 143.51 109.22) (xy 143.51 114.3)
 		)
 		(stroke
@@ -3679,7 +3699,7 @@
 	)
 	(wire
 		(pts
-			(xy 60.96 175.26) (xy 72.39 175.26)
+			(xy 35.56 175.26) (xy 46.99 175.26)
 		)
 		(stroke
 			(width 0)
@@ -3849,7 +3869,7 @@
 	)
 	(wire
 		(pts
-			(xy 58.42 175.26) (xy 60.96 175.26)
+			(xy 33.02 175.26) (xy 35.56 175.26)
 		)
 		(stroke
 			(width 0)
@@ -4787,6 +4807,28 @@
 			)
 		)
 	)
+	(global_label "USB2_RP_DP2"
+		(shape input)
+		(at 91.44 170.18 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "aa9d5d45-9819-44c9-b9e4-499cb4f20b50")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 75.2106 170.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "USB2_UP_DM"
 		(shape input)
 		(at 135.89 201.93 270)
@@ -5003,6 +5045,28 @@
 					(size 1.27 1.27)
 				)
 				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "USB2_RP_DM2"
+		(shape input)
+		(at 91.44 172.72 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "f70d7f4f-6179-4506-81a1-cb886d16c0fe")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 75.0292 172.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
 				(hide yes)
 			)
 		)
@@ -5828,7 +5892,7 @@
 	)
 	(symbol
 		(lib_id "power:3V3_HUB")
-		(at 58.42 175.26 90)
+		(at 33.02 175.26 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5837,7 +5901,7 @@
 		(fields_autoplaced yes)
 		(uuid "12f0b6e0-213a-4e27-b299-b722a3c51205")
 		(property "Reference" "#PWR043"
-			(at 62.23 175.26 0)
+			(at 36.83 175.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5846,7 +5910,7 @@
 			)
 		)
 		(property "Value" "3V3_HUB"
-			(at 54.61 175.2599 90)
+			(at 29.21 175.2599 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5855,7 +5919,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 58.42 175.26 0)
+			(at 33.02 175.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5864,7 +5928,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 58.42 175.26 0)
+			(at 33.02 175.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5873,7 +5937,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"VSYS\""
-			(at 52.324 175.514 0)
+			(at 26.924 175.514 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8401,7 +8465,7 @@
 	)
 	(symbol
 		(lib_id "Device:C_Small")
-		(at 60.96 172.72 0)
+		(at 35.56 172.72 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -8410,7 +8474,7 @@
 		(fields_autoplaced yes)
 		(uuid "65ab5d32-ce56-46a2-a8ad-7ef8061bb4ce")
 		(property "Reference" "C14"
-			(at 63.5 171.4562 0)
+			(at 38.1 171.4562 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8419,7 +8483,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 63.5 173.9962 0)
+			(at 38.1 173.9962 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8428,7 +8492,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 60.96 172.72 0)
+			(at 35.56 172.72 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8437,7 +8501,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 60.96 172.72 0)
+			(at 35.56 172.72 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8446,7 +8510,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
-			(at 60.96 172.72 0)
+			(at 35.56 172.72 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8881,7 +8945,7 @@
 	)
 	(symbol
 		(lib_id "power:GNDPWR")
-		(at 72.39 170.18 180)
+		(at 46.99 170.18 180)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -8889,7 +8953,7 @@
 		(dnp no)
 		(uuid "71bf67bf-4870-43af-b10a-1c09b776d766")
 		(property "Reference" "#PWR0103"
-			(at 72.39 165.1 0)
+			(at 46.99 165.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8898,7 +8962,7 @@
 			)
 		)
 		(property "Value" "GNDPWR"
-			(at 72.39 167.386 0)
+			(at 46.99 167.386 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8906,7 +8970,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 72.39 168.91 0)
+			(at 46.99 168.91 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8915,7 +8979,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 72.39 168.91 0)
+			(at 46.99 168.91 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8924,7 +8988,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDPWR\" , global ground"
-			(at 72.39 170.18 0)
+			(at 46.99 170.18 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11519,7 +11583,7 @@
 	)
 	(symbol
 		(lib_id "power:GNDPWR")
-		(at 60.96 170.18 180)
+		(at 35.56 170.18 180)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -11527,7 +11591,7 @@
 		(dnp no)
 		(uuid "c77883d9-192d-4e2b-9b28-5ff322b47a50")
 		(property "Reference" "#PWR045"
-			(at 60.96 165.1 0)
+			(at 35.56 165.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11536,7 +11600,7 @@
 			)
 		)
 		(property "Value" "GNDPWR"
-			(at 60.96 167.386 0)
+			(at 35.56 167.386 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11544,7 +11608,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 60.96 168.91 0)
+			(at 35.56 168.91 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11553,7 +11617,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 60.96 168.91 0)
+			(at 35.56 168.91 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11562,7 +11626,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDPWR\" , global ground"
-			(at 60.96 170.18 0)
+			(at 35.56 170.18 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12192,7 +12256,7 @@
 	)
 	(symbol
 		(lib_id "Device:C_Small")
-		(at 72.39 172.72 0)
+		(at 46.99 172.72 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -12201,7 +12265,7 @@
 		(fields_autoplaced yes)
 		(uuid "dd6161a0-42d5-495b-9a78-6b517bbc4b54")
 		(property "Reference" "C48"
-			(at 74.93 171.4562 0)
+			(at 49.53 171.4562 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12210,7 +12274,7 @@
 			)
 		)
 		(property "Value" "4.7μF"
-			(at 74.93 173.9962 0)
+			(at 49.53 173.9962 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12219,7 +12283,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 72.39 172.72 0)
+			(at 46.99 172.72 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12228,7 +12292,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 72.39 172.72 0)
+			(at 46.99 172.72 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12237,7 +12301,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
-			(at 72.39 172.72 0)
+			(at 46.99 172.72 0)
 			(effects
 				(font
 					(size 1.27 1.27)

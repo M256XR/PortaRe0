@@ -65,34 +65,80 @@ USB 接続構成:
 Cubie A7Z USB-C (USB3.0) → VL812 upstream
 VL812 downstream 1 → 外部USB-C レセプタクル（刻印:DATA）
 VL812 downstream 2 → 外部USB-A レセプタクル
-VL812 downstream 3 → RP2040（キーボード）
+VL812 downstream 3 → RP2040 #1（キーボード）
+VL812 downstream 4 → RP2040 #2（オーディオ）
 Cubie A7Z USB-C (USB2.0) → BQ25895（充電入力 / 刻印:PWR）
 Cubie A7Z Micro HDMI → HDMIコントローラ基板
 ```
 
 ### キーボード・入力
 
-- **RP2040** C2040 / QMK対応
+- **RP2040 #1**（キーボード専用）C2040 / QMK対応
 - スイッチ：Alps SKRPABE010（SMD タクタイル 4.2×3.2mm）× 63キー（C115360）
 - ダイオード：1N4148W（C2099）× 63個
 - アナログスティック：3DSスライドパッド（カーソル操作用）/ FPC 4ピン 1.0mmピッチ / VCC=3.3V直結OK
 - FPCコネクタ：Molex 5034800440（C3170007）/ 4P 1.0mm ZIF ヒンジ式 / JLCPCB PCBA対応
 
+**RP2040 #1 GPIO割り当て：**
+| GPIO | 役割 |
+|------|------|
+| GP0〜GP8 | キーマトリクス COL（9本） |
+| GP9〜GP16 | キーマトリクス ROW（8本） |
+| GP17 | I2C_SCL（BQ25895） |
+| GP18 | I2C_SDA（BQ25895） |
+| GP19 | BQ_INT |
+| GP20 | RP2040_EN（TPS61023 EN制御） |
+| GP21 | LED_CHG（橙 / BQ25895 I2C読み） |
+| GP22 | LED_FULL（緑 / BQ25895 I2C読み） |
+| GP23 | LED_ACT（緑 / OS動作表示） |
+| GP24 | 予備 |
+| GP25 | 予備 |
+| GP26 | 予備 |
+| GP27（ADC1） | アナログスティック X |
+| GP28（ADC2） | アナログスティック Y |
+| GP29 | 予備 |
+
 ### オーディオ
 
-- **MAX98357AEWL+T × 2**（C2682619）ステレオ構成
-- スピーカー：秋月 マイクロスピーカー 8Ω 23×16×4.6mm × 1個（片チャンネル）
+- **RP2040 #2**（オーディオ専用）C2040 / VL812 DP4経由
+- **MAX98357AEWL+T × 2**（C2682619）スピーカー用ステレオI2Sアンプ
+- **PCM5102APWR**（C107671）イヤホン用ステレオDAC / TSSOP-20
+- **TPA6132A2RTER**（C69901）イヤホン用ヘッドフォンアンプ / WQFN-16
+- スピーカー：Nintendo Switch互換品 8Ω 20×14×4mm × 2個（L/R）
 - イヤホンジャック：3.5mm TRRS SMT（挿入時スピーカーミュート）
-- I2S 接続：Cubie A7Z GPIO → ジャンパ3本（BCLK / LRCLK / SDIN）
+- I2S接続：RP2040 #2 → MAX98357A × 2（スピーカー）/ PCM5102A（DAC）→ TPA6132A2 → ジャック
+
+**RP2040 #2 GPIO割り当て：**
+| GPIO | 役割 |
+|------|------|
+| GP0 | I2S BCLK |
+| GP1 | I2S LRCLK |
+| GP2 | I2S SDIN |
+| GP3 | SD_MODE制御（MAX98357A × 2 同時） |
+| GP4 | TPA6132A2 Enable |
+| GP5 | イヤホン挿入検出（ジャック内蔵SW） |
+| GP6〜GP29 | 予備 |
+
+**信号フロー：**
+```
+Cubie A7Z USB → VL812 DP4 → RP2040 #2（USB Audio）
+RP2040 #2 I2S ─┬─→ MAX98357A × 2 → スピーカー L/R
+                └─→ PCM5102A（DAC）→ TPA6132A2 → 3.5mmジャック
+GP3: スピーカーON/OFF（SD_MODE）
+GP4: イヤホンアンプON/OFF（Enable）
+GP5: 挿入検出 → GP3/GP4をソフト制御
+```
 
 ### LED
 
-| LED | 制御 | 役割 |
-|-----|------|------|
-| 電源LED（緑） | TPS61023 出力（5V） | 電源ON中点灯 |
-| 充電中LED（橙） | RP2040（BQ25895 I2C読み） | 充電中点灯 |
-| 充電完了LED（緑） | RP2040（BQ25895 I2C読み） | 満充電点灯 |
-| ACT LED | RP2040（USB経由でSBCから制御） | OS動作表示 |
+| LED | GPIO | 色 | 役割 |
+|-----|------|----|------|
+| 充電中LED | GP21 | 橙 | BQ25895 I2C読み → 充電中点灯 |
+| 充電完了LED | GP22 | 緑 | BQ25895 I2C読み → 満充電点灯 |
+| ACT LED | GP23 | 緑 | OS動作表示（USB経由でSBCから制御） |
+
+- 各LED: 330Ω直列抵抗 → GND
+- パッケージ: SMD（C番号: 未確定）
 
 ### 冷却
 
