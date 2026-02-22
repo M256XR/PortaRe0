@@ -86,6 +86,17 @@
 
 ## 直近の決定事項ログ
 
+### 2026-02-22（session14）
+- Claude Code CLI移行後の最初の動作確認セッション
+- PowerShell `Start-Transcript` は Claude Code TUI の出力を取れないことを確認・廃止
+- `launch_claude_utf16.ps1` / `chat_logs/raw/` を `.gitignore` に追加
+- `Claude/extract_session.py` を新規作成: `~/.claude/projects/` の JSONL → 読みやすい原文テキストに変換
+  - ユーザー発言（str）と Claude テキスト応答のみ抽出、tool_result / thinking / tool_use は除外
+  - `chat_logs/原文/SessionNN.txt` に自動採番して保存
+  - Windows / Linux 両対応
+- セッション終了処理の手順1に `python Claude/extract_session.py` を追加（Claude.md 更新済み）
+- 今後はターミナルで `claude` を直接起動するだけでOK（ラッパースクリプト不要）
+
 ### 2026-02-22（session13）
 - Claude Desktop → Claude Code CLI移行の検討・方針決定
 - launch_claude.ps1（Windows用）作成: セッション番号自動採番＋Start-Transcriptでチャット原文を自動保存

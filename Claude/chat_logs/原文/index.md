@@ -130,6 +130,15 @@
 - L806: EXTPWRON簡略化（3V3_HUBへ10kΩプルアップのみ）
 - L862: connectorシート構成の最終決定
 
+### Session14 (2026-02-22) - 2026-02-22_Session14.txt
+- L1: Claude Code CLI 移行後の最初の動作確認
+- L10: PowerShell Start-Transcript が Claude Code TUI を取れない問題の調査
+- L40: Git Bash に script コマンドなし / WSL は native install 必要と確認
+- L70: Claude Code が ~/.claude/projects/ に JSONL を自動保存していることを発見
+- L90: extract_session.py 作成・動作確認（JSONL → 読みやすい原文テキスト）
+- L110: セッション終了処理に extract_session.py を組み込み（Claude.md 更新）
+- L120: launch_claude_utf16.ps1 / chat_logs/raw/ を .gitignore に追加
+
 ### Session13 (2026-02-22) - 2026-02-22_Session13.txt
 - L1: Claude Desktop落下によるセッション消失の問題整理
 - L30: lucid-fermiワークツリー確認・session12の作業はコミット済みと確認

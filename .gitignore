@@ -44,4 +44,8 @@ fp-info-cache
 
 # ローカル起動スクリプト
 launch_claude.ps1
+launch_claude_utf16.ps1
 launch_claude.sh
+
+# PowerShell transcript（失敗した試み）
+Claude/chat_logs/raw/

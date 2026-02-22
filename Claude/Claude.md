@@ -185,16 +185,20 @@ GP5: 挿入検出 → GP3/GP4をソフト制御
 
 ユーザーが「終了処理して」と言ったら、以下を自動で実行すること：
 
-1. **PROGRESS.md更新**
+1. **セッション原文を保存**
+   - `python Claude/extract_session.py` を実行
+   - 最新セッションの JSONL が `chat_logs/原文/YYYY-MM-DD_SessionNN.txt` に保存される
+
+2. **PROGRESS.md更新**
    - 「現在の作業箇所」を今日の作業内容に合わせて更新
    - 「直近の決定事項ログ」に今日の日付とセッション番号で決定事項を追記
 
-2. **index.md更新**
+3. **index.md更新**
    - `chat_logs/原文/index.md` のセッション別索引に今回のセッションを追記
    - 主要トピックのL行番号はおおよその目安でOK
    - トピック別索引に新規トピックがあれば追記
 
-3. **git commit & push**
+4. **git commit & push**
    - 変更ファイルをまとめてコミット
    - メッセージ形式: `Docs: sessionNN終了処理・PROGRESS/index更新`
    - コミット後に `git push` まで実行する
