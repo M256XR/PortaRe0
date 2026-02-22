@@ -194,9 +194,10 @@ GP5: 挿入検出 → GP3/GP4をソフト制御
    - 主要トピックのL行番号はおおよその目安でOK
    - トピック別索引に新規トピックがあれば追記
 
-3. **git commit**
+3. **git commit & push**
    - 変更ファイルをまとめてコミット
    - メッセージ形式: `Docs: sessionNN終了処理・PROGRESS/index更新`
+   - コミット後に `git push` まで実行する
 
 ---
 
