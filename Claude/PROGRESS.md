@@ -87,8 +87,8 @@
   - 注意: 外部USBポートは小型デバイス用（HDD等大電流機器非推奨）
   - 注意: BQ25895 SYSライン最大5〜6A → PCBパターン極太必須
 - VL812 downstream割り当て確定
-  - Port1 → USB-A外部（TPS2042BDR / USBLC6-2SC6）
-  - Port2 → USB-C外部（TPS2042BDR / USBLC6-2SC6）
+  - Port1 → USB-C外部（TPS2042BDR / USBLC6-2SC6）
+  - Port2 → USB-A外部（TPS2042BDR / USBLC6-2SC6）
   - Port3 → RP2040 #1
   - Port4 → RP2040 #2
 - VBUSDET修正方針: Upstream VBUSから56kΩ+100kΩ分圧（約3.2V）

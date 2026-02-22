@@ -65,8 +65,8 @@ LiPo SYS出力 (3.7〜4.2V) → TPS61023 #2 → USB_5V_SYS → 外部USBポー�
 USB 接続構成:
 ```
 Cubie A7Z USB-C (USB3.0) → VL812 upstream
-VL812 downstream 1 → 外部USB-A レセプタクル（TPS2042BDR経由 / ESD保護: USBLC6-2SC6）
-VL812 downstream 2 → 外部USB-C レセプタクル（TPS2042BDR経由 / ESD保護: USBLC6-2SC6）
+VL812 downstream 1 → 外部USB-C レセプタクル（TPS2042BDR経由 / ESD保護: USBLC6-2SC6）
+VL812 downstream 2 → 外部USB-A レセプタクル（TPS2042BDR経由 / ESD保護: USBLC6-2SC6）
 VL812 downstream 3 → RP2040 #1（キーボード）
 VL812 downstream 4 → RP2040 #2（オーディオ）
 Cubie A7Z USB-C (USB2.0) → BQ25895（充電入力 / 刻印:PWR）
