@@ -1,0 +1,1223 @@
+続きからお願いできるかな2월 19일前回の会話を再開する準備を整えた。前回の会話を再開する準備を整えた。The user wants to continue from a previous conversation. Let me search for recent chats.Relevant chats1件の結果Select Cubie A7Zを使ったモバイルコンピューター構築Cubie A7Zを使ったモバイルコンピューター構築Found the recent chat about the Cubie A7Z mobile computer build. Let me continue from where they left off.完了直前のチャットが見つかりました。Cubie A7Zを使ったモバイルコンピューター構築の話ですね。
+最後の会話では、USBポートの割り当てが以下のように整理されたところで終わっています。
+USB-C (USB 3.0) → HUBチップ → 外部USB-C / 外部USB-A / RP2040
+USB-C (USB 2.0 電源) → BQ25895（充電入力）
+Micro HDMI → ディスプレイコントローラ基板
+次はHUBチップの選定（JLCPCBのPCBAで対応しているか確認）あたりが残っていたと思います。続きを進めますか？それとも別に気になる点がありますか？pdfこれのことだよねUSBコントローラーって2월 19일VL812 USB コントローラーについて確認した。VL812 USB コントローラーについて確認した。Yes, VL812 is the USB 3.0 Hub controller we were discussing.完了そうです、まさにこれです。データシートを見て改めてポイントを整理すると：
+今回の用途に関係する部分
+アップストリーム（SBCのUSB 3.0ポートから）が1系統、ダウンストリームが4ポートあるので、今回の構成（外部USB-C、外部USB-A、RP2040）には十分余裕があります。
+電源は5V単入力で内部レギュレータが全て生成してくれるので、外部から5Vを入れるだけでOKです。追加の電源回路が不要なのはありがたいです。
+パッケージはQFN 76L（9x9mm）なので、メイン基板に直接実装できます。ただしピン数が多いのでJLCPCBのPCBAで対応しているか確認が必要です。
+一つ気になる点
+VBUSDETピン（31番）に5VのVBUS検出を入れる必要があります。今回はバッテリー駆動なので「常時5Vが来ている」という信号をどこから引っ張るか考える必要があります。電源ラインの5V（IP5306等の出力）をそのまま繋げば問題ないはずです。
+JLCPCBのPCBAライブラリにVL812が載っているか確認しましたか？もし対応していない場合は、より入手性の高いGL3523やUSBR3041といった代替品も選択肢になります。VL812ありそう2월 19일VL812の入手可能性を確認した。VL812の入手可能性を確認した。Good, VL812 is available on JLCPCB PCBA.完了それは助かります。では採用確定でいいですね。
+実装上で注意しておくこと：
+必須の外付け部品
+25MHzクリスタル（SSXI/SSXO、75/76番ピン）が必要です。これも忘れずにJLCPCBのライブラリで確認を。
+SSREXT（1番ピン）にリファレンス抵抗を繋ぐ必要があります。SuperSpeed動作に必要で、一般的に27Ωが使われます。
+ファームウェア周り
+SPI Flashが外付けで必要です（FW保存用）。ただし「FW Update over USB」に対応しているので、一度書き込めばUSB経由でアップデートできます。初回書き込み用にフットプリントだけ乗せておけばOKです。
+LEDピン（USBHGRN/USBHMBR）
+今回は外部にLEDを出す必要がないなら、100kΩでプルダウンして放置でいいです。
+VBUSDETとEXTPWRON
+どちらも5Vラインに繋いでおけば問題なく動作するはずです。
+次のステップはKiCadでのフットプリント配置ですか、それともまだ全体の構成を固めている段階ですか？全体でどんな部品を使ってどんな回路図にするかを検討する段階2월 19일モバイルコンピュータプロジェクトの部品選定と回路設計を整理した。モバイルコンピュータプロジェクトの部品選定と回路設計を整理した。The user wants to discuss the overall component selection and circuit design for their mobile computer project. Let me summarize what we know and help organize the full BOM and circuit overview.完了了解です。では今わかっている情報を整理して、全体のブロックと部品候補をまとめましょう。
+
+確定済みのコンポーネント
+
+SBC：Cubie A7Z
+ディスプレイ：LS055R1SX04 + HDMIコントローラボード
+キーボードマイコン：RP2040
+USBハブ：VL812
+
+
+まだ決まっていない部分
+電源系が一番大きいです。バッテリー、充電IC（BQ25895候補）、5V昇圧/降圧の構成がまだふわっとしている状態だったと思います。
+あとキーボードのスイッチ・キーキャップの選定、筐体（3Dプリント？）、タッチパッドをどうするかも未決です。
+
+どこから詰めたいですか？電源周りを先に固めるのが設計的には順番として自然だと思いますが、優先度ある部分があれば教えてください。cyberdeck_bom.xlsxxlsx前回作ってもらったやつ
+まだ完全じゃないけど2월 19일前回のBOMを検証し、不足部分を特定した。前回のBOMを検証し、不足部分を特定した。Let me read the uploaded Excel file.BOMファイルの内容を読み込むスクリプトLet me review the BOM and see what's complete and what's missing, particularly noting that VL812 isn't in the BOM yet.完了内容確認できました。かなり充実したBOMですね。今回の話を踏まえて足りていない・更新が必要な箇所がいくつか見えます。
+
+追加が必要なもの
+VL812が入っていないです。今確定したので追加が必要です。あわせてVL812用の25MHzクリスタルとSPI Flash（FW保存用）も必要になります。
+
+現状TBDまたは要検討な部分
+電源のDC-DCコンバータが「TBD」のままです。BQ25895の出力からSBCへの5V供給ラインをどう構成するか次第でここが変わります。
+FPCコネクタ/ケーブルのピン数と長さがまだ未確定です。
+ヒンジ機構がTBDです。
+
+気になる点
+バッテリー保護モジュールとBQ25895が両方入っていますが、BQ25895自体にバッテリー保護（過充電・過放電・過電流）が含まれています。別途BMSモジュールを追加するとBQ25895の設定と競合する可能性があるので、役割分担を整理しておいた方がいいです。
+
+まずVL812と関連部品の追加を反映したBOMを更新しますか？今そのシートに書いてあるパーツと用途を一覧で出して2월 19일シートのパーツ一覧を整理して提示する準備を整えた。シートのパーツ一覧を整理して提示する準備を整えた。Let me list all parts from the BOM clearly.完了カテゴリ部品名型番用途SBCCubie A7ZCubie A7Zメインコンピュータディスプレイ5.5" MIPI DSI LCDLS055R1SX04画面表示ディスプレイHDMIコントローラ基板汎用HDMI→MIPI DSI変換電源LiPoバッテリー6060100主電源（約3500mAh）電源充電・電源管理ICBQ25895USB PD充電・バッテリー管理電源バッテリー保護モジュール汎用過充電・過放電保護電源DC-DCコンバータ/LDOTBD周辺機器への3.3V/5V供給キーボードタクタイルスイッチSKRPABE010キー入力（60個）キーボードキーキャップカスタム/汎用キーカバー（60個）キーボードキーボードMCURP2040キーボード制御・QMKキーボード水晶振動子 12MHz汎用RP2040クロック源キーボードダイオード1N4148Wキーマトリクス用（60個）入力アナログスティックRKJXK/PSP互換カーソル/ポインタ操作入力ショルダーボタンSKRPABE010L/Rボタン（マウスクリック代替）コネクタUSB-Cプラグ SMT垂直2495700-1SBCへの直刺し接続（2個）コネクタUSB-Cレセプタクル汎用24P外部充電ポートコネクタUSB-Cレセプタクル汎用24P外部データポートコネクタUSB-Aレセプタクル汎用外部USB-AポートコネクタFPCコネクタTBDディスプレイ信号接続コネクタFPCケーブルTBDリッドへのHDMI+電源配線PCBメインキーボードPCBカスタムキー+RP2040+BQ25895実装基板PCBサブ基板カスタムSBC接続用垂直挿入基板受動部品MLCC汎用0402/0603電源デカップリング（50個）受動部品抵抗汎用0402USB CC/プルアップ等（20個）受動部品インダクタTBDBQ25895スイッチングコイル機構スタンドオフ M2M2×5/6mmPCBとボトムの間隔確保機構ヒンジ機構TBDクラムシェル開閉軸機構ボトムエンクロージャ3D印刷/アルミバッテリー+SBC収納機構リッドエンクロージャ3D印刷/アルミディスプレイ収納機構ネジ M2×4mm汎用各部組み立て用（20個）
+VL812と関連部品（25MHzクリスタル、SPI Flash）がまだ入っていない状態です。追加しますか？追加してほしい
+筐体は3Dプリンターで自作するかな2월 19일BOM更新とカスタム筐体設計を検討した。BOM更新とカスタム筐体設計を検討した。Let me update the BOM xlsx file with VL812 and related parts, and update the enclosure to 3D print.スキルを確認Now let me update the BOM xlsx file with VL812 related parts and update enclosure to 3D print.ファイルをコピースクリプト既存ファイルの構造確認スクリプト電源行と筐体行の位置確認スクリプトVL812関連部品追加と筐体更新スクリプト確認と保存スクリプト筐体列の更新スクリプト出力ディレクトリにコピースクリプトPresented file完了以下を追加・更新しました。
+追加（電源カテゴリに3行）
+
+VL812-Q7 (B1)：USB 3.0 HUBチップ本体
+25MHz水晶振動子：VL812クロック源
+SPI Flash（W25Q32等）：VL812ファームウェア保存用
+
+更新
+
+ボトム・リッドエンクロージャの型番と実装方法を「3D印刷（自作）」に変更
+サマリーの電源カテゴリ品目数を4→7に更新
+
+電源カテゴリにVL812を入れましたが、「USBハブ」として独立カテゴリにした方がわかりやすければ変更できます。どうしますか？Cyberdeck bomスプレッドシート · XLSX ダウンロードUSBハブのほうがわかりやすいかな
+電源保護のとこなんだけど
+充電管理ICとLi-poとかについてくる汎用充電保護のやつが生んたらみたいなの言ってなかったけ？
+あとまだ決まってないとこは？2월 19일VL812分類を整理し、電源保護の競合を検討した。VL812分類を整理し、電源保護の競合を検討した。The user has two questions:
+
+Move VL812 to a separate "USBハブ" category
+About the battery protection conflict they mentioned before - BQ25895 already has protection built in, so a separate BMS module might conflict
+What's still undecided
+
+Let me address these clearly.完了電源保護の件
+そうです、前に言いました。BQ25895自体に過充電・過放電・過電流保護が内蔵されているので、LiPoについてくる汎用BMSモジュールと両方入れると保護回路が二重になって、設定が競合する可能性があると指摘しました。基本的にBQ25895に任せてBMSモジュールは不要、もしくはBMSなしのセル単体バッテリーを調達するのがすっきりします。
+
+まだ決まっていないところ
+BOMのTBDを拾うと：
+
+DC-DCコンバータ/LDOの具体的な型番（周辺への5V/3.3V供給回路）
+FPCコネクタのピン数と長さ（HDMIコントローラ基板のコネクタ仕様確認待ち）
+インダクタの仕様（BQ25895のスイッチング周波数と電流値が決まれば選定できる）
+ヒンジ機構（3Dプリント設計 or 市販品流用）
+アナログスティックの最終選定（RKJXK or PSP互換）
+キーキャップ（薄型対応品の選定）
+
+BOM外で設計上まだ未確定なのは：
+
+SBCへの電源供給経路（BQ25895の出力をどう5Vに変換してSBCに入れるか）
+バッテリーセルをBMSなし単体にするかどうか
+
+BOMの更新（VL812をUSBハブカテゴリに移動＋BMSモジュールを削除）しますか？充電保護ICがどういう仕様かあんまわからんけど3.7Vを出力する形ならDC-DCコンバーターがいるね3.3Vは必要なの？2월 19일BQ25895の出力仕様を検証し、昇圧コンバーターと3.3V必要性を判断した。BQ25895の出力仕様を検証し、昇圧コンバーターと3.3V必要性を判断した。The user is asking about BQ25895 output voltage and whether 3.3V is needed.
+BQ25895 is a battery charger IC, not a power management IC that outputs regulated voltages. It charges the battery and has a system output (SYS) pin that outputs the battery voltage (~3.7-4.2V). So yes, a DC-DC converter would be needed to get 5V for the SBC and other components.
+As for 3.3V - let me think about what needs 3.3V in this design. The VL812 can run from 5V (internal regulators). RP2040 runs on 3.3V but usually has an onboard regulator from 5V.
+The HDMI controller board probably has its own voltage regulators built in, so I might not need a separate 3.3V rail if the main components can all derive their power from 5V.BQ25895 SYS output voltage battery charger10件の結果BQ25895 SYS Settings - Power management forum - Power management - TI E2E support forumse2e.ti.combq25895.pdfwww.ti.comBQ25895 data sheet, product information and support | TI.comwww.ti.comSYS BAT bq25895 Host Input 3.9V±14V at 3A USB OTG 5V at 3.1A Ichg = 5Amedia.digikey.comGitHub - electricimp/BQ25895: Driver for BQ25895 Battery Chargergithub.comBQ25895 | Buy TI Parts | TI.comwww.ti.comBQ25895 Battery Controller | Dev Centerdeveloper.electricimp.comTiwww.ti.combq25895 Fast Charger MaxCharge™ Technology - TI | DigiKeywww.digikey.comGitHub - cvetaevvitaliy/bq2589x: BQ25895 I2C 1cell 5A buck battery charger with high input voltagegithub.comThe user is asking about BQ25895 output and whether 3.3V is needed.
+BQ25895 outputs:
+
+SYS pin: This follows battery voltage (3.7-4.2V range), not a regulated 5V output. When charging from USB, it's the battery voltage.
+PMID pin: This is interesting - it can output 4.5-5.5V in OTG/boost mode (up to 3.1A). But in normal charging mode, PMID is connected to VBUS input.
+BAT pin: battery connection
+
+So in normal discharge mode (no USB connected), SYS = battery voltage (~3.7-4.2V). To get 5V for the SBC, you need a boost converter.
+The BQ25895's OTG mode can generate 5V from PMID, but that's designed for powering external USB devices, not the system itself. The actual power path needs to be battery through the SYS output into a boost converter to reach 5V for the SBC. The RP2040 itself can handle up to 5.5V through its internal regulator, so it doesn't strictly require a separate 3.3V supply.
+Actually, I need to reconsider—the bare RP2040 chip does require an external 3.3V supply on its IOVDD pins, though most modules include an onboard LDO. Since we're working with the bare chip, I'd need to add a small LDO like the AP2112K to step down from the 5V rail. The VL812 and HDMI controller board both have their own internal regulators, so they just need the 5V input.もっと表示完了BQ25895の仕様を確認しました。整理すると：
+BQ25895の出力について
+SYSピンの出力はバッテリー電圧そのまま（3.7〜4.2V）で、レギュレートされた電圧は出てきません。なのでおっしゃる通り、SBCに5Vを供給するには昇圧DC-DCコンバータが必要です。
+OTGモードでPMIDピンから4.5〜5.5Vを出せる機能はありますが、これはUSB機器に給電するための機能なので今回の用途とは違います。
+
+3.3Vが必要かどうか
+各コンポーネントを確認すると、VL812は5V単入力で内部生成するので不要、HDMIコントローラ基板も基板上に自前のレギュレータがある前提なので不要です。
+問題はRP2040で、チップ単体実装の場合は3.3VをIOVDDに供給する必要があります。ただし5V→3.3VのLDO（AP2112KやXC6206等）を1個追加するだけなので、独立したDC-DCレールというより小さなLDO1個で済みます。
+
+まとめると電源ラインはこうなります
+LiPo (3.7V)
+  └─ BQ25895 (SYS出力 3.7〜4.2V)
+       └─ 昇圧DC-DC → 5V ─┬→ Cubie A7Z
+                           ├→ VL812
+                           ├→ HDMIコントローラ基板
+                           └→ LDO → 3.3V → RP2040
+昇圧DC-DCの候補はTPS61023あたりが定番で、5V/2A程度出力できてJLCPCBのPCBAにも対応品があります。どうしますか？十分な出力があるならそれで十分かな
+あとはDC-DCを基板実装するときにどれだけ複雑になるかかな2월 19일DC-DCコンバータの実装複雑性を評価した。DC-DCコンバータの実装複雑性を評価した。The user is asking about the complexity of implementing a DC-DC converter on the PCB. Let me address TPS61023 specifically.TPS61023 application circuit external components10件の結果Texas Instruments TPS61023 | Würth Elektronik Reference Design Searchwww.we-online.comTPS61023 | Buy TI Parts | TI.comwww.ti.comTPS61023 data sheet, product information and support | TI.comwww.ti.comHow to Use Adafruit TPS61023: Pinouts, Specs, and Examples | Cirkit Designerdocs.cirkitdesigner.comTPS61023 Texas Instruments | Power Management (PMIC)www.digikey.comTPS61023 3.7-A Boost Converter with 0.5-V Ultra-low Input Voltage 1 Features •www.ti.comTPS61023 Datasheet(PDF) - Texas Instrumentswww.alldatasheet.comAdafruit-TPS61023-PCB/Adafruit TPS61023.sch at master · adafruit/Adafruit-TPS61023-PCBgithub.comESP32 IoT Development Board with Monitoring Batter | Hackaday.iohackaday.ioApplication Note Adjustable Undervoltage Lockout Circuit Used inwww.ti.comThe user is asking about the complexity of implementing the TPS61023 DC-DC converter on the PCB.
+From the datasheet info:
+
+SOT563 package (1.2mm × 1.6mm) - very small
+External components needed: inductor (0.37-2.9µH), input cap, output cap, 2 resistors for voltage divider on FB pin
+Adafruit's design uses: 1µH inductor, 22µF cap
+
+So it's quite simple - just IC + inductor + 2-3 caps + 2 resistors. Let me explain this clearly.完了TPS61023は回路的にはかなりシンプルです。
+必要な外付け部品はインダクタ1個、入力コンデンサ、出力コンデンサ、FB（電圧設定）用の抵抗2本だけです。Adafruitの実装を見ると1µHインダクタ＋22µFキャップという構成で、チップ本体が1.2×1.6mmのSOT563と非常に小さいので基板占有面積もコンパクトに収まります。
+ざっくり言うと周辺部品込みで5×5mm程度のエリアに収まるイメージです。難しい部分はインダクタの選定くらいで、回路としてはBQ25895より全然単純です。
+
+ただ一点懸念があって、TPS61023の最大出力は連続3.7Aとスペック上は余裕があるのですが、LiPoからの入力電流が増えるのでバッテリー電圧が低下したときに瞬間的に大電流が流れます。Cubie A7Zのピーク消費が6W近くあるので、バッテリー残量が少ない状態でフル負荷がかかったときの挙動は一応意識しておく必要があります。
+実装難易度としては問題ないレベルなので、TPS61023で確定してBOMに追加してしまいますか？大丈夫だと思う
+今んとこ実装部品で難易度の高い実装があるのはなにかある？2월 19일BOM内の実装部品の難易度を検討した。BOM内の実装部品の難易度を検討した。Let me think about the components in the BOM and which ones have high implementation difficulty.完了難易度が高い順に挙げると：
+かなり難しい
+BQ25895がQFN 24ピンで、露出パッドがチップ底面にあります。中央の放熱パッドをリフローで確実に接合しないといけないので、JLCPCBのPCBAに任せるのが前提になります。手はんだは現実的じゃないです。
+VL812も同様でQFN 76ピン・9×9mmと大きいですがピンピッチが細かく、これも完全にPCBA依存です。
+そこそこ難しい
+RP2040はQFN 56ピンで、これもPCBA前提ですが部品自体はJLCPCBのライブラリに確実にあるので問題は少ないです。
+設計難易度が高い（実装というより回路・パターン設計）
+Micro HDMIの差動ペア配線です。SBCからHDMIコントローラ基板までの信号ラインで、インピーダンス制御（90Ω差動）と等長配線が必要です。4層基板にした理由がここにあります。
+USB 3.0のSS（SuperSpeed）ラインも同様で、SBCとVL812間の90Ω差動ペアをきちんと引く必要があります。
+
+まとめると実装作業自体はほぼJLCPCBのPCBAで解決できますが、KiCadでのパターン設計段階でHDMIとUSB 3.0の差動ペアが一番気を使う部分になりそうです。ちょっと今までの経過とこれからどうするかの計画書を作成してくんね？2월 19일計画書作成のため構想を練った。計画書作成のため構想を練った。The user wants a project plan document summarizing progress and future plans. Let me check the docx skill first.docxスキルを確認The user wants a project plan document. Let me create a docx file following the skill instructions.docxライブラリの確認スクリプトCyberdeck計画書のJavaScriptファイルを作成create_plan.js計画書のdocxを生成スクリプトバリデーションスクリプト出力ディレクトリにコピースクリプトPresented file完了計画書を作成しました。以下の7章構成でまとめています。
+
+プロジェクト概要（コンセプト・主要スペック）
+確定済みコンポーネント（主要IC・電源ライン・USBポート割り当て）
+設計上の決定事項（PCB構成・筐体・入力デバイス）
+実装難易度評価（部品ごとのリスクと対策）
+未決事項TBD一覧
+今後の進め方（Phase 1〜5）
+主要部品参考情報
+
+次のステップはPhase 1のTBD部品確定とJLCPCBのライブラリ確認あたりになりますね。どこから進めますか？Cyberdeck planドキュメント · DOCX ダウンロード一旦今んとこどれくらいかかるか概算して2월 19일部品コストを集計し概算見積もりを算出した。部品コストを集計し概算見積もりを算出した。Let me search for current prices of the main components to give a cost estimate.Cubie A7Z price buy 202510件の結果Radxa Cubie A7Zradxa.comPi Zero-sized Radxa Cubie A7Z SBC features Allwinner A733 Cortex-A76/A55 SoC, up to 16GB RAM, WiFi 6 - CNX Softwarewww.cnx-software.comRadxa Cubie A7Z is a Raspberry Pi Zero-sized Allwinner A33 octa-core PC for $15 and up - Liliputingliliputing.comRadxa Cubie A7Zarace.techRadxa Cubie A7Z – Compact AI Board (1GB / 4GB / 8GB RAM) | Eveltaevelta.comAmazon.com: Radxa Cubie A7Z Mini PC Board with Octa-Core CPU & WiFi6/BT5.4 Dual-Screen Display,Support RISC-V Coprocessor,Mighty AI Board (1GB RAM) : Electronicswww.amazon.comRadxa Cubie A7Z Android: Best Options 2025www.accio.comradxa cubie a7z Archives - Liliputingliliputing.comcubie a7z Archives - Liliputingliliputing.comRadxa Cubie A7Z | Radxa Docsdocs.radxa.comLet me search for prices of the other major components.LS055R1SX04 display price AliExpress 202510件の結果Ls055r1sx04 - Computer And Office - AliExpresswww.aliexpress.com57.78US $ 38% OFF|LS055R1SX04 5.5 inch 2K LCD resolution 1440 * 2560 screen display panel for video display DIY projector with drive panel|Tablet LCDs & Panels| - AliExpresswww.aliexpress.comUS $75.84 21% OFF|5.5 inch 2K LS055R1SX04 LCD Display With glass protector removed backlight HDMI to MIPI Driver Board kit For DIY 3D Printer|Tablet LCDs & Panels| - AliExpresswww.aliexpress.com22.39US $ 30% OFF|5.5 inch 2K LCD Screen LS055R1SX04 Display to MIPI Controller Board For Any cubic Photon Elegoo Mars 3D Printer|Tablet LCDs & Panels| - AliExpresswww.aliexpress.comLS055R1SX04 5.5 Inch 2k Lcd Display Not Touch Panel Digitizer For SHARP Lcd Screen Glass Free Ship|Mobile Phone LCD Screens| - AliExpresswww.aliexpress.com5.5 inch TFT 2K IPS LCD panel 1440X2560 1440P LS055R1SX04 MIPI LCD for handheld terminal smart phone DIY projector|lcd panel|lcd 5.5lcd panel 2k - AliExpresswww.aliexpress.comLS055R1SX04 1440x2560 5.5" 2K LCD panel and for Raspberry Pi PC Laptop Projector VR wanhao d7 lcd screen|Tablet LCDs & Panels| - AliExpresswww.aliexpress.comAliexpresswww.aliexpress.com5.5 Inch 2K LCD Screen Display LS055R1SX04 HDMI to MIPI Controller Board SLA 3D Printer With Glass Protector Removed Backlight - Price history & Review | AliExpress Seller - Wise Technology Co.,Ltd | Alitools.ioalitools.io21.28US $ 24% OFF|Original new A+ 5.5 inch LS055R1SX04 1440(RGB)x2560 high resolution with MIPI 50pin For 3D printer /video projector|original|resolutionhigh resolution 3d printer - AliExpresswww.aliexpress.comLet me search for JLCPCB PCB + PCBA costs and other component prices.JLCPCB 4層基板 PCBA 費用 概算 202510件の結果JLCPCBでの基板作成調査 | Lang-shiplang-ship.comPCB Prototype & PCB Fabrication Manufacturer - JLCPCBjlcpcb.comPCB Assembly Cost: How Much Does PCBA Cost and How to Savejlcpcb.comJlcpcbstatic.jlcpcb.comJLCPCB: One of the Best Simple PCB Suppliers in Chinahilelectronic.comIs JLCPCB worthy to be your PCBA supplier?-FS Technologywww.fs-pcba.comPCB vs PCBA: How to Choose the Right Service for Your Project?jlcpcb.comU.S. Tariff Policy FAQjlcpcb.comFactors Influences Prices for PCB Manufacturing and Assembly | PCBCartwww.pcbcart.comJLCPCB Spring Festival 2026: Production & Shipping Schedulejlcpcb.comBased on the search results, I can now estimate costs. Let me summarize what I found:
+
+Cubie A7Z: $15 (1GB) - probably want 4GB or 8GB, likely $25-40
+LS055R1SX04 panel only: ~$21-22
+LS055R1SX04 + HDMI to MIPI driver board kit: ~$58-76
+JLCPCB 4-layer PCB + PCBA: need to estimate
+
+Let me estimate based on what I know:
+
+Cubie A7Z (4GB): ~$25-35
+LS055R1SX04 + HDMI controller board: ~$60-80
+LiPo battery, charging controller, boost converter, USB hub, and RP2040 microcontroller: roughly $15-30 combined
+The mechanical switches and connectors add another $40-50
+PCB fabrication and assembly from JLCPCB for a 4-layer board around 140x85mm: $20-40 for bare PCB, or $50-100 if going with their assembly service
+3D printed enclosure: $10-20
+
+So I'm looking at a total component and manufacturing cost somewhere in the $200-300 range, depending on how much assembly I outsource versus doing myself.もっと表示完了検索結果から概算をまとめます。価格は現時点の参考値で、実際の発注時に変動します。
+
+コンポーネント費用
+カテゴリ品目概算（USD）SBCCubie A7Z（4GBモデル想定）$25〜40ディスプレイLS055R1SX04 + HDMIコントローラボード セット$60〜80バッテリーLiPo 6060100$8〜15主要ICBQ25895 / TPS61023 / VL812 / RP2040$10〜15スイッチSKRPABE010 × 62個$15〜20コネクタ類USB-C × 3、USB-A、FPC等$10〜15受動部品コンデンサ・抵抗・インダクタ等$5〜10その他部品クリスタル・SPI Flash・LDO等$5〜8コンポーネント小計$138〜203
+
+PCB・製造費用
+項目概算（USD）4層PCB製造（メイン基板・サブ基板 5枚）$30〜50PCBA組立費（ステンシル・実装工賃）$40〜80PCB小計$70〜130
+
+筐体・機構
+項目概算（USD）3Dプリント材料（フィラメント or レジン）$10〜25ネジ・スタンドオフ・ヒンジ等$5〜15機構小計$15〜40
+
+合計概算
+最小最大合計（USD）$223$373合計（円・参考）約33,000円約56,000円
+
+幅があるのは主にJLCPCBのPCBA費用で、実装部品数や在庫状況によって大きく変わります。あとCubie A7Zが現時点で在庫切れ状態なので、入手できるRAM容量によって価格が変わる可能性があります。
+おおまかに3〜5万円の間に収まる想定です。試作1回目なのでPCBAの再発注リスクも考えると、予算は5万円くらい見ておくのが安全かと思います。おｋ
+続きやろ
+今真っ先にやるべきことは？2월 19일優先順位を整理し、部品確認の手順を検討した。優先順位を整理し、部品確認の手順を検討した。The user wants to know what to do next. Based on our discussion, the most pressing items are Phase 1 tasks - confirming TBD parts and JLCPCB library availability.
+The most immediate priority is checking JLCPCB's PCBA library for the key ICs (VL812, BQ25895, RP2040) to confirm they're available, and then finalizing the TBD components.完了今すぐやるべきはJLCPCBのPCBAライブラリで主要ICの在庫確認です。
+設計を進めてから「この部品JLCPCBにない」となると回路設計からやり直しになるので、ここが一番最初に潰すべきリスクです。
+確認する優先順位はこの順番です：
+
+VL812-Q7（76ピンQFN・JLCPCBにあるか不確定）
+BQ25895（24ピンQFN）
+TPS61023（SOT563）
+RP2040（ほぼ確実にあるが一応確認）
+W25Q32（SPI Flash）
+AP2112K等のLDO
+
+VL812が一番不安です。マイナーなチップなのでなかった場合の代替品（GL3523やUSBR3041等）も並行して探しておく必要があります。
+JLCPCBのページ（jlcpcb.com）の「Parts Library」で型番検索すると在庫と価格が確認できます。今やってみますか？VL822-Q7
+BQ25895RTWR
+TPS61023DRLR
+RP2040
+W25Q32JVSSIQ
+AP2112K-3.3TRG1
+はストックあるっぽい2월 19일確認した部品をもとに計画を進める準備を整えた。確認した部品をもとに計画を進める準備を整えた。Great, all the key ICs are available. Now I should update the BOM and plan document, and suggest the next step.完了全部ストックあり、これで部品選定がほぼ確定できます。
+ひとつ気になったのがVL822-Q7です。VL812ではなくVL822でしたか？VL822はVL812の後継で4ポートUSB 3.1 Gen1対応なので性能的には問題ないですが、ピン配置やレジスタが異なる可能性があるので、型番を確定させておきたいです。意図的にVL822を選んだのか、それとも誤記でしょうか？
+VL822が意図通りであれば、BOMの型番を更新してPhase 1完了という流れになります。
+次にやることはこの2つです。
+
+BOMの型番を確定版に更新する（今わかった型番を全部反映）
+KiCadでの回路設計を開始する（Phase 2へ進む）
+
+回路設計は電源ブロックから始めるのが定石で、BQ25895 → TPS61023 → AP2112Kの電源系を先に固めると他のブロックの設計がしやすくなります。
+BOMの更新先にやりますか？VL812もあるVL812-Q7はなかった2월 19일型番の違いを区別し、パッケージ仕様を検証した。型番の違いを区別し、パッケージ仕様を検証した。VL812-Q7はなかったけどVL812はある、ということですね。型番の違いを確認する必要があります。VL812-Q7のQ7はQFN76パッケージを示すサフィックスなので、JLCPCBにある「VL812」がどのパッケージか確認が必要です。完了なるほど、VL812はあるけどVL812-Q7という完全な型番ではヒットしなかった感じですね。
+Q7はQFN76パッケージを示すサフィックスなので、JLCPCBに出てきた「VL812」の詳細ページでパッケージがQFN76（9×9mm）かどうか確認してみてください。同じチップでも別パッケージ（例えばBGAや別サイズ）だとフットプリントが変わってしまうので。
+パッケージがQFN76で合っていれば問題なく採用できます。どう表示されていましたか？Package
+QFN-76-EP(9x9)
+Description
+QFN-76-EP(9x9) USB HUB Controllers ROHS2월 19일Verified package specification compatibility and confirmed adoptionVerified package specification compatibility and confirmed adoptionQFN-76-EP(9x9) = QFN76 9×9mm、完全に一致。採用確定。完了QFN-76-EP(9x9)なので完全一致です。VL812採用確定で問題ないです。
+これで主要IC全部ストック確認完了です。まとめると：
+部品確定型番USBハブVL812 (QFN-76-EP 9x9)充電ICBQ25895RTWR昇圧DC-DCTPS61023DRLRキーボードMCURP2040SPI FlashW25Q32JVSSIQLDO 3.3VAP2112K-3.3TRG1
+Phase 1完了です。BOMをこの型番で更新してからPhase 2（回路設計）に入りますか？それともそのままKiCadの話に進みますか？一旦他に実装すべきことがあるか確認したい2월 19일設計前に不足している部品と回路要素を精査した。設計前に不足している部品と回路要素を精査した。The user wants to check if there are other components that should be implemented before moving to PCB design. Let me think about what's been confirmed and what might be missing.
+Confirmed ICs:
+
+Cubie A7Z (SBC)
+LS055R1SX04 + HDMI controller board
+BQ25895RTWR (charging IC)
+TPS61023DRLR (boost DC-DC)
+VL812 (USB hub)
+RP2040 (keyboard MCU)
+W25Q32JVSSIQ (SPI flash for VL812)
+AP2112K-3.3TRG1 (LDO 3.3V)
+Alps SKRPABE010 mechanical switches and a LiPo battery pack
+
+Still need to source inductors for the power management ICs, figure out the FPC connector specs, pick an analog stick, and finalize the mechanical components like the hinge and keycaps. Also need to confirm the crystal oscillators for the USB hub and MCU, plus the various connectors for charging, data transfer, and display output.
+I'm realizing there are some critical gaps in the design that haven't been addressed yet—specifically the power button, battery connector, and LED indicators for status feedback. The decoupling capacitor values need to be finalized too, and I need to think through how the sub-board connects to the SBC and what USB-C specs are required for that interface. The power switch is particularly important since we haven't actually discussed how the device turns on and off.
+The BQ25895 has an enable pin that could work with a push button, and we could use that same button to control the TPS61023 or manage the BATFET. I also need to figure out the I2C communication path—the BQ25895 needs to talk to either the SBC or an RP2040 for configuration, and that hasn't been worked out yet.もっと表示完了BOMとこれまでの議論を整理すると、いくつか抜けているものがあります。
+回路設計前に決める必要があるもの（重要度高）
+電源スイッチが一切検討されていないです。本体をどうやってON/OFFするか、BQ25895のBATFET制御かTPS61023のEN制御かで回路が変わります。
+BQ25895はI2Cで設定を書き込む必要があるので、どこから制御するか決める必要があります。Cubie A7ZのGPIO経由か、RP2040経由かです。
+インダクタが2つ（BQ25895用とTPS61023用）まだTBDのままです。これは計算で決まるので今すぐ確定できます。
+BOMにあるけど仕様が未確定なもの
+FPCコネクタのピン数・長さ、アナログスティックの最終選定、VL812用25MHzクリスタルの具体的な型番、バッテリーコネクタの種類がまだ未決です。
+BOMに存在しないもの
+バッテリーコネクタ（JST PH等）、電源LED・充電表示LED、リセットスイッチあたりが漏れています。
+
+一番設計に直結するのは電源スイッチの方式とBQ25895のI2C制御をどこに繋ぐかです。どう考えますか？緊急時用のキルスイッチが欲しいよね
+でも電源のOn-Offは基本的にはSBCのシャットダウン似合わせたいけど難しいよね？2월 19일2 / 2件設計可能な電源制御回路を構想した。設計可能な電源制御回路を構想した。The user wants a power switch that acts as a kill switch for emergencies, but normally wants power on/off to follow the SBC's shutdown process. Let me think about this.
+The challenge: SBC shutdown → need to cut power after shutdown completes, but also need emergency kill switch.
+Common approaches:
+
+BQ25895 has a BATFET (ship mode) that can disconnect battery
+TPS61023 has EN pin that can disable the boost converter
+Could use a latching power button circuit
+
+For SBC-controlled shutdown: Cubie A7Z GPIO → controls TPS61023 EN pin or BQ25895 BATFET → cuts 5V rail after OS shutdown
+For the kill switch, I could use a physical switch that directly pulls the TPS61023 EN pin low, bypassing the SBC entirely. The practical approach would be a momentary button triggering SBC shutdown via GPIO interrupt, with the SBC GPIO holding EN high during normal operation and pulling it low after shutdown completes, while a separate kill switch can force EN low at any time regardless of SBC state.
+The real challenge is figuring out what holds EN high during normal operation—either a latching circuit or the SBC GPIO itself needs to maintain that signal.もっと表示完了難しくないです、割とよくある構成で実現できます。
+基本的な考え方
+TPS61023のENピンを使います。ENをHighにすると5V出力ON、LowでOFFなので、ここをSBCのGPIOで制御する形にします。
+通常起動時：
+電源ボタン（モーメンタリ）→ ENを一瞬High → TPS61023起動 → SBC起動
+→ SBC GPIOがENをHighに保持（ラッチ）
+
+通常シャットダウン時：
+SBCでshutdown実行 → OS終了直前にGPIOをLow → TPS61023停止 → 電源断
+
+キルスイッチ時：
+物理スイッチでENを強制的にLow → TPS61023即停止
+SBC側はsystemdのshutdownフックでGPIOを制御するスクリプトを仕込めば対応できます。
+回路的に必要になるもの
+モーメンタリボタン（起動用）、キルスイッチ（物理トグル or ロック式ボタン）、プルダウン抵抗数本が追加で必要になります。BOMに追加しておく必要がありますね。
+ただ一点懸念があって、強制キルスイッチはファイルシステムが壊れるリスクがあります。緊急用と割り切るならいいですが、eMMCやSDカードへの書き込み中に切ると場合によってはOS再インストールになることも。その点は了解した上で実装しますか？異常に発熱したときとか
+OSがフリーズして動かないとき用だから大丈夫2월 19일ユーザーの緊急時の用途を妥当と判断した。ユーザーの緊急時の用途を妥当と判断した。The user wants a kill switch for emergency situations like overheating or OS freeze. That's a reasonable use case.完了その用途なら完全に正当で、むしろ必須レベルですね。
+ではキルスイッチはロック式（押すとOFF状態で固定、もう一度押すと解除）のボタンにするのがいいです。誤操作で切れないようにするためです。
+BOMに追加が必要なもの
+部品用途モーメンタリボタン（小型SMD）起動ボタンロック式スイッチ（小型）キルスイッチMOSFETまたはNPNトランジスタENラッチ回路用プルダウン抵抗 2〜3本EN制御用
+電源LEDと充電LEDも未検討でしたね。
+BQ25895にはSTATピンがあって充電中/満充電でLEDを駆動できます。電源ON表示のLEDも合わせてBOMに追加しておいたほうがいいです。見た目的にも実用的にも。
+これらを全部まとめてBOMを最終更新してしまいますか？これが終わったらPhase 1は本当に完了でKiCadに進めます。LED付けよう
+起動LEDと充電中、充電完了用かな？
+一応actも付けようか?2월 19일ユーザーが複数のLED実装を検討していることを把握した。ユーザーが複数のLED実装を検討していることを把握した。The user wants to add LEDs: power LED, charging LED, charge complete LED, and activity (ACT) LED.完了いいですね。整理するとこの4つになります。
+LED制御元動作電源LEDTPS61023出力（5V）電源ON中点灯充電中LEDBQ25895 STATピン充電中に点滅充電完了LEDBQ25895 STATピン満充電で点灯ACT LEDCubie A7Z GPIOOS側で自由に制御
+BQ25895のSTATピンは1本でオープンドレイン出力なので、充電中と完了を2つのLEDで表現するには少し工夫が必要です。STATの出力パターンが充電中は点滅・完了はHigh固定なのでトランジスタで分けるか、RP2040がI2CでBQ25895のステータスレジスタを読んでLEDを制御する方法もあります。
+RP2040経由で制御する方が回路はシンプルになりますし、どうせBQ25895のI2C制御をどこかでやる必要があるので、RP2040に任せてしまうのが一番すっきりすると思います。
+この方針でいいですか？確定したらBOMにLED・抵抗・スイッチ類をまとめて追加します。いいと思う
+ただGPIOを使うとすると1個問題があると思うんだよね
+sbcはtype-cとかに横から挿すのにgpioだけ縦2월 19일GPIO接続の物理的制約を検討し解決策を模索した。GPIO接続の物理的制約を検討し解決策を模索した。The user is pointing out a physical constraint: the SBC (Cubie A7Z) connects via USB-C and Micro HDMI from the side (horizontal insertion into the sub-board slot), but the GPIO header is vertical (pins pointing up/down). This means accessing GPIO from the main keyboard PCB is tricky when the SBC is inserted sideways.
+This is a real problem - if the SBC is inserted vertically into a slot on the main PCB via its USB-C ports, the GPIO header would be facing up or in some awkward direction that's hard to connect to the main PCB.
+Solutions could include:
+
+Using a flat cable to connect GPIO pins
+Using pogo pins
+Routing GPIO through a connector on the sub-board
+Using RP2040 for all LED/power control via I2C to BQ25895, avoiding the need for SBC GPIO for those functions
+Reconsidering which signals actually need to come from SBC GPIO
+
+For the LED control via RP2040 (which is on the main PCB), that's already handled. The real constraint is the power EN signal from SBC GPIO to control TPS61023, and I need to figure out how to handle the ACT LED signal.
+The Cubie A7Z has a 40-pin GPIO header that sticks up vertically, so if the SBC is inserted sideways into a slot, I'll need either a right-angle connector or an FPC cable to reach those GPIO pins.もっと表示完了鋭いです。Cubie A7ZのGPIOヘッダーは40ピンが縦に生えているので、SBCをサブ基板に横刺しする構成だとGPIOだけ宙に浮いた状態になりますね。
+解決策としていくつか考えられます。
+案1：FPCケーブルで引き出す
+GPIOヘッダーにFPC変換基板を噛ませて、フレキで引き出す方法。ただコネクタが増えて厚みが出ます。
+案2：サブ基板にGPIOパッドを追加する
+サブ基板をSBCのUSB-C・HDMIだけでなくGPIOも引き出せる設計にして、カードエッジやスルーホールでメイン基板と接続する方法。設計は複雑になるがすっきりします。
+案3：SBC GPIOを使わない設計にする
+RP2040がI2CでBQ25895を制御してLEDも管理、電源ENラッチもRP2040が担当する形にすれば、SBCのGPIOに依存しなくて済みます。ACT LEDだけはSBC側になりますが、それも諦めてRP2040のステータスLEDで代替するという割り切りもできます。
+個人的には案3が一番シンプルで確実だと思います。どう思いますか？actledの状況をrp2040に送れば解決する？2월 19일RP2040経由でLED制御を委譲する解決策を検討した。RP2040経由でLED制御を委譲する解決策を検討した。The user is asking if sending the ACT LED signal from the SBC to the RP2040 would solve the GPIO problem. This is a good idea - instead of the SBC directly controlling an ACT LED, the SBC could send a signal to the RP2040 via I2C or UART, and the RP2040 would then control the LED. This avoids needing to route the SBC's GPIO physically to the LED.完了解決します。
+SBCからRP2040へはI2CかUARTで信号を送れます。どうせRP2040はUSBハブ経由でSBCと繋がっているので、USB HIDデバイスとして認識されたあとはUSB経由でも通信できます。
+つまりこういう構成になります。
+SBC → USB（既存の接続）→ RP2040 → ACT LED制御
+SBC → USB → RP2040 → 充電LED制御（I2C経由でBQ25895読む）
+SBC → USB → RP2040 → 電源ENラッチ制御
+全部RP2040に集約できるのでSBCのGPIOを物理的に引き出す必要が一切なくなります。RP2040のQMKファームウェアにカスタムコマンドを追加すればSBC側からコントロールできます。
+これで電源周りの設計方針が全部固まりましたね。BOMを最終更新してしまいましょうか？一旦必要部品の更新してhdmiのfpcケーブルまだ未定だし2월 19일BOM更新と未定部品の確認を検討した。BOM更新と未定部品の確認を検討した。The user wants to update the BOM with all the newly decided components, and also note that the HDMI FPC cable is still TBD. Let me read the XLSX skill first, then look at the current BOM file and update it.完了まずスキルとBOMを確認します。BOM部品を整理し、HDMIケーブルは未定のまま保持した。BOM部品を整理し、HDMIケーブルは未定のまま保持した。xlsxスキルを確認Now let me read the current BOM file.現在のBOMの内容を確認スクリプトNow I can see the current BOM. I need to add/update:
+
+Update existing entries:
+
+BQ25895RTWR (型番確定)
+TPS61023DRLR (追加 - 昇圧DC-DC)
+AP2112K-3.3TRG1 (LDOの型番確定)
+VL812 (USBハブ - 追加)
+W25Q32JVSSIQ (SPI Flash - 追加)
+RP2040 (型番はそのまま)
+バッテリー保護モジュールは削除（BQ25895に統合）
+
+
+新規追加:
+
+モーメンタリボタン（電源起動用）
+ロック式スイッチ（キルスイッチ）
+MOSFET/トランジスタ（ENラッチ用）
+電源LED（緑）
+充電中LED（赤/オレンジ）
+充電完了LED（緑）
+ACT LED
+
+
+
+次に、VL812用の25MHzクリスタルとTPS61023用の1µHインダクタを追加し、バッテリーコネクタはJST PHを使用する予定。FPCケーブルはまだ未定のままで、BOMのカテゴリを整理してUSBハブと電源セクションを分けるスクリプトを書いている。もっと表示BOM更新スクリプトupdate_bom.pyBOM更新スクリプトを実行スクリプト数式再計算スクリプト出力ディレクトリにコピースクリプトPresented file完了BOM更新しました。今回追加・変更した主な内容です。
+型番確定
+
+BQ25895RTWR / TPS61023DRLR / AP2112K-3.3TRG1 / VL812 / W25Q32JVSSIQ
+
+新規追加カテゴリ
+
+電源スイッチ（モーメンタリボタン・キルスイッチ・MOSFET）
+LED（電源/充電中/充電完了/ACT + 電流制限抵抗）
+
+USBハブカテゴリ整理
+
+VL812 / 25MHzクリスタル / W25Q32 / 27Ω抵抗
+
+TBDのまま残したもの
+
+FPCケーブル（ピン数・長さ未定）
+インダクタ2つ（計算後確定）
+アナログスティック最終選定
+キルスイッチの具体的な型番
+
+FPCはHDMIコントローラ基板を実際に手に入れてコネクタ仕様を確認してからですね。次はKiCadで電源回路から始めますか？Cyberdeck bomスプレッドシート · XLSX ダウンロード2 / 2件アナログスティックってどんなんがいい？
+薄いのがいいのはいいんだけど2월 19일比較検討して薄型オプションを特定した。比較検討して薄型オプションを特定した。The user wants to know about analog stick options for their cyberdeck. Let me search for suitable thin analog sticks.Alps RKJXK analog joystick thin low profile SMD specifications10件の結果RKJXK RKJXV RKJX2www.mouser.comRKJXK / RKJXV Series - Potentiometer joystick by ALPS Electric | DirectIndustrywww.directindustry.comRKJXK RKJXV RKJX2tech.alpsalpine.comRKJXV122400R Product information | RKJXV Series | Potentiometer Type | Multi Control Devices | Products Search | Products & Technologies | Alps Alpinetech.alpsalpine.comRKJXK RKJXV - RS Onlinedocs.rs-online.comAlps Alpine's Stick Controllers (ThumbPointer™) | Products & Technologies | Alps Alpinetech.alpsalpine.comALPS RKJXV1224 Variants Teardown - iFixitwww.ifixit.comOnlinecomponentswww.onlinecomponents.comRKJXK1210002 | Alps Alpine 2-Axis Joystick Switch Lever, Momentary | RSuk.rs-online.comRKJXT1F42001 Alps Alpine | Switches | DigiKeywww.digikey.comPSP analog stick replacement module dimensions height SMD low profile cyberdeck10件の結果ZedLabz replacement 3D analog joystick button module for Sony PSP 1000 series console - blackwww.zedlabz.comAmazon.com: Replacement Analog Stick Module for PSP 2000/Slim (White) : Video Gameswww.amazon.comReplacement 3D Analog Stick For Sony PSP 3000 | ZedLabzwww.zedlabz.comPSP 2-Axis Analog Thumb Joystick : Adafruit Industries, Unique & fun DIY electronics and kitswww.adafruit.comReplacement 3D Analog Stick For Sony PSP 2000 | ZedLabzwww.zedlabz.comPSP 300x Analog Stick Replacement - iFixit Repair Guidewww.ifixit.comPSP Slim PSP-2001 / PSP-2000 Joystick Analog Stick Assembly Replacementstore.richspsxparts.comAmazon.com: CSD PSP 1000 Joystick Analog Stick Assembly Replacementus.amazon.comAmazon.com: Psp Analog Stickwww.amazon.comAmazon.com: Slim PSP 2000 Analog Stick Replacement : Video Gameswww.amazon.comAlps RKJXK dimensions height mm datasheet10件の結果RKJXK RKJXV RKJX2www.mouser.com10K Ohm Multi Directional Switch Potentiometer Alps® RKJXK122400Ywww.westfloridacomponents.comRKJXK RKJXV - RS Onlinedocs.rs-online.comRKJXK/RKJXV Series - Basic informationwww.alps.comRKJXK Datasheet(PDF) - ALPS ELECTRIC CO.,LTD.www.alldatasheet.comRKJXK1210002 Product information | RKJXK Series | Potentiometer Type | Multi Control Devices | Products Search | Products & Technologies | Alps Alpinetech.alpsalpine.comRKJXK122400Y Product information | RKJXK Series | Potentiometer Type | Multi Control Devices | Products Search | Products & Technologies | Alps Alpinetech.alpsalpine.comRKJXP1224002 ALPS スイッチ - Jotrin Electronicswww.jotrin.jpRKJXK / RKJXV Series - Potentiometer joystick by ALPS Electric | DirectIndustrywww.directindustry.comRKJX Datasheet, PDF - Alldatasheetwww.alldatasheet.comNow I have enough info to compare the options. Let me summarize:
+
+RKJXK: 20.7×25.4×12.9mm tall - too thick
+RKJXV: 17.8×21.3×11.2mm tall - still quite thick
+RKJXY: 19.6×18.1×4.9mm tall - very low profile!
+RKJXU: 18.6×24.3×5.2mm tall - also low profile
+
+PSP analog stick - typically around 4-5mm height too, very flat
+The RKJXY and RKJXU are my best bets for a thin profile, though the PSP stick is similarly flat but it's a mechanical assembly rather than an SMD component I can mount directly.もっと表示完了データシートから比較するとAlpsのシリーズでこんな感じになります。
+モデルサイズ (W×D×H)特徴RKJXK20.7×25.4×12.9mm標準品 / PS/Xboxコントローラと同型 / 厚すぎRKJXV17.8×21.3×11.2mm少し小さい / まだ厚いRKJXY19.6×18.1×4.9mm超薄型 / クラムシェル向きRKJXU18.6×24.3×5.2mm薄型 / センタープッシュなしPSP互換品~15×15×4mm激安・入手容易 / ただし品質バラつきあり
+クラムシェルの厚みを考えるとRKJXYかPSP互換が現実的です。
+RKJXYは品質が高くADC出力もきれいですが、秋月や国内では入手しにくくMouserかDigiKeyで$3〜5程度。PSP互換は1個$1以下でAliExpressで大量に売ってますが、センタリング精度がばらつくことがあります。
+このCyberdeckはゲームコントローラとして本格的に使いますか？それともカーソル操作程度の用途ですか？用途次第でどちらを勧めるか変わります。カーソル用2월 19일カーソル用途に適した選択肢を検討した。カーソル用途に適した選択肢を検討した。カーソル用途ならPSP互換品で十分ですね。完了だったらPSP互換品で十分です。
+カーソル操作ならセンタリング精度がそこまでシビアじゃないので、品質のばらつきも実用上ほぼ問題になりません。$1以下で買えてAliExpressで即入手できる、サイズも約4mmと最薄、これ以上の理由はないです。
+BOMをPSP互換品に確定で更新しておきます。
+これでTBD残りはこの3つだけになりました。
+残TBD解決タイミングFPCコネクタ・ケーブルHDMIコントローラ基板入手後インダクタ2つ回路設計中に計算して確定キルスイッチ型番KiCadのフットプリント決める時
+インダクタは回路設計中に自然に決まるので、実質FPCだけが外部依存のTBDです。HDMIコントローラ基板を早めに買っておくとフットプリント設計が詰まらなくていいですね。
+KiCadに進みますか？hdmiのfpcって別に20pinのfpcコネクターで普通のhdmiとピッチ幅が同じものなら大丈夫じゃないの?2월 19일標準的な20ピンFPCコネクターの実用性を検証した。標準的な20ピンFPCコネクターの実用性を検証した。The user is asking about whether a standard 20-pin FPC connector with the same pitch as HDMI would work for the HDMI signal connection. Let me think about this.
+HDMI has 19 pins (Type A) or other configurations. The user is suggesting using a 20-pin FPC connector with matching pitch instead of worrying about the specific HDMI controller board's connector specs.
+Actually, the question is about whether they can just use a generic 20-pin FPC connector that matches HDMI's pin pitch (0.5mm pitch is common for FPC). The idea is to route the HDMI signals through an FPC cable rather than waiting to see what connector the HDMI controller board uses.
+So the real insight here is that since HDMI Type A uses 19 pins and standard FPC connectors come in 20-pin configurations with 0.5mm pitch, they could define the FPC connector now without needing to wait for the controller board specifications—the extra pin would just be unused or could serve as a ground reference.もっと表示完了その通りです、待つ必要ないです。
+HDMI Type Aは19ピンなので20ピンFPC（0.5mmピッチ）で普通に対応できます。20ピン目はGNDかシールドに使えばいい。
+ということでFPCも今確定できます。
+部品仕様FPCコネクタ20ピン / 0.5mmピッチ / 底接触 or 上接触FPCケーブル20ピン / 0.5mmピッチ / 長さは筐体設計後に決める
+コネクタの向き（上接触・底接触）だけ、基板レイアウト時にケーブルの取り回しを考えて決めれば今すぐ型番まで確定できます。
+これでTBDが実質インダクタ2つとキルスイッチ型番だけになりました。どちらも回路設計中に決まるので、Phase 1完全完了です。
+KiCad始めますか？いやコントローラー基板はモニター側にあるから電源も供給しないと2월 19일FPC ケーブルに電源供給ピンを追加する必要性を認識した。FPC ケーブルに電源供給ピンを追加する必要性を認識した。The user is pointing out that the HDMI controller board is on the display (lid) side, so the FPC cable needs to carry both the HDMI signal AND power (5V). So the FPC needs more pins than just the 19 HDMI pins.
+HDMI is 19 pins. Plus power lines (5V + GND). So we need more pins - probably something like 30-pin FPC to accommodate HDMI 19 pins + power/ground lines.
+Actually, let me think about this more carefully. The HDMI controller board sits in the lid with the display. It needs:
+
+HDMI signal from the main PCB (19 pins)
+5V power supply
+
+So the FPC cable connecting the main board to the lid needs to carry both the HDMI signals and power. A standard 20-pin HDMI-only FPC won't cut it—I need to account for the additional power and ground lines, which means stepping up to something like a 30-pin FPC to fit everything.もっと表示完了確かに、HDMIコントローラ基板はリッド側（ディスプレイと一緒）なので5V電源もFPCで送る必要があります。
+19ピン（HDMI信号）+ 電源・GND用のピンが必要になるので、20ピンでは足りないです。
+構成を整理するとこうなります。
+用途ピン数HDMI信号（19本）195V電源（複数並列推奨）2〜3GND（複数並列推奨）2〜3合計23〜25ピン
+電源とGNDは電流容量を稼ぐために複数ピン並列にするのが定石です。FPCの1ピンあたり0.5A程度が目安なので、HDMIコントローラ基板の消費電流次第ですが2〜3ピンずつあれば安心です。
+なので30ピン0.5mmピッチFPCにしておくと余裕を持って配線できます。余った数ピンは予備やGND強化に使えばいい。
+30ピンに変更してBOM確定しますか？でもピン数余らせたとこでコントローラー基板のHdmiコネクターを外して付けるわけだからそこから空中配線になっちゃうけど2월 19일コネクター除去時のピン数制約を認識した。コネクター除去時のピン数制約を認識した。The user is pointing out that they need to remove the HDMI connector from the controller board and wire directly to the HDMI pads. So the FPC connector needs to match exactly what's on the controller board's HDMI footprint - they can't just pick an arbitrary pin count.
+The HDMI connector on the controller board has specific pads. They'll solder wires/FPC directly to those pads. So the pin count needs to match the actual HDMI connector pads on the controller board.
+HDMI Type A has 19 pins. The controller board's HDMI connector footprint will have 19 signal pads + shield/mounting. So they need to know the exact pad layout of that specific controller board.
+So I either need to get the controller board itself to measure the pad layout, or track down the schematic and datasheet for that specific model - the pin configuration is completely determined by whatever's already on that board, not something I can choose freely.もっと表示完了そうですね、完全に見落としてました。
+コントローラ基板のHDMIコネクタを外して直接ハンダ付けする形なので、ピン数はそのコネクタのフットプリントに完全依存です。勝手に30ピンとか決められないです。
+結局HDMIコントローラ基板を実際に入手して確認する必要があります。確認すべきことはこの2点です。
+確認項目内容HDMIコネクタのフットプリントピン数・ピッチ・配置基板の電源入力5Vどこから入れるか・消費電流
+FPCのTBDは継続ということで、やはりHDMIコントローラ基板の入手が先決ですね。さっきの「FPC確定できる」は早計でした。
+AliExpressでLS055R1SX04対応のHDMIコントローラ基板を先に買っておいて、手元に来てから確認する流れが確実です。それ以外のPhase 1項目は全部確定してるのでKiCadの電源回路から先に進めることはできますが、どうしますか？いや30pinのやつを19pin分hdmi余った分をコネクタに直接半田付けして5vラインまで持っていけば無理ではないと思うけど2월 19일30ピンコネクタで直接半田付けする実現性を認めた。30ピンコネクタで直接半田付けする実現性を認めた。The user is suggesting using a 30-pin FPC connector where:
+
+19 pins go to HDMI signals
+Remaining pins (11 pins) go to power/GND directly soldered to the HDMI controller board's connector pads
+
+This makes sense - you remove the HDMI connector from the controller board, solder wires directly to the pads, and on the FPC side you have 30 pins where 19 are HDMI signals and the rest are power/GND. The "air wiring" concern is resolved because you're soldering to the connector footprint pads on the controller board.
+That's actually a clean solution.
+So the HDMI connector footprint already has all the pads I need to solder to - that gives me the exact landing points for the wires.もっと表示完了その通りです、全然いけます。
+コントローラ基板のHDMIコネクタを外した後のフットプリントのパッドに直接ハンダ付けすれば、30ピンFPCで全部賄えます。
+ピン割り当てピン数HDMI信号195V電源（並列）3〜4GND（並列）残り
+これなら基板入手前でも確定できます。FPCは30ピン 0.5mmピッチで確定ですね。
+さっき自分で言い出した「空中配線になる」という懸念は的外れでした、すみません。
+これでPhase 1本当に完了です。BOM更新してKiCad行きますか？他に検討スべきことはある？
+機能の追加とかはない？かなssカードを読むとか2월 19일既存機能を評価し、追加可能な拡張オプションを検討した。既存機能を評価し、追加可能な拡張オプションを検討した。The user is asking if there are other things to consider or features to add, like an SD card reader. Let me think about what's missing or could be added to this cyberdeck build.
+Current components:
+
+Cubie A7Z SBC (has MicroSD slot and PCIe)
+5.5" display
+Custom keyboard with RP2040
+USB hub VL812
+Battery + charging
+
+Things to consider:
+
+SD card - Cubie A7Z already has a MicroSD slot onboard, so no need for external one unless they want full-size SD
+Audio - speaker/headphone jack?
+The Cubie A7Z already has WiFi 6 and Bluetooth 5.4 built in, so that's covered
+Could add a camera module if needed
+An RTC battery backup would help maintain time when powered off
+Need to think about how accessible the physical ports will be in the final form factor
+Thermal management might be important—the Cubie A7Z could benefit from a heatsink depending on workload
+The PCIe slot could be used for NVMe storage expansion if they want more capacity
+もっと表示完了SDカードはCubie A7Z本体にMicroSDスロットが既にあるので追加不要です。
+他に検討すべき点を整理するとこんな感じです。
+ハード的に抜けてるかもしれないもの
+項目状況ヒートシンクCubie A7Zは高負荷時に熱くなる報告あり / 3Dプリント筐体だと逃げ場がないオーディオスピーカーorイヤホンジャック未検討 / Cubie A7ZにI2SはあるがHDMIオーディオで代替可能PCIe (NVMe)Cubie A7ZにPCIe Gen3 1-lane搭載 / M.2スロット追加すればSSD積めるRTC電池Cubie A7Zに外部RTC用パッドがあれば時刻保持できる
+個人的に一番気になるのは熱問題です。 密閉された3Dプリント筐体にCubie A7Z + バッテリーを詰め込む構成なので、筐体設計の段階でベントホールやヒートシンクの逃げをどう設けるか考えておかないと後で詰みます。
+NVMeは夢が広がりますが筐体サイズ的にM.2 2230なら入る可能性があります。
+この中で気になるものありますか？nvme気になるけど筐体に収まるとは思えないんだよねぇ
+オーディオは完全に忘れてた
+本体スピーカとイヤホンジャックが欲しいかな？
+ヒートシンクもどうするか悩みどころ2월 19일ハードウェア制約を検討し、オーディオ機能と冷却方式を優先順位付けした。ハードウェア制約を検討し、オーディオ機能と冷却方式を優先順位付けした。Let me address these three topics: NVMe (skip due to size), audio (speaker + headphone jack), and heatsink.完了NVMeは139×81mmの筐体に入れるのはかなり厳しいので現実的に諦めが正解です。
+オーディオとヒートシンクについて整理します。
+オーディオ
+Cubie A7ZにI2Sが出ているので小さなオーディオDACを追加する形になります。
+部品候補備考オーディオDACMAX98357AI2S入力 / Class D アンプ内蔵 / スピーカー直駆動可 / 超小型スピーカー8Ω 0.5W 小型スピーカー筐体サイズ的に直径15〜20mm程度イヤホンジャック3.5mm TRRS SMTジャック挿入時にスピーカーをミュートする回路も必要
+MAX98357Aが優秀でI2Sを直接受けてスピーカーを駆動できるので部品が少なく済みます。イヤホン時はジャックのスイッチ端子でスピーカーをカットする構成が定番です。
+ヒートシンク
+選択肢は大きく3つです。
+方法メリットデメリット銅板 + 筐体ベント穴シンプル / 薄い放熱性能は限定的サーマルパッド + 筐体天井に密着筐体自体をヒートシンクにできる3Dプリント素材は熱伝導が悪い小型ファン確実に冷える音・厚み・消費電力の問題
+個人的には筐体底面のCubie A7Zの真上あたりにベント穴のパターンを設けつつ、薄い銅板ヒートシンクを貼る組み合わせが現実的だと思います。ファンは139×81mmだと厚みが厳しいです。
+オーディオはBOMへの追加が必要になりますが、進めますか？オーディオi2sだとgpioから拾うってこと？
+それともrp2040から？2월 19일Weighed I2S audio routing options and trade-offs between componentsWeighed I2S audio routing options and trade-offs between componentsThe user is asking about where to get I2S from - GPIO of Cubie A7Z or from RP2040.
+Cubie A7Z (Allwinner A733) has GPIO with I2S capability. RP2040 also has I2S PIO capability.
+Let me think about this:
+
+From Cubie A7Z GPIO - direct I2S from the SBC, clean audio path, but GPIO is physically awkward (the vertical GPIO header problem we discussed earlier)
+From RP2040 - RP2040 can do I2S via PIO, but RP2040 is getting quite loaded already (keyboard matrix, analog stick ADC, LED control, BQ25895 I2C, USB HID)
+The GPIO physical constraint we solved with USB routing only applies to control signals, not hardware protocols like I2S that require actual physical pins. The real issue is whether using the Cubie's GPIO directly makes sense versus burdening the already-stretched RP2040, which would also need to somehow receive audio data from the SBC in the first place.
+もっと表示完了Cubie A7Z GPIOからが正解です。
+理由はシンプルで、RP2040はPIOでI2Sを出せますがそもそもSBCから音声データをRP2040に送る手段がないです。USB Audio Classで送れなくはないですが無駄に複雑になります。
+ただここでまたGPIOの物理問題が復活します。
+I2Sに必要なピンはこの3〜4本です。
+信号用途BCLKビットクロックLRCLK左右チャンネル同期SDINデータMCLKマスタークロック（MAX98357Aは不要）
+USB経由で制御信号を逃がした時と違って、I2Sはリアルタイム音声なのでUSBに乗せるのは現実的ではないです。
+なので選択肢は2つです。
+案1：サブ基板にI2Sピンも引き出す
+USB-CとHDMIに加えてGPIOの数ピンもサブ基板経由で引き出す設計にする。
+案2：オーディオを諦めてイヤホンジャックのみHDMIオーディオで代替
+HDMI経由でHDMIコントローラ基板からオーディオを取り出す方法もありますが、そのコントローラ基板にオーディオ出力があるかどうか次第です。
+案1が現実的だと思いますが、どうしますか？コントローラーにオーディオ機能は無いんだよなぁ
+gpioをサブ基板から引き出すーうーん
+そもそもジャンパワイヤーはサブでもサブじゃなくてもいるくない？2월 19일ダイレクト配線の簡潔性を認識し、サブ基板設計の複雑さを排除した。ダイレクト配線の簡潔性を認識し、サブ基板設計の複雑さを排除した。The user is pointing out that whether they use a sub-board or not, they'll need some kind of wire connection to the GPIO pins of the Cubie A7Z anyway. So why bother with the complexity of routing through the sub-board?
+They're essentially saying - if we need jumper wires regardless, why not just directly wire from the GPIO header on the Cubie A7Z to the audio DAC on the main PCB with a few wires? It's simpler than redesigning the sub-board to include GPIO routing.
+That's a valid point. The Cubie A7Z GPIO header is a 40-pin header that sticks up vertically.
+I could just run a few jumper wires or a small ribbon cable straight from that GPIO header to the audio DAC on the main board, skipping the sub-board routing entirely.もっと表示完了その通りです、完全に正しいです。
+サブ基板を複雑にするより、GPIO 3〜4ピンだけジャンパワイヤーで直接MAX98357Aに繋げばいいだけです。むしろその方がシンプルです。
+GPIOヘッダーは40ピン全部使うわけじゃないので、I2S用の3ピンだけ細いワイヤーで引き出してメイン基板上のMAX98357Aに落とす。筐体設計時にその数本のワイヤーの取り回しだけ考慮すればいい。
+ということでオーディオ構成はこれで確定です。
+部品接続方法MAX98357Aメイン基板に実装 / Cubie A7Z GPIOからジャンパ3本スピーカー15〜20mm小型 / 筐体リッドかボトムに固定3.5mmジャックメイン基板に実装 / ジャック挿入でスピーカーミュート
+BOMにオーディオ関連を追加してヒートシンクどうするか決めたらPhase 1完全完了ですね。ヒートシンクどうします？オーディオ追加して2월 19일BOMにオーディオコンポーネントを追加することを決定した。BOMにオーディオコンポーネントを追加することを決定した。The user wants to update the BOM to add audio components. Let me do that.現在のBOM構造確認スクリプトオーディオ部品をBOMに追加スクリプト出力にコピースクリプトPresented file完了追加しました。オーディオカテゴリで4品目です。
+
+MAX98357AEWL（I2S DAC + アンプ / JLCPCB PCBA）
+小型スピーカー 8Ω 0.5W
+3.5mm TRRSジャック（スイッチ端子付き）
+デカップリングコンデンサ
+
+Cubie A7Z GPIOからジャンパ3本（BCLK / LRCLK / SDIN）でMAX98357Aに繋ぐ形で備考に記載してあります。
+残りはヒートシンクだけですね。どうします？Cyberdeck bomスプレッドシート · XLSX ダウンロードヒートシンクなんだけどまずキーボードsbcの間に隙間があるじゃんそこに小さいファンを積むスペースがあるのかっていうのだよね2월 19일キーボードとSBC間のスペースにファン搭載可能性を検討した。キーボードとSBC間のスペースにファン搭載可能性を検討した。The user is asking about whether there's space between the keyboard PCB and the SBC to fit a small fan. Let me think about the physical dimensions.
+The enclosure bottom is 139×81mm. The SBC (Cubie A7Z) is 65×30mm. The keyboard PCB sits on top with standoffs. The question is what's the gap between the keyboard PCB and the SBC/bottom of the enclosure.
+The standoffs are M2×5mm or 6mm, so the gap between the keyboard PCB and the bottom is about 5-6mm. The SBC itself has some height too. A typical small fan (like a 30mm or 40mm fan) is about 7-10mm thick.
+So the clearance is pretty tight—a standard small fan would likely be too thick to fit in that gap, though I could potentially look at ultra-thin options or consider alternative cooling approaches.もっと表示小型ファン 5V 30mm 厚さ 3mm 4mm thin fan10件の結果"30mm ファン 5v" 【通販モノタロウ】 最短即日出荷www.monotaro.com【楽天市場】ファン 5v 30mmの通販search.rakuten.co.jpTITAN 30mm x 30mm x 7mm DC Cooling Fan | Ultra-Thin Micro Cooling Solution | TFD-3007xxxx Serieswww.titan-cd.comAmazon.co.jp: PENGLIN 2PCS 3010 Cooling Fan 5V Small Fan 30mm X30mm X 10mm 3D Printer Parts Cooling DC Fan Silent Quiet Hydraulic Bearing Fan Mini Blower : Computerswww.amazon.co.jpAmazon.com: Evercool 30mm x 10mm 5 volt fan with 3 pin connecter # EC3010M05CA : Electronicswww.amazon.com30mm x 30mm x 10mm 5V ~ 12V DC Fan | Aluminum Extruded Cooler Manufacturer | EVERCOOLwww.evercool.com.tw"dcファン 12v 30mm" 【通販モノタロウ】 最短即日出荷www.monotaro.com30mm（PC用ファン、クーラー）の商品一覧｜PCパーツ | スマホ、タブレット、パソコン 通販 - Yahoo!ショッピングshopping.yahoo.co.jpDCファン 5V 30×30×7．5mmakizukidenshi.comTITAN 30mm x 30mm x 10mm DC Cooling Fan - High Performance Thermal Solution for Electronic Deviceswww.titan-cd.comThe user is asking about whether there's space between the keyboard PCB and the SBC for a small fan. Let me think about the physical layout:
+
+Enclosure bottom: 139×81mm
+SBC (Cubie A7Z): 65×30mm
+Keyboard PCB sits on standoffs above the SBC/battery layer
+Standoffs are M2×5mm or 6mm - so the gap between keyboard PCB bottom and the components below is about 5-6mm
+
+Available fans:
+
+30×30×7.5mm (秋月電子) - 7.5mm thick, might be too tight
+30×30×7mm (3D printer fans) - 7mm thick
+30×30×6mm - 6mm, tight but maybe possible
+16×16×4mm thin fan - very thin
+
+The real constraint is that the SBC has components protruding from its surface, so even though the standoffs give 5-6mm of nominal clearance, the actual usable space above the SBC is probably less. I need to account for the height of those components when figuring out if a fan would actually fit in that gap. thinking more carefully: the standoffs support the keyboard PCB. Below that is the SBC mounted to the bottom of the enclosure. The Cubie A7Z is 65×30mm and has components on top (connectors, etc.) which could be 3-5mm tall. So the usable airspace might only be 2-3mm in some areas.
+A 30×30×7mm fan wouldn't fit in 5-6mm of space if you also need to account for the SBC component height. But there are very thin fans:
+
+The 16×16×4mm fan from the search results - that's very thin and small
+30×30×6mm or 7mm might be too thick
+
+Actually, the key question is: what's the total height budget? The standoffs are 5-6mm. The keyboard PCB itself has components on the bottom too (the switches are on top, but there might be some components on the bottom). And the SBC has connectors/chips on top.
+So realistically, fitting a fan in this space is very tight. The real constraint is knowing the exact component heights on both the keyboard PCB and SBC—without those measurements, even the thinnest 30×30×6mm fans might not work, and I'd probably need to consider alternatives like a side-mounted fan in the enclosure wall or just relying on passive cooling with a heatsink and ventilation holes.もっと表示完了具体的な数字で考えてみます。
+現状のスタンドオフがM2×5〜6mmなので、キーボードPCB裏面とその下の空間は約5〜6mmです。ただしCubie A7Zの上面にはコネクタや部品が出っ張っているので、実質的な空き高さは2〜3mm程度しかないと思われます。
+市販の最薄ファンがこのくらいです。
+サイズ最薄品現実的か30×30mm7mm厚入らない16×16mm4mm厚ギリギリだが風量が心もとない
+結論としてキーボードとSBCの間にファンを入れるのはかなり無理があります。
+現実的な代替案はこの2つです。
+案1：筐体側面にベント穴 + 薄型ヒートシンク
+SBCの上に薄い銅板ヒートシンムを貼って、筐体底面や側面のスリットから自然対流で逃がす。ファンなし。
+案2：スタンドオフを10〜12mmに変更してファンを入れる
+筐体が厚くなる代償があるが30×30×7mmファンが入る。Cubie A7Zが高負荷用途なら検討の余地あり。
+カーソル操作やターミナル作業がメインなら案1で十分だと思いますが、どういう用途で使う予定ですか？できればスペックが高いほうがcyberdeckとしていいんだよねぇ
+ロマンプロジェクトだからさ2월 19일ロマンを重視した冷却システム構成を検討した。ロマンを重視した冷却システム構成を検討した。The user wants to maximize the cyberdeck's capabilities for the "romance" factor. So they'd prefer active cooling with a fan. Let me suggest going with taller standoffs to accommodate a fan.完了ならスタンドオフを10〜12mmに変更してファン積む方向で行きましょう。ロマンプロジェクトで冷却ケチって熱でSBCが落ちるのが一番カッコ悪いです。
+筐体が数mm厚くなりますが、クラムシェルのボトム側だけなのでリッド側は影響なし。見た目的にも底面スリット＋ファンの方がサイバーデッキっぽくて良くないですか。
+構成はこうなります。
+部品変更内容スタンドオフM2×5mm → M2×10〜12mmに変更ファン30×30×7mm / 5V / 秋月やAliExpressで入手可ヒートシンクCubie A7Z上面に薄型銅板ヒートシンク + サーマルパッド筐体底面にスリット穴を設ける
+ファンの制御はRP2040からPWMで回転数制御できます。高負荷時だけ回す設定にすればバッテリーの節約にもなります。BQ25895のI2Cでバッテリー温度も読めるので温度に応じてファン制御するのもありです。
+BOMをこの内容で更新してPhase 1完全完了にしますか？うーん分厚くはしたくないんだよなぁ
+一旦家帰ったら3DCadでどのくらいのサイズまでならはいるかやってみる2월 19일ユーザーが3DCADで寸法確認してから決定する意図を理解した。ユーザーが3DCADで寸法確認してから決定する意図を理解した。The user wants to check the 3D CAD first before deciding on the fan/cooling solution. Makes sense - they want to see actual dimensions before committing.完了それが一番確実ですね。実際にモデル組んでみないと空き寸法は分からないので。
+確認してほしいポイントはこのあたりです。
+確認項目内容キーボードPCB裏面〜SBC上面の空き高さコネクタの出っ張り込みで実測SBCの真上のスペースバッテリーとの干渉確認筐体底面〜SBC間ヒートシンク単体でも入るか側面スリットの位置吸排気の流れが作れるか
+結果次第で3つのシナリオが考えられます。
+
+7mm以上の空きがある → ファン搭載確定
+3〜6mm程度 → ヒートシンク＋ベントホールのパッシブ冷却
+ほぼ隙間なし → SBC直上の筐体天井をヒートシンク代わりにする構造検討
+
+冷却方針が決まり次第BOMを最終確定してPhase 1完了にしましょう。CAD終わったら結果教えてください。ヒートパイプとかでナントカカントカできたりせんかなぁ2월 19일ヒートパイプの入手可能性を調査した。ヒートパイプの入手可能性を調査した。The user is asking about heat pipes as a cooling solution for the tight space constraints.ultra thin heat pipe 3mm flat copper DIY embedded device cooling10件の結果Amazon.com: Flat Heat Pipe 1Pcs 3mm x 8mm x 270mm GPU CPU Backplate Copper Heatsink Pipe, to Cool Heat Sink Laptop PC Vram Ram as Thin Fanless Passive Thermal Cooling Tube from Bopaodao : Electronicswww.amazon.comAmazon.com: Flat Heat Pipe 1Pcs 3mm x 8mm x 320mm GPU CPU Backplate Copper Heatsink Pipe, to Cool Heat Sink Laptop PC Vram Ram as Thin Fanless Passive Thermal Cooling Tube from Bopaodao : Electronicswww.amazon.comAmazon.com: Flat Heat Pipe 1Pcs 3mm x 8mm x 400mm GPU CPU Backplate Copper Heatsink Pipe, to Cool Heat Sink Laptop PC Vram Ram as Thin Fanless Passive Thermal Cooling Tube from Bopaodao : Electronicswww.amazon.comAmazon.com: Flat Heat Pipe 1Pcs 3mm x 6mm x 250mm GPU CPU Backplate Copper Heatsink Pipe, to Cool Heat Sink Laptop PC Vram Ram as Thin Fanless Passive Thermal Cooling Tube from Bopaodao : Electronicswww.amazon.comAmazon.com: Flat Heat Pipe 1Pcs 3mm x 6mm x 170mm GPU CPU Backplate Copper Heatsink Pipe, to Cool Heat Sink Laptop PC Vram Ram as Thin Fanless Passive Thermal Cooling Tube from Bopaodao : Electronicswww.amazon.comAmazon.com: Flat Heat Pipe 1Pcs 3mm x 8mm x 380mm GPU CPU Backplate Copper Heatsink Pipe, to Cool Heat Sink Laptop PC Vram Ram as Thin Fanless Passive Thermal Cooling Tube from Bopaodao : Electronicswww.amazon.comUltra Thin Heat Pipes, A Two Phase Heat Transfer Devicewww.baknorthermal.comOperating characteristics of a new ultra-thin loop heat pipe - ScienceDirectwww.sciencedirect.comCustom Heat Pipes | MyHeatSinksmyheatsinks.comDevelopment of a 0.3 mm ultra-thin loop heat pipe for 10 W heat dissipation in thin mobile devices - ScienceDirectwww.sciencedirect.comThe search results show that flat heat pipes as thin as 3mm are commercially available on Amazon. This is very relevant for the cyberdeck project.完了全然ありです。しかも市販品で普通に買えます。
+Amazonで売ってるフラットヒートパイプが厚さ3mm / 幅6〜8mmで純銅製のものがあります。これをCubie A7ZのSoCに密着させて筐体の側面や底面まで引き回せば、ファンなしのパッシブ冷却が成立します。
+構成イメージはこうです。
+Cubie A7Z SoC
+    ↓ サーマルパッド
+フラットヒートパイプ（3mm厚）
+    ↓ 筐体側面や底面に沿って引き回す
+筐体壁面（放熱フィン or スリット）
+    ↓ 自然対流で放熱
+メリットとデメリットを整理するとこうなります。
+内容メリット完全ファンレス / 静音 / 厚み3mmで収まる / 曲げ加工も可能デメリット熱輸送量に限界あり（10〜20W程度） / 筐体設計と連動が必要
+Cubie A7Zの消費電力は高負荷でも5〜8W程度なので容量的には十分です。
+CADで空き寸法確認するついでにヒートパイプの取り回しルートも検討してみてください。 筐体底面か側面にヒートパイプが触れる面積を確保できるかが鍵です。これが決まれば冷却方針も確定できます。ヒートパイプって簡単に曲げられる？2월 19일ヒートパイプの曲げやすさについて検討した。ヒートパイプの曲げやすさについて検討した。The user is asking if heat pipes can be bent easily.フラットヒートパイプ 曲げ加工 DIY 折れ 注意点10件の結果パイプの曲げ方（プラ アクリル ABS 塩ビなど） - 熱帯魚工作箱blog.goo.ne.jpDIYに活かす！パイプ曲げの実践テクニック集 | 金属加工会社の株式会社金具屋kanaguyagroup.co.jp鉄やステンレスの角パイプの曲げ方法とそれぞれの特徴を紹介します。www.higuchikoukan.co.jpヒートパイプ ③よくあるご質問 | 下西技研工業 SIMOTEC(サイモテック)www.simotec.co.jpステンレスパイプの曲げ加工の方法と注意点 | 金属・樹脂加工の見積・依頼はJig Match(ジグマッチ)｜部品製作受発注マッチングプラットフォームts-taisei.co.jpヒートパイプの作り方 【自作方法】tsukuru-hito.comヒートパイプのよくある質問｜株式会社 エヌ・テック（古河電工グループ）www.ntec-fec.comJP4238463B2 - ヒートパイプの加工方法 - Google Patentspatents.google.comDIY愛好者必見！簡単パイプ曲げテクニック | 金属加工会社の株式会社金具屋kanaguyagroup.co.jpパイプの曲げ加工の方法は？曲げRや展開寸法計算を求める際の注意点 | 鋼管パイプ加工の総合技術商社 宮脇鋼管株式会社www.miyawakikoukan.com完了曲げること自体は可能ですが、正直DIYだとリスクがあります。
+メーカーのFAQによると「曲げ・扁平加工は可能だが最大熱輸送量は小さくなる」とのことで、ノートPCなど量産品では専用設備で加工しています。
+DIYで曲げる場合の現実はこうです。
+項目内容緩やかなカーブ（R20mm以上）手でじわっと曲げれば問題なくできる直角に近い鋭角（R5mm以下）内部のウィック構造が潰れて機能不全になるリスクが高いフラット型3mm品もともと扁平なので曲げ方向によっては折れやすい
+今回の筐体で必要な取り回しを考えると、SBCの真上から筐体底面か側面に向けて緩やかにL字かU字で引き回す形になると思います。それくらいのカーブなら手曲げでも十分いけます。
+ただ失敗するとヒートパイプが使い物にならなくなるので、Amazonで2〜3本買って1本は練習用にするのが現実的です。$2〜3程度なので試行錯誤できる価格です。
+結局CADで取り回しルートを確認してからでないと曲げ角度が決まらないので、冷却方針はやはりCAD作業後に確定ですね。ヒートパイプ単体じゃなくてまぁスペースがあったらだけどm.2ssdようのヒートシンクとか3dプリンター等のちっちゃいのつけれたらいい感じかな？2월 19일ヒートパイプと小型ヒートシンク組み合わせの冷却効果を検討した。ヒートパイプと小型ヒートシンク組み合わせの冷却効果を検討した。The user is asking about combining the heat pipe with small heatsinks like M.2 SSD heatsinks or small 3D printer heatsinks to improve cooling performance.完了いいアイデアです。ヒートパイプ単体だと放熱面積が小さいので、端部に小さいヒートシンクを組み合わせるのが定番構成です。
+ノートPCの冷却がまさにこの構造です。
+SoC → サーマルパッド → ヒートパイプ → ヒートシンク（放熱フィン）
+候補として考えられるのはこのあたりです。
+種類サイズ感入手性M.2 SSD用ヒートシンク22×80mm / 厚さ3〜5mmAmazon / AliExpress3Dプリンター用（E3D等）小型アルミフィンAliExpressラズパイ用小型ヒートシンク14×14mm程度秋月 / AliExpress銅製薄型ヒートシンク任意サイズAliExpress
+M.2用ヒートシンクが薄くてフィン面積も大きいので一番使いやすいと思います。筐体の底面スリットに向けて配置できればかなり効率よく放熱できます。
+取り付けはヒートパイプ端部にサーマルパッドかサーマルグリスで圧着するだけなので加工も簡単です。
+やはりCADでスペース確認してから選定という流れになりますが、方針としてはヒートパイプ + M.2ヒートシンク + 底面スリットの組み合わせで進める感じでよさそうですね。冷却方針これで確定として、CAD終わったらサイズ詰めましょうか。ヒートパイプは一旦いいとしてあと決まってないことは何？2월 19일未決事項を整理し、回路設計で自動解決される項目を分類した。未決事項を整理し、回路設計で自動解決される項目を分類した。Let me think about what's still undecided based on the conversation so far.
+TBD items remaining:
+
+インダクタ2つ（BQ25895用・TPS61023用）→ 回路設計中に計算して確定
+キルスイッチの具体的な型番
+FPCコネクタ・ケーブル（ピン数は30ピンで確定、長さは筐体設計後）
+冷却方針（ヒートパイプ + M.2ヒートシンク方針は決まったが、実際のサイズ・型番はCAD後）
+キーキャップ
+アナログスティック → PSP互換品で確定済み
+ヒンジ機構
+
+BOMに反映されていない項目としてヒートパイプとM.2ヒートシンクは一旦保留にしておいて、設計上の未決事項はインダクタの値、キルスイッチ型番、FPCケーブル長さが残っている。Phase 1としては実質的に完了できそう。
+残りの詳細は回路設計に進めば自然と決まってくるはずだ。もっと表示完了整理するとこれだけです。
+BOM上のTBD
+項目解決タイミングインダクタ2つ（BQ25895 / TPS61023用）Phase 2回路設計中に計算して確定キルスイッチ型番KiCadのフットプリント決める時FPCケーブル長さ筐体CAD後に確定キーキャップ型番スイッチとの嵌合確認後
+設計上の未決事項
+項目解決タイミング冷却（ヒートパイプ + ヒートシンクサイズ）筐体CAD後ヒンジ機構（3Dプリント or 市販品）筐体CAD後
+インダクタとキルスイッチはKiCadを触り始めたら自然に決まるものなので、実質CADを待っているものがほとんどです。
+つまりPhase 1としてやれることは全部やり切った状態です。今夜CADやってみて、その結果を持ってきてもらえればBOM最終確定してPhase 2に本格突入できます。そうだこっちで買うべきもの何？2월 19일日本で購入すべき部品と JLCPCB 経由の部品を分類した。日本で購入すべき部品と JLCPCB 経由の部品を分類した。The user is asking what they should buy now (in Japan, since they're in Tokyo). Let me think about what components need to be physically purchased vs what goes through JLCPCB.
+Items that need to be bought separately (not through JLCPCB PCBA):
+
+Cubie A7Z SBC
+LS055R1SX04 display + HDMI controller board
+LiPo battery 6060100
+PSP analog stick (AliExpress)
+Speaker (small)
+Keycaps
+3D print materials
+Mechanical parts (screws, standoffs, hinge)
+Heat pipe and heatsink (once I finalize the CAD)
+FPC cable (once I finalize the CAD)
+
+For JLCPCB, I'll be sending the PCB design with all the ICs, passive components, and assembly specifications so they can handle the fabrication and soldering of those parts.もっと表示完了JLCPCBで調達するもの以外で、自分で買う必要があるものをまとめます。
+今すぐ買えるもの
+品目購入先Cubie A7ZRadxa公式 / AliExpress（要在庫確認）LS055R1SX04 + HDMIコントローラ基板セットAliExpressLiPo 6060100AliExpress / 国内リポ専門店PSP互換アナログスティックAliExpress小型スピーカー 8Ω 0.5WAliExpress / 秋月電子FPCケーブル 30ピン 0.5mmピッチAliExpress（長さ複数買っておく）
+CAD後に買うもの
+品目購入先ヒートパイプ（3mm厚フラット）Amazon / AliExpressM.2用ヒートシンクAmazonヒンジ（市販品の場合）AliExpressフィラメント or レジン国内 / Amazon
+KiCad進めながら決めるもの
+品目購入先キルスイッチMouser / 秋月電子キーキャップAliExpress
+Cubie A7Zが現状在庫不安定なので、そこだけ最優先で確保しておくことをおすすめします。見つかったら即買いレベルです。・長辺：__23mm__・短辺：__16mm__・厚み：__4.6mm__・インピーダンス：__8Ω__
+のスピーカーでいいかな？秋月のやつ2월 19일照合した仕様とMAX98357A互換性を検証した。照合した仕様とMAX98357A互換性を検証した。秋月電子 スピーカー 23mm 16mm 4.6mm 8Ω10件の結果マイクロスピーカー 青/白リード付 8Ω: 受動部品 秋月電子通商-電子部品・ネット通販akizukidenshi.comマイクロスピーカー 赤/黒リード付 8Ω: 受動部品 秋月電子通商-電子部品・ネット通販akizukidenshi.com受動部品/音響部品/ダイナミックスピーカー 秋月電子通商-電子部品・ネット通販akizukidenshi.com受動部品/音響部品/ダイナミックスピーカー(並び順：発売日＋商品名) 秋月電子通商-電子部品・ネット通販akizukidenshi.comパーツ一般/音響部品/スピーカーユニット 秋月電子通商-電子部品・ネット通販akizukidenshi.comパーツ一般/音響部品/スピーカー 秋月電子通商-電子部品・ネット通販akizukidenshi.comYahoo!オークション -「秋月電子」(スピーカー) (オーディオ機器)の落札相場・落札価格auctions.yahoo.co.jpマイクロスピーカー 赤／黒リード付 ８Ω: パーツ一般 秋月電子通商-電子部品・ネット通販akizukidenshi.comパーツ一般/音響部品/圧電スピーカー(圧電サウンダー) 秋月電子通商-電子部品・ネット通販akizukidenshi.comスピーカー 8Ω8W: 受動部品 秋月電子通商-電子部品・ネット通販akizukidenshi.comThe speaker specs match the Akizuki micro speaker. Let me check if it's suitable for MAX98357A.完了それです、秋月のマイクロスピーカー（販売コード：112494 or 112495）ですね。
+サイズ的には問題ないですが、一点確認です。定格電力の記載がページに見当たらないですが、MAX98357Aは最大3.2W出力なので定格が0.5W以下のスピーカーだとフルボリュームで飛ぶ可能性があります。
+ソフトウェア側で出力を絞れば実用上は問題ないですし、Cyberdeckで爆音出す場面もそうないので実際には大丈夫だと思いますが、念のため確認できますか？
+定格電力が書いてあれば即確定です。うーん書いてないなぁ
+あんまりでかいスピーカーは入らないもんね2월 19일実用的な観点からスピーカー選択を検討した。実用的な観点からスピーカー選択を検討した。The user is asking about speaker selection. The microphone speaker from Akizuki doesn't have rated power listed. Let me think about this practically.
+MAX98357A can output up to 3.2W, but in practice for a cyberdeck application, they won't be running it at full volume. The tiny 23x16mm speaker physically can't handle much power anyway - its size limits its acoustic output regardless.
+For a cyberdeck, audio is secondary - notification sounds, terminal beeps, maybe some music at low volume. They're not going to be blasting it. So the Akizuki speaker is fine in practice if they just limit the volume in software.
+The practical recommendation here is to go with the Akizuki speaker and manage expectations - it'll work fine for the intended use case as long as they don't expect high-fidelity audio or loud output.もっと表示完了ソフトウェアで音量上限を絞ってしまえば実用上は問題ないです。
+そもそもMAX98357Aの最大出力3.2Wはフルボリューム時の話で、あの大きさのスピーカーを3.2Wで鳴らしたら物理的に歪むだけです。Linuxのalsamixerかpulseaudioで上限を50〜60%に設定しておけばそのスピーカーで十分持ちます。
+Cyberdeckのスピーカーはターミナルの通知音やちょっとした音楽再生くらいの用途なので、あの23×16mmで全然ありです。それに筐体サイズ的にそれより大きいものは入らないですしね。
+そのスピーカーで確定でいいと思います。BOMに型番（P-12494 or P-12495）を反映しておきますか？まあこれでいいのかな2월 19일じゃあ確定でBOM更新しておきます。2個のコマンドを実行しました, ファイルを読み取りました2個のコマンドを実行しました, ファイルを読み取りましたスピーカー型番をBOMに反映スクリプト出力にコピースクリプトPresented file完了反映しました。
+これで今日決まったことをまとめると、Phase 1でやれることは全部やりきった状態です。今夜CADで筐体の空きスペース確認してきてください。ファンが入るかヒートパイプの取り回しができるか分かれば冷却方針が確定して本当にPhase 1完了です。Cyberdeck bomスプレッドシート · XLSX ダウンロード一応スピーカー2個くらい買っといたほうがいいかな？2월 19일スピーカー購入の実用性を検討した。スピーカー購入の実用性を検討した。The user is asking if they should buy 2 speakers. This makes sense - for stereo or as a spare in case one breaks during assembly.完了2個買っておく理由は2つあります。
+1つはステレオ化できる可能性で、MAX98357Aは1チップでモノラルですが2個積めばステレオにできます。ただしチップが2個必要になるのでBOM変更が必要です。
+もう1つは単純に予備で、ハンダ付けミスや取り付け時に壊すリスクを考えると1個は予備で持っておくのが安心です。
+ステレオは考えてますか？それとも予備用として2個という意味ですか？予備だね
+ステレオじゃないってのはイヤホンにも関係してくる？2월 19일関係してきます。
+MAX98357Aがモノラル出力なので、3.5mmジャックに繋いでもLとRに同じ音が出るモノラルイヤホンになります。音楽を聴く場合はステレオと比べて音の広がりが全くない状態です。
+ステレオにするかどうかで構成が変わります。
+構成チップコスト基板面積モノラルMAX98357A × 1安い小さいステレオMAX98357A × 22倍2倍
+ターミナル作業がメインであれば正直モノラルで困らないですが、音楽も聴きたいならステレオの方が快適です。
+どっちにしますか？気持ち的にステレオにしたい感なくはないけど場所的にも厳しそうだし1コでいいかな2월 19일モノラルで確定ですね。イヤホンも同じ音がLRに流れる形になりますが、ターミナルやシステム音くらいなら全然気にならないです。
+予備含めてスピーカー2個買っておけばOKです。
+今日決めたことを整理するとこんな感じです。
+
+スピーカー：秋月 P-12494 × 2個（1個予備）
+アナログスティック：PSP互換品（カーソル用）
+オーディオ：MAX98357A × 1（モノラル）
+冷却：ヒートパイプ + M.2ヒートシンク方針（CAD後確定）
+
+あとは今夜CADやってみてください。スペース確認できたら冷却確定してPhase 2のKiCad始められます。うーんでもイヤホンがモノラルなのって気になるよね
+イヤホンはステレオがいいかも2월 19일イヤホンステレオ化へ複数チップ構成を検討した。イヤホンステレオ化へ複数チップ構成を検討した。The user wants stereo for earphones but mono for speaker. They could use a different DAC approach for the headphone jack specifically - like using HDMI audio or adding a separate stereo DAC just for the headphone jack.
+Options:
+
+Use MAX98357A x2 for full stereo (speaker + headphone)
+Use mono MAX98357A for speaker, add a separate small stereo headphone amp/DAC for the jack
+Use a stereo DAC chip that handles both speaker and headphone
+
+A good option would be to use a stereo audio codec that has both speaker output and headphone output. For example:
+The simplest solution is running two MAX98357A chips for left and right channels - feed them both to the headphone jack for stereo output, then sum them together for the mono speaker. Alternatively, I could use a dedicated stereo headphone codec like the NAU8822, WM8960, or ES8388 for the jack while keeping a mono MAX98357A for the speaker.もっと表示完了だったらMAX98357Aを2個積んでステレオにする方が筋がいいです。
+チップが増えますが、スピーカーはLかRどちらか1チャンネルだけ使えばモノラルスピーカー1個で済みます。イヤホンジャックはLRで繋いでステレオになります。
+MAX98357A (L) → 左イヤホン
+MAX98357A (R) → 右イヤホン + スピーカー（兼用）
+追加コストはMAX98357Aが1個増えるだけで、チップ自体は数百円です。基板面積も小さいので2個でもそれほど影響ないです。
+これでいきますか？BOM更新します。おｋそうしようか2월 19일2個のコマンドを実行しました, ファイルを読み取りました2個のコマンドを実行しました, ファイルを読み取りましたMAX98357Aを2個に更新スクリプト出力にコピースクリプトPresented file完了MAX98357Aを2個に更新しました。
+ちなみにI2Sアドレスの設定ですが、MAX98357AはSDモードピンでL/Rチャンネルを切り替えられるので2個を同じI2Sバスに並列接続できます。KiCadの回路設計時に意識するポイントとして覚えておいてください。
+CAD終わったら教えてください。Cyberdeck bomスプレッドシート · XLSX ダウンロードバッテリーのサイズって 縦100横60高さ6mm?2월 19일バッテリーの命名規則を解析し、寸法を検証した。バッテリーの命名規則を解析し、寸法を検証した。The battery in the BOM is listed as 6060100 LiPo. The naming convention for LiPo batteries is typically thickness(mm) × width(mm) × length(mm), so 6060100 = 6mm thick × 60mm wide × 100mm long.
+So yes, 縦100×横60×高さ6mm で合ってます。完了型番6060100の命名規則がそのままサイズになっているので、合ってます。
+60 × 60 × 100 mm → 高さ6mm × 幅60mm × 長さ100mm
+筐体のボトム外形目安が139×81mmなので、バッテリーが60×100mmだとSBCと並べるとかなりタイトです。CADで配置検討するときに注意してください。CADで見た感じ5x16x100mmのヒートシンクは乗りそう
+あと16x16x9mmまでのファンを配置するスペースがある2월 19일小型ファンとヒートシンクの組み合わせで能動冷却を検討した。小型ファンとヒートシンクの組み合わせで能動冷却を検討した。The user found space for both a heatsink and a small fan. Let me think about this.
+Heatsink: 5×16×100mm - this is quite thin/flat
+Fan: up to 16×16×9mm
+A 16×16mm fan is tiny. Let me think about what's available at that size. Common small fans are 20×20, 25×25, 30×30mm. 16×16mm is very small but some exist.
+With a fan + heatsink combo, active cooling becomes viable. The fan would push/pull air through the heatsink fins.
+Let me think about the setup:
+With the heatsink mounted directly on the SoC and a small fan positioned to force air across the fins, this active cooling approach would be significantly more effective than passive heat pipes alone. The 16×16mm fan is definitely small and might produce some noise, but for a cyberdeck that's probably acceptable.もっと表示完了スペースあったんですね。その組み合わせならヒートパイプより全然シンプルで確実です。
+5×16×100mmのヒートシンクはかなり薄くて細長い形状ですが、SoCの真上に載せてそのまま100mm方向に熱を逃がす感じですかね。ファンが16×16×9mmで横に置いてヒートシンクに風を当てる構成が自然そうです。
+16×16mmファンは流通量が少ないですが、AliExpressで「1616 5V fan」で探すと出てきます。ただ風量はかなり弱いので、ヒートシンクとの密着と風の経路をしっかり設計する必要があります。
+方針変更してこの構成で確定しますか？うーんとヒートパイプをバッテリーの横側に90度曲げてやればスペースがある感じ説明が難しい2월 19일ヒートパイプの90度曲げ配置と空間効率を検討した。ヒートパイプの90度曲げ配置と空間効率を検討した。The user is describing a heat pipe configuration where it's bent 90 degrees and runs alongside the battery. Let me try to understand the geometry.
+The enclosure bottom is 139×81mm. The battery is 60×100mm. The heat pipe would start at the SoC, bend 90 degrees, and run along the side of the battery.完了図で確認してみます。こういう感じですか？
+[ボトム 139×81mm 上から見た図]
+
+┌─────────────────────────┐
+│  [SBC/SoC]              │
+│      ↓ ヒートパイプ     │
+│      └→ 90度曲げ ─────→ [ヒートシンク]│
+│  [バッテリー 60×100]    │
+│                         │
+└─────────────────────────┘
+ヒートパイプがSoCから出て90度曲がってバッテリーの横を通ってヒートシンクまで届く感じ？
+ファンとヒートシンクはその構成に追加で使う感じですか、それともヒートパイプ単体で行く感じですか？わかりにくいかもしれない2월 19일熱管の経路を視覚化し理解した。熱管の経路を視覚化し理解した。Looking at the CAD image, I can see:
+
+Large battery (left/center area)
+SBC (Cubie A7Z) on the right side with connectors visible
+A heat pipe that goes from the SBC area, curves 90 degrees at the top right, and runs horizontally along the top edge above the battery
+
+So the heat pipe goes: SoC → up → 90° curve → left along the top → ends somewhere at the top left area (heatsink?)
+This makes sense now - the heat pipe runs in the gap above the battery along the top of the enclosure.もっと表示完了なるほど、よく見えます。
+ヒートパイプがSBCのSoC付近から上に出て、右上で90度曲がってバッテリーの上側の隙間を左方向に通っていく感じですね。上端のスペースを有効活用してる構成です。
+この経路なら曲げ半径もR20mm以上取れそうで、DIYヒートパイプでも問題なさそうです。ヒートシンクは左端に配置する感じですか？それとも上面の筐体壁に密着させて筐体自体を放熱面にする感じ？今これ横から見るとヒートパイプと筐体の隙間が5mmあるからそのにヒートシンク
+で一番左のバッテリーの上の部分にファンをつて負荷によって回転みたいな感じにできたらいいなって2월 19일冷却システムの設計を検証し、実装可能性を評価した。冷却システムの設計を検証し、実装可能性を評価した。The user is describing a cooling system where:
+
+Heat pipe runs along the top (visible in CAD)
+5mm gap between heat pipe and enclosure wall → heatsink fits in that gap
+Fan placed at the left side above the battery, blowing air through the heatsink
+Fan controlled by load (PWM control)
+
+This is a solid active cooling setup. Let me think about the components:
+
+Heatsink: 5mm thick, fitting in that gap - very thin fin heatsink
+Fan: 16×16×9mm in that left upper corner space above battery
+PWM fan control: RP2040 can do PWM, or use a thermistor + MOSFET circuit
+The fan would draw air across the heatsink fins, creating an efficient thermal path along the heat pipe.
+もっと表示完了なるほど、完全に見えました。いい構成です。
+[上から]
+┌─[ファン]─[ヒートシンク＋ヒートパイプ]─┐
+│  バッテリー                    SBC     │
+└────────────────────────────────────────┘
+
+[横から]
+筐体上面
+├── 5mm ──ヒートシンク（薄型フィン）
+ヒートパイプ
+SBC基板
+ファンが左端でヒートシンクに風を送って、右方向に抜けていく空気の流れですね。
+実装面で確認したいのが2点あって、ファンのPWM制御はRP2040からやる予定ですか？サーミスタをSoC近くに置いて温度読んでPWM制御するのが定番です。あとヒートシンクの厚みが5mmぴったりだとかなりタイトなので、実際は3〜4mm厚のもので隙間を作った方が組み立て時に楽です。まあいったんちょうどいいヒートシンクがあるか探してみる2월 19일適切なヒートシンク製品を発掘し提案した。適切なヒートシンク製品を発掘し提案した。The user wants to search for a suitable heatsink. Let me search for thin heatsinks that would fit the described dimensions (5mm height, fitting in the space described).薄型ヒートシンク 5mm以下 アルミ AliExpress 100mm10件の結果"ヒートシンク アルミ" 【通販モノタロウ】 最短即日出荷www.monotaro.comMISUMI(ミスミ) | 総合Webカタログjp.misumi-ec.comAliexpressja.aliexpress.com"ヒートシンク 薄型" 【通販モノタロウ】 最短即日出荷www.monotaro.comヒートシンク 通販 各種メーカー【RS】jp.rs-online.comW19.5mm × H10.0mm アルミ製小型ヒートシンク製造業者 (A001) | 高い熱伝導率、軽量W19.5mm×H10.0mmアルミニウムスモールヒートシンクメーカー | 順淂工業股份有限公司www.shun-teh.com.tw冷却フィン,ヒートシンク,アルミニウム,28x28x11mm, 10個,1個 - AliExpress 502ja.aliexpress.comヒートシンク メーカー29社の製品一覧 - indexProwww.indexpro.co.jpヒートシンク メーカー74社 注目ランキング&製品価格【2025年】| Metoreemetoree.com「アルミ ヒートシンク」の特集 - アスクルwww.askul.co.jpThe search didn't return very specific results for the user's needs. Let me search more specifically for thin heatsinks on AliExpress.AliExpress thin aluminum heatsink 4mm 5mm height 100mm length fin strip10件の結果Aluminum Heat Sink with Thermal Conductive Adhesive Tape - 100mm×14mm× – Awxlumv Heatsink Shopwww.awxlumv.comHeatsink Aluminum 100 x 45 x 5mm Thin Heat Sink with Thermal Conductiv – Awxlumv Heatsink Shopwww.awxlumv.comSkived Fin Heat Sinks, Aluminum and Copper Heat Sink Supplierwww.wellste.comAluminum Heat Sinks | GlobalSpecwww.globalspec.comHeatsink Ultra Thin - Heatsink - AliExpresswww.aliexpress.comAluminum Heat Sinks for sale - eBaywww.ebay.comAluminum Stock - LED Heatsinkswww.ledsupply.comAmazon.com: 4Pcs Aluminum Heat Sink - Large Heatsink Chip Heat Diffusion Cooling Fin - Black - 50 x 12.7 x 100mm / 2 x 0.5 x 4in : Electronicswww.amazon.comAmazon.com: Aluminum Heatsinkwww.amazon.com100mm Heatsinks - Efficient Cooling Solutions for PCswww.alibaba.comI found some good options. The 100mm×14mm×6mm heat sink strip from Awxlumv looks promising. Also there's a 100mm×45mm×5mm thin heatsink. Let me provide some good search terms and suggestions.完了AliExpressで探すなら検索キーワードは 「aluminum heatsink strip 100mm 5mm thin」 が一番引っかかりやすいです。
+ちょうど良さそうなサイズ感のものをいくつか見つけました。
+100mm × 14mm × 6mm のフィンストリップ（Awxlumv系）がスペースにぴったりで、ヒートパイプに沿わせる形で使いやすそうです。高さ6mmなので5mmスペースにはギリギリですが、ヒートパイプ自体が3mm厚なら上に3mm分のフィンを立てる形にすれば収まります。
+探す時のポイントとして、フィン一体型の押し出し材（extruded fin strip）は100mm長のものがLED冷却用途で大量に出回っているので安く手に入ります。幅は10〜20mmの範囲で探すとCAD上のスペースに合わせやすいです。
+あとファンも同時に探すなら 「1616 5V DC fan」 または 「16mm blower fan 5V」 で検索するとRaspberry Piケース向けの小型品が出てきます。
+実際に買う前にCADで密着面の寸法を確定させてから選んだ方が確実です。100mmもヒートシンクはいらない気がするファンもつけるし
+ファンの制御どうしようかね2월 19일ファン制御の複数選択肢を検討した。ファン制御の複数選択肢を検討した。The user is questioning whether they need a 100mm heatsink since they're also adding a fan, and asking about fan control.
+For fan control, the options are:
+
+RP2040 PWM - already in the design, simplest approach
+Dedicated fan controller IC
+Simple on/off via GPIO
+
+Let me think about practical options.完了確かに、ファンがあれば50〜60mm程度でも十分だと思います。
+ファン制御については、すでにRP2040が乗っているのでそこからPWMで制御するのが一番シンプルです。サーミスタをSoC近くに置いてADCで温度読んでPWMデューティ変えるだけで、追加チップ不要です。RP2040はQMKで動かす予定ですが、QMKにはfan control的な機能はないので温度監視のコードは別途書く必要があります。
+ただRP2040のPWMで16×16mmの小型ファンを直接駆動するのは電流的にやや不安なので、MOSFETを1個挟む形が定番です。2N7002あたりのSOT-23品が小さくて使いやすいです。
+RP2040 GPIO → MOSFET ゲート → ファン GND側
+                               ファン VCC → 5V
+これでいきますか？BOMにサーミスタとMOSFET追加します。サーミスタってSBC本体のCPUの温度を測る機能とかってないの？
+ヒートシンクなんだけど4mmの物あるけどm.2SSD用で幅22mmくらいあるやつが多い
+そうじゃないと14x9x4mmとかの中途半端なサイズ感のやつが多いかなぁ2월 19일CPUの温度読み取りとヒートシンクサイズの実現可能性を検討した。CPUの温度読み取りとヒートシンクサイズの実現可能性を検討した。Two questions: 1) Can we read CPU temperature from the SBC directly instead of using a thermistor? 2) Heatsink size discussion.
+
+Cubie A7Z uses Allwinner A733. Most Allwinner SBCs expose thermal sensors via /sys/class/thermal/thermal_zone*/temp in Linux. So yes, we can read CPU temp directly via software without a thermistor.
+Heatsink - 22mm wide M.2 style or 14x9x4mm. Let me think about the layout. The heat pipe runs along the top, 5mm gap. If we have a 22mm wide heatsink that's 4mm tall, it might work depending on orientation.
+完了SBCの温度センサーについては、Allwinner A733はLinuxの /sys/class/thermal/thermal_zone*/temp 経由でSoC温度が読めるはずです。つまりRP2040からサーミスタでわざわざ計測しなくても、Cubie A7Z側でソフトウェアから直接CPU温度を読んでファンを制御できます。
+その場合の制御フローはこうなります。
+Cubie A7Z（Linux）
+→ /sys/class/thermal で温度読み取り
+→ GPIO or USB経由でRP2040にPWM指示
+→ RP2040がMOSFETを通じてファン制御
+あるいはもっとシンプルに、Cubie A7ZのGPIOから直接ファンをPWM制御してRP2040を介さない構成も取れます。サーミスタは不要になるのでBOMから省けます。
+ヒートシンクについては、M.2 SSD用の22mm幅4mm高さのものはCADで見た感じどうですか？ヒートパイプの経路が上端を横断する形なので、22mm幅がそこに収まるかどうかが鍵です。14×9×4mmの小さいものを複数並べる手もありますが、ヒートパイプに密着させにくくなるので1枚物の方が理想です。バッテリーがあるから入らないね2월 19일バッテリーの制約を考慮して、より狭いヒートシンクの必要性を検討した。バッテリーの制約を考慮して、より狭いヒートシンクの必要性を検討した。The user is saying the 22mm wide heatsink won't fit because the battery is in the way. So they need something narrower. The heat pipe runs along the top edge of the enclosure (above the battery), so the available width there is limited.
+Let me think about the layout from the CAD screenshot:
+
+Battery is 60×100mm taking up most of the bottom space
+Heat pipe runs along the top edge, above the battery
+The space above the battery (between battery top edge and enclosure top wall) seems limited
+
+So the heatsink width needs to be narrower than the gap between the battery and the enclosure wall. The 14×9×4mm ones might actually be the right size, or they need to find something in between.もっと表示完了ですね。バッテリー上端とヒートパイプの隙間に収まる幅が限られてくるので、22mmは厳しいです。
+CADで実際にヒートパイプが通っている部分の幅（バッテリー上端から筐体内壁まで）を測ってみてもらうのが一番早いです。その寸法に合う幅のものを探すという順番の方がよさそうです。
+14×9×4mmの小さいものを並べる案も、ヒートパイプへの密着が難しいのでできれば避けたいところです。幅が決まれば選択肢が絞れます。バッテリーまででとって16mm2월 19일ヒートシンク選定の寸法要件を検討した。ヒートシンク選定の寸法要件を検討した。16mm幅ならちょうど良いサイズのヒートシンクを探す必要があります。完了16mm幅で4mm高さ、長さ50〜60mm程度のものを探すことになりますね。ただこのサイズは既製品でぴったりのものがなかなかないです。
+現実的な選択肢としては3つあります。
+1つ目は22mm幅のM.2用をグラインダーや金鋸で16mmに削る。アルミなので加工は難しくないです。
+2つ目はAliExpressで「aluminum heatsink 16mm width」で探す。LED用やメモリ用でたまに出てきます。
+3つ目はそもそもヒートシンクをヒートパイプに密着させるのではなく、ヒートパイプの端を筐体の金属壁面に当てて筐体自体を放熱面にする。その場合ヒートシンク不要になります。
+筐体素材は今のところFDMかSLAの樹脂を想定していたと思いますが、ここだけアルミ板を埋め込む構造にすることも検討できます。どうしますか？うーん別に小さいヒートシンクを並べてそれに多少風充てれば十分冷えると思うんだよな2월 19일2 / 2件ユーザーの冷却方法を妥当と判断した。ユーザーの冷却方法を妥当と判断した。The user thinks small heatsinks arranged in a row with some airflow from the fan will be sufficient for cooling. That's a reasonable approach given the Cubie A7Z's ~5-8W typical TDP.完了確かにそれで十分だと思います。Cubie A7Zの発熱は5〜8W程度なので、ファンの風があれば小型ヒートシンク複数個でも全然賄えます。
+14×9×4mmくらいのものをヒートパイプの上に3〜4個並べてサーマルパッドで密着させる形で問題ないです。AliExpressで「small aluminum heatsink 14x9x4」で大量に出てくる安いやつで十分です。
+これで冷却構成確定ということでいいですか？確定したらBOMに追加します。F16FB-05LLC /Eくらいしかファンが見つからない
+これ一個1400円とかする2월 19일ファンの高額な価格を検討し、代替案を模索した。ファンの高額な価格を検討し、代替案を模索した。The user is looking for a 16x16mm fan and found the F16FB-05LLC/E which costs about 1400 yen. That's quite expensive for a small fan. Let me think about alternatives.
+F16FB-05LLC/E is a Sanyo/Panasonic 16x16mm fan. At 1400 yen it's pricey. Let me suggest alternatives - maybe a slightly larger fan would fit, or AliExpress options.完了16×16mmはほぼ産業用途しかなくて高いんですよね。
+CADで確認してほしいのですが、16×16mmにこだわらなくて済むなら少し大きいサイズに変えた方がコスパがいいです。20×20mmや25×25mmのファンならAliExpressで100〜200円程度から出てきます。
+ファンを置くスペースはバッテリーの左上の角あたりでしたよね。20mmや25mm角が入る余地はありそうですか？ないんよねぇ2월 19일ないんよねぇないんよねぇThe user is constrained to 16mm fan space but 16mm fans are expensive. Let me think of alternatives.
+Options:
+
+Redesign the enclosure slightly to fit a 20mm fan
+Use a different cooling approach - maybe just passive with small heatsinks since A7Z isn't that hot
+Accept the cost of the 16mm fan
+
+Actually, maybe they could reconsider the placement or just go passive since they have small heatsinks + heat pipe already.もっと表示完了そうなるとスペース的に詰んでいるので、方針を変えた方がいいかもしれないです。
+選択肢は2つです。
+ひとつはファンを諦めて小型ヒートシンク並べるだけの完全パッシブにする。ヒートパイプで熱を分散させて小型ヒートシンクに逃がす構成なので、軽負荷なら普通に冷えると思います。重い処理をかけた時にSoCがサーマルスロットリングするかどうかは実際に試してみないとわからないですが、ターミナル作業メインならまず問題ないです。
+もうひとつはCADで筐体のレイアウトを少し変えて20mmファンが入るスペースを作る。バッテリーの配置やSBCの向きを見直す余地があれば検討できます。
+パッシブで様子見して、実際に組んでみて熱が問題になったら筐体を改修するというのが一番リスクが低いと思いますが、どうしますか？いったんパッシブにしようか2월 19일パッシブ冷却を確認した。パッシブ冷却を確認した。OK, passive cooling confirmed.完了了解です。パッシブで確定にします。
+構成をまとめると、SoCからサーマルパッド経由でヒートパイプに熱を逃がして、バッテリー上端の隙間（16mm幅）に小型ヒートシンクを数個並べる形です。ファン関連はBOMから削除して、MOSFETとサーミスタも不要になります。
+実際に組んで熱が問題になったら16mmファンを後付けできるようにスペースだけCADで確保しておくといいかもしれないです。コネクタのパッドだけ基板に残しておけばリビジョンなしで対応できます。
+BOM更新しますか？更新して2월 19일BOM を修正し、部品を更新した。BOM を修正し、部品を更新した。Update the BOM to remove fan-related items and add passive cooling components.現在のBOM内容確認スクリプトNow I need to:
+
+Fix speaker row (row 47) to use the correct Akizuki part number
+Add passive cooling components (heat pipe, small heatsinks, thermal pad)
+Remove fan-related items (there don't seem to be any fan items in the current BOM)
+Update the last modified date
+冷却構成をBOMに追加・スピーカー修正スクリプト出力にコピースクリプトPresented file完了更新しました。追加・変更内容はこちらです。
+
+冷却カテゴリ追加：フラットヒートパイプ、小型ヒートシンク（14×9×4mm）×4個、サーマルパッド
+スピーカー：P-12494/P-12495に型番確定、2個（予備1個含む）に更新
+
+ファン・MOSFET・サーミスタは最初から入っていなかったのでそのままです。冷却構成はこれで確定ですね。Cyberdeck bomスプレッドシート · XLSX ダウンロードヒートパイプまげるけどこれ平べったい奴をこういい感じに曲げられるの?
+説明がちょっとむずいんだけど2월 19일フラットヒートパイプの曲げ方と制限について検討した。フラットヒートパイプの曲げ方と制限について検討した。The user is asking about bending a flat heat pipe. They want to know if a flat (thin) heat pipe can be bent in the way they need for their design. They're having trouble explaining what they mean. Let me ask for clarification or address the common concern about bending flat heat pipes.
+From the CAD image, the heat pipe needs to go from the SBC area, then make a 90-degree bend to run along the top edge of the battery horizontally. The question is whether a flat heat pipe can be bent in that orientation.
+The key issue with flat heat pipes is that you can bend them in the plane of the flat side (like bending a ribbon), but bending them edge-on (twisting the flat orientation) is much harder and can damage the wick structure.
+So I should explain whether their specific bend direction is feasible and what constraints they might run into with a flat heat pipe design.もっと表示完了写真とか図があると分かりやすいですが、たぶん聞きたいのはCADで見た経路、つまり縦方向から90度曲げて横方向に走らせる形のことですよね。
+フラットヒートパイプの曲げには向きの制約があります。
+OK：平べったい面の方向に曲げる（リボンを曲げる感じ）
+NG：薄い側面方向に曲げる（ねじる・よじる感じ）
+CADの経路だと、ヒートパイプが縦から横に90度曲がる部分で、どちらの向きに曲がるかによって可否が変わります。平面上での曲げ（上から見て曲がっている）なら問題ないですが、厚み方向に曲げる場合は内部ウィックが潰れてNGです。
+曲げたい向きはどっちですか？CADのスクリーンショットを横から見た図があると確認しやすいです。厚みがある方向かなぁ2월 19일ユーザーが不適切な方向への曲げを検討していることを認識した。ユーザーが不適切な方向への曲げを検討していることを認識した。The user wants to bend the flat heat pipe in the thickness direction, which is the "bad" direction that can crush the internal wick structure.完了それはNGです。フラットヒートパイプは厚み方向に曲げると内部のウィック構造が潰れて機能しなくなります。
+現実的な代替案が2つあります。
+ひとつは丸型ヒートパイプに変える。丸型（直径3〜4mm）なら全方向に曲げられるので経路の自由度が高いです。薄さは失われますが、今回の5mmスペースなら直径4mmでも収まります。
+もうひとつはヒートパイプをL字型経路にせず、SoCの真上にヒートシンクを直置きする構成に変える。ヒートパイプなしでサーマルパッド経由でヒートシンクに直接熱を伝える形です。パッシブ冷却でファンもないので多少性能は落ちますが、構造が圧倒的にシンプルになります。
+CADの配置的に丸型ヒートパイプが通る隙間はありそうですか？丸いヒートパイプを曲げてあとから少しつぶすのは？2월 19일ヒートパイプの曲げと圧縮の実現可能性を検討した。ヒートパイプの曲げと圧縮の実現可能性を検討した。The user is asking if they can bend a round heat pipe and then flatten it slightly afterward. This is actually a real technique used in laptop cooling systems. Let me think about this...
+Round heat pipes can be bent in any direction, and then carefully flattened. However, flattening a heat pipe is tricky because you can damage the wick structure inside if you apply too much pressure. Laptop manufacturers do this with specialized equipment, but DIY flattening risks crushing the wick.
+The key question is how much flattening is needed and whether it's feasible DIY.完了実はそれノートPCのヒートパイプで業界標準の作り方です。丸型を曲げてからプレスで潰して薄くしています。
+ただDIYでやるには難易度が高いです。プレスの力加減を間違えるとウィックが潰れて機能しなくなります。専用治具なしで均一に潰すのは難しいです。
+現実的な妥協案として、AliExpressで「L字 ヒートパイプ」「bent heat pipe 4mm」で検索すると、最初からL字やU字に曲げ済みのヒートパイプが売っています。形状が合えばそのまま使えるので一番確実です。
+ただ今回の経路にぴったり合う形状が見つかるかどうかは運次第です。探してみますか？なさそう
+曲げる部分だけつぶさないとかはダメ？2월 19일曲げた後に直線部分だけつぶす案を評価した。曲げた後に直線部分だけつぶす案を評価した。The user is asking if they can crush/flatten only the straight sections of the heat pipe, leaving the bent section round. This is actually a reasonable idea - bend the round heat pipe first, then flatten only the straight portions that need to fit in the tight space.完了それは理にかなっています。曲げる部分は丸いまま残して、直線部分だけ潰す方法です。
+ノートPCのヒートパイプも実際にそういう構造になっているものがあります。曲げ部分を丸いまま残せばウィックへのダメージを避けられます。
+DIYでやる手順としては、先に曲げてから万力や平らな金属板で直線部分だけゆっくりプレスする形です。一気に潰さず少しずつ力をかけるのがポイントで、内部に砂や塩を詰めてからやる方法もありますが熱処理が必要になるので素直に少しずつプレスする方が現実的です。
+失敗した時のために2〜3本買っておくのは変わらず必要ですね。試す価値はあると思います。ほな試してみるか無理ならまぁ何とかする2월 19일試行を肯定し、対応策を検討した。試行を肯定し、対応策を検討した。Good, they're going to try it.完了了解です。2〜3本買って練習してみてください。
+うまくいかなかったら丸型のままSoC直上に置いてヒートシンクへ繋ぐ経路に変えるか、そもそもヒートパイプなしでSoC直置きヒートシンクに切り替えるかで対応できます。パッシブ冷却なのでそこまで熱的に厳しい構成でもないので最悪なんとかなります。
+冷却周りはこれで固まりましたね。他に決めたいことありますか？ほかに何か考慮すべきことってある？2월 19일考慮すべき設計上の課題を列挙した。考慮すべき設計上の課題を列挙した。Let me think about what's been decided and what might still need consideration for this cyberdeck project.
+Confirmed:
+
+SBC: Cubie A7Z
+Display: LS055R1SX04 + HDMI controller
+Keyboard: RP2040 + Alps SKRPABE010 × 60 keys + PSP analog stick
+Power: BQ25895 + TPS61023 + AP2112K + LiPo 6060100
+USB Hub: VL812
+Audio: MAX98357A × 2 (stereo) + speaker + 3.5mm TRRS jack
+Cooling: passive with heat pipes and small heatsinks
+PCB: 4-layer design with a sub-board
+
+I still need to verify a few things: whether the Cubie A7Z has built-in Wi-Fi and Bluetooth, if I need to add a separate RTC with battery backup to maintain the system clock when powered off, whether to include a microSD slot for expandable storage, and how to orient the display—likely portrait mode for this form factor.
+Beyond those core decisions, I'm also thinking through the camera module, speaker placement and orientation, rubber feet for stability, and critically, how to route the FPC cables through the hinge area while protecting them from damage. The hinge cable management is probably the trickiest mechanical design challenge here.もっと表示Cubie A7Z specs WiFi Bluetooth10件の結果Pi Zero-sized Radxa Cubie A7Z SBC features Allwinner A733 Cortex-A76/A55 SoC, up to 16GB RAM, WiFi 6 - CNX Softwarewww.cnx-software.comRadxa Computer Radxa Cubie A7Z Product Brief Tiny Size, Mighty AI Revision 1.1dl.radxa.comHardware Use | Radxa Docsdocs.radxa.comRadxa Cubie A7Zradxa.comRadxa Cubie A7Z - SweMODswemod.comAntenna Interface | Radxa Docsdocs.radxa.comRadxa Cubie A7Z | Radxa Docsdocs.radxa.comRadxa Cubie A7Z is a Raspberry Pi Zero-sized Allwinner A33 octa-core PC for $15 and up - Liliputingliliputing.comAmazon.com: Radxa Cubie A7Z Mini PC Board with Octa-Core CPU & WiFi6/BT5.4 Dual-Screen Display,Support RISC-V Coprocessor,Mighty AI Board (1GB RAM) : Electronicswww.amazon.comRaspberry Pi Zero-inspired SBC with 8-core SoC and up to 16 GB of RAM launched by Radxa - NotebookCheck.net Newswww.notebookcheck.netGood info. WiFi 6 + Bluetooth 5.4 is built-in with external antenna. Let me think about what else needs consideration:
+
+WiFi antenna - needs external antenna, where to put it in the enclosure?
+RTC - does Cubie A7Z have RTC with battery backup?
+Hinge FPC cable routing
+Display orientation (縦パネルを横で使う？)
+Rubber feet
+PCIe FPC connector - potential for NVMe SSD expansion
+
+Key things I should mention:
+
+WiFi外部アンテナの配置 - 重要、金属や導電性材料が近いとアンテナ効率が落ちる
+ヒンジ部分のFPCケーブルの取り回し - 繰り返しの開閉で断線リスク
+RTCバッテリー - 電源OFF時の時刻保持
+ディスプレイの向き確認（縦パネルを横で使う場合ソフトウェア回転が必要）
+もっと表示完了いくつか確認しておいた方がいいことがあります。
+WiFiアンテナの配置が一番重要です。Cubie A7ZはWiFi 6 + BT 5.4内蔵ですが外部アンテナが必要です。アンテナを筐体内に収めると金属部品（バッテリー・ヒートパイプ）が近くて電波が遮られる可能性があります。アンテナ線を筐体外に出すか、樹脂筐体の壁面近くに配置する設計が必要です。
+ヒンジ部分のFPCケーブルも要注意です。ディスプレイへのFPCがヒンジをまたぐので、開閉を繰り返すと断線リスクがあります。ヒンジ設計時にケーブルの曲げ半径と余長を確保する必要があります。
+RTCバッテリーは小さいCR1220あたりを基板に載せておくと電源OFF時も時刻が保持されます。なくても動きますが毎回時刻がリセットされます。
+ディスプレイの向きはLS055R1SX04が縦向きパネルなので、横向きで使う場合はソフトウェア回転が必要です。これは確認済みですか？
+この4点の中でまだ検討していないものはありますか？wifiアンテナまだ
+FPCケーブルをどう通すかはまだ決まってない
+RTCまだ2월 19일三つの未解決な技術課題を検討した。三つの未解決な技術課題を検討した。Three things to address: WiFi antenna placement, FPC cable routing through hinge, and RTC battery. Let me think about each.完了3つまとめて考えましょう。
+WiFiアンテナは一番シンプルな解決策は小型のフレキシブルアンテナ（ペラペラのシール状のやつ）を筐体の樹脂壁面裏側に貼る方法です。FDM樹脂なら電波を通すので筐体内に収めたまま問題ないです。Cubie A7ZのアンテナコネクタはIPEX MHF4（U.FL互換）なのでそれに合うアンテナを選べばOKです。
+FPCケーブルはヒンジ部分の通し方が設計の肝になります。一般的な方法はヒンジの回転軸の中心付近にケーブルを通してループを持たせる形で、開閉時に余長が吸収される構造にします。ヒンジ設計が決まらないと確定できないので、ヒンジと同時に設計する必要があります。
+RTCはRP2040にはRTC機能が内蔵されているので外付けチップ不要です。ただしRP2040のRTCはバックアップ電源がないと電源断でリセットされます。CR1220をRP2040のVBAT端子に繋ぐだけで済むので追加コストも数十円です。BOMに追加しておきますか？SBC本体のRTCは？
+RP2040は薄いコイン電池を入れる感じ？2월 19일RTC機能と電池仕様を比較検討した。RTC機能と電池仕様を比較検討した。The user is asking about the Cubie A7Z's onboard RTC capability, and whether RP2040 uses a coin battery. Let me search for this.Cubie A7Z RTC battery connector GPIO10件の結果40-Pin GPIO Interface - Radxa Cubie A7Zdocs.radxa.comRadxa Cubie A7A is a powerful SBC based on Allwinner A733 Cortex-A76/A55 AI SoC with up to 16GB RAM - CNX Softwarewww.cnx-software.comHardware Use | Radxa Docsdocs.radxa.comCubie A7S - A compact Allwinner A733 SBC with USB-C DisplayPort, GbE, WiFi 6, PCIe Gen3 FFC connector, GPIO headers - CNX Softwarewww.cnx-software.comRadxa Cubie A7Z | Radxa Docsdocs.radxa.comRadxa Cubie A7Zradxa.comPi Zero-sized Radxa Cubie A7Z SBC features Allwinner A733 Cortex-A76/A55 SoC, up to 16GB RAM, WiFi 6 - CNX Softwarewww.cnx-software.comRadxa Computer Radxa Cubie A7Z Product Brief Tiny Size, Mighty AI Revision 1.1dl.radxa.comRTC Interface | Radxa Docsdocs.radxa.comRadxa Cubie A7Z - SweMODswemod.comFrom the search results, I can see that:
+
+Cubie A7A has an onboard RTC battery interface, but A7Z docs don't explicitly mention it
+A7Z has an onboard fan interface (3-pin 0.8mm cable, 5V) - this is interesting!
+A7Z doesn't seem to have an explicit RTC battery connector mentioned in its docs
+
+Let me share these findings.完了2つ重要な発見がありました。
+RTCについて、A7ZのドキュメントにはRTCバッテリーコネクタの記載が見当たりません。兄弟機のA7Aにはあるのですがその辺の情報がA7Zでは確認できませんでした。実機が届いたら基板を見て確認が必要です。もしRTCバッテリーコネクタがなければRP2040のVBAT端子にCR1220を繋ぐ方法で対応できます。
+ファンインターフェースがA7Zに内蔵されていることが判明しました。3ピン 0.8mmコネクタで5V駆動とのことです。つまりSBC側でLinuxから直接ファン制御できます。
+これでパッシブ構成からの方針変更の話に戻りますが、A7Z自身がファンコネクタを持っているので16×16mmファンをそこに直結すればRP2040もMOSFETも不要で温度制御まで全部SBC側でやってくれます。スペースが厳しくて16mmファンは高いという問題は残りますが、制御の仕組みとしてはシンプルになります。
+パッシブのままいきますか？それともこれを機にファン再検討しますか？ファンは配置するスペースだけ確保しておいて問題があったらタス2월 19일ファンのスペース確保と後付け対応を検討した。ファンのスペース確保と後付け対応を検討した。Good plan - reserve space for fan, add it later if needed.完了それがベストですね。CADでファン用スペースだけ確保しておいて、ファンコネクタのパッドも基板に残しておけば後から追加できます。
+RTCはA7Zに届いたら基板確認で、なければRP2040のVBAT端子にCR1220で対応という方針でいきましょう。
+他に気になるところはありますか？特にないかな
+まぁ一つあるとしたら充電用のUSB-Cと外部接続用のUSB-Cが混在するってくらい2월 19일二つのUSB-Cポートの機能混在による混乱を認識した。二つのUSB-Cポートの機能混在による混乱を認識した。The user is concerned about having two USB-C ports that look identical but have different functions - one for charging and one for data. This could confuse users.完了見た目が同じなので挿す口を間違える問題ですね。対策としては主に3つあります。
+ひとつは刻印で解決する方法で、筐体に「PWR」「DATA」など文字を3Dプリント時に入れておく。一番シンプルです。
+もうひとつはポートの配置で直感的に分かるようにする方法で、充電ポートを底面や左側面、データポートを右側面など場所で区別する。
+3つ目はそもそも充電ポートをUSB-CではなくUSB-Cのサイズ感のまま充電専用にして、データポートだけUSB-Cにする。ただこれは今さらBQが決まっているので変えにくいです。
+正直3Dプリントで刻印入れるだけで十分だと思います。それより充電ポートに誤ってデータ機器を挿しても壊れない設計になっているか確認しておく方が重要で、BQ25895はD+/D-ピンがないので誤挿入しても壊れる心配はないです。
+刻印で対応でいいですか？ほな刻印でいいね
+もう決まり？2월 19일決定事項を整理し、次段階への準備を確認した。決定事項を整理し、次段階への準備を確認した。The user is asking if everything is decided now. Let me think about what's been covered and what might still be outstanding.
+Confirmed:
+
+SBC: Cubie A7Z
+Display: LS055R1SX04 + HDMI controller
+Keyboard: SKRPABE010 x 62, RP2040, QMK
+Power: BQ25895, TPS61023, AP2112K
+USB Hub: VL812-Q7 + W25Q32 + 25MHz crystal
+Battery: 6060100
+Audio: MAX98357A x 2 (stereo), speaker x 2, 3.5mm TRRS jack
+Cooling: passive with heat pipes and small heatsinks, thermal pads for heat dissipation
+Analog stick: PSP compatible
+WiFi antenna: flexible IPEX MHF4 antenna mounted inside the enclosure wall
+USB port labeling: 3D printed engravings
+Fan: space reserved with connector pad on PCB but no fan installed yet
+RTC: will verify once the SBC arrives, with RP2040 VBAT and CR1220 as backup
+
+Still need to finalize the inductor values for the power management chips during KiCad layout, and there's something else blocking the PCB that I need to figure out.
+For non-blocking items, I'm waiting on the enclosure CAD to determine FPC cable length, and still need to decide on the hinge mechanism, keycaps, heat pipe routing, and whether the A7Z has an RTC battery connector. Phase 1 is basically wrapped up, so I'm ready to move into KiCad design.もっと表示完了ほぼ決まりです。残っている未決事項を整理するとこんな感じです。
+KiCad設計中に決める
+
+インダクタ値（BQ25895用・TPS61023用）：計算で確定
+キルスイッチ型番：フットプリント割り当て時に選定
+
+実機届いてから確認
+
+A7ZのRTCバッテリーコネクタの有無
+
+筐体CAD確定後に決める
+
+FPCケーブル長さ
+ヒンジ機構
+キーキャップ
+
+これらはいずれもPCB設計を止めるものではないので、Phase 2のKiCadに進んで大丈夫です。Phase 1完了ですね。フェイズ2はどんな感じだっけ2월 19일プロジェクト計画書を参照してフェイズ2の内容を検索した。プロジェクト計画書を参照してフェイズ2の内容を検索した。The user wants to know what Phase 2 entails. I can refer to the project plan document.プロジェクト計画のPhase 2確認完了KiCadで回路図を描くフェーズです。ブロックごとにこんな順番でやっていく感じです。
+
+電源回路：BQ25895（充電）→ TPS61023（昇圧5V）→ LDO（3.3V）。一番複雑なので最初に片付けるのが定番です。インダクタ値もここで計算して確定します。
+USBハブ回路：VL812 + 25MHzクリスタル + W25Q32（SPI Flash）。データシートのリファレンス回路がほぼそのまま使えます。
+キーボード回路：RP2040 + キーマトリクス + ダイオード + PSPスティック + MAX98357A×2。
+コネクタ類：SBC接続用USB-Cプラグ、外部ポート、FPCコネクタ、バッテリーコネクタ。
+
+作業の進め方としては各ブロックを独立したシートで描いてから最後に結合するのがKiCadでは管理しやすいです。どのブロックから始める予定ですか？モチベがあるうちに難しいとこやりたいかな2월 19일モチベーションを活かして難題から着手する戦略を検討した。モチベーションを活かして難題から着手する戦略を検討した。The user wants to tackle the hardest parts first while motivated. The hardest parts are BQ25895 power circuit and VL812 USB hub. Let me suggest starting with BQ25895 since it's the most complex and critical.完了難しい順でいくと BQ25895の電源回路が一番ヘビーです。QFN-24で露出パッドがあってインダクタ計算も必要で、USB PDのCC抵抗やバッテリー保護の設定抵抗など周辺部品が多いです。
+次がVL812で、76ピンQFNですがデータシートのリファレンス回路通りに描けばほぼ完成するので実は電源ほど難しくないです。
+なのでBQ25895から始めるのをお勧めします。始める前にTIのデータシートとEVMの回路図を手元に置いておくと設計がだいぶ楽になります。
+KiCadで始める前に確認しておきたいのですが、BQ25895のJLCPCBライブラリのフットプリントは確認済みですか？まだやね
+あといったん今回のプロジェクト用の環境を整えときたい
+ファイルを保存する場所とかgitとか2월 19일プロジェクト環境構築のファイル整理とGit設定を検討した。プロジェクト環境構築のファイル整理とGit設定を検討した。The user wants to set up a project environment for KiCad work - file organization and git setup. Let me help them think through this.完了いいですね、最初に環境整えておくと後が楽です。
+確認したいのですが、KiCadのプロジェクトはどこに置く予定ですか？ローカルだけですか、それともGitHubにも上げる感じですか？2 / 2件一応githubに置いておこうかなそしたら別PCでも作業できるし2월 19일GitHub リポジトリ設定とマルチPC作業環境を検討した。GitHub リポジトリ設定とマルチPC作業環境を検討した。The user wants to set up a GitHub repository for their KiCad project. Let me help them set up the environment.完了では環境構築の流れはこんな感じです。
+
+GitHubでリポジトリ作成
+ローカルにclone
+KiCadプロジェクト作成
+.gitignoreをKiCad用に設定
+初回コミット
+
+ローカルの作業環境はWindowsですかMacですか？あとGitはすでに入っていますか？windows githubはもう入っててKicadは9.0
+プロジェクトで使った3Dファイル置く場所とかも兼ねたいかも2월 19일プロジェクト構成を設計し、KiCadと3Dファイル統合を検討した。プロジェクト構成を設計し、KiCadと3Dファイル統合を検討した。The user wants to set up a GitHub repository for their cyberdeck project that will include KiCad files and 3D CAD files. Let me help them set up a good directory structure and .gitignore.完了じゃあリポジトリの構成をこんな感じにするといいです。
+cyberdeck/
+├── kicad/          # KiCadプロジェクト一式
+├── cad/            # Fusion360 or OpenSCADの3Dファイル
+├── docs/           # データシート・参考資料
+├── bom/            # BOM Excel
+└── README.md
+GitHubでリポジトリを作る時にREADMEを含めて作成すると初回のpullが楽です。まずリポジトリ名を決めてください、cyberdeckとかそのままでいいですか？それとも別の名前にしますか？CyberDeckだと味がないけど特に思いつかない(´・ω・`)2월 19일プロジェクト名の創造的な案を模索した。プロジェクト名の創造的な案を模索した。The user wants a cool name for their cyberdeck project. Let me suggest some options.完了Cubie A7Zベースでクラムシェル型なので、いくつか案を出してみます。
+SBCや技術要素から
+
+cubie-deck
+a7z-deck
+cubie-shell
+
+形状・コンセプトから
+
+clamshell （クラムシェルそのまま）
+palmtop （手のひらサイズのPCっぽくて好き）
+deckbuilder
+
+少しかっこいい系
+
+project-shell
+microdeckz
+pocketforge
+
+個人的にはpalmtopかpocketforgeあたりが響きがいい気がします。何かピンとくるものありますか？自分が作ったものにしたいんよね2월 19일なるほど、自分の名前とかハンドルネームを入れる感じですか？それともゼロから考えたいですか？いちおうSNSとかは全部₀ʀᴇ⁰(オレオ)でやってるんだけどどうしようかなって2월 19일Oreo関連のリポジトリ名を検討した。Oreo関連のリポジトリ名を検討した。oreo系でリポジトリ名を考えてみる完了₀ʀᴇ⁰ベースで考えるとこんな感じです。
+シンプル系
+
+oreo-deck
+oreo-shell
+oreodeck
+
+少しひねった系
+
+oreo-clamshell
+sandwich-pc（オレオがサンドクッキーなので）
+cream-deck（オレオのクリーム）
+
+sandwich-pcは意味がわかると笑えるし覚えやすくて個人的にいいと思います。真面目系ならoreo-deckが一番すっきりしてますね。PortaRe0(適当)2월 19일Appraised creative portmanteau combining portable and user handleAppraised creative portmanteau combining portable and user handleThe user came up with "PortaRe0" - combining "Porta" (portable) and "Re0" (from their handle ₀ʀᴇ⁰). That's actually pretty good!完了いいじゃないですか。Portable + Re0で意味も通るし読みやすいです。
+GitHubのリポジトリ名はPortaRe0でいきますか？それとも全部小文字のportare0にしますか？GitHubは慣習的に小文字ハイフン区切りが多いですが、大文字混じりの方が見た目がいい場合もあります。大文字交じりで問題ないならそれでいいかな
+D:のどっかに置きたい2월 19일ユーザーのGitHubリポジトリ設定をD:ドライブに構築する準備を整えた。ユーザーのGitHubリポジトリ設定をD:ドライブに構築する準備を整えた。The user wants to set up a GitHub repository called "PortaRe0" and place it somewhere on their D: drive. I should help them set up the directory structure and git repository. Let me ask where specifically on D: they want it, or suggest a path.完了GitHubは大文字混じりで問題ないです。
+D:ドライブのどこに置くか決めてもらえれば環境構築の手順を出します。例えばD:\Projects\PortaRe0とかD:\Dev\PortaRe0とかよく使われる場所ですが、すでにプロジェクト系のフォルダがある場所はありますか？特に決まってない2월 19일ではD:\Projects\PortaRe0にしましょう。
+GitHubでリポジトリを作成する手順から始めます。
+
+GitHub.comで「New repository」
+Repository name: PortaRe0
+Descriptionは任意で「Cubie A7Z based clamshell cyberdeck」など
+Publicにするかどうかはどうしますか？
+Publicにすると何か問題とかある？2월 19일公開リポジトリの潜在的な問題を検討した。公開リポジトリの潜在的な問題を検討した。Simple question about public vs private repos.完了特に問題ないです。むしろCyberdeck系のプロジェクトはPublicで公開している人が多くて参考にされたり、フィードバックもらえたりするメリットがあります。
+強いて注意点を挙げると、APIキーや認証情報をファイルに書いてコミットしないことくらいですが、今回はハードウェアプロジェクトなのでそういったものは出てこないので問題ないです。
+Publicで作りますか？publicにしようか2월 19일では手順通りに進めましょう。
+GitHubでリポジトリ作成
+
+GitHub.comで「New repository」
+Repository name: PortaRe0
+Description: Cubie A7Z based clamshell cyberdeck（任意）
+Public選択
+「Add a README file」にチェック
+「Add .gitignore」でKiCadを選択
+「Create repository」
+
+作成できたら教えてください。次にローカルへのcloneとフォルダ構成の作成をやります。できた2월 19일では次はローカルにcloneします。PowerShellかコマンドプロンプトを開いて以下を実行してください。
+cd D:\Projects
+git clone https://github.com/あなたのユーザー名/PortaRe0.git
+GitHubのユーザー名は何ですか？URLを正確に出せます。C:\Users\yuu>cd D:\Projects
+C:\Users\yuu>
+？？？2월 19일cdだけだとドライブをまたげないです。ドライブを変えるには先にドライブ名を入力する必要があります。
+D:
+cd Projects
+この2ステップでD:\Projectsに移動できます。M256XRがusername2월 19일Thinking about identifying M256XR as a usernameThinking about identifying M256XR as a usernameThe user wants to clone the repo. Let me provide the command.完了では以下を実行してください。
+D:
+cd Projects
+git clone https://github.com/M256XR/PortaRe0.gitイケたっぽい2월 19일では次にフォルダ構成を作ります。
+cd PortaRe0
+mkdir kicad
+mkdir cad
+mkdir docs
+mkdir bom
+実行できたら教えてください。できたで2월 19일では最初のBOMファイルをbomフォルダに置いてコミットしましょう。
+まずBOMファイルをコピーします。エクスプローラーでD:\Projects\PortaRe0\bomフォルダにさっきのcyberdeck_bom.xlsxを置いてください。ダウンロードフォルダにあるはずです。
+置けたら教えてください。置いた2월 19일では以下を実行してください。
+cd D:\Projects\PortaRe0
+git add .
+git commit -m "Initial commit: add project structure and BOM"
+git pushD:\Projects\PortaRe0>git add .
+D:\Projects\PortaRe0>git commit -m "Initial commit: add project structure and BOM"
+[main 1dbdee9] Initial commit: add project structure and BOM
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 bom/cyberdeck_bom.xlsx
+D:\Projects\PortaRe0>git push
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 32 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (4/4), 11.43 KiB | 11.43 MiB/s, done.
+Total 4 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
+To https://github.com/M256XR/PortaRe0.git
+   24dc25d..1dbdee9  main -> main
+D:\Projects\PortaRe0>もっと表示2월 19일完璧です。GitHubに上がりました。
+次はKiCadプロジェクトをD:\Projects\PortaRe0\kicadフォルダの中に作成します。KiCadを開いて「新しいプロジェクト」からそのフォルダを指定してください。プロジェクト名はPortaRe0でいいですか？いいよ2월 19일KiCadを開いて「ファイル」→「新しいプロジェクト」でD:\Projects\PortaRe0\kicadフォルダを選択してプロジェクト名をPortaRe0で作成してください。
+できたら教えてください。おｋ2월 19일では作成されたKiCadのファイルをGitにコミットしておきましょう。
+cd D:\Projects\PortaRe0
+git add .
+git commit -m "Add KiCad project"
+git pushおｋ2월 19일環境構築完了です。
+現状こうなっています。
+D:\Projects\PortaRe0\
+├── kicad/          # KiCadプロジェクト
+├── cad/            # 3Dファイル用
+├── docs/           # データシート用
+├── bom/            # BOM Excel
+└── README.md
+GitHubにも上がっているので別PCからでもgit cloneすればすぐ作業できます。
+次はKiCadでBQ25895の回路図を描き始めるところですが、今日続けますか？やりまっしょい2월 19일ユーザーの要望を理解できませんでした。ユーザーの要望を理解できませんでした。Let's help them start the BQ25895 schematic in KiCad. First, let me check if BQ25895 is in the JLCPCB library, and get the datasheet reference circuit ready.完了まずJLCPCBでBQ25895のライブラリ確認をしましょう。Tabs_context_mcpTabs_context_mcptabs_context_mcp結果完了ブラウザツールが使えないので手動で確認してもらえますか。
+https://jlcpcb.com/parts にアクセスして検索窓にBQ25895と入力してみてください。在庫があるか、あればC番号（例：C123456）を教えてください。確認すべきパーツあれば全部調べるよ2월 19일パーツ検証のため JLCPCB 部品を一覧化した。パーツ検証のため JLCPCB 部品を一覧化した。The user wants to check all parts at once on JLCPCB. Let me list all the parts that need JLCPCB PCBA verification.完了では一気に確認しましょう。以下のパーツを全部検索してC番号と在庫状況を教えてください。
+必須（PCBA対象）
+
+BQ25895RTWR
+VL812-Q7
+RP2040
+TPS61023DRLR
+AP2112K-3.3TRG1
+MAX98357AEWL
+W25Q32JVSSIQ
+
+確認したい
+
+BSS138 （ENラッチ用MOSFET）
+1N4148W （キーマトリクスダイオード）
+BQ25895RTWR〇
+VL812〇
+RP2040〇
+TPS61023DRLR〇
+AP2112K-3.3TRG1〇
+MAX98357AEWL+T〇
+W25Q32JVSSIQ〇
+BSS138〇
+1N4148W〇2월 19일Verified component availability and initiated circuit designVerified component availability and initiated circuit designAll parts are available in JLCPCB's library. Now we can proceed with KiCad schematic design starting with BQ25895.完了全部在庫ありで完璧です。PCBAで詰まる心配はないですね。
+ではKiCadのBQ25895回路図を始めましょう。まず最初にTIのBQ25895データシートとEVMの回路図を手元に置いておくと設計が楽です。
+KiCadでBQ25895のシンボルを配置するところから始めます。KiCadのシンボルライブラリにBQ25895はないので、JLCPCBのKiCadライブラリをインポートするのが一番早いです。
+EasyEDA→KiCad変換ツールのインストール
+以下のツールを使うとJLCPCBのパーツをKiCadに取り込めます。
+https://github.com/uPesy/easyeda2kicad.py
+PowerShellで以下を実行してください。
+pip install easyeda2kicad
+Pythonは入っていますか？C:\Users\yuu>pip install easyeda2kicad
+Defaulting to user installation because normal site-packages is not writeable
+Collecting easyeda2kicad
+  Downloading easyeda2kicad-0.8.0-py3-none-any.whl.metadata (6.3 kB)
+Collecting pydantic>=2.0.0 (from easyeda2kicad)
+  Using cached pydantic-2.12.5-py3-none-any.whl.metadata (90 kB)
+Collecting requests>2.0.0 (from easyeda2kicad)
+  Using cached requests-2.32.5-py3-none-any.whl.metadata (4.9 kB)
+Collecting annotated-types>=0.6.0 (from pydantic>=2.0.0->easyeda2kicad)
+  Using cached annotated_types-0.7.0-py3-none-any.whl.metadata (15 kB)
+Collecting pydantic-core==2.41.5 (from pydantic>=2.0.0->easyeda2kicad)
+  Using cached pydantic_core-2.41.5-cp313-cp313-win_amd64.whl.metadata (7.4 kB)
+Collecting typing-extensions>=4.14.1 (from pydantic>=2.0.0->easyeda2kicad)
+  Using cached typing_extensions-4.15.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting typing-inspection>=0.4.2 (from pydantic>=2.0.0->easyeda2kicad)
+  Using cached typing_inspection-0.4.2-py3-none-any.whl.metadata (2.6 kB)
+Collecting charset_normalizer<4,>=2 (from requests>2.0.0->easyeda2kicad)
+  Using cached charset_normalizer-3.4.4-cp313-cp313-win_amd64.whl.metadata (38 kB)
+Collecting idna<4,>=2.5 (from requests>2.0.0->easyeda2kicad)
+  Using cached idna-3.11-py3-none-any.whl.metadata (8.4 kB)
+Collecting urllib3<3,>=1.21.1 (from requests>2.0.0->easyeda2kicad)
+  Using cached urllib3-2.6.3-py3-none-any.whl.metadata (6.9 kB)
+Collecting certifi>=2017.4.17 (from requests>2.0.0->easyeda2kicad)
+  Using cached certifi-2026.1.4-py3-none-any.whl.metadata (2.5 kB)
+Downloading easyeda2kicad-0.8.0-py3-none-any.whl (43 kB)
+Using cached pydantic-2.12.5-py3-none-any.whl (463 kB)
+Using cached pydantic_core-2.41.5-cp313-cp313-win_amd64.whl (2.0 MB)
+Using cached annotated_types-0.7.0-py3-none-any.whl (13 kB)
+Using cached requests-2.32.5-py3-none-any.whl (64 kB)
+Using cached charset_normalizer-3.4.4-cp313-cp313-win_amd64.whl (107 kB)
+Using cached idna-3.11-py3-none-any.whl (71 kB)
+Using cached urllib3-2.6.3-py3-none-any.whl (131 kB)
+Using cached certifi-2026.1.4-py3-none-any.whl (152 kB)
+Using cached typing_extensions-4.15.0-py3-none-any.whl (44 kB)
+Using cached typing_inspection-0.4.2-py3-none-any.whl (14 kB)
+Installing collected packages: urllib3, typing-extensions, idna, charset_normalizer, certifi, annotated-types, typing-inspection, requests, pydantic-core, pydantic, easyeda2kicad
+   ━━━━━━━━━━╸━━━━━━━━━━━━━━━━━━━━━━━━━━━━━  3/11 [charset_normalizer]  WARNING: The script normalizer.exe is installed in 'C:\Users\yuu\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\Scripts' which is not on PATH.
+  Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━ 10/11 [easyeda2kicad]  WARNING: The script easyeda2kicad.exe is installed in 'C:\Users\yuu\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\Scripts' which is not on PATH.
+  Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.
+Successfully installed annotated-types-0.7.0 certifi-2026.1.4 charset_normalizer-3.4.4 easyeda2kicad-0.8.0 idna-3.11 pydantic-2.12.5 pydantic-core-2.41.5 requests-2.32.5 typing-extensions-4.15.0 typing-inspection-0.4.2 urllib3-2.6.3
+[notice] A new release of pip is available: 25.3 -> 26.0.1
+[notice] To update, run: C:\Users\yuu\AppData\Local\Microsoft\WindowsApps\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\python.exe -m pip install --upgrade pip
+C:\Users\yuu>もっと表示2월 19일インストールできました。PATHの警告が出ているので、直接パスを指定して実行する形にします。
+まずPCBAで必要な全パーツのシンボル・フットプリントをまとめて取得しましょう。以下を実行してください。
+cd D:\Projects\PortaRe0\kicad
+python -m easyeda2kicad --full --lcsc_id C521190 --output PortaRe0
+python -m easyeda2kicad --full --lcsc_id C784589 --output PortaRe0
+python -m easyeda2kicad --full --lcsc_id C2040 --output PortaRe0
+python -m easyeda2kicad --full --lcsc_id C460543 --output PortaRe0
+python -m easyeda2kicad --full --lcsc_id C89358 --output PortaRe0
+python -m easyeda2kicad --full --lcsc_id C2678502 --output PortaRe0
+python -m easyeda2kicad --full --lcsc_id C97521 --output PortaRe0
+ちょっと待ってください、C番号を正確に確認してから出した方がいいです。JLCPCBで検索した時にC番号は表示されていましたか？あるね2월 19일確認を受けて、部品番号の提供を促した。確認を受けて、部品番号の提供を促した。The user confirmed C numbers are visible. I should ask them to provide the C numbers for each part so I can give accurate easyeda2kicad commands.完了では各パーツのC番号を教えてください。
+
+BQ25895RTWR
+VL812-Q7
+RP2040
+TPS61023DRLR
+AP2112K-3.3TRG1
+MAX98357AEWL+T
+W25Q32JVSSIQ
+BSS138
+1N4148W
+C80200
+C69417
+C2040
+C919459
+C51118
+C2682619
+C82344
+C52895
+C20992월 19일Marshaled component identifiers for conversion processingMarshaled component identifiers for conversion processingLet me run the easyeda2kicad commands with the correct C numbers.完了では一気に取得します。以下を実行してください。
+cd D:\Projects\PortaRe0\kicad
+python -m easyeda2kicad --full --lcsc_id C80200 --output PortaRe0
+python -m easyeda2kicad --full --lcsc_id C69417 --output PortaRe0
+python -m easyeda2kicad --full --lcsc_id C2040 --output PortaRe0
+python -m easyeda2kicad --full --lcsc_id C919459 --output PortaRe0
+python -m easyeda2kicad --full --lcsc_id C51118 --output PortaRe0
+python -m easyeda2kicad --full --lcsc_id C2682619 --output PortaRe0
+python -m easyeda2kicad --full --lcsc_id C82344 --output PortaRe0
+python -m easyeda2kicad --full --lcsc_id C52895 --output PortaRe0
+python -m easyeda2kicad --full --lcsc_id C2099 --output PortaRe0D:\Projects\PortaRe0\kicad>python -m easyeda2kicad --full --lcsc_id C2099 --output PortaRe0
+-- easyeda2kicad.py v0.8.0 --
+[ERROR] Can't find the folder :
+D:\Projects\PortaRe0\kicad>2월 19일出力フォルダを先に作る必要があります。
+mkdir PortaRe0_lib
+python -m easyeda2kicad --full --lcsc_id C80200 --output PortaRe0_lib/PortaRe0
+これで試してみてください。D:\Projects\PortaRe0\kicad>python -m easyeda2kicad --full --lcsc_id C2099 --output PortaRe0
+-- easyeda2kicad.py v0.8.0 --
+[ERROR] Can't find the folder :
+D:\Projects\PortaRe0\kicad>2월 19일あ、まだ古いコマンドが残ってましたね。順番に実行してください。
+mkdir PortaRe0_lib
+python -m easyeda2kicad --full --lcsc_id C80200 --output PortaRe0_lib/PortaRe0D:\Projects\PortaRe0\kicad>python -m easyeda2kicad --full --lcsc_id C80200 --output PortaRe0_lib/PortaRe0
+-- easyeda2kicad.py v0.8.0 --
+[WARNING] This id is already in PortaRe0_lib/PortaRe0.kicad_sym
+[ERROR] Use --overwrite to update the older symbol lib
+D:\Projects\PortaRe0\kicad>2월 19일Identified existing library file requiring overwrite flagIdentified existing library file requiring overwrite flagThe library file already exists from a previous attempt. They need to use --overwrite flag or just run all commands with --overwrite.完了以前に一部実行されていたようです。--overwriteを付けて全部まとめて実行してください。
+python -m easyeda2kicad --full --lcsc_id C80200 --output PortaRe0_lib/PortaRe0 --overwrite
+python -m easyeda2kicad --full --lcsc_id C69417 --output PortaRe0_lib/PortaRe0 --overwrite
+python -m easyeda2kicad --full --lcsc_id C2040 --output PortaRe0_lib/PortaRe0 --overwrite
+python -m easyeda2kicad --full --lcsc_id C919459 --output PortaRe0_lib/PortaRe0 --overwrite
+python -m easyeda2kicad --full --lcsc_id C51118 --output PortaRe0_lib/PortaRe0 --overwrite
+python -m easyeda2kicad --full --lcsc_id C2682619 --output PortaRe0_lib/PortaRe0 --overwrite
+python -m easyeda2kicad --full --lcsc_id C82344 --output PortaRe0_lib/PortaRe0 --overwrite
+python -m easyeda2kicad --full --lcsc_id C52895 --output PortaRe0_lib/PortaRe0 --overwrite
+python -m easyeda2kicad --full --lcsc_id C2099 --output PortaRe0_lib/PortaRe0 --overwriteD:\Projects\PortaRe0\kicad>python -m easyeda2kicad --full --lcsc_id C80200 --output PortaRe0_lib/PortaRe0 --overwrite
+-- easyeda2kicad.py v0.8.0 --
+[WARNING] This id is already in PortaRe0_lib/PortaRe0.kicad_sym
+[INFO] Created Kicad symbol for ID : C80200
+       Symbol name : BQ25895RTWR
+      pasted2월 19일全部取得できました。エラーなしです。
+次にKiCadにこのライブラリを登録します。KiCadを開いて以下の手順でやってください。
+
+「環境設定」→「シンボルライブラリを管理」
+「ライブラリを追加」→「参照」
+D:\Projects\PortaRe0\kicad\PortaRe0_lib\PortaRe0.kicad_symを選択
+OKで閉じる
+
+次に同じく「フットプリントライブラリを管理」で
+
+「ライブラリを追加」→「参照」
+D:\Projects\PortaRe0\kicad\PortaRe0_lib\PortaRe0.prettyを選択
+OKで閉じる
+
+できたら教えてください。おｋ2월 19일ではGitにコミットしておきましょう。
+cd D:\Projects\PortaRe0
+git add .
+git commit -m "Add KiCad component libraries"
+git push
+できたらいよいよBQ25895の回路図を始めます。おｋ2월 19일ではKiCadの回路図エディタを開いてください。KiCadのメイン画面で「回路図エディタ」をクリックです。
+開いたら最初にシートを複数作る構成にします。階層シートを使って電源・USBハブ・キーボードをそれぞれ別シートに分けると管理しやすいです。
+「ファイル」→「新しいシートを挿入」で以下の4枚を作ってください。
+
+power（電源回路）
+usb_hub（VL812）
+keyboard（RP2040・キーマトリクス）
+audio（MAX98357A）
+
+できましたか？おｋ2월 19일ではpowerシートをダブルクリックして開いてください。
+BQ25895から始めます。Aキーでシンボル追加画面を開いてBQ25895と検索してシンボルを配置してください。
+配置できたら教えてください。配置したよ2월 19일ではBQ25895のピン配置を確認しながら周辺回路を組んでいきます。
+まずデータシートのリファレンス回路を見ながら作業したいので、TIのサイトからBQ25895のデータシートを開いておいてください。
+https://www.ti.com/product/BQ25895
+開いたらデータシートのページ数を確認したいので、何ページあるか教えてもらえますか？それとも手元にすでにPDFがありますか？
