@@ -60,7 +60,7 @@ LiPo SYS出力 (3.7〜4.2V) → TPS61023 #2 → USB_5V_SYS → 外部USBポー�
 ### USBハブ
 
 - **VL812**（QFN-76-EP 9x9）C69417
-- 外付け：25MHz クリスタル / W25Q32JVSSIQ SPI Flash（C82344）/ 27Ω 抵抗（SSREXT）
+- 外付け：25MHz クリスタル X322525MOB4SI（C9006 / CL=12pF / 負荷C=18pF×2） / W25Q32JVSSIQ SPI Flash（C82344）/ 27Ω 抵抗（SSREXT）
 
 USB 接続構成:
 ```
