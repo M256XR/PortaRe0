@@ -59,6 +59,14 @@
 
 ---
 
+## 参照回路図・リファレンス
+
+| 用途 | 資料名 | URL |
+|------|--------|-----|
+| VL812 実装例（usb_hubシート検証に使用） | DragonBoard 820c Schematics | https://www.96boards.org/documentation/consumer/dragonboard/dragonboard820c/hardware-docs/files/db820c-schematics.pdf |
+
+---
+
 ## 購入済み・発注済み
 
 - Cubie A7Z 8GB → AliExpress 注文済み ✅
@@ -77,6 +85,25 @@
 ---
 
 ## 直近の決定事項ログ
+
+### 2026-02-22（session13）
+- Claude Desktop → Claude Code CLI移行の検討・方針決定
+- launch_claude.ps1（Windows用）作成: セッション番号自動採番＋Start-Transcriptでチャット原文を自動保存
+- launch_claude.sh（Linux用）作成: scriptコマンドで同様のログ取得
+- launch_claude.ps1 / launch_claude.sh を .gitignore に追加（git push対象外）
+- Claude.mdに「終了処理して」コマンドのセクションを追加（PROGRESS.md更新→index.md更新→git commitを自動化）
+- index.mdにSession13を追記・ファイル名 `New session.txt` → `2026-02-22_Session13.txt` にリネーム
+
+### 2026-02-22（session12）
+- DragonBoard 820c公式回路図（VL812採用）との照合によりusb_hubシートを修正・検証完了
+- SSREXT: 200Ω → **6.04kΩ ±1%**（DragonBoard/VL805/VL815/VL817全て6.04kΩ）
+- VBUSDET分圧: 56kΩ+100kΩ → **4.7kΩ+10kΩ**（約3.4V）
+- EXTPWRON: +3V3 → **3V3_HUB** に修正（キルスイッチ前の電源から取る）
+- RESET#: 100nF → **1µF** に変更 / **100kΩ→GND** 追加
+- LX インダクタ: 4.7µH → **10µH**（DragonBoard実績値）
+- 水晶シンボル: Device:Crystal_Small（2端子）→ **Device:Crystal_GND24_Small**（4端子）に変更
+- 以下はDragonBoardと一致確認済み ✅
+  - 水晶負荷C 18pF×2 / DC33FB 4.7µF / DC12FB 10µF+100nF / USBHOC# 10kΩ→3V3_HUB
 
 ### 2026-02-22（session11）
 - 外部USBポート電源・保護回路確定

@@ -1,0 +1,344 @@
+# PortaRe0 原文チャットログ索引
+
+> 参照形式: SセッションNN LおよそN行目（例: S07 L180）
+> ファイル: chat_logs/原文/YYYY-MM-DD_SessionNN.txt
+> Session08・Session09は原文ファイルなし（session10内・要約_archive内で内容確認可能）
+
+---
+
+## セッション別索引
+
+### Session01 (2026-02-19) - 2026-02-19_Session01.txt
+- L1: プロジェクト概要・クラムシェル型Cyberdeckの構想開始
+- L50: Cubie A7Z SBC選定・スペック確認
+- L100: ディスプレイ選定（LS055R1SX04 5.5インチ）
+- L200: 電源設計・BQ25895充電IC選定
+- L300: USBポート割り当て（USB-C USB3.0→ハブ、USB-C USB2.0→充電、Micro HDMI→ディスプレイ）
+- L400: VL812 USBハブチップ選定
+- L500: 筐体フォームファクタ検討（クラムシェル・ボトム139×81mm）
+- L700: キーボードスイッチ選定（Alps SKRPABE010）・アナログスティック検討
+- L900: RP2040選定（QMK対応）
+- L1100: PCB構成（4層・JLCPCB PCBA）
+- L1300: バッテリー選定（LiPo 6060100 / 3500mAh）
+- L1500: サブ基板設計（メイン基板スロット穴への垂直挿入方式）
+- L1647: コの字構造・PCB to PCB接続方式の確定
+- L1800: パッシブ冷却方針（ヒートパイプ＋小型ヒートシンク）
+
+### Session02 (2026-02-19) - 2026-02-19_Session02.txt
+- L1: スピーカー選定（秋月 23×16mm 8Ω）・MAX98357Aモノラル→ステレオ変更
+- L90: MAX98357A × 2（ステレオ構成）確定
+- L150: I2S SD_MODEピンのL/R切り替え方法最初の議論
+- L350: AliExpress購入リスト整理（Cubie A7Z・LiPo・ヒートパイプ等）
+- L500: 冷却設計（ヒートパイプ経路・ヒートシンク配置）
+- L600: BQ25895周辺回路の設計開始・datasheet確認
+
+### Session03 (2026-02-19) - 2026-02-19_Session03.txt
+- L1: 前セッション継続確認・KiCad BQ25895配置から再開
+- L26: BQ25895ピン配置・全ピン接続指示（VBUS/D+/D-/SCL/SDA/INT/OTG/CE/ILIM/TS/QON）
+- L64: STATピン・LEDおよびプルアップ接続
+- L87: TS（Pin11）→ REGN分圧方式（10kΩ×2）に修正
+- L109: KiCadネットラベル・グローバルラベルの使い分け説明
+- L165: TS処理の最終確定：REGN→R6(10kΩ)→TS→R7(10kΩ)→GND
+- L198: BQ25895 TSピン接続方法の最終決定
+
+### Session04 (2026-02-19) - 2026-02-19_Session04.txt
+- L1: プロジェクト計画書（PROJECT_PLAN.md）保存・電源フロー確定
+- L85: BQ25895右側ピン（BAT/SYS/PGND/PAD）接続
+- L133: BQ25895上側ピン（SW/BTST/REGN/PMID/DSEL）接続・インダクタ1.5µH
+- L165: BQ25895 インダクタ値1.5µH（スイッチング周波数1.5MHz時）確定
+- L190: TS分圧接続の最終確定（REGN→R6→TS→R7→GND）
+- L260: BQ25895完成・グローバルラベル（I2C_SCL/I2C_SDA）確定
+- L400: I2CバスはRP2040経由でBQ25895を読む設計確認
+- L500: GNDPWRと通常GNDの使い分け・一点接続
+
+### Session05 (2026-02-20) - 2026-02-20_Session05.txt
+- L1: 別PCからpull・power/usb_hubシート完成の状態から継続
+- L65: BQ25895 SCL/SDA・USB_DP/USB_DM のグローバルラベル化
+- L100: connectors.kicad_schシート新設の決定
+- L168: パワーシンボル名（5V_SYS/VSYS）カスタム作成
+- L264: +3V3パワーシンボル統一（AP2112K VOUT = +3V3）
+- L308: キルスイッチ設計（BQ25895とTPS61023の間・SPDT・充電継続可能）
+- L345: 電源フロー確定：+BATT→BQ25895→VSYS→キルスイッチ→TPS61023/AP2112K
+- L435: powerシート完了確認・TPS61023 ENピン（モーメンタリ起動）設計
+- L500: TPS61023 FB分圧（R9=910kΩ/R10=100kΩ → 5.05V）・インダクタ1µH
+- L660: GPIO足りるか確認開始
+- L688: KLEレイアウト初回（60キー版）・9×8マトリクス（17本）確定
+- L772: ショルダーボタン・Back/Next/RShift追加（66キー版）
+- L838: RP2040 GPIO割り当て確定版（GP0-GP28、29本使用）
+- L875: keyboard-layout.json保存
+
+### Session06 (2026-02-20) - 2026-02-20_Session06.txt
+※Session05と同内容・別デバイスから同じ状態で開始した重複セッション
+- L65: BQ25895 SCL/SDA グローバルラベル化
+- L168: 5V_SYS/VSYS カスタムパワーシンボル作成
+- L308: キルスイッチ設計（SPDT・VSYS後段配置）
+- L500: Geminiによる回路図レビュー（TPS61023/AP2112K/BQ25895）
+- L549: キルスイッチ位置・AP2112K VIN接続先の確認
+- L906: VL812 usb_hubシート作業開始
+- L1013: VL812 電源ピン・デカップリング・SPI Flash・ストラップ全配線手順
+- L1049: SSREXT→200Ω(1%)確定
+- L1051: VBUSDET当初設計（5V_SYS直結・後に修正）
+- L1059: EXTPWRON分圧値（22kΩ+47kΩ → 3.41V・後に簡略化）
+- L1086: カスタムパワーシンボル（+3V3_HUB/+1V2_HUB）作成
+- L1187: Pin40 NC確定
+
+### Session07 (2026-02-21) - 2026-02-21_Session07.txt
+- L1: pull・BOM更新・session08の作業内容確認
+- L36: session08での作業（RP2040外部QSPI Flash/水晶確定）
+- L65: キースイッチ＆ダイオードマトリクスの配線方向（ROW→[>|]→[SW]→COL）
+- L220: SKRPABE010 C番号（C115360）在庫54,355個確定
+- L286: アナログスティック選定比較（PSP互換/秋月JT8P/3DSスライドパッド）
+- L325: 3DSスライドパッド採用決定
+- L400: 3DS FPCコネクタ探索（4P 1.0mm ZIF）
+- L435: FPCコネクタ確定（Molex 5034800440 / C3170007）
+- L460: 3DS VCC 1.8V問題 → 3.3V直結でOKの結論
+- L544: keyboard シート設計仕様まとめ（マトリクス/スティック/LED）
+- L593: 物理配置ベースのマトリクス割り当て検討
+- L680: ROW0〜7 × COL0〜8 の全割り当て表確定
+- L720: QMK info.json保存
+- L752: GP0〜GP8=COL / GP9〜GP16=ROW 確定
+- L795: COL/ROWはローカルネットラベルで完結（シート内）
+- L830: アナログスティック接続再確認（GP27/GP28・ADC・100nF）
+- L842: ダイオード配置（ROW→[>|]→[SW]→COL）確定
+- L1044: JSONパース→63キーに修正確定
+
+### Session10 (2026-02-21) - 2026-02-21_Session10.txt
+※session09継続作業（S09原文なし）
+- L1: audio.kicad_sch作業継続・session09決定事項まとめ
+- L115: イヤホン用IC検討（PCM5102A + TPA6132A2構成）
+- L134: PCM5102APWR（C107671）在庫確認
+- L139: TPA6132A2RTER（C69901）在庫確認
+- L160: オーディオ構成確定（MAX98357A×2 + PCM5102A + TPA6132A2）
+- L180: RP2040 2個構成の決定（#1キーボード/#2オーディオ）
+- L213: RP2040 #1/#2 GPIO割り当て最終版
+- L244: WS2812B廃止・個別LED×3（GP21/22/23）に戻す
+- L265: LED GPIO確定（GP21=LED_CHG/GP22=LED_FULL/GP23=LED_ACT）
+- L304: GPIO割り当て最終確定
+- L351: MAX98357A SD_MODE確定（GP3共通 / LRCLK自動L/R振り分け）
+- L375: PCM5102A全ピン接続方針
+- L396: XSMT（PCM5102Aミュート）→RP2040 GP4制御
+- L406: TPA6132A2全ピン接続方針
+- L508: TESTEN→GND / RP2040 #1/#2のUSBラベル確定
+- L554: Geminiによるusb_hubシートレビュー（ESD対策/過電流保護の必要性指摘）
+- L642: TPS2042BDR採用決定（Active-Low確認・TPS2052Bは使えない）
+- L679: TPS2042BDR全ピン確認・接続方針
+- L690: 外部USBポート電力問題・TPS61023 #2追加の検討
+- L711: TPS61023 #2（USB専用昇圧）追加決定
+- L716: TPS61023 #2 ENピン→RP2040 #1 GP24制御
+- L757: TPS61023 #2・TPS2042BDR・USBLC6-2SC6をusb_hubシートに配置
+- L790: USBLC6-2SC6接続・VBUSDET分圧修正（56kΩ+100kΩ → 3.2V）
+- L806: EXTPWRON簡略化（3V3_HUBへ10kΩプルアップのみ）
+- L862: connectorシート構成の最終決定
+
+### Session13 (2026-02-22) - 2026-02-22_Session13.txt
+- L1: Claude Desktop落下によるセッション消失の問題整理
+- L30: lucid-fermiワークツリー確認・session12の作業はコミット済みと確認
+- L80: セッション原文ログが保存されていないことが本質的な問題と確認
+- L120: Claude Desktop → Claude Code CLI移行の検討
+- L150: Start-Transcript / scriptコマンドによる自動ログ取得方針決定
+- L200: launch_claude.ps1（Windows用）作成・セッション番号自動採番機能付き
+- L280: launch_claude.sh（Linux用）作成
+- L310: launch_claude.ps1 / launch_claude.sh を .gitignore に追加
+- L350: 「終了処理」コマンドをClaude.mdに追加・index.md更新の自動化
+
+---
+
+## トピック別索引
+
+### 電源系
+
+#### BQ25895
+- 選定・概要: S01 L200
+- TS処理（REGN分圧 R6/R7各10kΩ）: S03 L87, S03 L165, S04 L190
+- プルアップ（+3V3）SCL/SDA/INT/QON: S03 L64
+- ILIM抵抗（270Ω→2A制限）: S03 L86
+- インダクタ値（1.5µH / スイッチング1.5MHz）: S04 L165
+- BATおよびSYSデカップリング: S04 L85
+- DSEL→GND（BC1.2無効）: S04 L133
+- BTST(100nF→SW) / REGN(100nF) / PMID(4.7µF): S04 L133
+- I2C SCL/SDA グローバルラベル化: S05 L65, S06 L65
+- BQ_INT グローバルラベル: S03 L83
+- 完成確認: S04 L260
+
+#### TPS61023
+- 選定: S01 L200
+- FB分圧（R9=910kΩ / R10=100kΩ → 5.05V出力）: S05 L500, S06 L502
+- EN制御（モーメンタリ起動・100kΩプルダウン）: S05 L435, S05 L504
+- インダクタ値（1µH / 3A以上）: S05 L500
+- 入出力コンデンサ（CIN=10µF / COUT=22µF+100nF）: S05 L500
+- TPS61023 #2（USB用）追加: S10 L711
+- TPS61023 #2 ENピン→RP2040 #1 GP24制御: S10 L716
+
+#### AP2112K LDO
+- 選定: S01 L200
+- VIN→5V_SYS / EN→5V_SYS直結（常時ON）: S05 L513
+- VOUT→+3V3: S05 L264
+- デカップリング（1µF×2）: S05 L513
+
+#### 電源スイッチ
+- キルスイッチ位置確定（VSYS→SW→TPS61023/AP2112K VIN）: S05 L308, S05 L345
+- SPDT・NC端未接続: S05 L466
+- モーメンタリボタン（SW1）起動回路: S05 L504
+- 充電時もキルスイッチOFFで充電継続可能: S05 L354
+
+#### パワーシンボル構成
+- カスタムパワーシンボル（VSYS/5V_SYS）作成: S05 L168, S06 L207
+- +BATT / VSYS / 5V_SYS / +3V3 の体系確定: S05 L345
+- GNDPWR と GND の一点接続: S04 L500
+- +3V3_HUB / +1V2_HUB（VL812用）カスタム作成: S06 L1086
+
+---
+
+### VL812 USBハブ
+
+#### 電源構成
+- VCC5I（Pin19,38）→5V_SYS: S06 L1013
+- DC33FB（Pin18）→+3V3_HUB + 100nF: S06 L1014
+- DC12FB（Pin37）→+1V2_HUB / LX（Pin39）→L(4.7µH)→+1V2_HUB: S06 L1016
+- Pin40 NC確定: S06 L1187
+
+#### デカップリング
+- VDD×3ピン（30,48,58）各10µF+100nF: S06 L1020
+- VSUS33×3ピン（36,41,49）各100nF: S06 L1021
+- VCCA33系（2,8,27,71）各100nF+10pF: S06 L1022
+- VCCA12系（5,13,24,61,68,74）各100nF+10pF: S06 L1023
+
+#### SPI Flash（W25Q32）接続
+- SPICS/SPISCLK/SPISI/SPISO（Pin32-35）接続・各100kΩプルダウン: S06 L1038, S10 L789
+- /HOLD, /WP → 10kΩプルアップ（+3V3_HUB）: S10 L789
+
+#### 水晶（25MHz）
+- SSXI/SSXO（Pin75,76）→25MHz水晶 + 負荷C(15pF×2): S06 L1055
+
+#### SSREXT抵抗値
+- SSREXT（Pin1）→200Ω(1%)→GNDPWR: S06 L1049
+
+#### VBUSDET / EXTPWRON
+- VBUSDET当初（5V_SYS直結）→修正後（Upstream VBUSから56kΩ+100kΩ分圧→3.2V）: S06 L1051, S10 L800
+- EXTPWRON当初（22kΩ+47kΩ分圧→3.41V）→簡略化（3V3_HUBへ10kΩプルアップ）: S06 L1059, S10 L806
+
+#### USBHPE / USBHOC
+- USBHOC1(45)/USBHOC2(44)→10kΩ→+3V3_HUB: S06 L1053
+- USBHPE1(43)/USBHPE2B(42)→TPS2042BDRと接続: S10 L679
+
+#### ACカップリング有無ルール
+- Upstream TX（Pin22,23）→100nF ACカップリング挿入: S10 L789
+- DP1/DP2 TX→100nF ACカップリング挿入: S10 L789
+- RX側（Upstream/Downstream全て）→直結（ACカップリングなし）: S10 L789
+
+#### ダウンストリームポート割り当て
+- DP1（Pin64,65 D+/D- / Pin59-63 SS）→外部USB-C（TPS2042BDR/USBLC6-2SC6）: S06 L1033, S10 L789
+- DP2（Pin72,73 D+/D- / Pin66-70 SS）→外部USB-A（TPS2042BDR/USBLC6-2SC6）: S06 L1034, S10 L789
+- DP3（Pin9,10 D+/D-）→RP2040 #1（キーボード）: S06 L1035, S10 L201
+- DP4（Pin16,17 D+/D-）→RP2040 #2（オーディオ）: S10 L201
+
+---
+
+### キーボード（RP2040 #1）
+
+#### キーレイアウト
+- KLEデータ初回（60キー）: S05 L688
+- ショルダーボタン・Back/Next/RShift追加（66キー版）: S05 L772
+- keyboard-layout.json保存: S05 L875
+- JSONパース→63キーに修正確定: S07 L1044
+
+#### ダイオード向き・接続方式
+- Col2Row方式（ROW→スイッチ→ダイオード→COL / アノードがROW側）: S07 L65, S07 L842
+- 1N4148W（カソード=COL側）: S07 L65
+
+#### キーマトリクス割り当て
+- 9COL × 8ROW（17本）確定: S05 L750
+- 物理配置ベース割り当て表（ROW0〜7 × COL0〜8）: S07 L680
+- QMK info.json保存: S07 L720
+- COL/ROWはローカルネットラベル（シート内完結）: S07 L795
+
+#### GPIO割り当て（RP2040 #1）
+- GP0〜GP8=COL / GP9〜GP16=ROW 確定: S07 L752
+- GP17=I2C_SCL / GP18=I2C_SDA / GP19=BQ_INT / GP20=RP2040_EN: S05 L838, S10 L304
+- GP21=LED_CHG / GP22=LED_FULL / GP23=LED_ACT: S10 L265
+- GP24=USB_VBUS_EN（TPS61023 #2 EN制御）: S10 L716, S10 L304
+- GP27=スティックX(ADC1) / GP28=スティックY(ADC2): S07 L752, S10 L304
+
+#### アナログスティック（3DSスライドパッド）
+- 選定比較（PSP互換/秋月JT8P/3DS）: S07 L286
+- 3DSスライドパッド採用決定（感触◎・薄型）: S07 L325
+- FPCコネクタ確定（Molex 5034800440 / C3170007 / 4P 1.0mm ZIF）: S07 L435
+- ピンアサイン（GND/X軸/VCC=3.3V直結/Y軸）: S07 L456, S07 L497
+- 接続回路（GP27=X ADC / GP28=Y ADC / 100nFデカップリング）: S07 L830
+
+#### LED回路
+- 当初設計（GP24〜GP26 + 330Ω）: S05 L849
+- WS2812B採用→レベルシフト問題で廃止: S10 L244
+- 個別LED×3 確定（GP21/22/23 / 330Ω / アクティブHigh）: S10 L265
+
+#### 外部SPI Flash（W25Q32）
+- QSPI Flash必須確認・4ビット接続: S07 L38
+- 水晶: X322512MOB4SI（C70565 / 12MHz）: S07 L38（session08からの引用）
+
+---
+
+### オーディオ（RP2040 #2）
+
+#### MAX98357A SD_MODE設定
+- 当初（R35 210kΩ → +3V3固定でL/R切り替え）: S02 L150
+- 変更後（GP3共通 → LRCLK自動L/R振り分け / U8に220kΩ直列追加）: S10 L351, S10 L363
+
+#### PCM5102A / TPA6132A2 追加の経緯
+- USB Audio + HID Composite実装困難 → RP2040を2個に分割: S10 L180
+- イヤホン用PCM5102A（DAC）+ TPA6132A2（HPアンプ）追加決定: S10 L160
+- PCM5102APWR C番号（C107671）: S10 L134
+- TPA6132A2RTER C番号（C69901）: S10 L139
+- PCM5102A接続方針（AVDD/DVDD=+3V3/I2S/XSMT→GP4）: S10 L375, S10 L396
+- TPA6132A2接続方針（チャージポンプ/ゲイン0dB/EN=GP5）: S10 L406
+
+#### スピーカー選定
+- 秋月 23×16×4.6mm 8Ω確定（当初）: S02 L1
+- Nintendo Switch互換品 8Ω×2（20×14×4mm）に変更: S10 L488
+
+#### GPIO割り当て（RP2040 #2）
+- GP0=BCLK / GP1=LRCLK / GP2=SDIN: S10 L213
+- GP3=SD_MODE / GP4=XSMT / GP5=HP_DET / GP6=HP_EN: S10 L213, S10 L396
+
+#### connectorシート構成
+- 最終決定（USB外部→usb_hub / 充電・バッテリー→power / SBC接続→connectors）: S10 L862
+
+---
+
+### 外部USBポート
+
+#### TPS2042BDR採用
+- VL812 UBSHPEがActive-Low → TPS2052B不可 → TPS2042BDR採用: S10 L642, S10 L794
+- TPS2042BDR全ピン確認・接続方針: S10 L679
+- C番号: C138720（LCSC）: S10 L642
+
+#### USBLC6-2SC6 ESD保護
+- GeminiレビューによるESD対策の必要性指摘: S10 L554
+- USBLC6-2SC6採用（Port1/Port2それぞれ1個ずつ / C7519）: S10 L764, S10 L828
+
+#### TPS61023 #2（USB専用昇圧）
+- 外部USBポートの電力不足問題の指摘: S10 L690
+- TPS61023 #2追加決定（出力名USB_5V_SYS）: S10 L711
+- usb_hubシートに配置・ENピン→GP24: S10 L757, S10 L716
+
+---
+
+### 全体設計
+
+#### 筐体フォームファクタ
+- クラムシェル型・ボトム139×81mm: S01 L500
+- サブ基板（メイン基板スロット穴・垂直挿入・カードエッジ方式）: S01 L1647
+
+#### 採用しなかった案
+- アナログスティック: PSP互換・秋月JT8P → 3DS採用: S07 L286
+- LED: WS2812B（レベルシフト問題）→ 個別LED採用: S10 L244
+- オーディオ: モノラル→ステレオ→RP2040×2構成: S02 L90, S10 L180
+- 過電流保護: TPS2052B（Active-High・不適）→ TPS2042BDR採用: S10 L642
+
+#### C番号確定タイミング
+- SKRPABE010: C115360: S07 L220
+- X322512MOB4SI（RP2040用水晶）: C70565: S07 L38（session08引用）
+- Molex 5034800440: C3170007: S07 L485
+- PCM5102APWR: C107671: S10 L134
+- TPA6132A2RTER: C69901: S10 L139
+- TPS2042BDR: C138720: S10 L642
+- USBLC6-2SC6: C7519: S10 L764

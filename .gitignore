@@ -41,3 +41,7 @@ fp-info-cache
 
 # Claude Code
 .claude/
+
+# ローカル起動スクリプト
+launch_claude.ps1
+launch_claude.sh
