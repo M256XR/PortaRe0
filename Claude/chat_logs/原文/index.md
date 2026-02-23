@@ -140,6 +140,14 @@
 - L300: SW_DET回路追加（SW1出力→10kΩ分圧→GP25 / 短押し=スリープ・長押し=シャットダウン）
 - L350: C5 100nF→4.7µF（REGN cap）・C6 4.7µF→10µF（PMID cap）・SYS cap +10µF
 
+### Session17 (2026-02-23) - 2026-02-23_Session17.txt
+- L1: usb_hub シートの続き（J_EXT_C / J_EXT_A 追加）
+- L20: USB-C コネクタ在庫なし(C319140) → SB31-TYPE-C-FSABC(C2880583)に変更
+- L30: USB-A コネクタ向き確認 → 横向き HC-USB3.0-L168-WP(C7501850) に変更
+- L40: CC1/CC2 Rp 56kΩ（Default Current / ホスト DFP）確定
+- L60: easyeda2kicad で C2880583・C7501850 取得
+- L80: J_EXT_C / J_EXT_A 接続リスト確認・配置完了 → usb_hub シート完成
+
 ### Session16 (2026-02-23) - 2026-02-23_Session16.txt
 - L1: Claudeの役割方針確認（回路設計アシスタント・kicad_sch直接編集しない）・CLAUDE.md更新済み確認
 - L30: powerシート残作業の整理（J_BAT・J_USB_PWR・ENノード修正）
@@ -348,6 +356,11 @@
 #### USBLC6-2SC6 ESD保護
 - GeminiレビューによるESD対策の必要性指摘: S10 L554
 - USBLC6-2SC6採用（Port1/Port2それぞれ1個ずつ / C7519）: S10 L764, S10 L828
+
+#### 外部コネクタ（J_EXT_C / J_EXT_A）
+- J_EXT_C: USB31-TYPE-C-FSABC(C2880583) / CC 56kΩ Rp / SS両サイド直結: S17 L80
+- J_EXT_A: HC-USB3.0-L168-WP(C7501850) / USB3.0 SS対応 / 横向きTH: S17 L80
+- usb_hub シート完成: S17 L80
 
 #### TPS61023 #2（USB専用昇圧）
 - 外部USBポートの電力不足問題の指摘: S10 L690
