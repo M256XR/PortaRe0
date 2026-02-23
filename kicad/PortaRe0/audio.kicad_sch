@@ -3754,7 +3754,7 @@
 		(uuid "0e7cb09f-f646-45b8-bbca-faf02f16ce47")
 	)
 	(junction
-		(at 295.91 160.02)
+		(at 267.97 118.11)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "107ef16c-6978-46a2-8a0e-1b07f51f6238")
@@ -3796,19 +3796,19 @@
 		(uuid "2ead64bf-23f1-4ebf-a9e1-5e7abb721d91")
 	)
 	(junction
-		(at 222.25 137.16)
+		(at 194.31 95.25)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "36cd94a2-b843-4bee-856d-8f02eacfd25f")
 	)
 	(junction
-		(at 204.47 109.22)
+		(at 176.53 67.31)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "39fd12d3-75f2-4303-82b8-d014f83041d4")
 	)
 	(junction
-		(at 215.9 137.16)
+		(at 187.96 95.25)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "3fbf3fc5-e597-42dd-b956-60d74c386c26")
@@ -3862,7 +3862,7 @@
 		(uuid "6fe8c475-af38-4494-bfae-6a96de04ec49")
 	)
 	(junction
-		(at 210.82 109.22)
+		(at 182.88 67.31)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "76e270ee-c5b1-4f3e-9f21-5bc226244df6")
@@ -3874,7 +3874,7 @@
 		(uuid "776ba019-562c-4730-a104-4e6ff825e180")
 	)
 	(junction
-		(at 222.25 129.54)
+		(at 194.31 87.63)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "7b727844-8004-4966-ad23-17db38326a47")
@@ -3898,7 +3898,7 @@
 		(uuid "9e9c1317-09c5-4d6c-b2b7-4d880eb4de71")
 	)
 	(junction
-		(at 222.25 160.02)
+		(at 194.31 118.11)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "9f34c3c5-7d19-40b1-8d63-81e4c0ad45be")
@@ -3928,13 +3928,13 @@
 		(uuid "c9f36897-8232-450b-b992-2021b5e8bb36")
 	)
 	(junction
-		(at 210.82 101.6)
+		(at 182.88 59.69)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "ce798c43-0eb1-49e9-9101-bb11bfa62549")
 	)
 	(junction
-		(at 222.25 177.8)
+		(at 194.31 135.89)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "cf056aeb-739d-4ccf-a15f-7b11bd0ec11e")
@@ -3952,7 +3952,7 @@
 		(uuid "ddc32c21-1550-40a9-ae1d-2b514f84f395")
 	)
 	(junction
-		(at 295.91 208.28)
+		(at 267.97 166.37)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "e8de0bb3-e575-4cb2-b6c1-92a559749c7a")
@@ -3964,7 +3964,7 @@
 		(uuid "f4db05e3-4486-47e6-b81b-34f87f662361")
 	)
 	(junction
-		(at 295.91 203.2)
+		(at 267.97 161.29)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "f551ed35-bfe7-4807-8daf-d80fa55c9b2f")
@@ -4022,7 +4022,7 @@
 		(uuid "560cf968-3ecf-427f-be04-148246a11070")
 	)
 	(no_connect
-		(at 240.03 116.84)
+		(at 212.09 74.93)
 		(uuid "6a8d45a2-2966-4fae-bec7-0d26db35306e")
 	)
 	(no_connect
@@ -4030,7 +4030,7 @@
 		(uuid "7e92ae35-458c-4a60-836e-281a370104c0")
 	)
 	(no_connect
-		(at 238.76 144.78)
+		(at 210.82 102.87)
 		(uuid "7fc8ddf3-7ef3-4ade-bf76-ff3273f3a204")
 	)
 	(no_connect
@@ -4083,7 +4083,7 @@
 	)
 	(wire
 		(pts
-			(xy 223.52 208.28) (xy 246.38 208.28)
+			(xy 195.58 166.37) (xy 218.44 166.37)
 		)
 		(stroke
 			(width 0)
@@ -4143,7 +4143,7 @@
 	)
 	(wire
 		(pts
-			(xy 229.87 139.7) (xy 238.76 139.7)
+			(xy 201.93 97.79) (xy 210.82 97.79)
 		)
 		(stroke
 			(width 0)
@@ -4173,7 +4173,7 @@
 	)
 	(wire
 		(pts
-			(xy 281.94 137.16) (xy 279.4 137.16)
+			(xy 254 95.25) (xy 251.46 95.25)
 		)
 		(stroke
 			(width 0)
@@ -4183,7 +4183,7 @@
 	)
 	(wire
 		(pts
-			(xy 231.14 119.38) (xy 240.03 119.38)
+			(xy 203.2 77.47) (xy 212.09 77.47)
 		)
 		(stroke
 			(width 0)
@@ -4193,7 +4193,7 @@
 	)
 	(wire
 		(pts
-			(xy 212.09 137.16) (xy 215.9 137.16)
+			(xy 184.15 95.25) (xy 187.96 95.25)
 		)
 		(stroke
 			(width 0)
@@ -4213,7 +4213,7 @@
 	)
 	(wire
 		(pts
-			(xy 222.25 181.61) (xy 222.25 177.8)
+			(xy 194.31 139.7) (xy 194.31 135.89)
 		)
 		(stroke
 			(width 0)
@@ -4223,7 +4223,7 @@
 	)
 	(wire
 		(pts
-			(xy 283.21 106.68) (xy 280.67 106.68)
+			(xy 255.27 64.77) (xy 252.73 64.77)
 		)
 		(stroke
 			(width 0)
@@ -4263,7 +4263,7 @@
 	)
 	(wire
 		(pts
-			(xy 240.03 215.9) (xy 246.38 215.9)
+			(xy 212.09 173.99) (xy 218.44 173.99)
 		)
 		(stroke
 			(width 0)
@@ -4283,7 +4283,7 @@
 	)
 	(wire
 		(pts
-			(xy 283.21 109.22) (xy 280.67 109.22)
+			(xy 255.27 67.31) (xy 252.73 67.31)
 		)
 		(stroke
 			(width 0)
@@ -4293,7 +4293,7 @@
 	)
 	(wire
 		(pts
-			(xy 295.91 208.28) (xy 302.26 208.28)
+			(xy 267.97 166.37) (xy 274.32 166.37)
 		)
 		(stroke
 			(width 0)
@@ -4303,7 +4303,7 @@
 	)
 	(wire
 		(pts
-			(xy 222.25 177.8) (xy 246.38 177.8)
+			(xy 194.31 135.89) (xy 218.44 135.89)
 		)
 		(stroke
 			(width 0)
@@ -4313,7 +4313,7 @@
 	)
 	(wire
 		(pts
-			(xy 283.21 180.34) (xy 271.78 180.34)
+			(xy 255.27 138.43) (xy 243.84 138.43)
 		)
 		(stroke
 			(width 0)
@@ -4323,7 +4323,7 @@
 	)
 	(wire
 		(pts
-			(xy 278.13 165.1) (xy 271.78 165.1)
+			(xy 250.19 123.19) (xy 243.84 123.19)
 		)
 		(stroke
 			(width 0)
@@ -4353,7 +4353,7 @@
 	)
 	(wire
 		(pts
-			(xy 222.25 160.02) (xy 215.9 160.02)
+			(xy 194.31 118.11) (xy 187.96 118.11)
 		)
 		(stroke
 			(width 0)
@@ -4373,7 +4373,7 @@
 	)
 	(wire
 		(pts
-			(xy 237.49 106.68) (xy 240.03 106.68)
+			(xy 209.55 64.77) (xy 212.09 64.77)
 		)
 		(stroke
 			(width 0)
@@ -4383,7 +4383,7 @@
 	)
 	(wire
 		(pts
-			(xy 297.18 163.83) (xy 295.91 163.83)
+			(xy 269.24 121.92) (xy 267.97 121.92)
 		)
 		(stroke
 			(width 0)
@@ -4403,7 +4403,7 @@
 	)
 	(wire
 		(pts
-			(xy 215.9 135.89) (xy 215.9 137.16)
+			(xy 187.96 93.98) (xy 187.96 95.25)
 		)
 		(stroke
 			(width 0)
@@ -4413,7 +4413,7 @@
 	)
 	(wire
 		(pts
-			(xy 295.91 160.02) (xy 302.26 160.02)
+			(xy 267.97 118.11) (xy 274.32 118.11)
 		)
 		(stroke
 			(width 0)
@@ -4443,7 +4443,7 @@
 	)
 	(wire
 		(pts
-			(xy 295.91 203.2) (xy 302.26 203.2)
+			(xy 267.97 161.29) (xy 274.32 161.29)
 		)
 		(stroke
 			(width 0)
@@ -4463,7 +4463,7 @@
 	)
 	(wire
 		(pts
-			(xy 215.9 129.54) (xy 215.9 130.81)
+			(xy 187.96 87.63) (xy 187.96 88.9)
 		)
 		(stroke
 			(width 0)
@@ -4473,7 +4473,7 @@
 	)
 	(wire
 		(pts
-			(xy 281.94 139.7) (xy 279.4 139.7)
+			(xy 254 97.79) (xy 251.46 97.79)
 		)
 		(stroke
 			(width 0)
@@ -4483,7 +4483,7 @@
 	)
 	(wire
 		(pts
-			(xy 285.75 198.12) (xy 271.78 198.12)
+			(xy 257.81 156.21) (xy 243.84 156.21)
 		)
 		(stroke
 			(width 0)
@@ -4503,7 +4503,7 @@
 	)
 	(wire
 		(pts
-			(xy 281.94 134.62) (xy 279.4 134.62)
+			(xy 254 92.71) (xy 251.46 92.71)
 		)
 		(stroke
 			(width 0)
@@ -4513,7 +4513,7 @@
 	)
 	(wire
 		(pts
-			(xy 283.21 170.18) (xy 271.78 170.18)
+			(xy 255.27 128.27) (xy 243.84 128.27)
 		)
 		(stroke
 			(width 0)
@@ -4523,7 +4523,7 @@
 	)
 	(wire
 		(pts
-			(xy 229.87 134.62) (xy 238.76 134.62)
+			(xy 201.93 92.71) (xy 210.82 92.71)
 		)
 		(stroke
 			(width 0)
@@ -4583,7 +4583,7 @@
 	)
 	(wire
 		(pts
-			(xy 215.9 129.54) (xy 222.25 129.54)
+			(xy 187.96 87.63) (xy 194.31 87.63)
 		)
 		(stroke
 			(width 0)
@@ -4613,7 +4613,7 @@
 	)
 	(wire
 		(pts
-			(xy 280.67 162.56) (xy 271.78 162.56)
+			(xy 252.73 120.65) (xy 243.84 120.65)
 		)
 		(stroke
 			(width 0)
@@ -4633,7 +4633,7 @@
 	)
 	(wire
 		(pts
-			(xy 273.05 195.58) (xy 271.78 195.58)
+			(xy 245.11 153.67) (xy 243.84 153.67)
 		)
 		(stroke
 			(width 0)
@@ -4683,7 +4683,7 @@
 	)
 	(wire
 		(pts
-			(xy 295.91 212.09) (xy 295.91 208.28)
+			(xy 267.97 170.18) (xy 267.97 166.37)
 		)
 		(stroke
 			(width 0)
@@ -4713,7 +4713,7 @@
 	)
 	(wire
 		(pts
-			(xy 222.25 163.83) (xy 222.25 160.02)
+			(xy 194.31 121.92) (xy 194.31 118.11)
 		)
 		(stroke
 			(width 0)
@@ -4723,7 +4723,7 @@
 	)
 	(wire
 		(pts
-			(xy 273.05 213.36) (xy 271.78 213.36)
+			(xy 245.11 171.45) (xy 243.84 171.45)
 		)
 		(stroke
 			(width 0)
@@ -4733,7 +4733,7 @@
 	)
 	(wire
 		(pts
-			(xy 222.25 135.89) (xy 222.25 137.16)
+			(xy 194.31 93.98) (xy 194.31 95.25)
 		)
 		(stroke
 			(width 0)
@@ -4753,7 +4753,7 @@
 	)
 	(wire
 		(pts
-			(xy 220.98 175.26) (xy 246.38 175.26)
+			(xy 193.04 133.35) (xy 218.44 133.35)
 		)
 		(stroke
 			(width 0)
@@ -4783,7 +4783,7 @@
 	)
 	(wire
 		(pts
-			(xy 279.4 119.38) (xy 288.29 119.38)
+			(xy 251.46 77.47) (xy 260.35 77.47)
 		)
 		(stroke
 			(width 0)
@@ -4813,7 +4813,7 @@
 	)
 	(wire
 		(pts
-			(xy 241.3 180.34) (xy 246.38 180.34)
+			(xy 213.36 138.43) (xy 218.44 138.43)
 		)
 		(stroke
 			(width 0)
@@ -4823,7 +4823,7 @@
 	)
 	(wire
 		(pts
-			(xy 204.47 101.6) (xy 210.82 101.6)
+			(xy 176.53 59.69) (xy 182.88 59.69)
 		)
 		(stroke
 			(width 0)
@@ -4843,7 +4843,7 @@
 	)
 	(wire
 		(pts
-			(xy 210.82 107.95) (xy 210.82 109.22)
+			(xy 182.88 66.04) (xy 182.88 67.31)
 		)
 		(stroke
 			(width 0)
@@ -4853,7 +4853,7 @@
 	)
 	(wire
 		(pts
-			(xy 220.98 172.72) (xy 246.38 172.72)
+			(xy 193.04 130.81) (xy 218.44 130.81)
 		)
 		(stroke
 			(width 0)
@@ -4883,7 +4883,7 @@
 	)
 	(wire
 		(pts
-			(xy 240.03 210.82) (xy 246.38 210.82)
+			(xy 212.09 168.91) (xy 218.44 168.91)
 		)
 		(stroke
 			(width 0)
@@ -4893,7 +4893,7 @@
 	)
 	(wire
 		(pts
-			(xy 283.21 182.88) (xy 271.78 182.88)
+			(xy 255.27 140.97) (xy 243.84 140.97)
 		)
 		(stroke
 			(width 0)
@@ -4903,7 +4903,7 @@
 	)
 	(wire
 		(pts
-			(xy 229.87 147.32) (xy 238.76 147.32)
+			(xy 201.93 105.41) (xy 210.82 105.41)
 		)
 		(stroke
 			(width 0)
@@ -4933,7 +4933,7 @@
 	)
 	(wire
 		(pts
-			(xy 215.9 137.16) (xy 222.25 137.16)
+			(xy 187.96 95.25) (xy 194.31 95.25)
 		)
 		(stroke
 			(width 0)
@@ -4953,7 +4953,7 @@
 	)
 	(wire
 		(pts
-			(xy 231.14 114.3) (xy 240.03 114.3)
+			(xy 203.2 72.39) (xy 212.09 72.39)
 		)
 		(stroke
 			(width 0)
@@ -4963,7 +4963,7 @@
 	)
 	(wire
 		(pts
-			(xy 297.18 199.39) (xy 295.91 199.39)
+			(xy 269.24 157.48) (xy 267.97 157.48)
 		)
 		(stroke
 			(width 0)
@@ -4973,7 +4973,7 @@
 	)
 	(wire
 		(pts
-			(xy 240.03 213.36) (xy 246.38 213.36)
+			(xy 212.09 171.45) (xy 218.44 171.45)
 		)
 		(stroke
 			(width 0)
@@ -5003,7 +5003,7 @@
 	)
 	(wire
 		(pts
-			(xy 220.98 106.68) (xy 232.41 106.68)
+			(xy 193.04 64.77) (xy 204.47 64.77)
 		)
 		(stroke
 			(width 0)
@@ -5013,7 +5013,7 @@
 	)
 	(wire
 		(pts
-			(xy 222.25 128.27) (xy 222.25 129.54)
+			(xy 194.31 86.36) (xy 194.31 87.63)
 		)
 		(stroke
 			(width 0)
@@ -5023,7 +5023,7 @@
 	)
 	(wire
 		(pts
-			(xy 210.82 101.6) (xy 210.82 102.87)
+			(xy 182.88 59.69) (xy 182.88 60.96)
 		)
 		(stroke
 			(width 0)
@@ -5033,7 +5033,7 @@
 	)
 	(wire
 		(pts
-			(xy 231.14 111.76) (xy 240.03 111.76)
+			(xy 203.2 69.85) (xy 212.09 69.85)
 		)
 		(stroke
 			(width 0)
@@ -5043,7 +5043,7 @@
 	)
 	(wire
 		(pts
-			(xy 220.98 200.66) (xy 246.38 200.66)
+			(xy 193.04 158.75) (xy 218.44 158.75)
 		)
 		(stroke
 			(width 0)
@@ -5073,7 +5073,7 @@
 	)
 	(wire
 		(pts
-			(xy 229.87 142.24) (xy 238.76 142.24)
+			(xy 201.93 100.33) (xy 210.82 100.33)
 		)
 		(stroke
 			(width 0)
@@ -5093,7 +5093,7 @@
 	)
 	(wire
 		(pts
-			(xy 222.25 137.16) (xy 238.76 137.16)
+			(xy 194.31 95.25) (xy 210.82 95.25)
 		)
 		(stroke
 			(width 0)
@@ -5103,7 +5103,7 @@
 	)
 	(wire
 		(pts
-			(xy 240.03 182.88) (xy 246.38 182.88)
+			(xy 212.09 140.97) (xy 218.44 140.97)
 		)
 		(stroke
 			(width 0)
@@ -5113,7 +5113,7 @@
 	)
 	(wire
 		(pts
-			(xy 231.14 167.64) (xy 246.38 167.64)
+			(xy 203.2 125.73) (xy 218.44 125.73)
 		)
 		(stroke
 			(width 0)
@@ -5143,7 +5143,7 @@
 	)
 	(wire
 		(pts
-			(xy 273.05 200.66) (xy 271.78 200.66)
+			(xy 245.11 158.75) (xy 243.84 158.75)
 		)
 		(stroke
 			(width 0)
@@ -5173,7 +5173,7 @@
 	)
 	(wire
 		(pts
-			(xy 222.25 160.02) (xy 246.38 160.02)
+			(xy 194.31 118.11) (xy 218.44 118.11)
 		)
 		(stroke
 			(width 0)
@@ -5193,7 +5193,7 @@
 	)
 	(wire
 		(pts
-			(xy 295.91 208.28) (xy 271.78 208.28)
+			(xy 267.97 166.37) (xy 243.84 166.37)
 		)
 		(stroke
 			(width 0)
@@ -5213,7 +5213,7 @@
 	)
 	(wire
 		(pts
-			(xy 297.18 212.09) (xy 295.91 212.09)
+			(xy 269.24 170.18) (xy 267.97 170.18)
 		)
 		(stroke
 			(width 0)
@@ -5233,7 +5233,7 @@
 	)
 	(wire
 		(pts
-			(xy 278.13 147.32) (xy 285.75 147.32)
+			(xy 250.19 105.41) (xy 257.81 105.41)
 		)
 		(stroke
 			(width 0)
@@ -5243,7 +5243,7 @@
 	)
 	(wire
 		(pts
-			(xy 295.91 199.39) (xy 295.91 203.2)
+			(xy 267.97 157.48) (xy 267.97 161.29)
 		)
 		(stroke
 			(width 0)
@@ -5253,7 +5253,7 @@
 	)
 	(wire
 		(pts
-			(xy 271.78 210.82) (xy 287.02 210.82)
+			(xy 243.84 168.91) (xy 259.08 168.91)
 		)
 		(stroke
 			(width 0)
@@ -5263,7 +5263,7 @@
 	)
 	(wire
 		(pts
-			(xy 220.98 181.61) (xy 222.25 181.61)
+			(xy 193.04 139.7) (xy 194.31 139.7)
 		)
 		(stroke
 			(width 0)
@@ -5273,7 +5273,7 @@
 	)
 	(wire
 		(pts
-			(xy 240.03 198.12) (xy 246.38 198.12)
+			(xy 212.09 156.21) (xy 218.44 156.21)
 		)
 		(stroke
 			(width 0)
@@ -5283,7 +5283,7 @@
 	)
 	(wire
 		(pts
-			(xy 278.13 144.78) (xy 285.75 144.78)
+			(xy 250.19 102.87) (xy 257.81 102.87)
 		)
 		(stroke
 			(width 0)
@@ -5293,7 +5293,7 @@
 	)
 	(wire
 		(pts
-			(xy 222.25 177.8) (xy 215.9 177.8)
+			(xy 194.31 135.89) (xy 187.96 135.89)
 		)
 		(stroke
 			(width 0)
@@ -5313,7 +5313,7 @@
 	)
 	(wire
 		(pts
-			(xy 274.32 205.74) (xy 271.78 205.74)
+			(xy 246.38 163.83) (xy 243.84 163.83)
 		)
 		(stroke
 			(width 0)
@@ -5323,7 +5323,7 @@
 	)
 	(wire
 		(pts
-			(xy 210.82 109.22) (xy 240.03 109.22)
+			(xy 182.88 67.31) (xy 212.09 67.31)
 		)
 		(stroke
 			(width 0)
@@ -5343,7 +5343,7 @@
 	)
 	(wire
 		(pts
-			(xy 200.66 109.22) (xy 204.47 109.22)
+			(xy 172.72 67.31) (xy 176.53 67.31)
 		)
 		(stroke
 			(width 0)
@@ -5373,7 +5373,7 @@
 	)
 	(wire
 		(pts
-			(xy 210.82 100.33) (xy 210.82 101.6)
+			(xy 182.88 58.42) (xy 182.88 59.69)
 		)
 		(stroke
 			(width 0)
@@ -5433,7 +5433,7 @@
 	)
 	(wire
 		(pts
-			(xy 279.4 116.84) (xy 288.29 116.84)
+			(xy 251.46 74.93) (xy 260.35 74.93)
 		)
 		(stroke
 			(width 0)
@@ -5443,7 +5443,7 @@
 	)
 	(wire
 		(pts
-			(xy 222.25 129.54) (xy 222.25 130.81)
+			(xy 194.31 87.63) (xy 194.31 88.9)
 		)
 		(stroke
 			(width 0)
@@ -5463,7 +5463,7 @@
 	)
 	(wire
 		(pts
-			(xy 283.21 111.76) (xy 280.67 111.76)
+			(xy 255.27 69.85) (xy 252.73 69.85)
 		)
 		(stroke
 			(width 0)
@@ -5513,7 +5513,7 @@
 	)
 	(wire
 		(pts
-			(xy 220.98 163.83) (xy 222.25 163.83)
+			(xy 193.04 121.92) (xy 194.31 121.92)
 		)
 		(stroke
 			(width 0)
@@ -5523,7 +5523,7 @@
 	)
 	(wire
 		(pts
-			(xy 204.47 107.95) (xy 204.47 109.22)
+			(xy 176.53 66.04) (xy 176.53 67.31)
 		)
 		(stroke
 			(width 0)
@@ -5533,7 +5533,7 @@
 	)
 	(wire
 		(pts
-			(xy 295.91 163.83) (xy 295.91 160.02)
+			(xy 267.97 121.92) (xy 267.97 118.11)
 		)
 		(stroke
 			(width 0)
@@ -5543,7 +5543,7 @@
 	)
 	(wire
 		(pts
-			(xy 220.98 203.2) (xy 246.38 203.2)
+			(xy 193.04 161.29) (xy 218.44 161.29)
 		)
 		(stroke
 			(width 0)
@@ -5573,7 +5573,7 @@
 	)
 	(wire
 		(pts
-			(xy 295.91 160.02) (xy 271.78 160.02)
+			(xy 267.97 118.11) (xy 243.84 118.11)
 		)
 		(stroke
 			(width 0)
@@ -5593,7 +5593,7 @@
 	)
 	(wire
 		(pts
-			(xy 271.78 215.9) (xy 287.02 215.9)
+			(xy 243.84 173.99) (xy 259.08 173.99)
 		)
 		(stroke
 			(width 0)
@@ -5603,7 +5603,7 @@
 	)
 	(wire
 		(pts
-			(xy 204.47 109.22) (xy 210.82 109.22)
+			(xy 176.53 67.31) (xy 182.88 67.31)
 		)
 		(stroke
 			(width 0)
@@ -5613,7 +5613,7 @@
 	)
 	(wire
 		(pts
-			(xy 231.14 162.56) (xy 246.38 162.56)
+			(xy 203.2 120.65) (xy 218.44 120.65)
 		)
 		(stroke
 			(width 0)
@@ -5633,7 +5633,7 @@
 	)
 	(wire
 		(pts
-			(xy 295.91 203.2) (xy 271.78 203.2)
+			(xy 267.97 161.29) (xy 243.84 161.29)
 		)
 		(stroke
 			(width 0)
@@ -5643,7 +5643,7 @@
 	)
 	(wire
 		(pts
-			(xy 240.03 205.74) (xy 246.38 205.74)
+			(xy 212.09 163.83) (xy 218.44 163.83)
 		)
 		(stroke
 			(width 0)
@@ -5673,7 +5673,7 @@
 	)
 	(wire
 		(pts
-			(xy 204.47 101.6) (xy 204.47 102.87)
+			(xy 176.53 59.69) (xy 176.53 60.96)
 		)
 		(stroke
 			(width 0)
@@ -5682,7 +5682,7 @@
 		(uuid "ff440112-2fea-4aef-9dec-a0685319b10d")
 	)
 	(label "I2S_BCLK"
-		(at 283.21 106.68 0)
+		(at 255.27 64.77 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -5702,7 +5702,7 @@
 		(uuid "032f2497-0ef6-40e9-930b-45717a766350")
 	)
 	(label "I2S_BCLK"
-		(at 281.94 134.62 0)
+		(at 254 92.71 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -5722,7 +5722,7 @@
 		(uuid "17913973-0a80-4b19-9887-95cd35c5c75e")
 	)
 	(label "SPK_L-"
-		(at 229.87 147.32 0)
+		(at 201.93 105.41 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -5732,7 +5732,7 @@
 		(uuid "18ba0fa3-c134-4f3e-8156-4aec3a436ae7")
 	)
 	(label "SPK_R+"
-		(at 279.4 116.84 0)
+		(at 251.46 74.93 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -5752,7 +5752,7 @@
 		(uuid "235526b8-afbf-49a9-b51d-15e37466158f")
 	)
 	(label "HP_R"
-		(at 223.52 208.28 0)
+		(at 195.58 166.37 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -5762,7 +5762,7 @@
 		(uuid "26d220e4-193a-4837-a07b-1fb6518931a4")
 	)
 	(label "HP_EN"
-		(at 274.32 205.74 0)
+		(at 246.38 163.83 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -5772,7 +5772,7 @@
 		(uuid "2a541b93-f3d4-4e72-9f81-fe9b893d2912")
 	)
 	(label "I2S_SDIN"
-		(at 229.87 142.24 0)
+		(at 201.93 100.33 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -5782,7 +5782,7 @@
 		(uuid "2ae2a95d-c0be-4076-8eb8-e2a3db2e0cbd")
 	)
 	(label "HP_OUTL"
-		(at 220.98 172.72 0)
+		(at 193.04 130.81 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -5812,7 +5812,7 @@
 		(uuid "457dd507-8cc4-4f11-bf0c-0d6dec77f95e")
 	)
 	(label "XSMT"
-		(at 271.78 167.64 0)
+		(at 243.84 125.73 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -5822,7 +5822,7 @@
 		(uuid "53ff21f0-ac30-4a99-a816-0081cd0e47a9")
 	)
 	(label "I2S_LRCLK"
-		(at 271.78 172.72 0)
+		(at 243.84 130.81 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -5842,7 +5842,7 @@
 		(uuid "5a81d97d-ec98-49f0-a63b-52c8754cd4e2")
 	)
 	(label "I2S_LRCLK"
-		(at 283.21 111.76 0)
+		(at 255.27 69.85 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -5862,7 +5862,7 @@
 		(uuid "6d82b9c3-bc84-43f6-82bd-d2b2e6f7d2ec")
 	)
 	(label "SD_MODE"
-		(at 220.98 106.68 0)
+		(at 193.04 64.77 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -5882,7 +5882,7 @@
 		(uuid "705a8d60-2ad1-4096-9d32-72189119dfa9")
 	)
 	(label "HP_OUTR"
-		(at 220.98 175.26 0)
+		(at 193.04 133.35 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -5892,7 +5892,7 @@
 		(uuid "71c7156d-8405-4e28-b69f-5a6496d5d62d")
 	)
 	(label "I2S_SDIN"
-		(at 231.14 114.3 0)
+		(at 203.2 72.39 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -5912,7 +5912,7 @@
 		(uuid "86751ac8-4af0-4e9b-854c-07337cd14239")
 	)
 	(label "I2S_BCLK"
-		(at 271.78 177.8 0)
+		(at 243.84 135.89 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -5942,7 +5942,7 @@
 		(uuid "a56354e6-e4bf-4900-84a9-710a9bc91e5c")
 	)
 	(label "SD_MODE"
-		(at 229.87 134.62 0)
+		(at 201.93 92.71 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -5972,7 +5972,7 @@
 		(uuid "aff8fe4e-1473-44fb-8885-ea536093886f")
 	)
 	(label "I2S_LRCLK"
-		(at 281.94 139.7 0)
+		(at 254 97.79 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -5992,7 +5992,7 @@
 		(uuid "b5254808-9227-4355-96bf-eaaba1b277d2")
 	)
 	(label "SPK_L+"
-		(at 229.87 139.7 0)
+		(at 201.93 97.79 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6002,7 +6002,7 @@
 		(uuid "bace6d1b-32c8-4a71-aefb-53bf04279205")
 	)
 	(label "SPK_L+"
-		(at 278.13 144.78 0)
+		(at 250.19 102.87 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6042,7 +6042,7 @@
 		(uuid "c5053fd9-af45-41b9-8340-58f9e8744258")
 	)
 	(label "SPK_R-"
-		(at 231.14 119.38 0)
+		(at 203.2 77.47 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6052,7 +6052,7 @@
 		(uuid "c506bc1f-1ca6-406c-b158-43e452855ad8")
 	)
 	(label "I2S_SDIN"
-		(at 271.78 175.26 0)
+		(at 243.84 133.35 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6062,7 +6062,7 @@
 		(uuid "c9a75978-2851-4465-945b-f0e93aee74ec")
 	)
 	(label "SPK_R-"
-		(at 279.4 119.38 0)
+		(at 251.46 77.47 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6072,7 +6072,7 @@
 		(uuid "ca73a6f1-e1c8-4cb1-acee-9675e3ec1eab")
 	)
 	(label "SPK_L-"
-		(at 278.13 147.32 0)
+		(at 250.19 105.41 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6082,7 +6082,7 @@
 		(uuid "cc209037-8a19-46ba-95f0-fa86c9eb575b")
 	)
 	(label "SPK_R+"
-		(at 231.14 111.76 0)
+		(at 203.2 69.85 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6092,7 +6092,7 @@
 		(uuid "d1812122-7479-478e-8c13-290cfeeb24e9")
 	)
 	(label "HP_L"
-		(at 285.75 198.12 0)
+		(at 257.81 156.21 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6102,7 +6102,7 @@
 		(uuid "db23f5be-abd0-41a5-aacf-ad994f55bae8")
 	)
 	(label "HP_OUTR"
-		(at 220.98 203.2 0)
+		(at 193.04 161.29 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6132,7 +6132,7 @@
 		(uuid "eb2793a7-ee29-4639-8dff-6f833aac4955")
 	)
 	(label "HP_OUTL"
-		(at 220.98 200.66 0)
+		(at 193.04 158.75 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6231,7 +6231,7 @@
 	)
 	(symbol
 		(lib_id "Device:C_Small")
-		(at 204.47 105.41 180)
+		(at 176.53 63.5 180)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -6239,7 +6239,7 @@
 		(dnp no)
 		(uuid "00bd31e2-79d5-4659-aeca-03987b664a2c")
 		(property "Reference" "C71"
-			(at 204.47 106.68 0)
+			(at 176.53 64.77 0)
 			(effects
 				(font
 					(size 0.762 0.762)
@@ -6248,7 +6248,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 204.47 104.14 0)
+			(at 176.53 62.23 0)
 			(effects
 				(font
 					(size 0.762 0.762)
@@ -6257,7 +6257,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 204.47 105.41 0)
+			(at 176.53 63.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6266,7 +6266,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 204.47 105.41 0)
+			(at 176.53 63.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6275,7 +6275,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
-			(at 204.47 105.41 0)
+			(at 176.53 63.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6284,10 +6284,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "e1741c78-02f6-40fd-8835-b18d3ae0bbaa")
+			(uuid "fb31afb0-27c4-4cd9-8baf-986e83bdd1fe")
 		)
 		(pin "2"
-			(uuid "e9a3b781-9b29-4313-ba3a-3bf98c4ae8ab")
+			(uuid "aae52259-42ae-4881-a897-66f2e7183b12")
 		)
 		(instances
 			(project "PortaRe0"
@@ -6352,7 +6352,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "87474bb8-1b14-4d2c-b28d-912f48bddf3f")
+			(uuid "d7e78e94-eb87-43c8-8bfd-e95b6ea57420")
 		)
 		(instances
 			(project "PortaRe0"
@@ -6365,15 +6365,15 @@
 	)
 	(symbol
 		(lib_id "PortaRe0:MAX98357AEWL+T")
-		(at 260.35 111.76 0)
+		(at 232.41 69.85 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "058bb4a2-2d2e-4f32-abed-2267241079ee")
-		(property "Reference" "U8"
-			(at 260.35 101.6 0)
+		(property "Reference" "U?"
+			(at 232.41 59.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6381,7 +6381,7 @@
 			)
 		)
 		(property "Value" "MAX98357AEWL+T_R"
-			(at 260.35 103.124 0)
+			(at 232.41 61.214 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6389,7 +6389,7 @@
 			)
 		)
 		(property "Footprint" "PortaRe0:WLP-9_L1.4-W1.3-P0.40-R3-C3-BR"
-			(at 260.35 127 0)
+			(at 232.41 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6398,7 +6398,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 260.35 111.76 0)
+			(at 232.41 69.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6407,7 +6407,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 260.35 111.76 0)
+			(at 232.41 69.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6416,7 +6416,7 @@
 			)
 		)
 		(property "LCSC Part" "C2682619"
-			(at 260.35 129.54 0)
+			(at 232.41 87.63 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6425,36 +6425,36 @@
 			)
 		)
 		(pin "A3"
-			(uuid "d005c361-160a-4dac-b1d9-81a4b385787e")
+			(uuid "237cc7b7-87d5-4ae6-a839-09f490114fba")
 		)
 		(pin "A2"
-			(uuid "7f31ea6e-875b-4b5b-ba64-b89c14181215")
+			(uuid "def289f2-a890-44cc-88c7-7b5d1d00c4e6")
 		)
 		(pin "B1"
-			(uuid "cd6a6029-c3d6-4d41-8b25-71adc231e81c")
+			(uuid "f799b74c-a8e6-400e-b47a-6ef44daa715b")
 		)
 		(pin "B2"
-			(uuid "2e49b51b-60b1-45f8-bf33-99f4c389633d")
+			(uuid "69be3f6d-19ad-4bda-b4b1-3939422ce769")
 		)
 		(pin "B3"
-			(uuid "0697b787-ca85-4044-95c0-3875a67753e4")
+			(uuid "478298b8-6ff3-4f2d-937c-4472972b8cf7")
 		)
 		(pin "C1"
-			(uuid "4b397d43-706f-4b16-ad3a-5f4044988d14")
+			(uuid "14a68b2a-3ee6-4a8b-88e8-272790501f92")
 		)
 		(pin "C2"
-			(uuid "5dc7cc8c-5fcd-48fc-976b-9050446eb5e3")
+			(uuid "40f177ca-8e90-4a10-b1fa-899bd9590702")
 		)
 		(pin "1"
-			(uuid "a650b437-37b9-4c97-aa18-5b0e1bd01435")
+			(uuid "bfa601a0-7ea6-4bc5-a7dc-ca4f46e726dc")
 		)
 		(pin "C3"
-			(uuid "1f9df80f-d687-4e4d-b2e6-4c7d6755dceb")
+			(uuid "0ba50d48-67ef-4685-8b89-7f2fbbce9a0d")
 		)
 		(instances
-			(project ""
+			(project "PortaRe0"
 				(path "/479aadc4-f9a0-4ec2-b000-6a17237038f1/6f018b3a-f554-45a0-adb8-bf1e4994a5d2"
-					(reference "U8")
+					(reference "U?")
 					(unit 1)
 				)
 			)
@@ -6516,10 +6516,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "dbcfbd2a-37b8-4adb-a921-6b1b1af71db6")
+			(uuid "28815d17-1b45-4850-af18-70919c50a493")
 		)
 		(pin "2"
-			(uuid "103d4d5d-50fd-4a10-8fee-a127e04411ab")
+			(uuid "55fff94b-ac46-4602-af3b-e8e42992befa")
 		)
 		(instances
 			(project "PortaRe0"
@@ -6586,10 +6586,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "2b272c7b-6acd-4ba8-abc4-056802474bf9")
+			(uuid "1175e2c6-bc5a-40d7-b453-bb66e9f2d920")
 		)
 		(pin "2"
-			(uuid "7d0ca03d-c7be-41b5-a189-6e2f30c3f67d")
+			(uuid "7744e8aa-7272-4428-b74f-a38fec9d7212")
 		)
 		(instances
 			(project "PortaRe0"
@@ -6602,7 +6602,7 @@
 	)
 	(symbol
 		(lib_id "Device:C_Small")
-		(at 210.82 105.41 180)
+		(at 182.88 63.5 180)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -6610,7 +6610,7 @@
 		(dnp no)
 		(uuid "0c52afcb-91dc-4192-b6e7-3f7fc4271925")
 		(property "Reference" "C70"
-			(at 210.82 106.68 0)
+			(at 182.88 64.77 0)
 			(effects
 				(font
 					(size 0.762 0.762)
@@ -6619,7 +6619,7 @@
 			)
 		)
 		(property "Value" "10μF"
-			(at 210.82 104.14 0)
+			(at 182.88 62.23 0)
 			(effects
 				(font
 					(size 0.762 0.762)
@@ -6628,7 +6628,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 210.82 105.41 0)
+			(at 182.88 63.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6637,7 +6637,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 210.82 105.41 0)
+			(at 182.88 63.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6646,7 +6646,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
-			(at 210.82 105.41 0)
+			(at 182.88 63.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6655,10 +6655,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "69a811a2-49bd-4dcf-83ce-d805ddb070dc")
+			(uuid "ef6a4b6c-ebea-46a4-9cbf-cc348bf84272")
 		)
 		(pin "2"
-			(uuid "279e255a-db64-4ffb-847c-db5874f73e8a")
+			(uuid "089c7217-e465-4eab-bd83-701893323291")
 		)
 		(instances
 			(project "PortaRe0"
@@ -6671,7 +6671,7 @@
 	)
 	(symbol
 		(lib_id "power:GNDPWR")
-		(at 240.03 213.36 270)
+		(at 212.09 171.45 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -6679,7 +6679,7 @@
 		(dnp no)
 		(uuid "0e7b27ae-c6f6-453f-a3dc-6f156b2346be")
 		(property "Reference" "#PWR0157"
-			(at 234.95 213.36 0)
+			(at 207.01 171.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6688,7 +6688,7 @@
 			)
 		)
 		(property "Value" "GNDPWR"
-			(at 237.998 213.36 90)
+			(at 210.058 171.45 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6697,7 +6697,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 238.76 213.36 0)
+			(at 210.82 171.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6706,7 +6706,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 238.76 213.36 0)
+			(at 210.82 171.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6715,7 +6715,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDPWR\" , global ground"
-			(at 240.03 213.36 0)
+			(at 212.09 171.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6724,7 +6724,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "65e346c0-ff0d-44fe-9090-f72431e7456e")
+			(uuid "ae1a9d25-f298-4d65-b5f6-b76128bba465")
 		)
 		(instances
 			(project "PortaRe0"
@@ -6737,7 +6737,7 @@
 	)
 	(symbol
 		(lib_id "PortaRe0:MAX98357AEWL+T")
-		(at 259.08 139.7 0)
+		(at 231.14 97.79 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -6745,7 +6745,7 @@
 		(dnp no)
 		(uuid "0f273453-d468-4d06-bf2a-e6962b69ac08")
 		(property "Reference" "U9"
-			(at 259.08 129.54 0)
+			(at 231.14 87.63 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6753,7 +6753,7 @@
 			)
 		)
 		(property "Value" "MAX98357AEWL+T_L"
-			(at 259.08 131.064 0)
+			(at 231.14 89.154 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6761,7 +6761,7 @@
 			)
 		)
 		(property "Footprint" "PortaRe0:WLP-9_L1.4-W1.3-P0.40-R3-C3-BR"
-			(at 259.08 154.94 0)
+			(at 231.14 113.03 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6770,7 +6770,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 259.08 139.7 0)
+			(at 231.14 97.79 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6779,7 +6779,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 259.08 139.7 0)
+			(at 231.14 97.79 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6788,7 +6788,7 @@
 			)
 		)
 		(property "LCSC Part" "C2682619"
-			(at 259.08 157.48 0)
+			(at 231.14 115.57 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6797,31 +6797,31 @@
 			)
 		)
 		(pin "A3"
-			(uuid "e105866e-3814-43d1-8ec1-c9e26905966f")
+			(uuid "41e31b91-0103-48e0-8000-50ff7652cd26")
 		)
 		(pin "A2"
-			(uuid "de2ee646-8729-4ca0-bb2a-a29012bca6ae")
+			(uuid "adc3c698-33f0-4faf-956d-1bf53b6f5c8d")
 		)
 		(pin "B1"
-			(uuid "05d5a782-cdff-4156-beac-04fecc822479")
+			(uuid "0ef70daf-175f-40ec-9499-fcf156a0cf31")
 		)
 		(pin "B2"
-			(uuid "fd5085e8-5ca9-41c3-abdd-47aea268d314")
+			(uuid "507a7330-ef17-48a7-b314-1ea77508b98a")
 		)
 		(pin "B3"
-			(uuid "ed1a1710-c43e-478b-8c5b-90110e893eb6")
+			(uuid "9b9107ed-7bf7-48b2-93b1-2e103292dd1a")
 		)
 		(pin "C1"
-			(uuid "42734b64-872d-4c5a-ab95-4c89d27e9c5a")
+			(uuid "931ee1c8-8b44-482c-8915-c6c3d6a1adea")
 		)
 		(pin "C2"
-			(uuid "65e69802-16b9-460b-8dde-c124f2167a53")
+			(uuid "acaa4b84-ca33-47b9-a1e3-f294ba66e077")
 		)
 		(pin "1"
-			(uuid "536838b6-23e0-4f75-ad3b-29dd0715d247")
+			(uuid "2dd14436-d908-4263-ae49-f8c0dc1beef2")
 		)
 		(pin "C3"
-			(uuid "f1264b85-6c2e-4493-9b8c-d2642052a1bc")
+			(uuid "3190bd70-5127-4144-9017-fcd9b1ce2c44")
 		)
 		(instances
 			(project "PortaRe0"
@@ -6834,7 +6834,7 @@
 	)
 	(symbol
 		(lib_id "power:GNDPWR")
-		(at 241.3 170.18 270)
+		(at 213.36 128.27 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -6842,7 +6842,7 @@
 		(dnp no)
 		(uuid "0f8a0347-6dbb-4cde-850d-0e0db149e6c1")
 		(property "Reference" "#PWR0146"
-			(at 236.22 170.18 0)
+			(at 208.28 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6851,7 +6851,7 @@
 			)
 		)
 		(property "Value" "GNDPWR"
-			(at 239.268 170.18 90)
+			(at 211.328 128.27 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6860,7 +6860,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 240.03 170.18 0)
+			(at 212.09 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6869,7 +6869,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 240.03 170.18 0)
+			(at 212.09 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6878,7 +6878,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDPWR\" , global ground"
-			(at 241.3 170.18 0)
+			(at 213.36 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6887,7 +6887,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "bc1b1344-3cc5-4b5e-9937-73a94c8df32f")
+			(uuid "d2b93a73-7489-4e59-ad08-66175bfff479")
 		)
 		(instances
 			(project "PortaRe0"
@@ -6952,7 +6952,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "40bc9216-abfc-4350-ba79-e38c4142f7be")
+			(uuid "bdcdaaa9-abb1-4bc6-97ba-6ad7f0b40cac")
 		)
 		(instances
 			(project "PortaRe0"
@@ -6965,7 +6965,7 @@
 	)
 	(symbol
 		(lib_id "PortaRe0:PCM5102APWR")
-		(at 259.08 171.45 0)
+		(at 231.14 129.54 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -6973,8 +6973,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "20f5db45-1446-4a39-9e10-cc1c8bda4219")
-		(property "Reference" "U12"
-			(at 259.08 152.4 0)
+		(property "Reference" "U?"
+			(at 231.14 110.49 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6982,7 +6982,7 @@
 			)
 		)
 		(property "Value" "PCM5102APWR"
-			(at 259.08 154.94 0)
+			(at 231.14 113.03 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6990,7 +6990,7 @@
 			)
 		)
 		(property "Footprint" "PortaRe0:TSSOP-20_L6.5-W4.4-P0.65-LS6.4-BL"
-			(at 259.08 190.5 0)
+			(at 231.14 148.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6999,7 +6999,7 @@
 			)
 		)
 		(property "Datasheet" "https://lcsc.com/product-detail/Audio-A-D-Converter-ICs_TI_PCM5102APWR_PCM5102APWR_C107671.html"
-			(at 259.08 193.04 0)
+			(at 231.14 151.13 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7008,7 +7008,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 259.08 171.45 0)
+			(at 231.14 129.54 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7017,7 +7017,7 @@
 			)
 		)
 		(property "LCSC Part" "C107671"
-			(at 259.08 195.58 0)
+			(at 231.14 153.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7026,69 +7026,69 @@
 			)
 		)
 		(pin "2"
-			(uuid "93af4735-438b-4fcd-a816-54fa5035b557")
+			(uuid "0235647e-b2d1-4888-87c2-dd05d1fd641e")
 		)
 		(pin "8"
-			(uuid "528c1881-a747-48da-afd9-41371ebb5838")
+			(uuid "b612af22-27b2-453b-9dcd-bbd0f68f5556")
 		)
 		(pin "4"
-			(uuid "7cf49676-6c9f-4cba-9782-c67a9ab9d161")
+			(uuid "4e6a7d92-a6ad-4550-84ca-4a34f0a3f092")
 		)
 		(pin "12"
-			(uuid "41f98c02-635e-4058-9c98-fc87603f30b0")
+			(uuid "22f04549-3a1d-4fc4-8d8f-b61ba96e0fe8")
 		)
 		(pin "14"
-			(uuid "c7759a75-a924-4dfe-9a97-d243cac26a9a")
+			(uuid "0d0f618f-6b33-443c-b81e-6bd97ee0fa5e")
 		)
 		(pin "3"
-			(uuid "6b1dd9b3-22a3-41ed-90a6-42e4ba84d8c4")
+			(uuid "d0dde129-83c5-482a-b120-2922949ef7d8")
 		)
 		(pin "1"
-			(uuid "d9e29a40-40fc-4087-9694-741f079e20d9")
+			(uuid "7a2731c0-7665-4692-b589-1115b5ad9719")
 		)
 		(pin "5"
-			(uuid "836833de-a714-4ae5-a7a1-6e567c0c8c87")
+			(uuid "0ecccd6f-95ef-499e-9bdf-5d5362e76b06")
 		)
 		(pin "7"
-			(uuid "2c83d89e-3588-416a-84f4-566eb05a3e56")
+			(uuid "3333ea94-0e5c-4183-a04c-f8bff7f90b43")
 		)
 		(pin "6"
-			(uuid "be6b548e-beeb-4f5e-a9a9-39fb0abc799b")
+			(uuid "4bfa266e-cf73-40c2-97d3-f2c199a976f2")
 		)
 		(pin "20"
-			(uuid "f90842d1-0b12-4ad8-b51f-20f86bea0b7f")
+			(uuid "ce72ef99-2679-4137-832d-b85a2ef789e2")
 		)
 		(pin "10"
-			(uuid "70c56d17-4992-4ff5-8080-d57f140d4a8e")
+			(uuid "5a767687-2aee-45bf-8a7f-33bedaa246d2")
 		)
 		(pin "9"
-			(uuid "5e9dbd45-0fdb-4b0a-acc3-f695e51e9d12")
+			(uuid "6a698fed-5ed2-4d24-becb-e083f0edcf5f")
 		)
 		(pin "16"
-			(uuid "eb219a8e-336f-4baa-a9f9-4b51a277c51c")
+			(uuid "518f7e6b-a725-4e01-8235-67525648993c")
 		)
 		(pin "19"
-			(uuid "8b53911b-e48a-4b42-934f-7a0ad7f1018f")
+			(uuid "9fbe6b1e-30bc-4638-8386-b4cd60cad145")
 		)
 		(pin "17"
-			(uuid "4f50a307-179d-47db-af07-2e17fe6f396a")
+			(uuid "7767dad3-1723-435b-94c6-2cf77b86ce41")
 		)
 		(pin "15"
-			(uuid "db2f9c56-c30e-4a20-a9b9-9bffe5a8e99e")
+			(uuid "3cd180b3-425f-4c58-bc68-f1e78cde1180")
 		)
 		(pin "13"
-			(uuid "2702391b-6194-46c2-887c-f417a1d341e6")
+			(uuid "b9905c02-77ff-42ea-9e98-4be9ce3c8110")
 		)
 		(pin "18"
-			(uuid "6e75cc45-8391-40e9-a65e-99b74cd7c136")
+			(uuid "4f4bf96e-2ec3-4359-9806-e9b49353448f")
 		)
 		(pin "11"
-			(uuid "d14ca728-2018-4e72-8be0-dccafe593a63")
+			(uuid "4ece6762-94ea-4b27-bf2e-2ee6f126d91e")
 		)
 		(instances
-			(project ""
+			(project "PortaRe0"
 				(path "/479aadc4-f9a0-4ec2-b000-6a17237038f1/6f018b3a-f554-45a0-adb8-bf1e4994a5d2"
-					(reference "U12")
+					(reference "U?")
 					(unit 1)
 				)
 			)
@@ -7096,7 +7096,7 @@
 	)
 	(symbol
 		(lib_id "power:GNDPWR")
-		(at 234.95 215.9 270)
+		(at 207.01 173.99 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -7104,7 +7104,7 @@
 		(dnp no)
 		(uuid "24cb0af0-4d75-4f54-887c-d626c864a6d8")
 		(property "Reference" "#PWR0158"
-			(at 229.87 215.9 0)
+			(at 201.93 173.99 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7113,7 +7113,7 @@
 			)
 		)
 		(property "Value" "GNDPWR"
-			(at 232.918 215.9 90)
+			(at 204.978 173.99 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7122,7 +7122,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 233.68 215.9 0)
+			(at 205.74 173.99 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7131,7 +7131,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 233.68 215.9 0)
+			(at 205.74 173.99 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7140,7 +7140,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDPWR\" , global ground"
-			(at 234.95 215.9 0)
+			(at 207.01 173.99 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7149,7 +7149,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "6ca2bc51-51cb-439e-9145-dd2a2dd212e9")
+			(uuid "fe4fb1df-aa65-4a77-b2df-0128e666aea8")
 		)
 		(instances
 			(project "PortaRe0"
@@ -7162,7 +7162,7 @@
 	)
 	(symbol
 		(lib_id "power:GNDPWR")
-		(at 280.67 162.56 90)
+		(at 252.73 120.65 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -7170,7 +7170,7 @@
 		(dnp no)
 		(uuid "2611eeac-50fc-4d76-997a-115f72a382f0")
 		(property "Reference" "#PWR0148"
-			(at 285.75 162.56 0)
+			(at 257.81 120.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7179,7 +7179,7 @@
 			)
 		)
 		(property "Value" "GNDPWR"
-			(at 282.702 162.56 90)
+			(at 254.762 120.65 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7188,7 +7188,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 281.94 162.56 0)
+			(at 254 120.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7197,7 +7197,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 281.94 162.56 0)
+			(at 254 120.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7206,7 +7206,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDPWR\" , global ground"
-			(at 280.67 162.56 0)
+			(at 252.73 120.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7215,7 +7215,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "77f48c26-b6e8-48fc-a901-9322bb35135c")
+			(uuid "90d6bee8-0050-436d-a9d1-29a29a8c0302")
 		)
 		(instances
 			(project "PortaRe0"
@@ -7282,10 +7282,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "a2f35612-2c8f-45b8-a1ab-e25c3dac0c76")
+			(uuid "527ab011-6494-4c30-b5bc-92fe4abf16ba")
 		)
 		(pin "2"
-			(uuid "54c80bf5-62c7-4ffa-950a-eddb7e45b1f2")
+			(uuid "40675f97-49e2-416f-8a78-c3f0b2c45480")
 		)
 		(instances
 			(project "PortaRe0"
@@ -7298,7 +7298,7 @@
 	)
 	(symbol
 		(lib_id "power:GNDPWR")
-		(at 241.3 180.34 270)
+		(at 213.36 138.43 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -7306,7 +7306,7 @@
 		(dnp no)
 		(uuid "2cf835de-1e77-4475-8b40-a913194afcda")
 		(property "Reference" "#PWR0147"
-			(at 236.22 180.34 0)
+			(at 208.28 138.43 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7315,7 +7315,7 @@
 			)
 		)
 		(property "Value" "GNDPWR"
-			(at 239.268 180.34 90)
+			(at 211.328 138.43 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7324,7 +7324,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 240.03 180.34 0)
+			(at 212.09 138.43 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7333,7 +7333,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 240.03 180.34 0)
+			(at 212.09 138.43 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7342,7 +7342,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDPWR\" , global ground"
-			(at 241.3 180.34 0)
+			(at 213.36 138.43 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7351,7 +7351,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "832a1812-3424-4477-8d28-9dd6b8d0a3a5")
+			(uuid "1aeb4d5c-b46e-46e1-874f-25878906217f")
 		)
 		(instances
 			(project "PortaRe0"
@@ -7364,7 +7364,7 @@
 	)
 	(symbol
 		(lib_id "power:GNDPWR")
-		(at 240.03 210.82 270)
+		(at 212.09 168.91 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -7372,7 +7372,7 @@
 		(dnp no)
 		(uuid "2d3e28e6-5819-4bbf-a63b-f31721d0caa7")
 		(property "Reference" "#PWR0156"
-			(at 234.95 210.82 0)
+			(at 207.01 168.91 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7381,7 +7381,7 @@
 			)
 		)
 		(property "Value" "GNDPWR"
-			(at 237.998 210.82 90)
+			(at 210.058 168.91 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7390,7 +7390,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 238.76 210.82 0)
+			(at 210.82 168.91 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7399,7 +7399,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 238.76 210.82 0)
+			(at 210.82 168.91 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7408,7 +7408,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDPWR\" , global ground"
-			(at 240.03 210.82 0)
+			(at 212.09 168.91 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7417,7 +7417,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "f7cda699-a193-42ad-b6fc-e1d7db12a216")
+			(uuid "9f5a100c-b175-4f31-a7ae-1d9c366aacfd")
 		)
 		(instances
 			(project "PortaRe0"
@@ -7430,7 +7430,7 @@
 	)
 	(symbol
 		(lib_id "power:5V_SYS")
-		(at 212.09 137.16 90)
+		(at 184.15 95.25 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -7438,7 +7438,7 @@
 		(dnp no)
 		(uuid "2df21c42-059c-4a5b-b42b-c1c5818f46be")
 		(property "Reference" "#PWR0125"
-			(at 215.9 137.16 0)
+			(at 187.96 95.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7447,7 +7447,7 @@
 			)
 		)
 		(property "Value" "5V_SYS"
-			(at 209.296 137.16 90)
+			(at 181.356 95.25 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7456,7 +7456,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 212.09 137.16 0)
+			(at 184.15 95.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7465,7 +7465,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 212.09 137.16 0)
+			(at 184.15 95.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7474,7 +7474,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"VSYS\""
-			(at 205.994 137.414 0)
+			(at 178.054 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7483,7 +7483,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "9eb7d55a-370a-471e-8492-38a15965b041")
+			(uuid "a639e53e-b0fc-4068-b6c4-dd42f785aa08")
 		)
 		(instances
 			(project "PortaRe0"
@@ -7496,7 +7496,7 @@
 	)
 	(symbol
 		(lib_id "power:GNDPWR")
-		(at 283.21 180.34 90)
+		(at 255.27 138.43 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -7504,7 +7504,7 @@
 		(dnp no)
 		(uuid "2efd560b-4715-47cc-bc15-ff26f49c4492")
 		(property "Reference" "#PWR0150"
-			(at 288.29 180.34 0)
+			(at 260.35 138.43 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7513,7 +7513,7 @@
 			)
 		)
 		(property "Value" "GNDPWR"
-			(at 285.242 180.34 90)
+			(at 257.302 138.43 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7522,7 +7522,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 284.48 180.34 0)
+			(at 256.54 138.43 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7531,7 +7531,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 284.48 180.34 0)
+			(at 256.54 138.43 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7540,7 +7540,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDPWR\" , global ground"
-			(at 283.21 180.34 0)
+			(at 255.27 138.43 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7549,7 +7549,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "98c969f9-49c0-47b4-86d2-61dd1617ce4e")
+			(uuid "32342a2f-c6ad-4a8a-9b6d-f3de9427d342")
 		)
 		(instances
 			(project "PortaRe0"
@@ -7562,7 +7562,7 @@
 	)
 	(symbol
 		(lib_id "Device:C_Small")
-		(at 280.67 165.1 90)
+		(at 252.73 123.19 90)
 		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
@@ -7571,7 +7571,7 @@
 		(dnp no)
 		(uuid "3523112f-a4a7-4e39-a585-a78c99064821")
 		(property "Reference" "C94"
-			(at 279.654 163.322 0)
+			(at 251.714 121.412 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -7580,7 +7580,7 @@
 			)
 		)
 		(property "Value" "1μF"
-			(at 280.67 164.338 0)
+			(at 252.73 122.428 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -7589,7 +7589,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 280.67 165.1 0)
+			(at 252.73 123.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7598,7 +7598,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 280.67 165.1 0)
+			(at 252.73 123.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7607,7 +7607,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
-			(at 280.67 165.1 0)
+			(at 252.73 123.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7616,10 +7616,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "08f3120c-25e4-4824-bb66-be94d903464a")
+			(uuid "e3cfb3f4-c147-42c9-b0f8-d317d1a3c83f")
 		)
 		(pin "2"
-			(uuid "0fe392d0-2041-4aa1-888f-c34ba236a7b7")
+			(uuid "7a65c4ca-6a73-4b6b-811f-9cb2ab3b574f")
 		)
 		(instances
 			(project "PortaRe0"
@@ -7632,7 +7632,7 @@
 	)
 	(symbol
 		(lib_id "power:+3V3")
-		(at 302.26 160.02 270)
+		(at 274.32 118.11 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -7640,7 +7640,7 @@
 		(dnp no)
 		(uuid "38f50861-dd52-4563-bdc8-5820198b4f57")
 		(property "Reference" "#PWR0141"
-			(at 298.45 160.02 0)
+			(at 270.51 118.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7649,7 +7649,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 307.594 160.02 90)
+			(at 279.654 118.11 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7657,7 +7657,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 302.26 160.02 0)
+			(at 274.32 118.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7666,7 +7666,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 302.26 160.02 0)
+			(at 274.32 118.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7675,7 +7675,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+3V3\""
-			(at 302.26 160.02 0)
+			(at 274.32 118.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7684,7 +7684,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "92eb21d6-b897-43ca-b743-3ea35248e5e1")
+			(uuid "82b53737-32f9-4ba3-b8de-472f2d4cf4a5")
 		)
 		(instances
 			(project "PortaRe0"
@@ -7697,7 +7697,7 @@
 	)
 	(symbol
 		(lib_id "power:GNDPWR")
-		(at 215.9 181.61 270)
+		(at 187.96 139.7 270)
 		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
@@ -7706,7 +7706,7 @@
 		(dnp no)
 		(uuid "3df84cc1-c0dc-4559-8753-a7e955a52d13")
 		(property "Reference" "#PWR0142"
-			(at 210.82 181.61 0)
+			(at 182.88 139.7 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7715,7 +7715,7 @@
 			)
 		)
 		(property "Value" "GNDPWR"
-			(at 213.868 181.61 90)
+			(at 185.928 139.7 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7724,7 +7724,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 214.63 181.61 0)
+			(at 186.69 139.7 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7733,7 +7733,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 214.63 181.61 0)
+			(at 186.69 139.7 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7742,7 +7742,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDPWR\" , global ground"
-			(at 215.9 181.61 0)
+			(at 187.96 139.7 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7751,7 +7751,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "d8e0a035-8177-440e-a3a8-d4519699e8de")
+			(uuid "60b0f219-2c89-4e79-8db8-5ac8ac3d4b19")
 		)
 		(instances
 			(project "PortaRe0"
@@ -7816,7 +7816,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "7e6b7f28-5e32-4001-8f74-609cb8e862e5")
+			(uuid "d753a0e0-c609-418b-a8de-083cdeeeb99f")
 		)
 		(instances
 			(project "PortaRe0"
@@ -7883,10 +7883,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "a0cc1811-38c0-4537-8e69-662a76ddeafe")
+			(uuid "811d1f30-7459-4c6c-893a-3d7e9507f9cc")
 		)
 		(pin "2"
-			(uuid "05570420-6e1f-40eb-a859-4c49be3df688")
+			(uuid "c3fbb6f7-4715-4678-9b65-cead0f7cbc41")
 		)
 		(instances
 			(project "PortaRe0"
@@ -7899,7 +7899,7 @@
 	)
 	(symbol
 		(lib_id "power:GNDPWR")
-		(at 240.03 205.74 270)
+		(at 212.09 163.83 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -7907,7 +7907,7 @@
 		(dnp no)
 		(uuid "4c429282-b667-491c-8fa6-2a7744cbcc37")
 		(property "Reference" "#PWR0155"
-			(at 234.95 205.74 0)
+			(at 207.01 163.83 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7916,7 +7916,7 @@
 			)
 		)
 		(property "Value" "GNDPWR"
-			(at 237.998 205.74 90)
+			(at 210.058 163.83 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7925,7 +7925,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 238.76 205.74 0)
+			(at 210.82 163.83 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7934,7 +7934,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 238.76 205.74 0)
+			(at 210.82 163.83 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7943,7 +7943,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDPWR\" , global ground"
-			(at 240.03 205.74 0)
+			(at 212.09 163.83 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7952,7 +7952,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "268e1cb7-cef9-44c7-b274-fc08e5c8d3ee")
+			(uuid "7be0ef90-c2f8-41da-89d6-c7fa54bcdd83")
 		)
 		(instances
 			(project "PortaRe0"
@@ -7965,7 +7965,7 @@
 	)
 	(symbol
 		(lib_id "power:GNDPWR")
-		(at 234.95 182.88 270)
+		(at 207.01 140.97 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -7973,7 +7973,7 @@
 		(dnp no)
 		(uuid "4dbffd58-78f7-4662-9107-e5f2cfa40e81")
 		(property "Reference" "#PWR0168"
-			(at 229.87 182.88 0)
+			(at 201.93 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7982,7 +7982,7 @@
 			)
 		)
 		(property "Value" "GNDPWR"
-			(at 232.918 182.88 90)
+			(at 204.978 140.97 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7991,7 +7991,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 233.68 182.88 0)
+			(at 205.74 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8000,7 +8000,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 233.68 182.88 0)
+			(at 205.74 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8009,7 +8009,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDPWR\" , global ground"
-			(at 234.95 182.88 0)
+			(at 207.01 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8018,7 +8018,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "a9a79cf6-dbd8-4e17-a004-71abe2e357bc")
+			(uuid "4f3fb47b-93e0-4b4c-85b5-db6f30196c29")
 		)
 		(instances
 			(project "PortaRe0"
@@ -8031,7 +8031,7 @@
 	)
 	(symbol
 		(lib_id "Device:C_Small")
-		(at 222.25 133.35 180)
+		(at 194.31 91.44 180)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -8039,7 +8039,7 @@
 		(dnp no)
 		(uuid "511bddb1-0ea3-4313-90ee-0571c29ed4c8")
 		(property "Reference" "C73"
-			(at 222.25 134.62 0)
+			(at 194.31 92.71 0)
 			(effects
 				(font
 					(size 0.762 0.762)
@@ -8048,7 +8048,7 @@
 			)
 		)
 		(property "Value" "10μF"
-			(at 222.25 132.08 0)
+			(at 194.31 90.17 0)
 			(effects
 				(font
 					(size 0.762 0.762)
@@ -8057,7 +8057,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 222.25 133.35 0)
+			(at 194.31 91.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8066,7 +8066,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 222.25 133.35 0)
+			(at 194.31 91.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8075,7 +8075,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
-			(at 222.25 133.35 0)
+			(at 194.31 91.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8084,10 +8084,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "a0de5989-1966-4f85-9f01-b9aeca5d25a4")
+			(uuid "4a91648a-d1d3-469f-8f66-8e9d0e246b26")
 		)
 		(pin "2"
-			(uuid "a6ef8091-9795-4dc9-8fd9-687632bccb01")
+			(uuid "cad6c473-aef2-4c41-937e-ea2907974d78")
 		)
 		(instances
 			(project "PortaRe0"
@@ -8100,7 +8100,7 @@
 	)
 	(symbol
 		(lib_id "Device:C_Small")
-		(at 237.49 182.88 270)
+		(at 209.55 140.97 270)
 		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
@@ -8109,7 +8109,7 @@
 		(dnp no)
 		(uuid "516d4796-0f19-4765-bcc4-38ebf4c196e7")
 		(property "Reference" "C99"
-			(at 238.506 184.658 0)
+			(at 210.566 142.748 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -8118,7 +8118,7 @@
 			)
 		)
 		(property "Value" "1μF"
-			(at 237.49 183.642 0)
+			(at 209.55 141.732 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -8127,7 +8127,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 237.49 182.88 0)
+			(at 209.55 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8136,7 +8136,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 237.49 182.88 0)
+			(at 209.55 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8145,7 +8145,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
-			(at 237.49 182.88 0)
+			(at 209.55 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8154,10 +8154,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "328db7ef-3a8f-431c-b80a-3c10b45577e3")
+			(uuid "3ebf83f1-fc97-42e4-adf9-02a14d85402c")
 		)
 		(pin "2"
-			(uuid "b2a7b7b5-d2fe-4192-8cd5-a96ba2e91418")
+			(uuid "eb0eabf7-7a3e-4e7f-a83b-f7e221429cf3")
 		)
 		(instances
 			(project "PortaRe0"
@@ -8232,175 +8232,175 @@
 			)
 		)
 		(pin "39"
-			(uuid "4153a88a-ebc6-4185-bd0b-b7f06b442e27")
+			(uuid "8c69d969-b1b5-49ca-bce4-c3f47963a4a6")
 		)
 		(pin "36"
-			(uuid "4f28e70f-7060-40cc-a2ec-b24a44a772d3")
+			(uuid "09d6877d-233f-4f98-9e5d-9adadf6049f6")
 		)
 		(pin "29"
-			(uuid "fcac10f9-ef55-4758-a97a-8f09e16ad3ae")
+			(uuid "9affdd42-dd8c-46e3-84e2-85a082159eaa")
 		)
 		(pin "38"
-			(uuid "7a961b7c-7319-4bff-be8e-c8c1072c6e1a")
+			(uuid "f00c61bf-64e3-462f-b19c-f533611457cb")
 		)
 		(pin "7"
-			(uuid "80b00f7f-b9c0-4e9b-987c-3f3170bffc17")
+			(uuid "faac7d35-aa3e-4852-bb6c-a64746acf574")
 		)
 		(pin "8"
-			(uuid "cc142a79-87d6-4cf9-b7d4-1e4961f08411")
+			(uuid "ab99abff-8ee4-43b1-8611-b6758e604bab")
 		)
 		(pin "12"
-			(uuid "7953bdda-778e-452b-97f6-8a454e4fa023")
+			(uuid "c81f7264-73a2-4548-a3fe-a37bca9a13cb")
 		)
 		(pin "31"
-			(uuid "a32039cf-c8eb-4923-843a-6dad1b7fe9ee")
+			(uuid "481e805b-6fa7-4305-aeb0-0542b1413c78")
 		)
 		(pin "6"
-			(uuid "98799dfd-3bb7-462c-b23b-cd7c492dfa63")
+			(uuid "05dc63cc-9e0c-4ca3-9e7a-82d948fda8e0")
 		)
 		(pin "13"
-			(uuid "c7ab4d94-26dd-4991-a9dc-608961252caa")
+			(uuid "a0586faa-82ee-4751-87d0-3de75070b19d")
 		)
 		(pin "14"
-			(uuid "2c2b8a6e-87b1-4b10-9612-f3a20037d5b0")
+			(uuid "204cde8e-fac3-4222-8cfe-3625324ad212")
 		)
 		(pin "11"
-			(uuid "d9c1407b-c800-41d1-b5a4-7cfbe0377c83")
+			(uuid "2f19c281-0915-41e0-a335-cc8fbdf4033d")
 		)
 		(pin "9"
-			(uuid "3cd0e992-e4e9-4c73-8b19-b10b7ab14a76")
+			(uuid "7c8c202c-5aa2-429c-917c-467ea036c0c4")
 		)
 		(pin "37"
-			(uuid "3c41d73b-641b-4cd0-95e0-5d9fb199cfaf")
+			(uuid "117cf89d-d06b-4e7f-92bb-ae6fe0b770ed")
 		)
 		(pin "30"
-			(uuid "e7d64a64-fe82-45c6-a1e9-4174aa193003")
+			(uuid "a82e645c-22e0-4849-bc52-da12da4eae17")
 		)
 		(pin "16"
-			(uuid "114770e0-0577-4b00-8560-fbd473cfc2c8")
+			(uuid "f35e685c-aa2b-468d-855e-c3c2fb117fda")
 		)
 		(pin "23"
-			(uuid "eb0efed4-dddc-4755-9fd7-9aa15e953ead")
+			(uuid "38145985-0c89-4dd6-aa39-cca1d939ee3e")
 		)
 		(pin "56"
-			(uuid "403f694b-dfdd-44ee-8a5f-1783bfeb10ea")
+			(uuid "743a7a6d-a372-433b-af8e-00e7738cfd1f")
 		)
 		(pin "18"
-			(uuid "d5ea5209-7f0e-466b-95de-25d5f9d31a65")
+			(uuid "18b09a29-3979-48f7-9af8-ae0e5f045736")
 		)
 		(pin "43"
-			(uuid "3f575115-3564-409e-9816-a99abc5af6e9")
+			(uuid "a0c1aaf6-8521-46d3-8dbc-11896ceda5b9")
 		)
 		(pin "35"
-			(uuid "3c9e1d98-cd0d-4a36-9139-85060ad221cb")
+			(uuid "5cf6d733-1c14-4092-9d92-8f1d0b5bc65c")
 		)
 		(pin "15"
-			(uuid "2f9154c4-19b2-4a10-b601-5ee9ed428526")
+			(uuid "38e7106a-3f31-48f7-9253-f6f379bc6784")
 		)
 		(pin "24"
-			(uuid "6f48f68b-913d-4bea-9ffc-45fe1a4288de")
+			(uuid "5e27df8f-7942-4fb3-970f-47410c621658")
 		)
 		(pin "47"
-			(uuid "3b2f1302-e868-439c-8ca6-19313f0ec03c")
+			(uuid "372c3207-4151-45cf-8249-fc0e02950e79")
 		)
 		(pin "25"
-			(uuid "d44473fa-ade9-463f-a194-fd9da7a2c5b3")
+			(uuid "94cc4598-cf5f-4e15-a12b-038a20691526")
 		)
 		(pin "17"
-			(uuid "3c31deab-38d3-4308-afd1-80577492b8cb")
+			(uuid "d09138fd-fd58-4b9d-b379-6079125c730e")
 		)
 		(pin "54"
-			(uuid "30419237-7502-4149-bcfa-c88092cf8417")
+			(uuid "8ba57cf4-2890-4a0e-b769-9392d45c9d05")
 		)
 		(pin "19"
-			(uuid "82d68e20-9bf7-42ab-aa34-449d5361fe3f")
+			(uuid "7cf4ec6d-1976-44b6-950e-22d363233789")
 		)
 		(pin "46"
-			(uuid "dac5bfc9-8563-415d-bc0b-e5136197c78c")
+			(uuid "5ab0fddc-250c-4b55-9d68-b74fb25d5ff3")
 		)
 		(pin "33"
-			(uuid "c5e20589-f0b5-42e4-a9d0-fac80c92c100")
+			(uuid "62c346bd-1103-4987-a7b1-8b895344e070")
 		)
 		(pin "49"
-			(uuid "03bdfd67-7c31-4c65-9cb7-c346a80c7d6a")
+			(uuid "477a99bd-d72b-451e-9c3a-65fafc87bc26")
 		)
 		(pin "32"
-			(uuid "c8e24dd2-d40a-4938-a9f3-3ca88c69a5d6")
+			(uuid "2036653a-24d2-4bc4-988e-15dc9fb22cb1")
 		)
 		(pin "55"
-			(uuid "a237bb96-965c-4686-ab83-bb884a4dca00")
+			(uuid "74df9320-1daf-4781-af13-abd75f831c84")
 		)
 		(pin "45"
-			(uuid "f60da8d7-f44e-41e3-b69b-7d9fd39406bd")
+			(uuid "fdc496c9-fe92-4f88-83a3-3cff1ec503ca")
 		)
 		(pin "22"
-			(uuid "d1233871-d08c-46a6-b134-50d2631676a7")
+			(uuid "1e6da944-ccd2-438b-9d86-771401455775")
 		)
 		(pin "41"
-			(uuid "d35fdb11-b651-44ac-a7f6-b1126dedc475")
+			(uuid "670c7619-35c7-4870-a1bc-3d20aa485e7d")
 		)
 		(pin "21"
-			(uuid "d76cda85-5c35-487e-a50e-090e303c9781")
+			(uuid "27b2fca8-5575-4e91-ad20-bf86626a1d77")
 		)
 		(pin "50"
-			(uuid "4652e2bd-d9ea-46e7-837b-4674a5f2f9dc")
+			(uuid "9214b9bf-2dbd-445e-9ec2-014b36282461")
 		)
 		(pin "5"
-			(uuid "adbe1ebe-23a6-4a6b-974f-0d89e41898e9")
+			(uuid "8a50dca3-3216-4a89-acd1-c61b2eda3b8d")
 		)
 		(pin "48"
-			(uuid "8f7a28f1-4271-4a27-9365-63dc849b24af")
+			(uuid "08acc51e-ce69-4ffb-a481-a823c4d9eb1f")
 		)
 		(pin "42"
-			(uuid "9ed55903-7004-402c-ad10-10ebb9bd99eb")
+			(uuid "80bdafed-0cf1-4a8a-840b-97e63da54ce5")
 		)
 		(pin "26"
-			(uuid "16c167a8-bcd0-4bc2-88d2-265e84746a63")
+			(uuid "4518197b-2380-4927-a994-cea8e59676b1")
 		)
 		(pin "20"
-			(uuid "e9a139e6-174a-4bac-8ce7-608e5746b661")
+			(uuid "b2190833-6c71-4238-854b-029f69a0a1d6")
 		)
 		(pin "51"
-			(uuid "3361ad23-9332-456c-b4d3-9fbd7ed7c681")
+			(uuid "1bd0e234-46e5-418e-a782-ce898bb482d8")
 		)
 		(pin "4"
-			(uuid "9af906ea-ac7d-440d-b445-74b0d5fbb723")
+			(uuid "7dcc9d86-d278-4c91-b1e1-0cbf132d34b3")
 		)
 		(pin "3"
-			(uuid "bfff9a8d-1b2f-4b5f-9e95-17befdbef5a0")
+			(uuid "0d1b4663-3e86-407a-917e-fe17b51656ad")
 		)
 		(pin "52"
-			(uuid "e4f7678b-fdba-4127-a946-4e7eb9b0d29e")
+			(uuid "70bcbd06-46e0-4159-b9f9-c1f3456763e7")
 		)
 		(pin "10"
-			(uuid "350dc2db-e7e2-49c7-818d-4f75f1ce840f")
+			(uuid "10a307f5-d9be-41f2-a7c6-d3faaeaafec4")
 		)
 		(pin "34"
-			(uuid "f5699573-1b45-42d6-ac07-83655f7bd0a5")
+			(uuid "11c123a0-5ea1-457b-bb4e-a9620fbcb7f3")
 		)
 		(pin "2"
-			(uuid "c0651553-ef7a-43e9-8de1-0165a38ba746")
+			(uuid "fd8454fb-c481-4441-a06a-6d6545fb2805")
 		)
 		(pin "28"
-			(uuid "cd4a650b-b54c-4cb7-9ed0-16f56aebfb68")
+			(uuid "c559e98a-0c97-4409-879c-a9da16665edc")
 		)
 		(pin "27"
-			(uuid "e4601afb-6b47-4f13-921b-1ac321b36c77")
+			(uuid "12c419c5-b327-4a15-94c0-1123b6cc8933")
 		)
 		(pin "1"
-			(uuid "4686da1c-5a8f-4ffc-82fe-c34263d729bb")
+			(uuid "a9241c4c-4173-4135-b086-0345f70a37c3")
 		)
 		(pin "44"
-			(uuid "f10b40db-4bf5-4c4e-ba4a-b186d9f0403f")
+			(uuid "73dde291-c185-43f3-81fb-bb387dad762a")
 		)
 		(pin "57"
-			(uuid "82440df3-0aa2-4fa1-814b-0ff08b8e4f9c")
+			(uuid "3f446927-23a6-463b-9f59-f54d06d16a08")
 		)
 		(pin "53"
-			(uuid "aaca1b5d-d570-4bbc-aba3-14548e09f596")
+			(uuid "8a08749b-6ead-4755-a15a-f07a043e0e26")
 		)
 		(pin "40"
-			(uuid "80238b1f-dd99-49c5-b5de-577f929cd105")
+			(uuid "d36e7a2d-61ee-438d-bfc5-27eb423fc23a")
 		)
 		(instances
 			(project "PortaRe0"
@@ -8473,28 +8473,28 @@
 			)
 		)
 		(pin "8"
-			(uuid "f1ba552f-e462-4dda-91b1-79aa60a1c2d2")
+			(uuid "ef3902b6-752b-4a2a-89c0-69dbe6ae8fa9")
 		)
 		(pin "3"
-			(uuid "726fcda8-290d-4c1b-8a93-297c25bc29a8")
+			(uuid "7bdb093a-d881-45a4-8eb8-254c2bd98542")
 		)
 		(pin "4"
-			(uuid "e6b0d1bb-7b0e-4682-8f64-33934835a47f")
+			(uuid "26d53d96-54bb-40e2-97a6-1c73a079fe1e")
 		)
 		(pin "7"
-			(uuid "30c7f461-fc70-4bff-a376-08b5d921c23e")
+			(uuid "b2d0fa71-bad5-48d3-82b6-e929911d7189")
 		)
 		(pin "6"
-			(uuid "0c38b9b0-495b-4544-ab4b-8df0c48ffa4b")
+			(uuid "cf179729-367c-4627-8faf-24bdba3f8c76")
 		)
 		(pin "5"
-			(uuid "b35d863d-a1d7-4b04-a266-c1cb583f7d35")
+			(uuid "ca8238bf-1e81-4850-8ef3-4449f6b99201")
 		)
 		(pin "2"
-			(uuid "5b8b67f3-d8df-4236-940a-c3bf6f96f057")
+			(uuid "f48f2251-2f83-476e-a896-4bf68903dcf4")
 		)
 		(pin "1"
-			(uuid "b5ca5fbc-51c9-4aa4-baff-db44731b26c3")
+			(uuid "8879958d-3964-4b3e-8436-2ca3d89f817d")
 		)
 		(instances
 			(project "PortaRe0"
@@ -8561,7 +8561,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "d9a419ad-aba5-4f31-ade3-ae9a00b4575f")
+			(uuid "f32c058b-ab5a-4884-8791-ab3d6602f683")
 		)
 		(instances
 			(project "PortaRe0"
@@ -8574,7 +8574,7 @@
 	)
 	(symbol
 		(lib_id "power:GNDPWR")
-		(at 281.94 137.16 90)
+		(at 254 95.25 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -8582,7 +8582,7 @@
 		(dnp no)
 		(uuid "5b55a38b-c410-4d63-a77c-28a1e0b6cda4")
 		(property "Reference" "#PWR0127"
-			(at 287.02 137.16 0)
+			(at 259.08 95.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8591,7 +8591,7 @@
 			)
 		)
 		(property "Value" "GNDPWR"
-			(at 284.48 136.398 90)
+			(at 256.54 94.488 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8600,7 +8600,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 283.21 137.16 0)
+			(at 255.27 95.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8609,7 +8609,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 283.21 137.16 0)
+			(at 255.27 95.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8618,7 +8618,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDPWR\" , global ground"
-			(at 281.94 137.16 0)
+			(at 254 95.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8627,7 +8627,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "65ec6c21-f621-4297-9ec5-ada846384780")
+			(uuid "cbacbd37-c987-4624-b023-1f90f538cdfd")
 		)
 		(instances
 			(project "PortaRe0"
@@ -8694,10 +8694,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "f6a8dc1d-cb50-4048-bf67-17f1c42c1ebe")
+			(uuid "0b9bdb9d-e00c-47aa-9dcc-b1c6402239ac")
 		)
 		(pin "2"
-			(uuid "4ace21a6-5692-4cfa-b15c-797fd4b5d167")
+			(uuid "0cc7ca10-5045-4cc2-a5a0-850be2b25e09")
 		)
 		(instances
 			(project "PortaRe0"
@@ -8710,7 +8710,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x02_Socket")
-		(at 290.83 144.78 0)
+		(at 262.89 102.87 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -8719,7 +8719,7 @@
 		(fields_autoplaced yes)
 		(uuid "5e7f9049-75cc-4790-b201-5b9cedfe1251")
 		(property "Reference" "J3"
-			(at 292.1 144.7799 0)
+			(at 264.16 102.8699 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8728,7 +8728,7 @@
 			)
 		)
 		(property "Value" "SPK_L"
-			(at 292.1 147.3199 0)
+			(at 264.16 105.4099 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8737,7 +8737,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 290.83 144.78 0)
+			(at 262.89 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8746,7 +8746,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 290.83 144.78 0)
+			(at 262.89 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8755,7 +8755,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x02, script generated"
-			(at 290.83 144.78 0)
+			(at 262.89 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8764,10 +8764,10 @@
 			)
 		)
 		(pin "2"
-			(uuid "33bcd3d5-cee5-41aa-9ff6-4dd3ebaa49bd")
+			(uuid "8477a0bd-b788-4b29-8ed1-967064439e2f")
 		)
 		(pin "1"
-			(uuid "fefc516a-6fa9-4581-bf1a-99645ebce8e1")
+			(uuid "ab2198f1-80ea-4960-8a0b-e992ec01f50f")
 		)
 		(instances
 			(project "PortaRe0"
@@ -8834,10 +8834,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "5586e5e7-81cd-46e1-bd89-26ef2fc005de")
+			(uuid "d27f05cd-4a9c-4b62-977e-665872d8073f")
 		)
 		(pin "2"
-			(uuid "e32446b3-c38b-4926-a33d-447897d510e9")
+			(uuid "01a829d4-f57f-4e3c-80fd-019d771c8ea3")
 		)
 		(instances
 			(project "PortaRe0"
@@ -8901,10 +8901,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "14a9f396-96e7-44ba-9331-c625aff04f61")
+			(uuid "803a4285-d73e-4565-a6b9-0d70b9278505")
 		)
 		(pin "2"
-			(uuid "46e95220-76db-43fb-b4c4-74efebe5e364")
+			(uuid "6c45a89c-c6e3-4def-91ee-25e2bb5b97c5")
 		)
 		(instances
 			(project "PortaRe0"
@@ -8917,7 +8917,7 @@
 	)
 	(symbol
 		(lib_id "power:+3V3")
-		(at 302.26 208.28 270)
+		(at 274.32 166.37 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -8925,7 +8925,7 @@
 		(dnp no)
 		(uuid "66666be1-a620-449a-beb1-5720702fec2c")
 		(property "Reference" "#PWR0160"
-			(at 298.45 208.28 0)
+			(at 270.51 166.37 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8934,7 +8934,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 307.594 208.28 90)
+			(at 279.654 166.37 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8942,7 +8942,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 302.26 208.28 0)
+			(at 274.32 166.37 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8951,7 +8951,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 302.26 208.28 0)
+			(at 274.32 166.37 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8960,7 +8960,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+3V3\""
-			(at 302.26 208.28 0)
+			(at 274.32 166.37 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8969,7 +8969,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "28924a56-f09e-4aa1-b6db-910df62f6825")
+			(uuid "ed23b721-66b8-44c4-9615-a2740ea32b8f")
 		)
 		(instances
 			(project "PortaRe0"
@@ -8982,7 +8982,7 @@
 	)
 	(symbol
 		(lib_id "power:+3V3")
-		(at 302.26 203.2 270)
+		(at 274.32 161.29 270)
 		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
@@ -8991,7 +8991,7 @@
 		(dnp no)
 		(uuid "66aa8b2d-999c-4ea9-89b9-0c853962fe71")
 		(property "Reference" "#PWR0162"
-			(at 298.45 203.2 0)
+			(at 270.51 161.29 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9000,7 +9000,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 307.594 203.2 90)
+			(at 279.654 161.29 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9008,7 +9008,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 302.26 203.2 0)
+			(at 274.32 161.29 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9017,7 +9017,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 302.26 203.2 0)
+			(at 274.32 161.29 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9026,7 +9026,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+3V3\""
-			(at 302.26 203.2 0)
+			(at 274.32 161.29 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9035,7 +9035,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "849db93a-d3a2-4a0e-9392-fb044e6a84cf")
+			(uuid "10355581-9f31-4e13-9e58-01f6b559c930")
 		)
 		(instances
 			(project "PortaRe0"
@@ -9099,10 +9099,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "fbe288ee-dc78-4cfb-909e-4128550a3402")
+			(uuid "30b9be0d-c3e2-4a21-9a47-fd02b4a71bc0")
 		)
 		(pin "2"
-			(uuid "4d9f5a24-7748-49a6-ac09-7dd076b8f4d0")
+			(uuid "b51378d7-c5a7-47a5-a8bb-3544a8e482dc")
 		)
 		(instances
 			(project "PortaRe0"
@@ -9167,7 +9167,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "ea0d430a-14b1-4298-9eab-2d4e006db310")
+			(uuid "2a177dd6-4088-499a-ac5b-7448d56eaa69")
 		)
 		(instances
 			(project "PortaRe0"
@@ -9180,7 +9180,7 @@
 	)
 	(symbol
 		(lib_id "power:GNDPWR")
-		(at 215.9 163.83 270)
+		(at 187.96 121.92 270)
 		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
@@ -9189,7 +9189,7 @@
 		(dnp no)
 		(uuid "6c43dc76-c820-43a0-beb1-f548ef04db80")
 		(property "Reference" "#PWR0143"
-			(at 210.82 163.83 0)
+			(at 182.88 121.92 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9198,7 +9198,7 @@
 			)
 		)
 		(property "Value" "GNDPWR"
-			(at 213.868 163.83 90)
+			(at 185.928 121.92 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9207,7 +9207,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 214.63 163.83 0)
+			(at 186.69 121.92 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9216,7 +9216,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 214.63 163.83 0)
+			(at 186.69 121.92 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9225,7 +9225,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDPWR\" , global ground"
-			(at 215.9 163.83 0)
+			(at 187.96 121.92 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9234,7 +9234,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "af227c7b-2564-4938-b6ed-8d36257a7294")
+			(uuid "05f4eafe-2441-4f71-931e-966195bfab99")
 		)
 		(instances
 			(project "PortaRe0"
@@ -9299,7 +9299,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "3ddb6b00-ea2d-4cf7-b568-d3f66a0e6189")
+			(uuid "bcae6cf4-f333-4637-88c7-efdaf09cc970")
 		)
 		(instances
 			(project "PortaRe0"
@@ -9312,7 +9312,7 @@
 	)
 	(symbol
 		(lib_id "Device:C_Small")
-		(at 215.9 133.35 180)
+		(at 187.96 91.44 180)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -9320,7 +9320,7 @@
 		(dnp no)
 		(uuid "766c8b71-6f6d-454e-bd6b-447440b91eed")
 		(property "Reference" "C72"
-			(at 215.9 134.62 0)
+			(at 187.96 92.71 0)
 			(effects
 				(font
 					(size 0.762 0.762)
@@ -9329,7 +9329,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 215.9 132.08 0)
+			(at 187.96 90.17 0)
 			(effects
 				(font
 					(size 0.762 0.762)
@@ -9338,7 +9338,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 215.9 133.35 0)
+			(at 187.96 91.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9347,7 +9347,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 215.9 133.35 0)
+			(at 187.96 91.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9356,7 +9356,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
-			(at 215.9 133.35 0)
+			(at 187.96 91.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9365,10 +9365,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "d91724fd-90b2-480d-9b39-1cc019ae51b7")
+			(uuid "e5dbad64-9ee0-483d-8ddf-44b7e45ab0c9")
 		)
 		(pin "2"
-			(uuid "e2750fdc-08b0-4daf-a86a-ccea703171d4")
+			(uuid "15cf95d3-8732-46b6-88a9-6d2a72b631a1")
 		)
 		(instances
 			(project "PortaRe0"
@@ -9432,10 +9432,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "f1658410-c506-4d92-acaa-2765c82cf5ab")
+			(uuid "f8b33785-3fc3-4d43-be92-f1ca08f818e8")
 		)
 		(pin "2"
-			(uuid "2e5c083c-1903-48bd-999f-7e90f14d1099")
+			(uuid "5d19fd11-fdb7-4de8-9d38-cb7741669322")
 		)
 		(instances
 			(project "PortaRe0"
@@ -9500,10 +9500,10 @@
 			)
 		)
 		(pin "2"
-			(uuid "7badf204-1357-4c17-803a-96894fa9ad37")
+			(uuid "b76a3905-5b4c-4a06-bd98-28d5e17cf542")
 		)
 		(pin "1"
-			(uuid "04b4214d-08fe-418c-a8d2-03f879876be3")
+			(uuid "2d854862-dae8-4354-94b0-84ac3f98c873")
 		)
 		(instances
 			(project "PortaRe0"
@@ -9516,7 +9516,7 @@
 	)
 	(symbol
 		(lib_id "power:GNDPWR")
-		(at 210.82 100.33 180)
+		(at 182.88 58.42 180)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -9524,7 +9524,7 @@
 		(dnp no)
 		(uuid "85bf8ad2-8028-434b-aa9f-992b69e13c05")
 		(property "Reference" "#PWR0123"
-			(at 210.82 95.25 0)
+			(at 182.88 53.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9533,7 +9533,7 @@
 			)
 		)
 		(property "Value" "GNDPWR"
-			(at 210.82 97.282 0)
+			(at 182.88 55.372 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9541,7 +9541,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 210.82 99.06 0)
+			(at 182.88 57.15 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9550,7 +9550,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 210.82 99.06 0)
+			(at 182.88 57.15 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9559,7 +9559,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDPWR\" , global ground"
-			(at 210.82 100.33 0)
+			(at 182.88 58.42 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9568,7 +9568,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "2e8646a7-fe02-46be-8c2d-453b396084b3")
+			(uuid "dcd11cbd-d80d-437b-941d-4a645005022e")
 		)
 		(instances
 			(project "PortaRe0"
@@ -9633,7 +9633,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "2893a3ee-64d8-4f8d-8d6d-9eab8425fb41")
+			(uuid "bc1816d5-aaef-4f2a-b662-82cb9ceb0efe")
 		)
 		(instances
 			(project "PortaRe0"
@@ -9700,10 +9700,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "0b968ebd-a07d-4022-87fa-da548fcbd00e")
+			(uuid "864d1a97-81eb-46c4-b3aa-e95b889aaa97")
 		)
 		(pin "2"
-			(uuid "3c223c73-03cc-4388-9597-442993ed6077")
+			(uuid "09b90eb9-829b-4670-9b67-a1bee09a77c6")
 		)
 		(instances
 			(project "PortaRe0"
@@ -9716,7 +9716,7 @@
 	)
 	(symbol
 		(lib_id "Device:C_Small")
-		(at 218.44 163.83 90)
+		(at 190.5 121.92 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -9724,7 +9724,7 @@
 		(dnp no)
 		(uuid "8c860516-991f-4bf0-9dec-050070482ea6")
 		(property "Reference" "C90"
-			(at 217.424 165.608 0)
+			(at 189.484 123.698 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -9733,7 +9733,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 218.44 165.1 0)
+			(at 190.5 123.19 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -9742,7 +9742,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 218.44 163.83 0)
+			(at 190.5 121.92 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9751,7 +9751,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 218.44 163.83 0)
+			(at 190.5 121.92 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9760,7 +9760,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
-			(at 218.44 163.83 0)
+			(at 190.5 121.92 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9769,10 +9769,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "a4a0995d-b95c-4311-8b86-0bcaf71b94f8")
+			(uuid "af68a007-06ea-43b5-8154-a725acd60a8a")
 		)
 		(pin "2"
-			(uuid "90429b0c-e69a-455c-9d52-292484e89620")
+			(uuid "c89c877f-1fc2-4d0c-bc03-4204ab1f04e8")
 		)
 		(instances
 			(project "PortaRe0"
@@ -9785,7 +9785,7 @@
 	)
 	(symbol
 		(lib_id "Device:C_Small")
-		(at 218.44 181.61 90)
+		(at 190.5 139.7 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -9793,7 +9793,7 @@
 		(dnp no)
 		(uuid "9320e7f8-8962-4b3e-b65c-79f24548bd85")
 		(property "Reference" "C89"
-			(at 217.424 183.388 0)
+			(at 189.484 141.478 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -9802,7 +9802,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 218.44 182.88 0)
+			(at 190.5 140.97 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -9811,7 +9811,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 218.44 181.61 0)
+			(at 190.5 139.7 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9820,7 +9820,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 218.44 181.61 0)
+			(at 190.5 139.7 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9829,7 +9829,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
-			(at 218.44 181.61 0)
+			(at 190.5 139.7 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9838,10 +9838,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "0a8ab498-4c1d-48d2-a56b-bb2670d81f01")
+			(uuid "a2e2b26e-7384-4800-ac21-ec922e9a8842")
 		)
 		(pin "2"
-			(uuid "7ff970c4-67d1-4c3c-aa7a-04bdc416a045")
+			(uuid "51f83891-2f6e-4cc2-b052-4ed7754e3180")
 		)
 		(instances
 			(project "PortaRe0"
@@ -9854,7 +9854,7 @@
 	)
 	(symbol
 		(lib_id "Device:C_Small")
-		(at 299.72 212.09 270)
+		(at 271.78 170.18 270)
 		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
@@ -9863,7 +9863,7 @@
 		(dnp no)
 		(uuid "970bd707-488f-4c5d-a1db-35c6c2ae5b33")
 		(property "Reference" "C96"
-			(at 300.736 213.868 0)
+			(at 272.796 171.958 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -9872,7 +9872,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 299.72 213.36 0)
+			(at 271.78 171.45 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -9881,7 +9881,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 299.72 212.09 0)
+			(at 271.78 170.18 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9890,7 +9890,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 299.72 212.09 0)
+			(at 271.78 170.18 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9899,7 +9899,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
-			(at 299.72 212.09 0)
+			(at 271.78 170.18 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9908,10 +9908,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "8464aa01-9735-478f-baf8-60948587388c")
+			(uuid "5e452462-6f10-4b93-b761-2f82b5583c2a")
 		)
 		(pin "2"
-			(uuid "3555f646-da60-4b95-b528-32789470106a")
+			(uuid "cd19ae16-704f-4910-9ba2-5db05228e3e2")
 		)
 		(instances
 			(project "PortaRe0"
@@ -9924,7 +9924,7 @@
 	)
 	(symbol
 		(lib_id "power:GNDPWR")
-		(at 273.05 200.66 90)
+		(at 245.11 158.75 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -9932,7 +9932,7 @@
 		(dnp no)
 		(uuid "978c2901-c2f4-401a-8d9e-3a4a6454f5e0")
 		(property "Reference" "#PWR0164"
-			(at 278.13 200.66 0)
+			(at 250.19 158.75 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9941,7 +9941,7 @@
 			)
 		)
 		(property "Value" "GNDPWR"
-			(at 275.082 200.66 90)
+			(at 247.142 158.75 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9950,7 +9950,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 274.32 200.66 0)
+			(at 246.38 158.75 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9959,7 +9959,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 274.32 200.66 0)
+			(at 246.38 158.75 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9968,7 +9968,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDPWR\" , global ground"
-			(at 273.05 200.66 0)
+			(at 245.11 158.75 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9977,7 +9977,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "2ca9f677-ae4e-40b5-845e-4e8cb95ae192")
+			(uuid "007ab959-9a35-4dde-b40f-5e06af753e6b")
 		)
 		(instances
 			(project "PortaRe0"
@@ -9990,7 +9990,7 @@
 	)
 	(symbol
 		(lib_id "power:GNDPWR")
-		(at 240.03 198.12 270)
+		(at 212.09 156.21 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -9998,7 +9998,7 @@
 		(dnp no)
 		(uuid "981a0eb2-45c3-4361-a83f-2d8adab0db3c")
 		(property "Reference" "#PWR0154"
-			(at 234.95 198.12 0)
+			(at 207.01 156.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10007,7 +10007,7 @@
 			)
 		)
 		(property "Value" "GNDPWR"
-			(at 237.998 198.12 90)
+			(at 210.058 156.21 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10016,7 +10016,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 238.76 198.12 0)
+			(at 210.82 156.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10025,7 +10025,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 238.76 198.12 0)
+			(at 210.82 156.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10034,7 +10034,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDPWR\" , global ground"
-			(at 240.03 198.12 0)
+			(at 212.09 156.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10043,7 +10043,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "e901bf6e-be8e-4a62-a949-574ba6fd7a2e")
+			(uuid "fce17441-faa1-4b0a-9b52-9360ee74e442")
 		)
 		(instances
 			(project "PortaRe0"
@@ -10108,7 +10108,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "066fe8dd-f18a-4e79-8296-16fed7b4855c")
+			(uuid "73d533db-2323-47e8-9e66-66784d50b6fe")
 		)
 		(instances
 			(project "PortaRe0"
@@ -10121,7 +10121,7 @@
 	)
 	(symbol
 		(lib_id "power:GNDPWR")
-		(at 273.05 213.36 90)
+		(at 245.11 171.45 90)
 		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
@@ -10130,7 +10130,7 @@
 		(dnp no)
 		(uuid "a19e9c81-e074-4e90-aff8-4e84eae65cad")
 		(property "Reference" "#PWR0159"
-			(at 278.13 213.36 0)
+			(at 250.19 171.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10139,7 +10139,7 @@
 			)
 		)
 		(property "Value" "GNDPWR"
-			(at 275.082 213.36 90)
+			(at 247.142 171.45 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10148,7 +10148,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 274.32 213.36 0)
+			(at 246.38 171.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10157,7 +10157,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 274.32 213.36 0)
+			(at 246.38 171.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10166,7 +10166,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDPWR\" , global ground"
-			(at 273.05 213.36 0)
+			(at 245.11 171.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10175,7 +10175,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "645c09ec-eddf-4b8b-854c-5ec25fe18288")
+			(uuid "ac2941c5-fe15-413b-87a4-215c9a4c48b9")
 		)
 		(instances
 			(project "PortaRe0"
@@ -10188,15 +10188,15 @@
 	)
 	(symbol
 		(lib_id "power:GNDPWR")
-		(at 283.21 109.22 90)
+		(at 255.27 67.31 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "a58103f6-d733-4a68-8697-8ce8fd9fc45c")
-		(property "Reference" "#PWR0124"
-			(at 288.29 109.22 0)
+		(property "Reference" "#PWR0199"
+			(at 260.35 67.31 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10205,7 +10205,7 @@
 			)
 		)
 		(property "Value" "GNDPWR"
-			(at 285.75 108.458 90)
+			(at 257.81 66.548 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10214,7 +10214,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 284.48 109.22 0)
+			(at 256.54 67.31 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10223,7 +10223,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 284.48 109.22 0)
+			(at 256.54 67.31 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10232,7 +10232,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDPWR\" , global ground"
-			(at 283.21 109.22 0)
+			(at 255.27 67.31 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10241,12 +10241,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "ab14639d-158e-4402-a76a-2002fba7e512")
+			(uuid "e240894c-6478-4a1b-a9f1-0a98eadb7a2a")
 		)
 		(instances
-			(project ""
+			(project "PortaRe0"
 				(path "/479aadc4-f9a0-4ec2-b000-6a17237038f1/6f018b3a-f554-45a0-adb8-bf1e4994a5d2"
-					(reference "#PWR0124")
+					(reference "#PWR0199")
 					(unit 1)
 				)
 			)
@@ -10327,16 +10327,16 @@
 			)
 		)
 		(pin "4"
-			(uuid "f570989e-20a2-49ab-b5b6-821903a3ca92")
+			(uuid "6fb17484-d6cb-414f-9e0a-a8762b01d9bf")
 		)
 		(pin "3"
-			(uuid "85f5f4c0-13dd-4171-a93a-35a05a30b56e")
+			(uuid "a32b7de5-2482-4764-959b-67dd8fd712cc")
 		)
 		(pin "1"
-			(uuid "4f990d8e-81df-4bcf-9144-2da23665c3c7")
+			(uuid "8c9fd31f-0c42-449a-8ce8-64c5544695ac")
 		)
 		(pin "2"
-			(uuid "c49d0b2a-93d6-46f1-bcc4-587c190c4a83")
+			(uuid "88a37c19-cdb4-439f-81ad-07735ad9a7c0")
 		)
 		(instances
 			(project "PortaRe0"
@@ -10349,7 +10349,7 @@
 	)
 	(symbol
 		(lib_id "power:GNDPWR")
-		(at 283.21 170.18 90)
+		(at 255.27 128.27 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -10357,7 +10357,7 @@
 		(dnp no)
 		(uuid "b2dacf97-feaf-4197-b456-c1a9e36a54f3")
 		(property "Reference" "#PWR0151"
-			(at 288.29 170.18 0)
+			(at 260.35 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10366,7 +10366,7 @@
 			)
 		)
 		(property "Value" "GNDPWR"
-			(at 285.242 170.18 90)
+			(at 257.302 128.27 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10375,7 +10375,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 284.48 170.18 0)
+			(at 256.54 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10384,7 +10384,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 284.48 170.18 0)
+			(at 256.54 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10393,7 +10393,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDPWR\" , global ground"
-			(at 283.21 170.18 0)
+			(at 255.27 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10402,7 +10402,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "8e26e7e3-2837-4c63-b59f-70b28ea74911")
+			(uuid "745be155-15fa-43e3-b3d0-d2f68e3bffae")
 		)
 		(instances
 			(project "PortaRe0"
@@ -10415,7 +10415,7 @@
 	)
 	(symbol
 		(lib_id "Device:C_Small")
-		(at 243.84 170.18 270)
+		(at 215.9 128.27 270)
 		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
@@ -10424,7 +10424,7 @@
 		(dnp no)
 		(uuid "b493a56a-621e-4bb8-abe8-816a98da3b93")
 		(property "Reference" "C93"
-			(at 244.856 171.958 0)
+			(at 216.916 130.048 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -10433,7 +10433,7 @@
 			)
 		)
 		(property "Value" "1μF"
-			(at 243.84 170.942 0)
+			(at 215.9 129.032 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -10442,7 +10442,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 243.84 170.18 0)
+			(at 215.9 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10451,7 +10451,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 243.84 170.18 0)
+			(at 215.9 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10460,7 +10460,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
-			(at 243.84 170.18 0)
+			(at 215.9 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10469,10 +10469,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "c9220050-17dd-4a58-80e5-4b119ebea5fe")
+			(uuid "f83d3cc9-1fa6-4811-b402-a10a5395b9d1")
 		)
 		(pin "2"
-			(uuid "3d0a5e5a-2188-492e-970b-4c8aa23d5de6")
+			(uuid "f2a563c5-0e0f-4b1d-8f0e-6abfb35ed52c")
 		)
 		(instances
 			(project "PortaRe0"
@@ -10485,7 +10485,7 @@
 	)
 	(symbol
 		(lib_id "power:+3V3")
-		(at 215.9 177.8 90)
+		(at 187.96 135.89 90)
 		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
@@ -10494,7 +10494,7 @@
 		(dnp no)
 		(uuid "b55cb560-8aa1-4515-9569-bc7a69858b27")
 		(property "Reference" "#PWR0131"
-			(at 219.71 177.8 0)
+			(at 191.77 135.89 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10503,7 +10503,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 210.566 177.8 90)
+			(at 182.626 135.89 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10511,7 +10511,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 215.9 177.8 0)
+			(at 187.96 135.89 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10520,7 +10520,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 215.9 177.8 0)
+			(at 187.96 135.89 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10529,7 +10529,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+3V3\""
-			(at 215.9 177.8 0)
+			(at 187.96 135.89 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10538,7 +10538,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "ad7397db-fe8b-452d-8537-2b085975dd1c")
+			(uuid "0c9f9065-fa39-46b1-9f7d-a7408083ae61")
 		)
 		(instances
 			(project "PortaRe0"
@@ -10605,10 +10605,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "cbe596bc-f0e4-4b02-baa3-4760a7581f46")
+			(uuid "720592c4-36b4-4c97-84b4-121f645cca44")
 		)
 		(pin "2"
-			(uuid "2f2ab3e1-95f0-4a17-8656-14327ca54b87")
+			(uuid "d16b50d9-add4-4865-a183-96238c7cc710")
 		)
 		(instances
 			(project "PortaRe0"
@@ -10621,7 +10621,7 @@
 	)
 	(symbol
 		(lib_id "power:GNDPWR")
-		(at 273.05 195.58 90)
+		(at 245.11 153.67 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -10629,7 +10629,7 @@
 		(dnp no)
 		(uuid "b8eceb0d-360d-47c8-93cc-31efe2356d99")
 		(property "Reference" "#PWR0165"
-			(at 278.13 195.58 0)
+			(at 250.19 153.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10638,7 +10638,7 @@
 			)
 		)
 		(property "Value" "GNDPWR"
-			(at 275.082 195.58 90)
+			(at 247.142 153.67 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10647,7 +10647,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 274.32 195.58 0)
+			(at 246.38 153.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10656,7 +10656,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 274.32 195.58 0)
+			(at 246.38 153.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10665,7 +10665,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDPWR\" , global ground"
-			(at 273.05 195.58 0)
+			(at 245.11 153.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10674,7 +10674,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "a762fece-1f26-4c49-abb4-297d8476b8e3")
+			(uuid "b9881450-efc4-4714-9ec6-a99bc6ef28fb")
 		)
 		(instances
 			(project "PortaRe0"
@@ -10687,7 +10687,7 @@
 	)
 	(symbol
 		(lib_id "PortaRe0:TPA6132A2RTER")
-		(at 259.08 205.74 0)
+		(at 231.14 163.83 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -10695,8 +10695,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "b9eeee6c-6ade-48f3-935c-571aca6b7c24")
-		(property "Reference" "U13"
-			(at 259.08 187.96 0)
+		(property "Reference" "U?"
+			(at 231.14 146.05 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10704,7 +10704,7 @@
 			)
 		)
 		(property "Value" "TPA6132A2RTER"
-			(at 259.08 190.5 0)
+			(at 231.14 148.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10712,7 +10712,7 @@
 			)
 		)
 		(property "Footprint" "PortaRe0:WQFN-16_L3.0-W3.0-P0.50-TL-EP1.6"
-			(at 259.08 223.52 0)
+			(at 231.14 181.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10721,7 +10721,7 @@
 			)
 		)
 		(property "Datasheet" "https://lcsc.com/product-detail/Audio-OpAmps_TI_TPA6132A2RTER_TPA6132A2RTER_C69901.html"
-			(at 259.08 226.06 0)
+			(at 231.14 184.15 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10730,7 +10730,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 259.08 205.74 0)
+			(at 231.14 163.83 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10739,7 +10739,7 @@
 			)
 		)
 		(property "LCSC Part" "C69901"
-			(at 259.08 228.6 0)
+			(at 231.14 186.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10748,60 +10748,60 @@
 			)
 		)
 		(pin "9"
-			(uuid "11450310-5679-4d34-896a-43cf6c1c32d3")
+			(uuid "b7fabfeb-18bc-4f94-a557-a68702c580ba")
 		)
 		(pin "10"
-			(uuid "76214065-926a-4fe5-9e08-f4a5b308cf32")
+			(uuid "e9c25650-85c5-46ba-a8dc-74cfa54713e9")
 		)
 		(pin "11"
-			(uuid "b09934e0-15c4-494e-b0de-0bc541ee8c57")
+			(uuid "642df2d2-3eb3-4c42-9a45-cc5758c79127")
 		)
 		(pin "7"
-			(uuid "ee0c8268-2e69-4243-8db0-547a76e53026")
+			(uuid "c5d6ca3a-ebef-4d04-91e3-85d40eae2298")
 		)
 		(pin "5"
-			(uuid "bf8429e3-14dd-4d8e-b78a-639f030caf29")
+			(uuid "28a60ed3-fc41-4f75-87ca-061f9b263e82")
 		)
 		(pin "15"
-			(uuid "ed8dd04f-61e6-4cba-b4d6-f26237cdb302")
+			(uuid "0ef0677b-8e1a-4026-8c89-bc153d1b2af9")
 		)
 		(pin "14"
-			(uuid "123a4737-09a3-4a4b-b02a-5154aab7d62a")
+			(uuid "85fb1fff-3db9-4533-8f70-6547929b20cd")
 		)
 		(pin "1"
-			(uuid "53b31f53-befd-4d9d-9f02-fa58497fdde5")
+			(uuid "1d607c5c-09e0-4885-b96a-75509f7ec02a")
 		)
 		(pin "4"
-			(uuid "19584328-01e0-4021-bb10-85f2296b47e5")
+			(uuid "b4ea88e0-1691-4970-afe0-5029f3529e48")
 		)
 		(pin "2"
-			(uuid "910bc0fa-579a-4edd-aa9c-ea49c91abe5b")
+			(uuid "03c0d5a8-3f6c-43f0-bab4-ad0e38606810")
 		)
 		(pin "8"
-			(uuid "bc063aa8-b580-459e-8352-b425ccddedd4")
+			(uuid "e47710a8-1413-4553-bfb0-164d68b35296")
 		)
 		(pin "3"
-			(uuid "31fe8d39-0135-4505-ab56-0052bbfa7845")
+			(uuid "9385074c-84a2-4105-8eb1-bad83ab66e88")
 		)
 		(pin "6"
-			(uuid "0455800c-3e6c-4524-9b80-8b02df61adc0")
+			(uuid "b2b14de1-58fd-4542-8fcf-a1ed92c78e70")
 		)
 		(pin "17"
-			(uuid "9b1836ff-953b-4f9d-9551-70c3e33bdbfb")
+			(uuid "1d55c77a-9465-4a2f-a944-552b1940d670")
 		)
 		(pin "16"
-			(uuid "6b88493b-acd7-403f-8f9f-3ebc5970cebd")
+			(uuid "d473643b-04fb-42a7-8ee6-5aa3df814f6f")
 		)
 		(pin "13"
-			(uuid "ef5dcbba-c39f-4917-b9fd-aa223c7f70a0")
+			(uuid "ed0d73bf-f98a-448b-8f90-d75647f044ab")
 		)
 		(pin "12"
-			(uuid "886d03af-baee-4e35-b97b-50b6c717ecd4")
+			(uuid "f781217d-dc2f-4f35-b80b-31dfc9acb38b")
 		)
 		(instances
-			(project ""
+			(project "PortaRe0"
 				(path "/479aadc4-f9a0-4ec2-b000-6a17237038f1/6f018b3a-f554-45a0-adb8-bf1e4994a5d2"
-					(reference "U13")
+					(reference "U?")
 					(unit 1)
 				)
 			)
@@ -10809,7 +10809,7 @@
 	)
 	(symbol
 		(lib_id "power:GNDPWR")
-		(at 302.26 163.83 90)
+		(at 274.32 121.92 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -10817,7 +10817,7 @@
 		(dnp no)
 		(uuid "bc87b8d7-7aea-4979-8667-ca00622b2e20")
 		(property "Reference" "#PWR0144"
-			(at 307.34 163.83 0)
+			(at 279.4 121.92 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10826,7 +10826,7 @@
 			)
 		)
 		(property "Value" "GNDPWR"
-			(at 304.8 163.068 90)
+			(at 276.86 121.158 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10835,7 +10835,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 303.53 163.83 0)
+			(at 275.59 121.92 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10844,7 +10844,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 303.53 163.83 0)
+			(at 275.59 121.92 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10853,7 +10853,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDPWR\" , global ground"
-			(at 302.26 163.83 0)
+			(at 274.32 121.92 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10862,7 +10862,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "ae518041-727a-4671-8f2c-77d2896a3461")
+			(uuid "3a2c1341-743e-48b0-a718-60547bfd6f4d")
 		)
 		(instances
 			(project "PortaRe0"
@@ -10875,7 +10875,7 @@
 	)
 	(symbol
 		(lib_id "Device:C_Small")
-		(at 287.02 213.36 0)
+		(at 259.08 171.45 0)
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
@@ -10884,7 +10884,7 @@
 		(dnp no)
 		(uuid "bd61ce1d-a73b-42ba-99fa-74836cd07b28")
 		(property "Reference" "C95"
-			(at 288.798 212.344 0)
+			(at 260.858 170.434 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -10893,7 +10893,7 @@
 			)
 		)
 		(property "Value" "1μF"
-			(at 287.782 213.36 0)
+			(at 259.842 171.45 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -10902,7 +10902,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 287.02 213.36 0)
+			(at 259.08 171.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10911,7 +10911,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 287.02 213.36 0)
+			(at 259.08 171.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10920,7 +10920,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
-			(at 287.02 213.36 0)
+			(at 259.08 171.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10929,10 +10929,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "0b14c397-ac7f-4c3a-b4db-a9b3c3db0b45")
+			(uuid "603c6846-934e-48a3-991a-68759ac7a891")
 		)
 		(pin "2"
-			(uuid "4735a9c3-58c3-455c-9fde-9cd90412ac52")
+			(uuid "87f9e237-ac8a-4304-a59f-9ca767717566")
 		)
 		(instances
 			(project "PortaRe0"
@@ -10999,10 +10999,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "0b8e2e32-84da-4aac-b564-1f00b9f47494")
+			(uuid "fda3241f-9c1a-41bb-917e-73f42019a97a")
 		)
 		(pin "2"
-			(uuid "a69493aa-2ab7-4dc6-ad8e-e1ea5d82cee8")
+			(uuid "da70c99c-03a8-4661-8c03-d09b4cbe14b5")
 		)
 		(instances
 			(project "PortaRe0"
@@ -11015,7 +11015,7 @@
 	)
 	(symbol
 		(lib_id "power:GNDPWR")
-		(at 222.25 128.27 180)
+		(at 194.31 86.36 180)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -11023,7 +11023,7 @@
 		(dnp no)
 		(uuid "c0cb3fa8-e531-4999-b921-37c8f00d8c6d")
 		(property "Reference" "#PWR0126"
-			(at 222.25 123.19 0)
+			(at 194.31 81.28 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11032,7 +11032,7 @@
 			)
 		)
 		(property "Value" "GNDPWR"
-			(at 222.25 125.222 0)
+			(at 194.31 83.312 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11040,7 +11040,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 222.25 127 0)
+			(at 194.31 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11049,7 +11049,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 222.25 127 0)
+			(at 194.31 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11058,7 +11058,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDPWR\" , global ground"
-			(at 222.25 128.27 0)
+			(at 194.31 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11067,7 +11067,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "369fd50a-05d8-4932-a222-bc267bbdf0af")
+			(uuid "4100ddd7-aae4-4c2c-87cc-0dbff3aa429e")
 		)
 		(instances
 			(project "PortaRe0"
@@ -11134,10 +11134,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "c352bd6d-fb69-432a-a558-37d71e46e234")
+			(uuid "29f1feb2-50d7-491e-b6d7-50c7458d517a")
 		)
 		(pin "2"
-			(uuid "669f064f-2eaa-4a16-8f80-ded73101e94c")
+			(uuid "cd742171-52f0-4685-9ff4-0ff36cb1acdb")
 		)
 		(instances
 			(project "PortaRe0"
@@ -11150,7 +11150,7 @@
 	)
 	(symbol
 		(lib_id "power:GNDPWR")
-		(at 302.26 212.09 90)
+		(at 274.32 170.18 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -11158,7 +11158,7 @@
 		(dnp no)
 		(uuid "c9c062f7-ea11-42d6-b845-f715b81aaace")
 		(property "Reference" "#PWR0161"
-			(at 307.34 212.09 0)
+			(at 279.4 170.18 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11167,7 +11167,7 @@
 			)
 		)
 		(property "Value" "GNDPWR"
-			(at 304.8 211.328 90)
+			(at 276.86 169.418 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11176,7 +11176,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 303.53 212.09 0)
+			(at 275.59 170.18 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11185,7 +11185,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 303.53 212.09 0)
+			(at 275.59 170.18 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11194,7 +11194,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDPWR\" , global ground"
-			(at 302.26 212.09 0)
+			(at 274.32 170.18 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11203,7 +11203,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "ba3cb00b-b620-49a4-87f0-699233ac3038")
+			(uuid "905bcda3-c9a8-4a52-bea2-5b529bbee05c")
 		)
 		(instances
 			(project "PortaRe0"
@@ -11216,7 +11216,7 @@
 	)
 	(symbol
 		(lib_id "power:GNDPWR")
-		(at 283.21 165.1 90)
+		(at 255.27 123.19 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -11224,7 +11224,7 @@
 		(dnp no)
 		(uuid "cb3123cc-4298-4bc0-a468-6e1a3447c389")
 		(property "Reference" "#PWR0149"
-			(at 288.29 165.1 0)
+			(at 260.35 123.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11233,7 +11233,7 @@
 			)
 		)
 		(property "Value" "GNDPWR"
-			(at 285.242 165.1 90)
+			(at 257.302 123.19 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11242,7 +11242,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 284.48 165.1 0)
+			(at 256.54 123.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11251,7 +11251,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 284.48 165.1 0)
+			(at 256.54 123.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11260,7 +11260,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDPWR\" , global ground"
-			(at 283.21 165.1 0)
+			(at 255.27 123.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11269,7 +11269,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "67fb09a2-adcb-4b08-b02a-3ab05e037fb8")
+			(uuid "727900a5-b7ae-4505-9063-56f76f836ece")
 		)
 		(instances
 			(project "PortaRe0"
@@ -11282,7 +11282,7 @@
 	)
 	(symbol
 		(lib_id "Device:C_Small")
-		(at 299.72 163.83 270)
+		(at 271.78 121.92 270)
 		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
@@ -11291,7 +11291,7 @@
 		(dnp no)
 		(uuid "d5c5fc7b-db1b-4f2f-a0c8-b5d876dc11e7")
 		(property "Reference" "C91"
-			(at 300.736 165.608 0)
+			(at 272.796 123.698 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -11300,7 +11300,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 299.72 165.1 0)
+			(at 271.78 123.19 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -11309,7 +11309,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 299.72 163.83 0)
+			(at 271.78 121.92 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11318,7 +11318,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 299.72 163.83 0)
+			(at 271.78 121.92 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11327,7 +11327,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
-			(at 299.72 163.83 0)
+			(at 271.78 121.92 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11336,10 +11336,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "0c4c7f5e-09c0-4c74-a59a-7c3a2d167d00")
+			(uuid "1d4b3bcb-0b0b-459f-8bff-adb9dde5929f")
 		)
 		(pin "2"
-			(uuid "12884125-e56d-438d-b16b-9fcdb53720da")
+			(uuid "d0eb173b-b68b-400f-9f55-7b1c44ba77da")
 		)
 		(instances
 			(project "PortaRe0"
@@ -11406,10 +11406,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "3981927a-33fa-4ecd-841b-0e34b3bcdc2f")
+			(uuid "3d917c08-6dc7-4fc6-a7b2-65032fb51a02")
 		)
 		(pin "2"
-			(uuid "40596f57-7e0c-46d8-8115-f88bcc297330")
+			(uuid "9d72d4bb-2afb-4928-8724-dd29afbc1653")
 		)
 		(instances
 			(project "PortaRe0"
@@ -11422,7 +11422,7 @@
 	)
 	(symbol
 		(lib_id "power:GNDPWR")
-		(at 302.26 199.39 90)
+		(at 274.32 157.48 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -11430,7 +11430,7 @@
 		(dnp no)
 		(uuid "d7fe4b85-a12a-4c0d-bf1b-753b1a64b6c1")
 		(property "Reference" "#PWR0163"
-			(at 307.34 199.39 0)
+			(at 279.4 157.48 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11439,7 +11439,7 @@
 			)
 		)
 		(property "Value" "GNDPWR"
-			(at 304.8 198.628 90)
+			(at 276.86 156.718 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11448,7 +11448,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 303.53 199.39 0)
+			(at 275.59 157.48 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11457,7 +11457,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 303.53 199.39 0)
+			(at 275.59 157.48 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11466,7 +11466,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDPWR\" , global ground"
-			(at 302.26 199.39 0)
+			(at 274.32 157.48 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11475,7 +11475,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "00992559-1466-4bf2-b0e3-243e97e65e61")
+			(uuid "ec11cb6e-ee2b-46ce-9ca1-eb86d7a1160d")
 		)
 		(instances
 			(project "PortaRe0"
@@ -11488,7 +11488,7 @@
 	)
 	(symbol
 		(lib_id "Device:R_Small")
-		(at 234.95 106.68 270)
+		(at 207.01 64.77 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -11496,7 +11496,7 @@
 		(dnp no)
 		(uuid "d9ebd84b-e45f-480f-9137-45f57f32323b")
 		(property "Reference" "R35"
-			(at 234.95 106.68 90)
+			(at 207.01 64.77 90)
 			(effects
 				(font
 					(size 0.762 0.762)
@@ -11504,7 +11504,7 @@
 			)
 		)
 		(property "Value" "220kΩ"
-			(at 234.95 104.902 90)
+			(at 207.01 62.992 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11512,7 +11512,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 234.95 106.68 0)
+			(at 207.01 64.77 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11521,7 +11521,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 234.95 106.68 0)
+			(at 207.01 64.77 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11530,7 +11530,7 @@
 			)
 		)
 		(property "Description" "Resistor, small symbol"
-			(at 234.95 106.68 0)
+			(at 207.01 64.77 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11539,10 +11539,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "0c20950e-377f-4df4-bd17-bbf8d3c7b30b")
+			(uuid "99c956bf-3d9c-49a0-9a60-8a7b4332ef03")
 		)
 		(pin "2"
-			(uuid "a48c4c95-91ea-416b-b343-3a4ce8193b00")
+			(uuid "fbc86e6a-9eb9-4b2c-bd1d-de485cc40e8e")
 		)
 		(instances
 			(project "PortaRe0"
@@ -11607,7 +11607,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "a1473d44-7829-4fca-9244-c2925635379d")
+			(uuid "4e7ff1b2-e5ea-44f7-93ac-f3d74f64928f")
 		)
 		(instances
 			(project "PortaRe0"
@@ -11671,10 +11671,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "96db6f3b-5f39-431e-a8b3-a3ffe172320f")
+			(uuid "c692258b-4740-49da-800e-24b676682a9f")
 		)
 		(pin "2"
-			(uuid "da4e6225-50ec-4452-888b-08c75b9a9997")
+			(uuid "a4f5fade-befd-4179-9d78-15ca3fbfbc90")
 		)
 		(instances
 			(project "PortaRe0"
@@ -11739,7 +11739,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "9dec263e-ffa5-4d31-95ee-afcdc88724a7")
+			(uuid "416a7642-80ac-4988-be9f-eacf8b6a174b")
 		)
 		(instances
 			(project "PortaRe0"
@@ -11752,15 +11752,15 @@
 	)
 	(symbol
 		(lib_id "power:5V_SYS")
-		(at 200.66 109.22 90)
+		(at 172.72 67.31 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "e1255171-680c-4274-b40b-38114d9b19e5")
-		(property "Reference" "#PWR0122"
-			(at 204.47 109.22 0)
+		(property "Reference" "#PWR0200"
+			(at 176.53 67.31 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11769,7 +11769,7 @@
 			)
 		)
 		(property "Value" "5V_SYS"
-			(at 197.866 109.22 90)
+			(at 169.926 67.31 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11778,7 +11778,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 200.66 109.22 0)
+			(at 172.72 67.31 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11787,7 +11787,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 200.66 109.22 0)
+			(at 172.72 67.31 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11796,7 +11796,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"VSYS\""
-			(at 194.564 109.474 0)
+			(at 166.624 67.564 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11805,12 +11805,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "3c01cf5d-6bc3-4db0-a509-2747b4370d15")
+			(uuid "e74efd8f-a17c-4908-870c-28efdbe4b3bc")
 		)
 		(instances
-			(project ""
+			(project "PortaRe0"
 				(path "/479aadc4-f9a0-4ec2-b000-6a17237038f1/6f018b3a-f554-45a0-adb8-bf1e4994a5d2"
-					(reference "#PWR0122")
+					(reference "#PWR0200")
 					(unit 1)
 				)
 			)
@@ -11818,7 +11818,7 @@
 	)
 	(symbol
 		(lib_id "Device:C_Small")
-		(at 299.72 199.39 270)
+		(at 271.78 157.48 270)
 		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
@@ -11827,7 +11827,7 @@
 		(dnp no)
 		(uuid "e2e670f5-5e9a-402c-abac-2f9185c7061b")
 		(property "Reference" "C97"
-			(at 300.736 201.168 0)
+			(at 272.796 159.258 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -11836,7 +11836,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 299.72 200.66 0)
+			(at 271.78 158.75 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -11845,7 +11845,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 299.72 199.39 0)
+			(at 271.78 157.48 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11854,7 +11854,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 299.72 199.39 0)
+			(at 271.78 157.48 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11863,7 +11863,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
-			(at 299.72 199.39 0)
+			(at 271.78 157.48 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11872,10 +11872,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "30c02c50-80b6-4c2a-9271-b7a53d96e718")
+			(uuid "2fbff39f-5013-4780-9c59-d599f4fb6540")
 		)
 		(pin "2"
-			(uuid "534f95d1-93ee-4824-8298-f7d092e8569c")
+			(uuid "477023dd-fd21-4ef6-be7f-de8900d96658")
 		)
 		(instances
 			(project "PortaRe0"
@@ -11942,10 +11942,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "426996d2-433e-4b54-833e-2736defe210b")
+			(uuid "d4ae1f1f-6df7-47dd-8310-36f19f4d00e7")
 		)
 		(pin "2"
-			(uuid "3ae910dc-65db-4754-b14c-760fa15025d0")
+			(uuid "eea10904-b6dc-4db8-961a-9eac1a4642be")
 		)
 		(instances
 			(project "PortaRe0"
@@ -12009,10 +12009,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "9b60d235-240d-4d8f-ac02-1f8ac9894420")
+			(uuid "d550ca4f-e2ec-4ba8-ae13-d868441b0425")
 		)
 		(pin "2"
-			(uuid "bc9bf1a6-2d96-4faf-9e12-395a22857108")
+			(uuid "88cc04d5-1add-49ba-8e71-2258f5f9918c")
 		)
 		(instances
 			(project "PortaRe0"
@@ -12025,7 +12025,7 @@
 	)
 	(symbol
 		(lib_id "power:GNDPWR")
-		(at 246.38 165.1 270)
+		(at 218.44 123.19 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -12033,7 +12033,7 @@
 		(dnp no)
 		(uuid "f122c56b-fa5b-41d2-8b59-5e0f1b56e9ba")
 		(property "Reference" "#PWR0145"
-			(at 241.3 165.1 0)
+			(at 213.36 123.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12042,7 +12042,7 @@
 			)
 		)
 		(property "Value" "GNDPWR"
-			(at 244.348 165.1 90)
+			(at 216.408 123.19 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12051,7 +12051,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 245.11 165.1 0)
+			(at 217.17 123.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12060,7 +12060,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 245.11 165.1 0)
+			(at 217.17 123.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12069,7 +12069,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDPWR\" , global ground"
-			(at 246.38 165.1 0)
+			(at 218.44 123.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12078,7 +12078,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "050df641-11bd-4a50-99cc-a6c3cb18ea59")
+			(uuid "8948a8fe-4516-4932-b710-c2279ab6dbdd")
 		)
 		(instances
 			(project "PortaRe0"
@@ -12091,7 +12091,7 @@
 	)
 	(symbol
 		(lib_id "power:GNDPWR")
-		(at 283.21 182.88 90)
+		(at 255.27 140.97 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -12099,7 +12099,7 @@
 		(dnp no)
 		(uuid "f14d4aed-3795-4a6c-be8f-6b8ec7355828")
 		(property "Reference" "#PWR0152"
-			(at 288.29 182.88 0)
+			(at 260.35 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12108,7 +12108,7 @@
 			)
 		)
 		(property "Value" "GNDPWR"
-			(at 285.242 182.88 90)
+			(at 257.302 140.97 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12117,7 +12117,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 284.48 182.88 0)
+			(at 256.54 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12126,7 +12126,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 284.48 182.88 0)
+			(at 256.54 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12135,7 +12135,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDPWR\" , global ground"
-			(at 283.21 182.88 0)
+			(at 255.27 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12144,7 +12144,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "0ed47f33-66ed-4cc7-9722-8c7d25f5e2d3")
+			(uuid "35d85b26-6d9e-4173-8d48-bbf40381fd1b")
 		)
 		(instances
 			(project "PortaRe0"
@@ -12208,10 +12208,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "15898fac-ac6c-4b85-a819-a03ddb371fe2")
+			(uuid "432059f2-9433-45b1-88fa-d4183b39cc2f")
 		)
 		(pin "2"
-			(uuid "d0be2e42-99db-4d5f-b77d-bbe8da2b2106")
+			(uuid "6761a7d7-84e6-4fec-862a-5cbfbd01fdb8")
 		)
 		(instances
 			(project "PortaRe0"
@@ -12278,10 +12278,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "0968d25c-e5bc-4e16-bd9d-5da1cccd48ae")
+			(uuid "9711a3b6-84fb-41dc-bef8-0df89fcdef31")
 		)
 		(pin "2"
-			(uuid "f54e1469-38c5-47f8-962f-082f2e3df8c7")
+			(uuid "c72c80bb-81bb-4afe-9325-e75ca091041b")
 		)
 		(instances
 			(project "PortaRe0"
@@ -12348,10 +12348,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "3795edd9-9244-4bee-999c-d3c96bc87742")
+			(uuid "d42a7639-9bb0-4a8e-b8a4-9c9049885f59")
 		)
 		(pin "2"
-			(uuid "fe9ee16b-60c0-4f40-b607-736776214c0d")
+			(uuid "cc8db347-1430-42e0-b161-9c3e575d86a7")
 		)
 		(instances
 			(project "PortaRe0"
@@ -12364,7 +12364,7 @@
 	)
 	(symbol
 		(lib_id "Device:C_Small")
-		(at 231.14 165.1 0)
+		(at 203.2 123.19 0)
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
@@ -12373,7 +12373,7 @@
 		(dnp no)
 		(uuid "f933e17d-a7cd-4ad9-9024-851788f4cfbf")
 		(property "Reference" "C92"
-			(at 232.918 164.084 0)
+			(at 204.978 122.174 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -12382,7 +12382,7 @@
 			)
 		)
 		(property "Value" "1μF"
-			(at 231.902 165.1 0)
+			(at 203.962 123.19 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -12391,7 +12391,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 231.14 165.1 0)
+			(at 203.2 123.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12400,7 +12400,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 231.14 165.1 0)
+			(at 203.2 123.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12409,7 +12409,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
-			(at 231.14 165.1 0)
+			(at 203.2 123.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12418,10 +12418,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "e11ceca8-d853-49c7-8dac-6b2913e2a9fe")
+			(uuid "95a0b90c-4b6f-43c1-8236-6959ed1a521b")
 		)
 		(pin "2"
-			(uuid "ff87ccea-3e54-416d-8893-235cb7d3f92d")
+			(uuid "599573bb-0078-4716-ade5-a2baf1192ea8")
 		)
 		(instances
 			(project "PortaRe0"
@@ -12488,7 +12488,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "ad2db7e0-6d84-422c-8293-d562536c45ca")
+			(uuid "effd6b13-5017-4d37-9ccd-f61805c0d043")
 		)
 		(instances
 			(project "PortaRe0"
@@ -12553,7 +12553,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "758b84d3-2435-4e77-86a3-695351aaf966")
+			(uuid "075358a1-074b-492e-80da-6088ef320611")
 		)
 		(instances
 			(project "PortaRe0"
@@ -12566,7 +12566,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x02_Socket")
-		(at 293.37 116.84 0)
+		(at 265.43 74.93 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -12574,8 +12574,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "fc6e8ff5-062f-40b8-8f14-d0eba3a384f2")
-		(property "Reference" "J2"
-			(at 294.64 116.8399 0)
+		(property "Reference" "J?"
+			(at 266.7 74.9299 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12584,7 +12584,7 @@
 			)
 		)
 		(property "Value" "SPK_R"
-			(at 294.64 119.3799 0)
+			(at 266.7 77.4699 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12593,7 +12593,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 293.37 116.84 0)
+			(at 265.43 74.93 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12602,7 +12602,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 293.37 116.84 0)
+			(at 265.43 74.93 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12611,7 +12611,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x02, script generated"
-			(at 293.37 116.84 0)
+			(at 265.43 74.93 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12620,15 +12620,15 @@
 			)
 		)
 		(pin "2"
-			(uuid "7b99aa81-e081-44ec-b852-0a072c3b750e")
+			(uuid "a46398a1-76e7-4261-bbb3-c1a4ac7e5a63")
 		)
 		(pin "1"
-			(uuid "733862b7-1621-4ed3-a4a3-c58ac19170c4")
+			(uuid "5a0e4779-e21c-4dc6-818b-b5d05f280901")
 		)
 		(instances
-			(project ""
+			(project "PortaRe0"
 				(path "/479aadc4-f9a0-4ec2-b000-6a17237038f1/6f018b3a-f554-45a0-adb8-bf1e4994a5d2"
-					(reference "J2")
+					(reference "J?")
 					(unit 1)
 				)
 			)
@@ -12636,7 +12636,7 @@
 	)
 	(symbol
 		(lib_id "power:+3V3")
-		(at 215.9 160.02 90)
+		(at 187.96 118.11 90)
 		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
@@ -12645,7 +12645,7 @@
 		(dnp no)
 		(uuid "fd02fcb0-2925-43b5-aa76-39525fd32032")
 		(property "Reference" "#PWR0129"
-			(at 219.71 160.02 0)
+			(at 191.77 118.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12654,7 +12654,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 210.566 160.02 90)
+			(at 182.626 118.11 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12662,7 +12662,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 215.9 160.02 0)
+			(at 187.96 118.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12671,7 +12671,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 215.9 160.02 0)
+			(at 187.96 118.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12680,7 +12680,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+3V3\""
-			(at 215.9 160.02 0)
+			(at 187.96 118.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12689,7 +12689,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "4b0fc3ae-8582-441c-bc93-e1c2711248e0")
+			(uuid "68e7d7d0-4e94-481a-b9f1-1e6777ab91bd")
 		)
 		(instances
 			(project "PortaRe0"
@@ -12702,7 +12702,7 @@
 	)
 	(symbol
 		(lib_id "Device:C_Small")
-		(at 237.49 215.9 270)
+		(at 209.55 173.99 270)
 		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
@@ -12711,7 +12711,7 @@
 		(dnp no)
 		(uuid "fd1af4fc-30a6-49bc-91d5-260477c209cc")
 		(property "Reference" "C98"
-			(at 238.506 217.678 0)
+			(at 210.566 175.768 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -12720,7 +12720,7 @@
 			)
 		)
 		(property "Value" "1μF"
-			(at 237.49 216.662 0)
+			(at 209.55 174.752 0)
 			(effects
 				(font
 					(size 0.508 0.508)
@@ -12729,7 +12729,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 237.49 215.9 0)
+			(at 209.55 173.99 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12738,7 +12738,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 237.49 215.9 0)
+			(at 209.55 173.99 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12747,7 +12747,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
-			(at 237.49 215.9 0)
+			(at 209.55 173.99 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12756,10 +12756,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "941233aa-826a-4f84-934b-4db046f8974c")
+			(uuid "72a9d568-30ab-4659-bdc8-0f998e40245f")
 		)
 		(pin "2"
-			(uuid "1506eefc-b6a6-4010-bd3e-ad0b10699c5d")
+			(uuid "0243ca30-240e-48bf-a103-24e0cd480bea")
 		)
 		(instances
 			(project "PortaRe0"
@@ -12826,10 +12826,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "67eaf365-cae5-4d1a-ad41-467cb7f4bb18")
+			(uuid "1dc178c8-cb0f-41f0-a833-04a5e864e033")
 		)
 		(pin "2"
-			(uuid "1460e630-0a39-4bc2-becb-10a0e1cff80c")
+			(uuid "19ae1b66-b67d-4761-91e6-4ae677ed0bd6")
 		)
 		(instances
 			(project "PortaRe0"

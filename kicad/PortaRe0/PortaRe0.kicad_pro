@@ -424,7 +424,7 @@
       "missing_input_pin": "warning",
       "missing_power_pin": "error",
       "missing_unit": "warning",
-      "multiple_net_names": "warning",
+      "multiple_net_names": "ignore",
       "net_not_bus_member": "warning",
       "no_connect_connected": "warning",
       "no_connect_dangling": "warning",
@@ -637,6 +637,10 @@
     [
       "6f018b3a-f554-45a0-adb8-bf1e4994a5d2",
       "audio"
+    ],
+    [
+      "5dfd9f94-b7e1-4763-8093-33f7cf406206",
+      "Connectors"
     ]
   ],
   "text_variables": {}

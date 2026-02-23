@@ -140,6 +140,17 @@
 - L300: SW_DET回路追加（SW1出力→10kΩ分圧→GP25 / 短押し=スリープ・長押し=シャットダウン）
 - L350: C5 100nF→4.7µF（REGN cap）・C6 4.7µF→10µF（PMID cap）・SYS cap +10µF
 
+### Session18 (2026-02-24) - 2026-02-23_Session18.txt
+- L1: connectors シート設計方針の検討開始
+- L20: J_HDMI_CTRL: 24pin FPC 0.5mm（C2856805）に決定・ライブラリ取得
+- L40: HDMIコントローラ基板はHDMI端子（標準）+Micro-USB → FPCに置換方針確定
+- L60: 5V供給: HDMI Pin18(55mA・HPD用) + FPC Pin20-22(5V_SYS×3並列・メイン電源)
+- L80: SBC接続: サブ基板→FPCに変更（ずれたとき修正可能なため）
+- L100: Cubie A7Z全ポートが同じ面に集中していることを確認
+- L120: FPCスティフナーにMicro HDMIオス+USB-Cオス×2直付け方針
+- L140: PCBマウントオス型コネクタはLCSCになし → AliExpress調達+手はんだ方針
+- L160: SBC接続FPC全信号: Micro HDMI 19本+USB3.0 SS+USB2.0+CC+GND = 約40pin
+
 ### Session17 (2026-02-23) - 2026-02-23_Session17.txt
 - L1: usb_hub シートの続き（J_EXT_C / J_EXT_A 追加）
 - L20: USB-C コネクタ在庫なし(C319140) → SB31-TYPE-C-FSABC(C2880583)に変更
@@ -361,6 +372,14 @@
 - J_EXT_C: USB31-TYPE-C-FSABC(C2880583) / CC 56kΩ Rp / SS両サイド直結: S17 L80
 - J_EXT_A: HC-USB3.0-L168-WP(C7501850) / USB3.0 SS対応 / 横向きTH: S17 L80
 - usb_hub シート完成: S17 L80
+
+#### SBC接続・connectors シート（session18）
+- J_HDMI_CTRL: 24pin FPC 0.5mm (C2856805 XUNPU FPC-05F-24PH20): S18 L20
+  - Pin1-19=HDMI Type A / Pin20-22=5V_SYS×3 / Pin23-24=GND×2
+  - HDMIコントローラのHDMI端子+Micro-USB外してFPC変換
+- SBC接続方式: FPCスティフナー + Micro HDMIオス + USB-Cオス×2直付け: S18 L100
+  - PCBマウントオス型コネクタはLCSCになし → AliExpress調達方針
+  - SBC全信号FPC: 約40pin（Micro HDMI 19 + USB3.0 + USB2.0 + CC + GND）
 
 #### TPS61023 #2（USB専用昇圧）
 - 外部USBポートの電力不足問題の指摘: S10 L690

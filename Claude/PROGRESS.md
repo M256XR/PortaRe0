@@ -5,10 +5,13 @@
 
 ## 現在の作業箇所
 - KiCad `kicad/PortaRe0/` power・usb_hub・keyboard・audioシート完成
-- usb_hub シートに J_EXT_C・J_EXT_A・CC Rp（56kΩ×2）追加完了 → usb_hub シート完成
-- connectors.kicad_sch 空ファイル作成済み・PortaRe0.kicad_sch に Page6 として追加済み
+- connectors シート設計方針確定（session18）
+  - J_HDMI_CTRL: 24pin FPC 0.5mm (C2856805) ライブラリ取得済み・KiCad未配置
+  - J_SBC: FPC方式確定・スティフナーにMicro HDMIオス+USB-Cオス直付け方針
+  - SBC接続FPCコネクタ（PCBマウントオス型）はLCSCになし → AliExpress調査中
 - **次のタスク**:
-  1. connectors シートにSBC接続コネクタ（J_SBC）・HDMIコントローラFPC（J_HDMI_CTRL）・ファン（J_FAN）を追加
+  1. connectors シートに J_HDMI_CTRL（C2856805 24pin FPC）を配置・配線
+  2. AliExpressでMicro HDMIオス・USB-Cオス PCBマウント品を確認後にJ_SBC設計
 
 ---
 
@@ -42,7 +45,10 @@
   - J_EXT_C: USB31-TYPE-C-FSABC（C2880583）/ CC1/CC2=56kΩ Rp / SS両サイド直結
   - J_EXT_A: HC-USB3.0-L168-WP（C7501850）/ USB3.0 SS対応 / 右角TH
 - [ ] connectors シート（ファイル作成済み・Page6・コンポーネント未配置）
-  - J_SBC（サブ基板コネクタ）・J_HDMI_CTRL（HDMIコントローラFPC）・J_FAN 追加待ち
+  - J_HDMI_CTRL: C2856805（24pin 0.5mm FPC）ライブラリ取得済み・配置待ち
+  - J_SBC: FPC方式確定・スティフナーにMicro HDMIオス+USB-Cオス×2直付け
+    - コネクタ（PCBマウントオス型）AliExpress調査中・確定後に設計
+  - J_FAN: SBC直結のため不要の可能性あり（要確認）
 
 ### Phase 3: PCBレイアウト ⏳ 未着手
 ### Phase 4: 試作・検証 ⏳ 未着手
@@ -95,6 +101,23 @@
 ---
 
 ## 直近の決定事項ログ
+
+### 2026-02-24（session18）
+- connectors シート設計方針確定
+  - J_HDMI_CTRL: 24pin FPC 0.5mm（C2856805 XUNPU FPC-05F-24PH20）に決定
+    - Pin1-19: HDMI Type A 19信号（Pin18=+5V for HPD）
+    - Pin20-22: 5V_SYS×3（並列 / HDMIコントローラメイン電源）
+    - Pin23-24: GND×2
+    - HDMIコントローラ基板のHDMI端子（標準タイプ）・Micro-USB端子を外してFPC変換
+    - easyeda2kicadでC2856805ライブラリ取得済み
+  - SBC接続方式: サブ基板→FPCに変更
+    - Cubie A7Zの全ポート（Micro HDMI・USB3.0・USB2.0）は同じ面に集中していることを確認
+    - FPCスティフナーにMicro HDMIオス + USB-Cオス×2を直付けする方針
+    - 信号構成: Micro HDMI 19本 + USB3.0 SS + USB2.0 + CC + GND = 約40pin FPC
+    - PCBマウントオス型コネクタ（Micro HDMI男/USB-C男）はLCSCになし
+    - AliExpress/Alibaba経由で調達・手はんだ実装の方針
+  - J_SBC_PWR/J_SBC_USB3: USB-C女（USB31-TYPE-C-FSABC）は内部接続に不適と判明
+  - J_FAN: Cubie A7Z直結のためメインPCBには不要の可能性あり
 
 ### 2026-02-23（session17）
 - usb_hub シート完成
