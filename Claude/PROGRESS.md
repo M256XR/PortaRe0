@@ -4,7 +4,7 @@
 **Phase 2: 回路設計 ← 進行中**
 
 ## 現在の作業箇所
-- KiCad `kicad/PortaRe0/` power・usb_hub・keyboardシート完成
+- KiCad `kicad/PortaRe0/` power・usb_hub・keyboardシート完成（powerシート修正済み）
 - **次のタスク**:
   1. MAX98357A × 2 audio シート
   2. connectors シート（新規作成）
@@ -22,8 +22,8 @@
 
 ### Phase 2: 回路設計 🔄 進行中
 - [x] KiCadプロジェクト作成、階層シート構成（power / usb_hub / keyboard / audio）
-- [x] BQ25895 powerシート完成（TS分圧固定 / インダクタ1.5µH / 全ピン配線済み）
-- [x] TPS61023 回路（EN回路・モーメンタリボタン含む）
+- [x] BQ25895 powerシート完成・修正済み（TS分圧固定 / インダクタ1.5µH / 全ピン配線済み）
+- [x] TPS61023 回路（EN回路・モーメンタリボタン含む）・修正済み
 - [x] AP2112K 回路（5V→3.3V / 常時ON）
 - [x] VL812 usb_hub シート（W25Q32 SPI Flash / 25MHz水晶 / デカップリング全完）
 - [x] RP2040 keyboard シート完成
@@ -85,6 +85,24 @@
 ---
 
 ## 直近の決定事項ログ
+
+### 2026-02-23（session15）
+- powerシートのGemini AI評価9点を実スキーマと照合して検証
+  - 正真の問題: Point4(D1極性逆)・Point6(SW1→GPIO電圧)・Point9(L1→BAT→SYS誤り)・C5/C6/SYS cap不足
+  - Gemini誤報: Point1(TS→REGN正しい)・Point3(ILIM誤認)・Point5(TPS61023 FB計算誤り)・Point8(誤認)
+- **powerシート修正完了:**
+  - L1接続変更: +BATT → VSYS（NVDC正しいトポロジー）
+  - D1極性修正: rotation 180° → 0°（アノード→+3V3/R3、カソード→STAT）
+  - R3変更: 10kΩ → 330Ω（LED輝度改善）
+  - SW1/RP2040_EN保護回路追加: BAT54ダイオード(C466635)をGP20→ENノード間に挿入
+  - ENノードに10µFキャップ追加（起動ラッチ用 τ=1s）
+  - SW_DET回路追加: SW1出力→10kΩ分圧→GP25（電源ボタン長押し/短押し検出用）
+  - C5変更: 100nF → 4.7µF（REGN cap）
+  - C6変更: 4.7µF → 10µF（PMID cap）
+  - SYS capに10µF追加（合計20µF / TI推奨値）
+- GP25割り当て変更: 予備 → SW_DET（10kΩ分圧でVSYS→2.1V変換）
+- BAT54（C466635, SOT-23）をBOMに追加
+- ファームウェア設計方針: 短押し=スリープ、長押し=シャットダウン、超長押し=緊急停止
 
 ### 2026-02-22（session14）
 - Claude Code CLI移行後の最初の動作確認セッション

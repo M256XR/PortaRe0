@@ -130,6 +130,16 @@
 - L806: EXTPWRON簡略化（3V3_HUBへ10kΩプルアップのみ）
 - L862: connectorシート構成の最終決定
 
+### Session15 (2026-02-22) - 2026-02-22_Session15.txt
+- L1: powerシートのGemini AI評価9点を実スキーマと照合・検証
+- L50: Point1(TS→REGN)=誤報・Point5(TPS61023 FB)=誤報・Point9(L1→BAT)=正当と確認
+- L120: L1接続修正（+BATT→VSYS / NVDC正しいトポロジー）
+- L150: D1極性修正（rotation 0°）・R3 10kΩ→330Ω
+- L200: SW1/RP2040_EN保護: BAT54ダイオード(C466635)をGP20→ENノード間に挿入
+- L250: ENノードに10µFラッチキャップ追加（起動後のSW1離し対策）
+- L300: SW_DET回路追加（SW1出力→10kΩ分圧→GP25 / 短押し=スリープ・長押し=シャットダウン）
+- L350: C5 100nF→4.7µF（REGN cap）・C6 4.7µF→10µF（PMID cap）・SYS cap +10µF
+
 ### Session14 (2026-02-22) - 2026-02-22_Session14.txt
 - L1: Claude Code CLI 移行後の最初の動作確認
 - L10: PowerShell Start-Transcript が Claude Code TUI を取れない問題の調査
@@ -164,7 +174,7 @@
 - インダクタ値（1.5µH / スイッチング1.5MHz）: S04 L165
 - BATおよびSYSデカップリング: S04 L85
 - DSEL→GND（BC1.2無効）: S04 L133
-- BTST(100nF→SW) / REGN(100nF) / PMID(4.7µF): S04 L133
+- BTST(100nF→SW) / REGN(100nF→4.7µF修正) / PMID(4.7µF→10µF修正): S04 L133, S15 L350
 - I2C SCL/SDA グローバルラベル化: S05 L65, S06 L65
 - BQ_INT グローバルラベル: S03 L83
 - 完成確認: S04 L260
@@ -188,6 +198,8 @@
 - キルスイッチ位置確定（VSYS→SW→TPS61023/AP2112K VIN）: S05 L308, S05 L345
 - SPDT・NC端未接続: S05 L466
 - モーメンタリボタン（SW1）起動回路: S05 L504
+- SW1保護回路修正: BAT54(C466635)をGP20→ENノード間に挿入 / 10µFラッチキャップ追加: S15 L200
+- SW_DET追加: SW1→10kΩ分圧→GP25（電源ボタン短押し/長押し検出）: S15 L300
 - 充電時もキルスイッチOFFで充電継続可能: S05 L354
 
 #### パワーシンボル構成
@@ -266,6 +278,7 @@
 - GP17=I2C_SCL / GP18=I2C_SDA / GP19=BQ_INT / GP20=RP2040_EN: S05 L838, S10 L304
 - GP21=LED_CHG / GP22=LED_FULL / GP23=LED_ACT: S10 L265
 - GP24=USB_VBUS_EN（TPS61023 #2 EN制御）: S10 L716, S10 L304
+- GP25=SW_DET（電源ボタン検出 / 10kΩ分圧）: S15 L300
 - GP27=スティックX(ADC1) / GP28=スティックY(ADC2): S07 L752, S10 L304
 
 #### アナログスティック（3DSスライドパッド）
@@ -351,3 +364,4 @@
 - TPA6132A2RTER: C69901: S10 L139
 - TPS2042BDR: C138720: S10 L642
 - USBLC6-2SC6: C7519: S10 L764
+- BAT54（Schottky / SW1保護用）: C466635: S15 L200
