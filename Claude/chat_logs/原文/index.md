@@ -140,6 +140,17 @@
 - L300: SW_DET回路追加（SW1出力→10kΩ分圧→GP25 / 短押し=スリープ・長押し=シャットダウン）
 - L350: C5 100nF→4.7µF（REGN cap）・C6 4.7µF→10µF（PMID cap）・SYS cap +10µF
 
+### Session16 (2026-02-23) - 2026-02-23_Session16.txt
+- L1: Claudeの役割方針確認（回路設計アシスタント・kicad_sch直接編集しない）・CLAUDE.md更新済み確認
+- L30: powerシート残作業の整理（J_BAT・J_USB_PWR・ENノード修正）
+- L50: バッテリーコネクタ検討（JST SH / Molex Picoblade → いったん汎用2pinで保留）
+- L80: TPS61023 ENノード回路レビュー（現状: EN→100kΩ/10μF/BAT54/分圧/SW→VSYS）
+- L110: PW_SW_DET問題発見: RP2040_EN=HIGHのときENノード経由で常時1.5V→検出不能
+- L130: 修正案: SW→EN間にBAT54(D1)追加 / PW_SW_DET分圧をD1のSW側に移動
+- L150: D1追加でτも167ms→1秒に改善（ブート時間問題も同時解決）
+- L170: J_USB_PWR（TYPE-C-31-M-12）接続方針確認・配置完了
+- L190: ENノード修正・J_BAT・J_USB_PWR配置完了 → powerシート完成
+
 ### Session14 (2026-02-22) - 2026-02-22_Session14.txt
 - L1: Claude Code CLI 移行後の最初の動作確認
 - L10: PowerShell Start-Transcript が Claude Code TUI を取れない問題の調査
@@ -200,6 +211,7 @@
 - モーメンタリボタン（SW1）起動回路: S05 L504
 - SW1保護回路修正: BAT54(C466635)をGP20→ENノード間に挿入 / 10µFラッチキャップ追加: S15 L200
 - SW_DET追加: SW1→10kΩ分圧→GP25（電源ボタン短押し/長押し検出）: S15 L300
+- ENノード修正(S16): BAT54(D1)をSW→EN間追加 / PW_SW_DET分圧をD1のSW側に移動（RP2040_EN干渉防止・τ1秒確保）: S16 L110
 - 充電時もキルスイッチOFFで充電継続可能: S05 L354
 
 #### パワーシンボル構成

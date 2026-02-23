@@ -4,10 +4,11 @@
 **Phase 2: 回路設計 ← 進行中**
 
 ## 現在の作業箇所
-- KiCad `kicad/PortaRe0/` power・usb_hub・keyboardシート完成（powerシート修正済み）
+- KiCad `kicad/PortaRe0/` power・usb_hub・keyboard・audioシート完成
+- connectors.kicad_sch 空ファイル作成済み・PortaRe0.kicad_sch に Page6 として追加済み
 - **次のタスク**:
-  1. MAX98357A × 2 audio シート
-  2. connectors シート（新規作成）
+  1. usb_hub シートに外部USB-C（J_EXT_C）・外部USB-A（J_EXT_A）を追加
+  2. connectors シートにSBC接続コネクタ（J_SBC）・HDMIコントローラFPC（J_HDMI_CTRL）・ファン（J_FAN）を追加
 
 ---
 
@@ -31,8 +32,15 @@
   - キーマトリクス 63キー（9COL×8ROW / Net Label）
   - 3DSスライドパッド（Molex 5034800440 FPCコネクタ / GP27,GP28）
   - LED × 3（GP21=CHG橙 / GP22=FULL緑 / GP23=ACT緑 / 330Ω）
-- [ ] audio シート（RP2040 #2 + MAX98357A×2 + PCM5102A + TPA6132A2構成で新規作成）
-- [ ] connectors シート（新規作成）
+- [x] audio シート（RP2040 #2 + MAX98357A×2 + PCM5102A + TPA6132A2構成）
+  - イヤホンジャックはPCBレイアウト時に型番・フットプリント確定予定（HP_L/HP_R/HP_DETはNet Label済み）
+- [x] power シートにJ_BAT（汎用2pin）・J_USB_PWR（TYPE-C-31-M-12）追加完了
+  - J_BAT: Conn_01x02プレースホルダー / Pin1=+BATT / Pin2=GND
+  - J_USB_PWR: VBUS/GND/CC1-CC2(5.1kΩ→GND)/DP1-DN1-DP2-DN2(USB_DP/USB_DM)/SBU=NC/EH=GND
+  - ENノード修正: BAT54(D1)をSW→EN間に追加 / PW_SW_DET分圧をD1のSW側に移動（RP2040_EN干渉防止 + τ167ms→1秒改善）
+- [ ] connectors シート（ファイル作成済み・Page6・コンポーネント未配置）
+  - usb_hub: J_EXT_C（外部USB-C）・J_EXT_A（外部USB-A）追加待ち
+  - connectors: J_SBC（サブ基板コネクタ）・J_HDMI_CTRL（HDMIコントローラFPC）・J_FAN 追加待ち
 
 ### Phase 3: PCBレイアウト ⏳ 未着手
 ### Phase 4: 試作・検証 ⏳ 未着手
@@ -50,7 +58,7 @@
 | キルスイッチ型番 | KiCad フットプリント決める時 |
 | モーメンタリスイッチ型番 | KiCad フットプリント決める時 |
 | LED C番号（緑・橙） | connectors/audioシート時 |
-| イヤホンジャック型番 | audioシート時 |
+| イヤホンジャック型番 | PCBレイアウト時（HP_L/HP_R/HP_DETはNet Label済み） |
 | キーキャップ型番 | スイッチ嵌合確認後 |
 | ヒンジ機構 | 筐体CAD後 |
 | RTCバッテリー有無 | A7Z実機届いたら確認 |
