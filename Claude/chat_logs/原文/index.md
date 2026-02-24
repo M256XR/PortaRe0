@@ -140,6 +140,15 @@
 - L300: SW_DET回路追加（SW1出力→10kΩ分圧→GP25 / 短押し=スリープ・長押し=シャットダウン）
 - L350: C5 100nF→4.7µF（REGN cap）・C6 4.7µF→10µF（PMID cap）・SYS cap +10µF
 
+### Session19 (2026-02-24) - 2026-02-24_Session19.txt
+- L1: J_SBC接続コネクタ調査継続（Micro HDMIオスPCBマウント品の入手性）
+- L30: ストラドルコネクタのPCB厚制約問題 → 非ストラドル方向に方針転換
+- L60: バッテリー変更: 606090(4200mAh)でSBCポート周辺に+10mm確保
+- L80: FPVケーブル(Micro HDMI+FFC)市販品でPIN調査する方針確定
+- L100: USB-Cオス Vertical SMD（C168690 / USB3.1）採用確定・ライブラリ取得
+- L120: J_SBC FPC2本構成確定（HDMI用・USB用分離）
+- L130: extract_session.pyをLinuxパス対応に修正
+
 ### Session18 (2026-02-24) - 2026-02-23_Session18.txt
 - L1: connectors シート設計方針の検討開始
 - L20: J_HDMI_CTRL: 24pin FPC 0.5mm（C2856805）に決定・ライブラリ取得
@@ -373,13 +382,16 @@
 - J_EXT_A: HC-USB3.0-L168-WP(C7501850) / USB3.0 SS対応 / 横向きTH: S17 L80
 - usb_hub シート完成: S17 L80
 
-#### SBC接続・connectors シート（session18）
+#### SBC接続・connectors シート（session18-19）
 - J_HDMI_CTRL: 24pin FPC 0.5mm (C2856805 XUNPU FPC-05F-24PH20): S18 L20
   - Pin1-19=HDMI Type A / Pin20-22=5V_SYS×3 / Pin23-24=GND×2
   - HDMIコントローラのHDMI端子+Micro-USB外してFPC変換
-- SBC接続方式: FPCスティフナー + Micro HDMIオス + USB-Cオス×2直付け: S18 L100
-  - PCBマウントオス型コネクタはLCSCになし → AliExpress調達方針
-  - SBC全信号FPC: 約40pin（Micro HDMI 19 + USB3.0 + USB2.0 + CC + GND）
+- J_SBC FPC2本構成確定（S19）
+  - J_SBC_HDMI: 市販FPVケーブル（Micro HDMIオス+FFC）→テスターでPIN調査→ZIFコネクタ: S19 L80
+  - J_SBC_USB: FPCスティフナー + USB-Cオス Vertical SMD（C168690）×2: S19 L100
+  - ストラドルコネクタ廃案（PCB厚制約・非ストラドルに変更）: S19 L30
+- バッテリー変更: 6060100(5000mAh) → 606090(4200mAh) / SBCポート周辺+10mm確保: S19 L60
+- USB-Cオス Vertical SMD: 918-118A2021Y40000 / C168690 / USB3.1 / KiCadライブラリ取得済: S19 L100
 
 #### TPS61023 #2（USB専用昇圧）
 - 外部USBポートの電力不足問題の指摘: S10 L690

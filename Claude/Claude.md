@@ -40,7 +40,7 @@ Cubie A7Z SBCベースのクラムシェル型ポータブルPC（Cyberdeckス�
 | 昇圧DC-DC #1 | TPS61023DRLR | C919459 | LiPo 3.7V → 5V / システム用（5V_SYS） |
 | 昇圧DC-DC #2 | TPS61023DRLR | C919459 | LiPo 3.7V → 5V / 外部USBポートVBUS専用（USB_5V_SYS） |
 | LDO | AP2112K-3.3TRG1 | C51118 | 5V → 3.3V（RP2040用） |
-| バッテリー | LiPo 6060100 | — | 約3500mAh / 3.7V |
+| バッテリー | LiPo 606090 | — | 4200mAh / 3.7V |
 
 電源フロー:
 ```

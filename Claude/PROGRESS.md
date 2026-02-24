@@ -11,7 +11,9 @@
   - SBC接続FPCコネクタ（PCBマウントオス型）はLCSCになし → AliExpress調査中
 - **次のタスク**:
   1. connectors シートに J_HDMI_CTRL（C2856805 24pin FPC）を配置・配線
-  2. AliExpressでMicro HDMIオス・USB-Cオス PCBマウント品を確認後にJ_SBC設計
+  2. 手持ちFPVケーブルの出っ張り寸法を実測 → 14mm以内か確認
+  3. Micro HDMI ZIFコネクタ（FFCピッチ確認後）C番号選定
+  4. J_SBC FPC自作設計（2本構成: HDMI用・USB用）
 
 ---
 
@@ -49,6 +51,9 @@
   - J_SBC: FPC方式確定・スティフナーにMicro HDMIオス+USB-Cオス×2直付け
     - コネクタ（PCBマウントオス型）AliExpress調査中・確定後に設計
   - J_FAN: SBC直結のため不要の可能性あり（要確認）
+  - J_SBC_HDMI: 市販FPVケーブル（Micro HDMIオス+FFC）→ピン調査後にZIFコネクタ選定
+  - J_SBC_USB: FPCスティフナー + USB-Cオス Vertical SMD（C168690）×2
+  - FPC2本構成確定（HDMI用・USB用を分離）
 
 ### Phase 3: PCBレイアウト ⏳ 未着手
 ### Phase 4: 試作・検証 ⏳ 未着手
@@ -87,7 +92,7 @@
 
 - Cubie A7Z 8GB → AliExpress 注文済み ✅
 - LS055R1SX04 + HDMIコントローラ基板セット → AliExpress 注文済み ✅
-- LiPo 6060100 → AliExpress 注文済み ✅
+- LiPo 606090（4200mAh）→ 要発注（6060100から変更）
 - フラットヒートパイプ 3mm厚 → AliExpress 注文済み ✅
 - 3DSスライドパッド → 別途購入予定
 
@@ -101,6 +106,21 @@
 ---
 
 ## 直近の決定事項ログ
+
+### 2026-02-24（session19）
+- バッテリー変更: 6060100(5000mAh) → **606090(4200mAh)**
+  - サイズ: 6×60×100mm → 6×60×90mm（10mm短縮）
+  - SBCポート周辺の空き: 4.3mm → +10mm = 約14mmに改善
+  - 稼働時間: 通常使用(8W)で約1.6時間（差分24分・許容範囲）
+- J_SBC接続方針確定（FPC2本構成）
+  - J_SBC_HDMI: 市販FPVケーブル（Micro HDMIオス+FFC）→テスターでPIN調査→ZIFコネクタ
+  - J_SBC_USB: FPCスティフナー + USB-Cオス Vertical SMD（C168690）×2
+  - ストラドルコネクタ: PCB厚制約あり・今回は不採用
+  - USB-Cオス Vertical SMD（918-118A2021Y40000 / C168690 / USB3.1 / 24P）採用確定
+    - Clamping plate不要・スティフナー厚自由・USB 3.0 SuperSpeed対応
+    - KiCadライブラリ取得済み（シンボル: TYPE-C 3.1_C168690 / フットプリント: USB-C-SMD_TYPE-C-USB-3）
+- extract_session.py のJSONLパスをLinux環境に対応（自動検出に修正）
+- 調査待ち: 手持ちFPVケーブルの出っ張り寸法実測・Micro HDMI ZIFコネクタ選定
 
 ### 2026-02-24（session18）
 - connectors シート設計方針確定
