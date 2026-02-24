@@ -140,6 +140,15 @@
 - L300: SW_DET回路追加（SW1出力→10kΩ分圧→GP25 / 短押し=スリープ・長押し=シャットダウン）
 - L350: C5 100nF→4.7µF（REGN cap）・C6 4.7µF→10µF（PMID cap）・SYS cap +10µF
 
+### Session20 (2026-02-25) - 2026-02-24_Session20.txt
+- L1: 別PCからgit pull・stash→pull→stash popでClaude.md自動マージ
+- L20: J_HDMI_CTRL 配線方針確定（Pin20-21=GND×2バッファ / Pin22-24=5V_SYS×3）・配置完了
+- L40: J_SBC_USB1（C168690）接続方針・配置完了（TX/RX逆転・CC=Rd 5.1kΩ）
+- L60: J_SBC_USB2（C168690）接続方針・配置完了（VBUS=5V_SYS / CC=Rp 22kΩ / D+=NC）
+- L80: J_FAN方針確定（RP2040 GP26→BSS138→ファン）
+- L90: J_SBC_HDMI: 水平FPVケーブル断念（2cm出っ張りで14mmスペースに収まらず）
+- L100: Micro HDMI自作用端子（オス+20pin FFC変換）手はんだ方式に決定
+
 ### Session19 (2026-02-24) - 2026-02-24_Session19.txt
 - L1: J_SBC接続コネクタ調査継続（Micro HDMIオスPCBマウント品の入手性）
 - L30: ストラドルコネクタのPCB厚制約問題 → 非ストラドル方向に方針転換
@@ -392,6 +401,9 @@
   - ストラドルコネクタ廃案（PCB厚制約・非ストラドルに変更）: S19 L30
 - バッテリー変更: 6060100(5000mAh) → 606090(4200mAh) / SBCポート周辺+10mm確保: S19 L60
 - USB-Cオス Vertical SMD: 918-118A2021Y40000 / C168690 / USB3.1 / KiCadライブラリ取得済: S19 L100
+- J_HDMI_CTRL配置完了（Pin順修正: GND×2バッファ→5V_SYS×3）: S20 L20
+- J_SBC_USB1/USB2（C168690）配置完了: S20 L40, L60
+- J_SBC_HDMI: FPVケーブル断念→Micro HDMI自作端子+20pin FFC方式: S20 L90
 
 #### TPS61023 #2（USB専用昇圧）
 - 外部USBポートの電力不足問題の指摘: S10 L690

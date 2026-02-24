@@ -5,15 +5,16 @@
 
 ## 現在の作業箇所
 - KiCad `kicad/PortaRe0/` power・usb_hub・keyboard・audioシート完成
-- connectors シート設計方針確定（session18）
-  - J_HDMI_CTRL: 24pin FPC 0.5mm (C2856805) ライブラリ取得済み・KiCad未配置
-  - J_SBC: FPC方式確定・スティフナーにMicro HDMIオス+USB-Cオス直付け方針
-  - SBC接続FPCコネクタ（PCBマウントオス型）はLCSCになし → AliExpress調査中
+- connectors シート（session20時点）
+  - J_HDMI_CTRL: 配置・配線完了（Pin20-21=GND×2 / Pin22-24=5V_SYS×3）
+  - J_SBC_USB1（C168690）: 配置・配線完了（USB3.0 / A7Z→VL812 upstream）
+  - J_SBC_USB2（C168690）: 配置・配線完了（USB2.0 / A7Z給電専用 / Rp 22kΩ）
+  - J_FAN: 方針確定（RP2040 #1 GP26 PWM → BSS138 → ファン / 未配置）
+  - J_SBC_HDMI: Micro HDMIケーブル自作用端子（オス+20pin FFC変換）手はんだ方針確定・ZIFコネクタC番号未選定
 - **次のタスク**:
-  1. connectors シートに J_HDMI_CTRL（C2856805 24pin FPC）を配置・配線
-  2. 手持ちFPVケーブルの出っ張り寸法を実測 → 14mm以内か確認
-  3. Micro HDMI ZIFコネクタ（FFCピッチ確認後）C番号選定
-  4. J_SBC FPC自作設計（2本構成: HDMI用・USB用）
+  1. Micro HDMI自作用端子のFFC仕様（ピッチ・ピン数）確認→ZIFコネクタC番号選定
+  2. connectors シートに J_SBC_HDMI・J_FAN を配置・配線
+  3. connectors シート完成確認→全シートERC実施
 
 ---
 
@@ -46,13 +47,12 @@
 - [x] usb_hub シートに J_EXT_C・J_EXT_A 追加完了 → usb_hub シート完成
   - J_EXT_C: USB31-TYPE-C-FSABC（C2880583）/ CC1/CC2=56kΩ Rp / SS両サイド直結
   - J_EXT_A: HC-USB3.0-L168-WP（C7501850）/ USB3.0 SS対応 / 右角TH
-- [ ] connectors シート（ファイル作成済み・Page6・コンポーネント未配置）
-  - J_HDMI_CTRL: C2856805（24pin 0.5mm FPC）ライブラリ取得済み・配置待ち
-  - J_SBC: FPC方式確定・スティフナーにMicro HDMIオス+USB-Cオス×2直付け
-    - コネクタ（PCBマウントオス型）AliExpress調査中・確定後に設計
-  - J_FAN: SBC直結のため不要の可能性あり（要確認）
-  - J_SBC_HDMI: 市販FPVケーブル（Micro HDMIオス+FFC）→ピン調査後にZIFコネクタ選定
-  - J_SBC_USB: FPCスティフナー + USB-Cオス Vertical SMD（C168690）×2
+- [ ] connectors シート（session20時点・一部完了）
+  - [x] J_HDMI_CTRL: C2856805（24pin 0.5mm FPC）配置・配線完了
+  - [x] J_SBC_USB1: C168690（USB-Cオス Vertical SMD）配置・配線完了
+  - [x] J_SBC_USB2: C168690（USB-Cオス Vertical SMD）配置・配線完了
+  - [ ] J_SBC_HDMI: Micro HDMI自作用端子+20pin FFC→ZIFコネクタ選定待ち
+  - [ ] J_FAN: RP2040 #1 GP26 PWM制御・BSS138使用・未配置
   - FPC2本構成確定（HDMI用・USB用を分離）
 
 ### Phase 3: PCBレイアウト ⏳ 未着手
@@ -106,6 +106,21 @@
 ---
 
 ## 直近の決定事項ログ
+
+### 2026-02-25（session20）
+- 別PCからgit pull（session19の変更取得）・Claude.mdロール追加コミット
+- J_HDMI_CTRL 配置・配線完了
+  - ピン順修正: Pin20-21=GND×2（バッファ）/ Pin22-24=5V_SYS×3（EMI低減のためGNDをHDMI信号と電源の間に配置）
+- J_SBC_USB1（C168690 USB3.0）配置・配線完了
+  - A7Z直結のためTX/RX逆転: A2/B2→USB3_UP_RX_P / A10/B10→USB3_UP_TX_N等
+  - CC1/CC2: 5.1kΩ→GND（Rd / UFP識別）
+  - VBUS（A4/B4/A9/B9）→USB2_UP_VBUS（VBUSDET分圧へ）
+- J_SBC_USB2（C168690 USB2.0）配置・配線完了
+  - VBUS→5V_SYS（A7Zへ給電）/ CC1/CC2: 22kΩ→5V_SYS（Rp 3A / DFP/SRC）
+  - D+/D- = NC（データ不要 / USB_DP/USB_DMはBQ25895の充電検出用であり無関係）
+- J_FAN設計方針確定: RP2040 #1 GP26 → BSS138 gate → ファンGND / 5V_SYS→ファンVCC
+- J_SBC_HDMI方針転換: FPVケーブル水平型（出っ張り2cm）は14mmスペースに収まらず断念
+  → Micro HDMIケーブル自作用端子（オス+20pin FFC変換）手はんだ方式に決定
 
 ### 2026-02-24（session19）
 - バッテリー変更: 6060100(5000mAh) → **606090(4200mAh)**
