@@ -3982,6 +3982,10 @@
 		(uuid "fce73f82-768e-44db-82f4-c7e208570232")
 	)
 	(no_connect
+		(at 62.23 161.29)
+		(uuid "0cbd0219-c37a-49f1-94b1-7c049738d735")
+	)
+	(no_connect
 		(at 125.73 119.38)
 		(uuid "181c13c1-763a-453c-84e8-d7389b6bd892")
 	)
@@ -4064,6 +4068,10 @@
 	(no_connect
 		(at 125.73 149.86)
 		(uuid "ca2475a7-dbbb-47bd-bd1b-323cb0ed1416")
+	)
+	(no_connect
+		(at 62.23 163.83)
+		(uuid "cb763209-e1d2-4fbd-9936-6d061d397c10")
 	)
 	(no_connect
 		(at 125.73 170.18)
@@ -6141,28 +6149,6 @@
 		)
 		(uuid "f00ef588-144b-471b-bcdb-a7a81e347151")
 	)
-	(global_label "SWCLK2"
-		(shape input)
-		(at 62.23 161.29 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "4b2bab79-8480-4e37-b32f-d6e8d6827202")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 51.8063 161.29 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-				(hide yes)
-			)
-		)
-	)
 	(global_label "USB2_RP_DP2"
 		(shape input)
 		(at 135.89 86.36 0)
@@ -6203,28 +6189,6 @@
 					(size 1.27 1.27)
 				)
 				(justify left)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "SWDIO2"
-		(shape input)
-		(at 62.23 163.83 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "e2fd547e-9e1c-441d-b38a-53ebe1578f0b")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 52.1691 163.83 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
 				(hide yes)
 			)
 		)
@@ -6372,7 +6336,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "058bb4a2-2d2e-4f32-abed-2267241079ee")
-		(property "Reference" "U?"
+		(property "Reference" "U15"
 			(at 232.41 59.69 0)
 			(effects
 				(font
@@ -6454,7 +6418,7 @@
 		(instances
 			(project "PortaRe0"
 				(path "/479aadc4-f9a0-4ec2-b000-6a17237038f1/6f018b3a-f554-45a0-adb8-bf1e4994a5d2"
-					(reference "U?")
+					(reference "U15")
 					(unit 1)
 				)
 			)
@@ -6973,7 +6937,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "20f5db45-1446-4a39-9e10-cc1c8bda4219")
-		(property "Reference" "U?"
+		(property "Reference" "U13"
 			(at 231.14 110.49 0)
 			(effects
 				(font
@@ -7088,7 +7052,7 @@
 		(instances
 			(project "PortaRe0"
 				(path "/479aadc4-f9a0-4ec2-b000-6a17237038f1/6f018b3a-f554-45a0-adb8-bf1e4994a5d2"
-					(reference "U?")
+					(reference "U13")
 					(unit 1)
 				)
 			)
@@ -10695,7 +10659,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "b9eeee6c-6ade-48f3-935c-571aca6b7c24")
-		(property "Reference" "U?"
+		(property "Reference" "U14"
 			(at 231.14 146.05 0)
 			(effects
 				(font
@@ -10801,7 +10765,7 @@
 		(instances
 			(project "PortaRe0"
 				(path "/479aadc4-f9a0-4ec2-b000-6a17237038f1/6f018b3a-f554-45a0-adb8-bf1e4994a5d2"
-					(reference "U?")
+					(reference "U14")
 					(unit 1)
 				)
 			)
@@ -12574,7 +12538,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "fc6e8ff5-062f-40b8-8f14-d0eba3a384f2")
-		(property "Reference" "J?"
+		(property "Reference" "J2"
 			(at 266.7 74.9299 0)
 			(effects
 				(font
@@ -12628,7 +12592,7 @@
 		(instances
 			(project "PortaRe0"
 				(path "/479aadc4-f9a0-4ec2-b000-6a17237038f1/6f018b3a-f554-45a0-adb8-bf1e4994a5d2"
-					(reference "J?")
+					(reference "J2")
 					(unit 1)
 				)
 			)

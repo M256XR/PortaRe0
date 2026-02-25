@@ -100,7 +100,7 @@ Cubie A7Z Micro HDMI → HDMIコントローラ基板
 | GP23 | LED_ACT（緑 / OS動作表示） |
 | GP24 | USB_VBUS_EN（TPS61023 #2 EN制御） |
 | GP25 | SW_DET（電源ボタン検出 / 10kΩ分圧でVSYSを3.3V以下に変換） |
-| GP26 | 予備 |
+| GP26 | J_FAN PWM（BSS138 gate制御） |
 | GP27（ADC1） | アナログスティック X |
 | GP28（ADC2） | アナログスティック Y |
 | GP29 | 予備 |

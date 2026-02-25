@@ -4,17 +4,12 @@
 **Phase 2: 回路設計 ← 進行中**
 
 ## 現在の作業箇所
-- KiCad `kicad/PortaRe0/` power・usb_hub・keyboard・audioシート完成
-- connectors シート（session20時点）
-  - J_HDMI_CTRL: 配置・配線完了（Pin20-21=GND×2 / Pin22-24=5V_SYS×3）
-  - J_SBC_USB1（C168690）: 配置・配線完了（USB3.0 / A7Z→VL812 upstream）
-  - J_SBC_USB2（C168690）: 配置・配線完了（USB2.0 / A7Z給電専用 / Rp 22kΩ）
-  - J_FAN: 方針確定（RP2040 #1 GP26 PWM → BSS138 → ファン / 未配置）
-  - J_SBC_HDMI: Micro HDMIケーブル自作用端子（オス+20pin FFC変換）手はんだ方針確定・ZIFコネクタC番号未選定
+- KiCad `kicad/PortaRe0/` power・usb_hub・keyboard・audio・connectors・hdmi_adapterシート完成
+- ERC実施・主要エラー対処完了（session21時点）
 - **次のタスク**:
-  1. Micro HDMI自作用端子のFFC仕様（ピッチ・ピン数）確認→ZIFコネクタC番号選定
-  2. connectors シートに J_SBC_HDMI・J_FAN を配置・配線
-  3. connectors シート完成確認→全シートERC実施
+  1. 各シートのデータシート照合（ユーザーが手動確認）
+  2. イヤホンジャック型番・フットプリント確定
+  3. Phase 3: PCBレイアウト開始
 
 ---
 
@@ -47,13 +42,22 @@
 - [x] usb_hub シートに J_EXT_C・J_EXT_A 追加完了 → usb_hub シート完成
   - J_EXT_C: USB31-TYPE-C-FSABC（C2880583）/ CC1/CC2=56kΩ Rp / SS両サイド直結
   - J_EXT_A: HC-USB3.0-L168-WP（C7501850）/ USB3.0 SS対応 / 右角TH
-- [ ] connectors シート（session20時点・一部完了）
+- [x] connectors シート完成（session21）
   - [x] J_HDMI_CTRL: C2856805（24pin 0.5mm FPC）配置・配線完了
   - [x] J_SBC_USB1: C168690（USB-Cオス Vertical SMD）配置・配線完了
   - [x] J_SBC_USB2: C168690（USB-Cオス Vertical SMD）配置・配線完了
-  - [ ] J_SBC_HDMI: Micro HDMI自作用端子+20pin FFC→ZIFコネクタ選定待ち
-  - [ ] J_FAN: RP2040 #1 GP26 PWM制御・BSS138使用・未配置
-  - FPC2本構成確定（HDMI用・USB用を分離）
+  - [x] J_SBC_HDMI: C2856805（24pin / Pin1-19=HDMI信号 / Pin20-21=GND / Pin22-24=NC）配置完了
+  - [x] J_FAN: Conn_01x02 + BSS138 + 1kΩ + 10kΩ + 1N4148W / FAN_PWM Global Label
+- [x] hdmi_adapter シート新設（別基板・session21）
+  - J_MICROHDMI: Conn_02x08（20pin / HDMI信号14本+GND×2+NC×4）
+  - FFC側: C2856805（24pin / J_SBC_HDMIと同Net Label）
+  - Micro HDMIベアコネクタ → ジャンパワイヤー → 変換基板 → FFC → メインPCB
+- [x] 全シートERC実施・主要エラー対処完了（session21）
+  - SWCLK/SWDIO × 4 → No Connect（SWD未使用）
+  - VL812: SSTX3/SSRX3/SSTX4/SSRX4 → No Connect（RP2040はUSB2.0のみ）
+  - VL812: COREPWRDN/TESTEN → GND / SMDAT/SMCLK → 4.7kΩプルアップ→3V3_HUB / EP → GND / DC10FB → 10µF+100nF
+  - HP_DET/HP_L/HP_R → No Connect（イヤホンジャック未確定）
+  - USB2_DP1_DP 双方向誤報 → ERC除外
 
 ### Phase 3: PCBレイアウト ⏳ 未着手
 ### Phase 4: 試作・検証 ⏳ 未着手
@@ -106,6 +110,17 @@
 ---
 
 ## 直近の決定事項ログ
+
+### 2026-02-25（session21）
+- J_SBC_HDMI方針最終確定: Micro HDMIベアコネクタ → ジャンパワイヤー → 自作変換基板（hdmi_adapter）→ FFC → ZIF（メインPCB）
+  - FFC: C2856805（24pin 0.5mm）をJ_HDMI_CTRLと共通化
+  - J_MICROHDMI: Conn_02x08（20pin / GNDまとめて2pin / NC×4）
+  - hdmi_adapterを別基板として独立シート新設
+- J_FAN: F16FB（SUNON 16×16×4.5mm 5V 0.04A ブロワー型 $8.76）選定確定
+  - 回路: GP26(FAN_PWM) → 1kΩ → BSS138 gate / 10kΩプルダウン / 1N4148Wフライバック
+  - connectorsシートに配置完了
+- GP26割り当て: FAN_PWMとしてGlobal Label追加（keyboardシート・connectorsシート）
+- 全シートERC実施・対処完了（詳細はフェーズ完了状況参照）
 
 ### 2026-02-25（session20）
 - 別PCからgit pull（session19の変更取得）・Claude.mdロール追加コミット

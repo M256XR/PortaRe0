@@ -3818,12 +3818,16 @@
 		(uuid "31694f2b-163d-454a-885a-2118c3eca7f4")
 	)
 	(no_connect
-		(at 139.7 207.01)
-		(uuid "4ebbfff8-6c60-43b8-afa0-b6aa8d1e30bc")
+		(at 76.2 203.2)
+		(uuid "540cad4c-efa9-40fa-a75a-c7ab296d2206")
 	)
 	(no_connect
 		(at 139.7 201.93)
 		(uuid "907d081f-0593-4062-a81a-3c0bb1e8429b")
+	)
+	(no_connect
+		(at 76.2 205.74)
+		(uuid "fd75cef5-c6ab-4692-8f8f-b7974fbe52b9")
 	)
 	(wire
 		(pts
@@ -4364,6 +4368,16 @@
 			(type default)
 		)
 		(uuid "35175b4a-186b-4cba-a4f8-39ba013b4a1f")
+	)
+	(wire
+		(pts
+			(xy 142.24 207.01) (xy 139.7 207.01)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "353ff57a-a02f-4f27-911d-ccaab18adfa9")
 	)
 	(wire
 		(pts
@@ -7187,28 +7201,6 @@
 			)
 		)
 	)
-	(global_label "SWCLK"
-		(shape input)
-		(at 76.2 203.2 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "06858ca9-9163-4033-82f7-545b17275f3c")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 66.9858 203.2 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-				(hide yes)
-			)
-		)
-	)
 	(global_label "BQ_INT"
 		(shape input)
 		(at 143.51 186.69 0)
@@ -7297,6 +7289,28 @@
 			)
 		)
 	)
+	(global_label "FAN_PWM"
+		(shape input)
+		(at 142.24 207.01 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "3a47c918-24c5-4295-b5f5-5f3f8a062a70")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 153.8733 207.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "LED_CHG"
 		(shape input)
 		(at 143.51 191.77 0)
@@ -7315,28 +7329,6 @@
 					(size 1.27 1.27)
 				)
 				(justify left)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "SWDIO"
-		(shape input)
-		(at 76.2 205.74 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "57db6fa4-5b96-435f-92d8-3dafd497b0ba")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 67.3486 205.74 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
 				(hide yes)
 			)
 		)

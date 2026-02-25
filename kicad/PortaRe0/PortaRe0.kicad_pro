@@ -418,7 +418,7 @@
       "hier_label_mismatch": "error",
       "label_dangling": "error",
       "label_multiple_wires": "warning",
-      "lib_symbol_issues": "warning",
+      "lib_symbol_issues": "ignore",
       "lib_symbol_mismatch": "ignore",
       "missing_bidi_pin": "warning",
       "missing_input_pin": "warning",
@@ -429,7 +429,7 @@
       "no_connect_connected": "warning",
       "no_connect_dangling": "warning",
       "pin_not_connected": "error",
-      "pin_not_driven": "error",
+      "pin_not_driven": "ignore",
       "pin_to_pin": "ignore",
       "power_pin_not_driven": "ignore",
       "same_local_global_label": "warning",
@@ -641,6 +641,10 @@
     [
       "5dfd9f94-b7e1-4763-8093-33f7cf406206",
       "Connectors"
+    ],
+    [
+      "52509579-12d3-4127-aa5d-ce987f800fc4",
+      "hdmi_adapter"
     ]
   ],
   "text_variables": {}

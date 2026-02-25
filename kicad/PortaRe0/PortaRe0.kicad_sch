@@ -6,6 +6,48 @@
 	(paper "A4")
 	(lib_symbols)
 	(sheet
+		(at 101.6 62.23)
+		(size 39.37 39.37)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "52509579-12d3-4127-aa5d-ce987f800fc4")
+		(property "Sheetname" "hdmi_adapter"
+			(at 101.6 61.5184 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "hdmi_adapter.kicad_sch"
+			(at 101.6 102.1846 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "PortaRe0"
+				(path "/479aadc4-f9a0-4ec2-b000-6a17237038f1"
+					(page "7")
+				)
+			)
+		)
+	)
+	(sheet
 		(at 101.6 17.78)
 		(size 39.37 39.37)
 		(exclude_from_sim no)
@@ -42,7 +84,7 @@
 		(instances
 			(project "PortaRe0"
 				(path "/479aadc4-f9a0-4ec2-b000-6a17237038f1"
-					(page "7")
+					(page "6")
 				)
 			)
 		)

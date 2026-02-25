@@ -140,6 +140,15 @@
 - L300: SW_DET回路追加（SW1出力→10kΩ分圧→GP25 / 短押し=スリープ・長押し=シャットダウン）
 - L350: C5 100nF→4.7µF（REGN cap）・C6 4.7µF→10µF（PMID cap）・SYS cap +10µF
 
+### Session21 (2026-02-25) - 2026-02-25_Session21.txt
+- L1: session20の続き・J_SBC_HDMI方針最終確定（ベアコネクタ+ジャンパワイヤー+自作変換基板）
+- L20: hdmi_adapterシート新設（別基板）・J_MICROHDMI(Conn_02x08) + C2856805配置
+- L50: FFC 24pin C2856805共通化（J_HDMI_CTRLと同型番）
+- L70: J_FAN: F16FB選定（SUNON 16×16×4.5mm 5V 0.04A $8.76）
+- L90: J_FAN回路確定（BSS138 + 1kΩ + 10kΩ + 1N4148W / FAN_PWM GlobalLabel）
+- L110: connectorsシート・hdmi_adapterシート完成
+- L120: 全シートERC実施・対処（SWD NC / VL812未接続ピン / DC10FB追加 / HP系NC）
+
 ### Session20 (2026-02-25) - 2026-02-24_Session20.txt
 - L1: 別PCからgit pull・stash→pull→stash popでClaude.md自動マージ
 - L20: J_HDMI_CTRL 配線方針確定（Pin20-21=GND×2バッファ / Pin22-24=5V_SYS×3）・配置完了
@@ -404,6 +413,10 @@
 - J_HDMI_CTRL配置完了（Pin順修正: GND×2バッファ→5V_SYS×3）: S20 L20
 - J_SBC_USB1/USB2（C168690）配置完了: S20 L40, L60
 - J_SBC_HDMI: FPVケーブル断念→Micro HDMI自作端子+20pin FFC方式: S20 L90
+- J_SBC_HDMI最終確定: ベアコネクタ+ジャンパワイヤー+自作変換基板(hdmi_adapter)+FFC(C2856805 24pin): S21 L1
+- hdmi_adapterシート新設（別基板）: J_MICROHDMI(Conn_02x08) + C2856805: S21 L20
+- J_FAN: F16FB(SUNON 16×16×4.5mm 5V 0.04A)選定・回路完成(BSS138/FAN_PWM): S21 L70
+- connectorsシート・hdmi_adapterシート完成・ERC対処完了: S21 L110
 
 #### TPS61023 #2（USB専用昇圧）
 - 外部USBポートの電力不足問題の指摘: S10 L690
