@@ -7557,16 +7557,6 @@
 		)
 		(uuid "035103dc-e7c2-4340-8a56-c34a6dc8782e")
 	)
-	(label "USB2_UP_VBUS"
-		(at 140.97 223.52 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "08f778e9-aa2b-45ef-b7b2-d22e44e3bd94")
-	)
 	(label "SPICS"
 		(at 276.86 40.64 0)
 		(effects
@@ -7992,6 +7982,28 @@
 		(uuid "0a02f779-dd4b-4542-87c3-e72a3c8371ca")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 76.4201 152.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "USB2_UP_VBUS"
+		(shape input)
+		(at 140.97 223.52 270)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "165821ee-4596-4e87-b666-0308573a4f09")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 140.97 240.959 90)
 			(effects
 				(font
 					(size 1.27 1.27)
