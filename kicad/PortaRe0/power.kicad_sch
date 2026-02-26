@@ -6824,7 +6824,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "L_Small"
+		(property "Value" "2.2μH"
 			(at 113.03 52.0699 0)
 			(effects
 				(font

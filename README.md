@@ -10,26 +10,30 @@ Cubie A7Z SBCベースのクラムシェル型ポータブルPC（Cyberdeck）�
 | ディスプレイ | 5.5" Sharp LS055R1SX04 (1440×2560 / MIPI DSI) |
 | キーボード | カスタムPCB + Alps SKRPABE010 × 63キー / RP2040 / QMK |
 | 入力 | 3DSスライドパッド（アナログスティック） |
-| 電源 | LiPo 6060100 (3500mAh) + BQ25895 充電IC + TPS61023 昇圧DC-DC |
+| 電源 | LiPo 606090 (4200mAh) + BQ25895 充電IC + TPS61023 昇圧DC-DC ×2 |
 | USBハブ | VL812 (USB 3.0 / 4ポート) |
-| オーディオ | MAX98357A × 2 (I2S / ステレオ) |
+| オーディオ | MAX98357A × 2 (スピーカー I2S) / PCM5102A + TPA6132A2 (イヤホン DAC+アンプ) |
+| MCU | RP2040 × 2（キーボード専用 / オーディオ専用） |
 | PCB | 4層基板 / JLCPCB PCBA |
 | 筐体 | 3Dプリンター自作（クラムシェル / 139×81mm） |
 
 ## 現在のフェーズ
 
-**Phase 2: KiCad 回路設計中**
+**Phase 2: KiCad 回路設計 完了 → Phase 3: PCBレイアウト 開始待ち**
 
-- [x] power シート（BQ25895 / TPS61023 / AP2112K）
-- [x] usb_hub シート（VL812 / W25Q32）
-- [x] keyboard シート（RP2040 / キーマトリクス / アナログスティック / LED）
-- [ ] audio シート（MAX98357A × 2）
-- [ ] connectors シート
+- [x] power シート（BQ25895 / TPS61023 ×2 / AP2112K）
+- [x] usb_hub シート（VL812 / W25Q32 / J_EXT_C / J_EXT_A）
+- [x] keyboard シート（RP2040 #1 / キーマトリクス / アナログスティック / LED）
+- [x] audio シート（RP2040 #2 / MAX98357A ×2 / PCM5102A / TPA6132A2）
+- [x] connectors シート（J_HDMI_CTRL / J_FAN）
+- [x] hdmi_adapter シート（別基板 / Micro HDMI → FFC変換）
+- [x] usb_adapter シート（別基板 / FPCスティフナー + USB-Cオス ×2）
+- [x] ERC（HP系のみ残存 / イヤホンジャック未確定につき想定内）
 
 ## ドキュメント
 
 - [Claude/PROGRESS.md](./Claude/PROGRESS.md) - 現在の進捗・次のタスク
-- [Claude/PROJECT_PLAN.md](./Claude/PROJECT_PLAN.md) - 確定仕様・部品リスト
+- [Claude/Claude.md](./Claude/Claude.md) - 確定済み仕様（最優先）
 - [bom/cyberdeck_bom.xlsx](./bom/cyberdeck_bom.xlsx) - BOM (Excel)
 - [bom/cyberdeck_bom.csv](./bom/cyberdeck_bom.csv) - BOM (CSV)
 - [keyboard/matrix.md](./keyboard/matrix.md) - キーマトリクス割り当て表
@@ -56,10 +60,20 @@ Claude/                設計ドキュメント・進捗ログ・セッション
 | LDO 3.3V | AP2112K-3.3TRG1 | C51118 |
 | USB HUBチップ | VL812-Q7 | C69417 |
 | SPI Flash | W25Q32JVSSIQ | C82344 |
-| キーボードMCU | RP2040 | C2040 |
-| クリスタル（RP2040用） | X322512MOB4SI | C70565 |
+| MCU | RP2040 | C2040 |
+| クリスタル（RP2040用 12MHz） | X322512MOB4SI | C70565 |
+| クリスタル（VL812用 25MHz） | X322525MOB4SI | C9006 |
 | I2Sアンプ | MAX98357AEWL+T | C2682619 |
+| イヤホン用DAC | PCM5102APWR | C107671 |
+| ヘッドフォンアンプ | TPA6132A2RTER | C69901 |
+| USBパワースイッチ | TPS2042BDR | C138720 |
+| USB ESD保護 | USBLC6-2SC6 | C7519 |
 | キースイッチ | Alps SKRPABE010 | C115360 |
 | ダイオード | 1N4148W | C2099 |
-| MOSFET | BSS138 | C52895 |
+| MOSFET（レベル変換 / ファン制御） | BSS138 | C52895 |
+| ショットキーダイオード（EN保護） | BAT54 | C466635 |
 | FPCコネクタ（スティック用） | Molex 5034800440 | C3170007 |
+| ZIF FPCコネクタ 24pin | FPC-05F-24PH20 | C2856805 |
+| USB-C レセプタクル（外部） | USB31-TYPE-C-FSABC | C2880583 |
+| USB-A レセプタクル（外部） | HC-USB3.0-L168-WP | C7501850 |
+| USB-C オス SMD（SBC接続） | 918-118A2021Y40000 | C168690 |
