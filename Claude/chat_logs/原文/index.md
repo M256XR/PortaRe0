@@ -140,6 +140,16 @@
 - L300: SW_DET回路追加（SW1出力→10kΩ分圧→GP25 / 短押し=スリープ・長押し=シャットダウン）
 - L350: C5 100nF→4.7µF（REGN cap）・C6 4.7µF→10µF（PMID cap）・SYS cap +10µF
 
+### Session22 (2026-02-26) - 2026-02-26_Session22.txt
+- L1: session22開始・git状態確認（kicad/PDF/ を .gitignore に追加）
+- L30: connectorsシートのJ_SBC_USB1/USB2がFPC分離点を持たない問題を指摘
+- L60: usb_adapterシート新設方針決定（hdmi_adapterと同じ考え方）
+- L100: FPCテール直挿し方式採用（中間コネクタなし / スティフナー直接ZIFへ）
+- L130: FPC 24pinピン割り当て確定（差動ペア間GND配置 / USB3.0用・USB2.0用）
+- L180: CC抵抗はメインPCB側に配置（FPC部品なし・シンプル化）
+- L250: KiCad作業完了・ERC再実行（HP系のみ）
+- L500: PROGRESS.md更新・index.md更新・git commit & push
+
 ### Session21 (2026-02-25) - 2026-02-25_Session21.txt
 - L1: session20の続き・J_SBC_HDMI方針最終確定（ベアコネクタ+ジャンパワイヤー+自作変換基板）
 - L20: hdmi_adapterシート新設（別基板）・J_MICROHDMI(Conn_02x08) + C2856805配置
@@ -417,6 +427,8 @@
 - hdmi_adapterシート新設（別基板）: J_MICROHDMI(Conn_02x08) + C2856805: S21 L20
 - J_FAN: F16FB(SUNON 16×16×4.5mm 5V 0.04A)選定・回路完成(BSS138/FAN_PWM): S21 L70
 - connectorsシート・hdmi_adapterシート完成・ERC対処完了: S21 L110
+- usb_adapterシート新設: J_SBC_USB1/USB2移動・FPCテール直挿し方式・24pinピン割り当て確定: S22 L100
+- connectorsシートにC2856805（ZIF）×2追加・CC抵抗メインPCB側に配置: S22 L180
 
 #### TPS61023 #2（USB専用昇圧）
 - 外部USBポートの電力不足問題の指摘: S10 L690

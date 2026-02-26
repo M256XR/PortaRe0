@@ -4,12 +4,11 @@
 **Phase 2: 回路設計 ← 進行中**
 
 ## 現在の作業箇所
-- KiCad `kicad/PortaRe0/` power・usb_hub・keyboard・audio・connectors・hdmi_adapterシート完成
-- ERC実施・主要エラー対処完了（session21時点）
+- KiCad `kicad/PortaRe0/` 全シート完成（power・usb_hub・keyboard・audio・connectors・hdmi_adapter・usb_adapter）
+- ERC実施・主要エラー対処完了（session22時点 / HP系のみ残存・想定内）
 - **次のタスク**:
-  1. 各シートのデータシート照合（ユーザーが手動確認）
-  2. イヤホンジャック型番・フットプリント確定
-  3. Phase 3: PCBレイアウト開始
+  1. イヤホンジャック型番・フットプリント確定
+  2. Phase 3: PCBレイアウト開始
 
 ---
 
@@ -42,6 +41,12 @@
 - [x] usb_hub シートに J_EXT_C・J_EXT_A 追加完了 → usb_hub シート完成
   - J_EXT_C: USB31-TYPE-C-FSABC（C2880583）/ CC1/CC2=56kΩ Rp / SS両サイド直結
   - J_EXT_A: HC-USB3.0-L168-WP（C7501850）/ USB3.0 SS対応 / 右角TH
+- [x] usb_adapter シート新設（session22）
+  - [x] J_SBC_USB1/J_SBC_USB2をconnectorsから移動
+  - [x] FPCテール直挿し方式採用（中間コネクタなし）
+  - [x] FPC 24pin ピン割り当て確定（差動ペア間GND配置）
+  - [x] connectorsシートにC2856805（ZIF）×2追加
+  - [x] ERC再実行 → HP系のみ（想定内）
 - [x] connectors シート完成（session21）
   - [x] J_HDMI_CTRL: C2856805（24pin 0.5mm FPC）配置・配線完了
   - [x] J_SBC_USB1: C168690（USB-Cオス Vertical SMD）配置・配線完了
@@ -110,6 +115,17 @@
 ---
 
 ## 直近の決定事項ログ
+
+### 2026-02-26（session22）
+- usb_adapterシート新設（hdmi_adapterと同じ方針）
+  - J_SBC_USB1/J_SBC_USB2をconnectorsシートから移動
+  - FPCテール直挿し方式採用（中間コネクタなし → スティフナー側にコネクタ不要）
+  - FPC 24pinピン割り当て確定（差動ペア間GND配置）
+    - USB3.0用: GND/TX+/TX-/GND/RX+/RX-/GND/D+/D-/GND/VBUS/CC1/CC2/GND×11
+    - USB2.0用: GND/VBUS/GND/CC1/CC2/GND×19
+  - connectorsシートにC2856805（24pin ZIF）×2追加
+  - CC抵抗（USB3用5.1kΩ・USB2用22kΩ）はメインPCB側に実装
+  - ERC再実行: HP系のみ残存（想定内・イヤホンジャック未確定）
 
 ### 2026-02-25（session21）
 - J_SBC_HDMI方針最終確定: Micro HDMIベアコネクタ → ジャンパワイヤー → 自作変換基板（hdmi_adapter）→ FFC → ZIF（メインPCB）
