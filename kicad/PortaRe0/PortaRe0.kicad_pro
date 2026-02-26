@@ -645,6 +645,10 @@
     [
       "52509579-12d3-4127-aa5d-ce987f800fc4",
       "hdmi_adapter"
+    ],
+    [
+      "ef56189a-a3eb-463c-a6e0-1b813a079cd5",
+      "usb_adapter"
     ]
   ],
   "text_variables": {}

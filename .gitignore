@@ -39,6 +39,9 @@ fp-info-cache
 # Local project settings
 *.kicad_prl
 
+# Exported PDF/PNG (generated from KiCad)
+kicad/PDF/
+
 # Claude Code
 .claude/
 
