@@ -1,0 +1,1213 @@
+# PortaRe0 Session24  2026-02-26
+# Source: 1dc3503e-84ac-419c-ac54-d6890034c75b.jsonl
+============================================================
+
+[User]
+D:\Projects\PortaRe0\Claude\Claude.md                                                                                    
+  どおりに進めて
+
+----------------------------------------
+
+[Claude]
+PROGRESS.mdも確認して現状を把握します。
+
+----------------------------------------
+
+[Claude]
+状況を確認しました。現在の状態：
+
+**Phase 2 回路設計: ほぼ完了**
+- 全シート完成（power / usb_hub / keyboard / audio / connectors / hdmi_adapter / usb_adapter）
+- ERC実施済み・主要エラー対処完了
+
+**残タスク（PCBレイアウト前）:**
+
+| # | タスク | 優先度 |
+|---|--------|--------|
+| 1 | **LED C番号確定**（緑・橙 / audioシート時に解決予定だったが未確定） | 先に解決 |
+| 2 | **イヤホンジャック型番・フットプリント確定** | PCBレイアウト時でもOK |
+| 3 | **Phase 3: PCBレイアウト開始** | メインゴール |
+
+---
+
+LEDのC番号から片付けましょうか？
+
+- **橙LED**（充電中 / GP21）: 例 C2286 (19-213/Y2C-AQ2R2L/3T) etc.
+- **緑LED**（充電完了 / GP22、ACT / GP23）: 例 C72043 etc.
+
+330Ω 直列・3.3V駆動での輝度を考慮して選定します。JLCPCB在庫でSMD（0402 or 0603）を探して提示しましょうか？
+
+それとも先にPCBレイアウトを開始して、イヤホンジャック・LEDは配置時に確定する方針でいきますか？
+
+----------------------------------------
+
+[User]
+データシートと今の回路図を見比べて問題がないかチェックする                                                               
+  チェックは手動でやるから各ICのチェックシート的なのをtxtとかで作ってほしい
+
+----------------------------------------
+
+[Claude]
+全シートを一括で読み込んでチェックシート作成します。
+
+----------------------------------------
+
+[Claude]
+ファイルが大きすぎるのでgrepで各IC周辺の情報を抽出します。
+
+----------------------------------------
+
+[Claude]
+ファイルが大きいのでエージェントで並列解析します。
+
+----------------------------------------
+
+[Claude]
+エージェントが解析中です。その間にデータシート知識ベースで各ICのチェック項目リストを作成します。
+
+----------------------------------------
+
+[Claude]
+エージェントはまだ解析中ですが、データシート知識 + PROGRESS.md の設計判断を元にチェックシートを作成します。
+
+----------------------------------------
+
+[Claude]
+エージェントが完了しました。重要な情報を得られました。今すぐ全チェックシートを作成します。
+
+----------------------------------------
+
+[Claude]
+全ファイルを作成しました。作成されたか確認します。
+
+----------------------------------------
+
+[Claude]
+全11ファイル作成完了です。
+
+---
+
+`Claude/checklists/` に以下を作成しました：
+
+| ファイル | IC | 主な確認項目 |
+|---------|-----|------------|
+| 01_BQ25895 | 充電IC | 全24ピン + バイパスキャップ |
+| 02_TPS61023 | 昇圧DC-DC ×2 | FB抵抗, EN回路, 起動シーケンス |
+| 03_AP2112K | 3.3V LDO | EN配線, バイパスキャップ |
+| 04_VL812 | USBハブ | SSREXT/RESET#/水晶/W25Q32 |
+| 05_RP2040_keyboard | RP2040 #1 | GPIO割り当て全表 + キーマトリクス |
+| 06_RP2040_audio | RP2040 #2 | GPIO割り当て + クリスタル |
+| 07_MAX98357A | I2Sアンプ ×2 | SD_MODE/GAIN_SLOT/VDD電圧 |
+| 08_PCM5102A | イヤホンDAC | 全20ピン + SCK接続 |
+| 09_TPA6132A2 | HPアンプ | HPVSS/チャージポンプ |
+| 10_TPS2042BDR | USBパワースイッチ | ESD保護/CC抵抗 |
+
+**特に優先して確認してほしい⚠️項目：**
+
+1. **C5 (REGN bypass)** — シートでは `4.7nF` と見えたが PROGRESS.md では `4.7µF` のはず。**1000倍違うので要確認**
+2. **REGN ピン(22)** — 外部 3.3V に接続されていないか（内部LDO出力なので接続禁止）
+3. **MAX98357A R35(220kΩ)** — GAIN_SLOT ではなく SD_MODE ピンに接続されているか
+4. **RP2040 GPIO20〜26** — Claude.md の割り当てと実回路が一致しているか
+5. **TPA6132A2 HPVSS** — 1µF キャップ経由になっているか（GND直結は NG）
+
+----------------------------------------
+
+[User]
+<task-notification>
+<task-id>a6827e36fe4e1497e</task-id>
+<tool-use-id>toolu_01D3VUi34Jp1SgA4QLVFpwDy</tool-use-id>
+<status>completed</status>
+<summary>Agent "Parse power and usb_hub schematics for IC checklist" completed</summary>
+<result>Now I have enough information to compile the full, structured design review document. Let me write the comprehensive summary:
+
+---
+
+## Structured Design Review Summary
+
+### Files Analyzed
+- `D:\Projects\PortaRe0\kicad\PortaRe0\power.kicad_sch` (11,401 lines)
+- `D:\Projects\PortaRe0\kicad\PortaRe0\usb_hub.kicad_sch` (21,592 lines)
+
+---
+
+## 1. Component Reference/Value Pairs
+
+### power.kicad_sch
+
+| Reference | Value | Role |
+|-----------|-------|------|
+| U1 | BQ25895RTWR | Battery charger IC |
+| U2 | TPS61023DRLR | Boost converter #1 (5V_SYS gen.) |
+| U3 | AP2112K-3.3TRG1 | 3.3V LDO regulator |
+| L1 | 2.2μH | BQ25895 boost inductor |
+| L2 | 1µH / 3A | TPS61023 U2 boost inductor |
+| C1 | 10μF | Bulk cap (near BQ25895 BAT/SYS side) |
+| C2 | 100nF | Decoupling cap |
+| C3 | 10μF | Decoupling cap |
+| C4 | 100nF | TPS61023 EN/input area decoupling |
+| C5 | 4.7nF | Decoupling/filter cap |
+| C6 | 10µF | BQ25895 area |
+| C7 | 100nF | Decoupling |
+| C8 | 10µF | TPS61023 U2 input bulk cap |
+| C9 | 100nF | TPS61023 U2 decoupling |
+| C10 | 22µF | TPS61023 U2 output cap |
+| C11 | 100nF | TPS61023 U2 SW node bootstrap/decoupling |
+| C12 | 1µF | AP2112K area |
+| C13 | 1µF | AP2112K area |
+| C109 | 10µF | Decoupling |
+| C110 | 10μF | Decoupling |
+| R1 | 10KΩ | Pull-up/pull-down |
+| R2 | 10KΩ | Pull-up/pull-down |
+| R3 | 330Ω | LED current limiter (D1) |
+| R4 | 10KΩ | BQ25895 ILIM or config resistor |
+| R5 | 270Ω | LED current limiter |
+| R6 | 10KΩ | QON / config resistor |
+| R7 | 10KΩ | Pull-up/pull-down |
+| R8 | 10KΩ | BQ25895 CE area resistor |
+| R9 | 910kΩ | TPS61023 U2 feedback upper (Vout set) |
+| R10 | 100kΩ | TPS61023 U2 feedback lower |
+| R11 | 100kΩ | TPS61023 U2 enable/diode network |
+| R14 | 10kΩ | Pull-up |
+| R21 | 10kΩ | Pull-up |
+| R48 | 5.1KΩ | USB CC1 resistor |
+| R49 | 5.1KΩ | USB CC2 resistor |
+| D1 | LED_Small | Status LED |
+| D7 | BAT54 | Schottky diode (TPS61023 EN latch) |
+| D8 | BAT54 | Schottky diode (TPS61023 EN latch) |
+| SW1 | SW_START | Power on button |
+| SW2 | KillSW (SW_SPDT) | TPS61023 kill switch (VIN disconnect) |
+| USBC1 | J_USB_PWR | USB-C power input connector |
+| J4 | Conn_01x02_Socket | 2-pin connector (battery?) |
+
+### usb_hub.kicad_sch
+
+| Reference | Value | Role |
+|-----------|-------|------|
+| U4 | VL812 | USB 3.0 Hub IC (4-port) |
+| U5 | W25Q32JVSSIQ | 32Mbit SPI Flash (VL812 config) |
+| U7 | TPS61023DRLR | Boost converter #2 (HUB_5V) |
+| U8 | USB31-TYPE-C-FSABC | USB-C upstream connector |
+| U10 | TPS2042BDR | USB power switch (port power) |
+| U12 | HC-USB3.0-L168-WP | USB 3.0 Type-A downstream connector |
+| Y1 | C9006 (Crystal) | 25MHz crystal for VL812 |
+| L3 | 10μH | VL812 internal 1.2V regulator inductor |
+| L4 | 1µH / 3A | TPS61023 U7 boost inductor |
+| C100,C101 | 18pF | Crystal Y1 load capacitors |
+| C102 | 10µF | Bulk decoupling |
+| C103 | 100nF | TPS61023 U7 input decoupling |
+| C104 | 22µF | TPS61023 U7 output bulk cap |
+| C105 | 100nF | TPS61023 U7 output decoupling |
+| C106,C107,C108 | 100nF / 150μF / 150μF | TPS2042 / output bulk caps |
+| C111 | 10μF | 1V2_HUB decoupling |
+| C112 | 100nF | Decoupling |
+| C14–C48 (various) | 100nF / 10pF / 10μF / 4.7μF / 1μF | VL812 supply/bypass caps |
+| C67 | 1μF | I2C pullup / filter |
+| C48 | 4.7μF | Filter cap |
+| R12,R17,R19,R20,R25,R42,R47 | 10KΩ | Pull-up resistors |
+| R13,R15,R22,R23,R24 | 100KΩ | Pull-up resistors (high-Z) |
+| R18 | 6.04kΩ | SSREXT resistor (SuperSpeed slew rate) |
+| R43,R44 | 100kΩ | TPS61023 U7 FB divider |
+| R45 | 910kΩ | TPS61023 U7 FB upper |
+| R46,R47 | 4.7KΩ | VBUSDET voltage divider |
+| R50,R51 | 56kΩ | USB-C CC resistors (USB8 connector) |
+| R58,R59 | 4.7KΩ | I2C pull-ups (SMDAT/SMCLK) |
+| D5 | USB_HUB_C | USB-C downstream port TVS |
+| D6 | USB_HUB_A | USB-A downstream port TVS |
+| SW3 | SW_START | Power on button (HUB) |
+| SW4 | KillSW (SW_SPDT) | TPS61023 U7 kill switch |
+
+---
+
+## 2. Key Net Names
+
+### power.kicad_sch nets
+- **VBUS** — USB-C charger input (+5V from adapter), connected to BQ25895 VBUS pin
+- **+BATT** — Battery positive rail → BQ25895 BAT pins (13, 14)
+- **VSYS** — BQ25895 SYS output → system bus (also feeds TPS61023 VIN via SW2)
+- **5V_SYS** — TPS61023 U2 VOUT, main 5V system rail
+- **+3V3** — AP2112K VOUT, 3.3V system rail
+- **GNDPWR** — Power ground
+- **GND** — Signal ground
+- **REGN** — BQ25895 internal 5V LDO (pin 22), connected to BQ25895 CE pull-up and output capacitor
+- **I2C_SCL, I2C_SDA** — I2C bus to BQ25895 (global labels to main MCU)
+- **USB_DP, USB_DM** — USB D+/D- from USBC1 → BQ25895 D+/D− detect pins
+- **BQ_INT** — BQ25895 INT (interrupt) → global label to MCU
+- **PW_SW_DET** — Power switch detect signal
+- **RP2040_EN** — RP2040 enable signal
+
+### usb_hub.kicad_sch nets
+- **5V_SYS** — Input from power sheet → VL812 VCC5I (×2), TPS2042 input
+- **HUB_5V** — TPS61023 U7 VOUT → local 5V for USB hub
+- **1V2_HUB** — VL812 internal 1.2V supply/LDO output (pins DC10FB, DC12FB, VDD)
+- **3V3_HUB** — VL812 3.3V supply (VCCA33SSM, VCCA33SS34, VCCA33SS12, etc.)
+- **VSYS** — Battery system voltage input to TPS61023 U7
+- **GNDPWR** — Power ground
+- **USB2_UP_DP, USB2_UP_DM** — USB 2.0 upstream differential pair (VL812 → SoC)
+- **USB3_UP_RX_N/P, USB3_UP_TX_N/P** — USB 3.0 upstream SuperSpeed pairs
+- **USB2_DP1_DP/DM, USB2_DP2_DP/DM** — USB 2.0 downstream port 1/2 pairs
+- **USB3_DP1_RX_N/P, USB3_DP1_TX_N/P** — USB 3.0 downstream port 1 SS pairs
+- **USB3_DP2_RX_N/P, USB3_DP2_TX_N/P** — USB 3.0 downstream port 2 SS pairs
+- **USB2_RP_DP, USB2_RP_DM** — USB 2.0 port 3 (RP = rear port)
+- **USB2_RP_DP2, USB2_RP_DM2** — USB 2.0 port 4
+- **USB_VBUS_EN** — TPS61023 U7 EN signal (global from SoC)
+- **USBHPE1, USBHPE2** — USB hub port power enable signals
+- **USBHOC1, USBHOC2** — USB hub over-current signals
+- **SPICS, SPISCLK, SPISI, SPISO** — SPI bus to W25Q32 flash (connected via VL812 USBHMBR1–4 pins)
+- **HUB_USBC_DP/DM, HUB_USBA_DP/DM** — USB 2.0 downstream connector signals
+- **USB1_VBUS, USB2_VBUS** — VBUS sense for downstream ports
+- **USB2_UP_VBUS** — Upstream port VBUS
+- **USB_VBUS_EN** — Hub 5V boost enable
+
+---
+
+## 3. BQ25895 (U1) — Full Pin Connections
+
+| Pin | Name | Net/Connection |
+|-----|------|----------------|
+| 1 | VBUS | **VBUS** (USB-C input) |
+| 2 | D+ | **USB_DP** (USB D+ for charger detection) |
+| 3 | D− | **USB_DM** (USB D− for charger detection) |
+| 4 | STAT | **[wire stub — dead end]** No net label found; likely connects to an LED via wire, but no terminal label resolved |
+| 5 | SCL | **I2C_SCL** (to MCU) |
+| 6 | SDA | **I2C_SDA** (to MCU) |
+| 7 | INT | **BQ_INT** (interrupt → MCU global label) |
+| 8 | OTG | **GND** |
+| 9 | CE | **+3V3** (Charge Enable, active-low — pulled HIGH to disable OTG, EN managed via I2C) |
+| 10 | ILIM | **[wire stub]** — connects to R4/ILIM resistor network (10KΩ), net unlabeled |
+| 11 | TS | **[wire stub]** — connects to R6 (10KΩ) & cap network (TS NTC input) |
+| 12 | QON | **[wire stub]** — connects to R8 (10KΩ) pull-up to +3V3 |
+| 13 | BAT | **+BATT** (battery positive) |
+| 14 | BAT | **+BATT** (battery positive) |
+| 15 | SYS | **VSYS** (system output) |
+| 16 | SYS | **VSYS** (system output) |
+| 17 | PGND | **GNDPWR** |
+| 18 | PGND | **GNDPWR** |
+| 19 | SW | **[wire to L1]** — inductor L1 (2.2μH) SW node, unlabeled local net |
+| 20 | SW | **[wire to L1]** — inductor L1 SW node (parallel) |
+| 21 | BTST | **[wire to bootstrap cap]** — bootstrap capacitor C4 (100nF), unlabeled local net |
+| 22 | REGN | **REGN** (label), also connects to output capacitor; goes to CE pin via wire |
+| 23 | PMID | **[wire stub]** — connects to local decoupling cap (100nF), PMID bus unresolved |
+| 24 | DSEL | **GND** (D+/D- detect select = low → automatic detection) |
+| 25 | PAD (EP) | **GNDPWR** (exposed pad to power ground) |
+
+---
+
+## 4. TPS61023 (U2) in power.kicad_sch — Pin Connections
+
+TPS61023 #1: Generates **5V_SYS** from VSYS (battery). U2 at (340.36, 71.12).
+
+| Pin | Name | Net/Connection |
+|-----|------|----------------|
+| 1 | FB | Local resistor divider: R9 (910kΩ) upper, R10 (100kΩ) lower — sets VOUT = 5V |
+| 2 | EN | Connected to SW2 (KillSW) + D7+D8 (BAT54 diodes) latch network + R11 (100kΩ) |
+| 3 | VIN | **VSYS** via SW2 (KillSW SPDT switch disconnects VIN for kill) |
+| 4 | GND | **GNDPWR** |
+| 5 | SW | L2 (1µH/3A) inductor, local SW node with C10 (22µF) + C11 (100nF) output caps |
+| 6 | VOUT | **5V_SYS** |
+
+**Note:** SW2 (KillSW) is a SPDT that disconnects VIN from VSYS to kill the boost. D7 and D8 (BAT54) with R11 (100kΩ) form a latching EN circuit around the EN pin.
+
+---
+
+## 5. TPS61023 (U7) in usb_hub.kicad_sch — Pin Connections
+
+TPS61023 #2: Generates **HUB_5V** for the USB hub. U7 at (336.55, 93.98).
+
+| Pin | Name | Net/Connection |
+|-----|------|----------------|
+| 1 | FB | Local resistor divider: R45 (910kΩ) upper, R44 (100kΩ) lower — sets VOUT = 5V |
+| 2 | EN | **USB_VBUS_EN** (global signal from SoC — hub can be powered off) |
+| 3 | VIN | **VSYS** via SW4 (KillSW) — local kill switch, connects to C103 (100nF) decoupling |
+| 4 | GND | **GNDPWR** |
+| 5 | SW | L4 (1µH/3A) inductor, with C104 (22µF) + C105 (100nF) output caps |
+| 6 | VOUT | **HUB_5V** |
+
+---
+
+## 6. AP2112K-3.3 (U3) — Pin Connections
+
+| Pin | Name | Net/Connection |
+|-----|------|----------------|
+| 1 | VIN | **5V_SYS** |
+| 2 | GND | **GNDPWR** |
+| 3 | EN | **5V_SYS** (always-on — tied to VIN) |
+| 4 | NC | No connect (marked X) |
+| 5 | VOUT | **+3V3** |
+
+---
+
+## 7. VL812 (U4) — Key Pin Connections
+
+| Pin | Name | Net | Notes |
+|-----|------|-----|-------|
+| 1 | SSREXT | Via R18 (6.04kΩ) to GND | SuperSpeed slew rate resistor |
+| 2 | VCCA33SSM | **3V3_HUB** | SS macro 3.3V supply |
+| 3–4 | SSTX3+/− | **[X] no_connect** | Port 3 TX (not used in layout) |
+| 5 | VCCA12SSRX3 | **1V2_HUB** | Port 3 SS RX 1.2V supply |
+| 6–7 | SSRX3+/− | **[X] no_connect** | Port 3 RX (not used) |
+| 8 | VCCA33SS34 | **3V3_HUB** | |
+| 9 | USBHP3+ | **USB2_RP_DP** | USB 2.0 port 3 DP |
+| 10 | USBHP3− | **USB2_RP_DM** | USB 2.0 port 3 DM |
+| 11–12 | SSTX4+/− | **[X] no_connect** | Port 4 TX (not used) |
+| 13 | VCCA12SSRX4 | **1V2_HUB** | |
+| 14–15 | SSRX4+/− | **[X] no_connect** | Port 4 RX (not used) |
+| 16 | USBHP4+ | **USB2_RP_DP2** | USB 2.0 port 4 DP |
+| 17 | USBHP4− | **USB2_RP_DM2** | USB 2.0 port 4 DM |
+| 18 | DC33FB | **3V3_HUB** | 3.3V feedback |
+| 19 | VCC5I | **5V_SYS** | 5V power input |
+| 20 | VCC12I | **GNDPWR** (**WARNING — see below**) | Internal 1.2V reg cap node |
+| 21 | DC10FB | **1V2_HUB** | 1.2V DC feedback |
+| 22–23 | SSTX0+/− | **[floating]** | Upstream SuperSpeed TX — not connected! |
+| 24 | VCCA12SSRX0 | **1V2_HUB** | |
+| 25 | SSRX0− | **USB3_UP_RX_N** | Upstream SS RX− |
+| 26 | SSRX0+ | **USB3_UP_RX_P** | Upstream SS RX+ |
+| 27 | VCCA33SS0 | **3V3_HUB** | |
+| 28 | USBDP+ | **USB2_UP_DP** | USB 2.0 upstream D+ |
+| 29 | USBDP− | **USB2_UP_DM** | USB 2.0 upstream D− |
+| 30 | VDD | **1V2_HUB** | Core 1.2V supply |
+| 31 | VBUSDET | Via R46+R47 (4.7kΩ) divider to GNDPWR | VBUS detect voltage divider |
+| 32 | USBHMBR4 | **SPICS** | SPI chip select (W25Q32) |
+| 33 | USBHMBR3 | **SPISCLK** | SPI clock |
+| 34 | USBHMBR2 | **SPISI** | SPI MOSI |
+| 35 | USBHMBR1 | **SPISO** | SPI MISO |
+| 36 | VSUS33 | **3V3_HUB** | |
+| 37 | DC12FB | **1V2_HUB** | 1.2V DC feedback |
+| 38 | VCC5I | **5V_SYS** | 5V power (second pin) |
+| 39 | LX | **[floating]** | Internal boost inductor — not connected! |
+| 40 | NC | **[X] no_connect** | |
+| 41 | VSUS33 | **3V3_HUB** | |
+| 42 | USBHPE2B | **USBHPE2** | Port 2 power enable |
+| 43 | USBHPE1 | **USBHPE1** | Port 1 power enable |
+| 44 | USBHOC2 | Local wire → R25 (10KΩ) | Over-current port 2 |
+| 45 | USBHOC1 | Local wire → R12 (10KΩ) | Over-current port 1 |
+| 46 | COREPWRDN | **GNDPWR** (pulled low) | Core power down disabled |
+| 47 | EXTPWRON | Local wire → R42 (10KΩ) | External power on control |
+| 48 | VDD | **1V2_HUB** | |
+| 49 | VSUS33 | **3V3_HUB** | |
+| 50–53 | USBHGRN1–4 | Local pull-up resistors | USB port green LED controls |
+| 54 | RESET# | Local wire → R19 (10KΩ) + C67 (1μF) | Reset with RC filter |
+| 55 | SMCLK | **[floating — no label]** via R58 (4.7kΩ) | SMBus clock — needs investigation |
+| 56 | SMDAT | **[floating — no label]** via R59 (4.7kΩ) | SMBus data — needs investigation |
+| 57 | TESTEN | **GNDPWR** (test mode disabled) | |
+| 58 | VDD | **1V2_HUB** | |
+| 59–60 | SSTX1+/− | **[floating]** | Port 1 SS TX — not connected! |
+| 61 | VCCA12SSRX1 | **1V2_HUB** | |
+| 62 | SSRX1+ | **USB3_DP1_RX_P** | Port 1 SS RX+ |
+| 63 | SSRX1− | **USB3_DP1_RX_N** | Port 1 SS RX− |
+| 64 | USBHP1+ | **USB2_DP1_DP** | Port 1 USB 2.0 D+ |
+| 65 | USBHP1− | **USB2_DP1_DM** | Port 1 USB 2.0 D− |
+| 66–67 | SSTX2+/− | **[floating]** | Port 2 SS TX — not connected! |
+| 68 | VCCA12SSRX2 | **1V2_HUB** | |
+| 69 | SSRX2+ | **USB3_DP2_RX_P** | Port 2 SS RX+ |
+| 70 | SSRX2− | **USB3_DP2_RX_N** | Port 2 SS RX− |
+| 71 | VCCA33SS12 | **3V3_HUB** | |
+| 72 | USBHP2+ | **USB2_DP2_DP** | Port 2 USB 2.0 D+ |
+| 73 | USBHP2− | **USB2_DP2_DM** | Port 2 USB 2.0 D− |
+| 74 | VCCA12SSM | **1V2_HUB** | |
+| 75 | SSXI | Crystal Y1 Pin4 (input) | SS clock input from crystal |
+| 76 | SSXO | Crystal Y1 Pin2 (output) | SS clock output to crystal |
+| 77 | EP | **GNDPWR** | Thermal exposed pad |
+
+---
+
+## 8. W25Q32 (U5) — SPI Flash Pin Connections
+
+| Pin | Name | Net |
+|-----|------|-----|
+| 1 | CS# | **SPICS** |
+| 2 | DO (IO1) | **SPISO** |
+| 3 | IO2 (WP#) | **[floating]** — not connected (no label, no no_connect marker) |
+| 4 | GND | **GNDPWR** |
+| 5 | DI (IO0) | **SPISI** |
+| 6 | CLK | **SPISCLK** |
+| 7 | IO3 (HOLD#) | **[floating]** — not connected |
+| 8 | VCC | **3V3_HUB** |
+
+---
+
+## 9. Crystal Y1 (C9006, 25MHz) Connections
+
+| Pin | Connection |
+|-----|-----------|
+| 1 | **GNDPWR** |
+| 2 | VL812 SSXO (pin 76) |
+| 3 | **GNDPWR** |
+| 4 | VL812 SSXI (pin 75) |
+
+Load capacitors: C100 and C101 (18pF each) are connected to SSXI/SSXO lines.
+
+---
+
+## 10. Potentially Problematic Connections / Design Issues
+
+### CRITICAL Issues
+
+**1. VL812 Pin 20 (VCC12I) Connected to GNDPWR**
+- VCC12I is the input capacitor node for the VL812's internal 1.2V boost regulator (connected between VCC12I and GND, with LX as the switching node).
+- It should connect to a **bypass capacitor to GND** (correct) — but my analysis shows VCC12I is labeled GNDPWR. This is almost certainly a misidentification in the automated trace: VCC12I (pin 20) is at coordinate (113.03, 195.58) and the GNDPWR symbol is at a nearby position. **Verify manually** whether VCC12I truly goes to ground (which would be wrong) or whether there's a decoupling cap between VCC12I and GND making it appear as GND in the graph.
+
+**2. VL812 SSTX0+/− (Pins 22, 23) Floating**
+- These are the **upstream SuperSpeed TX** differential pair (hub → host). They appear floating (no net label found). Without upstream SS TX, USB 3.0 uplink will not function.
+- **Action:** Verify these should route to USB3_UP_TX_P/N — there are global labels `USB3_UP_TX_N` and `USB3_UP_TX_P` in the schematic (found in label scan), but they don't appear connected to VL812 pins 22/23 in this analysis.
+
+**3. VL812 LX (Pin 39) Floating**
+- LX is the switching node for VL812's internal 1.2V boost converter — it **must** connect to L3 (10μH) which is on the board. This appears floating in the graph. L3 should be between LX and the 1.2V output. **Verify the L3 connections.**
+
+**4. VL812 SSTX1+/− (Pins 59, 60) and SSTX2+/− (Pins 66, 67) Floating**
+- These are SS TX pairs for downstream ports 1 and 2. If floating, USB 3.0 will not work for those ports (only USB 2.0 will function).
+
+**5. BQ25895 OTG (Pin 8) Connected to GND**
+- OTG is an active-high signal. Tying it to GND permanently disables OTG (boost) mode. This is intentional if OTG mode is not needed, but confirm this is deliberate.
+
+**6. BQ25895 CE (Pin 9) Connected to +3V3**
+- CE is an active-low Charge Enable. Pulling it HIGH to +3V3 **disables charging by default** and charge enable must be managed via I2C register. Confirm this is intentional behavior.
+
+**7. VL812 SMDAT/SMCLK (Pins 56, 55) — No Net Labels Resolved**
+- SMDAT and SMCLK appear to dead-end through R58 (4.7kΩ) and R59 (4.7kΩ) respectively, but no terminal net labels were found. These are the SMBus interface pins. They should connect to the system I2C bus (I2C_SDA/I2C_SCL). **Verify whether these resistors terminate to a global label that wasn't resolved.**
+
+**8. W25Q32 IO2 (WP#) and IO3 (HOLD#) Floating**
+- In SPI (non-QPI) mode, WP# and HOLD# must be pulled HIGH to VCC to prevent accidental write protection or reset. Both pins appear to have no connection (neither net label nor no_connect marker). **Pull these to 3V3_HUB via 10kΩ resistors.**
+
+### MODERATE Concerns
+
+**9. BQ25895 STAT (Pin 4) — Wire Stub**
+- STAT (charge status output, open-drain) connects to a wire stub ending at (57.15, 78.74). Likely connects to LED D1 or a pull-up, but the net is unnamed. Verify the LED current limiting is correct with R5 (270Ω) — at 3.3V, I ≈ 12mA which is fine.
+
+**10. BQ25895 ILIM, TS, QON (Pins 10, 11, 12) — Unnamed Nets**
+- These connect to R4 (10KΩ), R6 (10KΩ), R8 (10KΩ) respectively per spatial analysis. The ILIM resistor sets input current limit — at 10kΩ, ILIM = 2048mA (check BQ25895 datasheet formula). TS connects to an NTC thermistor network — confirm NTC is placed or TS is configured via I2C to disable.
+
+**11. TPS61023 U2 VIN Routed Through SW2 (Kill Switch)**
+- VIN (pin 3) connects to VSYS via SW2 (SPDT), making the entire 5V_SYS rail dependent on the kill switch position. If SW2 is thrown to disconnect, 5V_SYS drops immediately. Confirm this is the intended safety mechanism.
+
+**12. VL812 VBUSDET (Pin 31) via R46/R47 Divider**
+- The divider network uses two 4.7kΩ resistors. If this is a voltage divider from VBUS (5V) to VBUSDET, the midpoint voltage = 2.5V. VL812 VBUSDET threshold is typically around 0.7V (one resistor to VBUS, other to GND). With 4.7kΩ+4.7kΩ from 5V to GND, midpoint = 2.5V, which exceeds the 3.3V range input. **Verify the divider topology — it may need different resistor values.**
+
+**13. VL812 EXTPWRON (Pin 47) — Dead End Wire**
+- EXTPWRON controls whether the hub uses external power. It goes through R42 (10kΩ) but no terminal net was found. Confirm it is pulled to the correct level (3V3_HUB or GND depending on self/bus powered configuration).
+
+**14. AP2112K EN (Pin 3) Tied to VIN (5V_SYS)**
+- This makes the 3.3V LDO always-on whenever 5V_SYS is present. If controlled power-gating of 3.3V is desired, EN would need a separate control signal.
+
+**15. BQ25895 REGN (Pin 22) Connected to +3V3 Net**
+- REGN is an internal 5V LDO output pin that powers internal logic. It should connect to a **decoupling capacitor (typically 1-4.7µF) to GND**, not directly to +3V3. If the REGN label is the same net as the +3V3 power rail, this is a serious error. However, REGN is labeled with a local "REGN" label (not a power symbol), and the +3V3 power symbol appears on CE (pin 9). Re-check: the automated trace showed REGN(22) → "+3V3" which may be an artifact of label name collision. **Manual verification required.**</result>
+<usage><total_tokens>131245</total_tokens><tool_uses>47</tool_uses><duration_ms>939645</duration_ms></usage>
+</task-notification>
+Full transcript available at: C:\Users\yuu\AppData\Local\Temp\claude\D--Projects-PortaRe0\tasks\a6827e36fe4e1497e.output
+
+----------------------------------------
+
+[Claude]
+エージェントから重要な問題が見つかりました。VL812とBQ25895のチェックシートを更新します。
+
+----------------------------------------
+
+[Claude]
+次にBQ25895チェックシートのCEピンの注記を更新します。
+
+----------------------------------------
+
+[Claude]
+最後にINDEXファイルを更新します。
+
+----------------------------------------
+
+[Claude]
+完了です。最終的に `Claude/checklists/` に11ファイルが揃いました。
+
+---
+
+エージェントが power/usb_hub の詳細解析を終えて、**新たに重大な問題候補**が見つかりました。
+
+## 追加で見つかった要確認事項
+
+| 優先度 | 場所 | 問題 |
+|-------|------|------|
+| 🔴高 | VL812 Pin 39 (LX) | L3(10µH)インダクタが未接続の疑い → 内部1.2V不動作でVL812が動かない |
+| 🔴高 | VL812 Pins 22/23 (SSTX0) | Upstream SuperSpeed TX が未接続の疑い → USB3.0アップリンク不可 |
+| 🟡中 | VL812 Pins 59/60, 66/67 | SSTX1/SSTX2 未接続の疑い → 外部ポートのUSB3.0不可 |
+| 🟡中 | W25Q32 IO2/IO3 | WP# / HOLD# フローティングの疑い → 10kΩプルアップ必要 |
+| 🟡中 | BQ25895 CE(Pin9) | +3V3接続で充電がI2C任せになっている可能性 → ファームウェア側での対応確認 |
+
+これらは解析の座標ベース推定なので**実際に KiCad で目視確認**してください。特にLX/SSTX0は動作上クリティカルです。
+
+----------------------------------------
+
+[User]
+D:\Projects\PortaRe0\Claude\checklists\01_BQ25895_checklist.txt
+結構問題ありかも
+
+----------------------------------------
+
+[Claude]
+チェック結果を整理します。実際に問題があるのは以下です：
+
+---
+
+## 修正必須 (NG)
+
+### 1. C5 (REGN bypass) = 4.7nF → **4.7µF に変更**
+TI推奨は4.7µF。4.7nFは1000倍小さく、REGNが不安定になる可能性あり。KiCadで値を修正してください。
+
+---
+
+## 設計判断が必要 (要検討)
+
+### 2. CE = 3V3接続
+現状だとハードウェア充電が無効。充電させるには起動後に**RP2040がI2CでREG03のCHG_CONFIGビット=1をセットする必要**があります。
+
+**推奨: CE → GNDに変更**
+- GNDにしておけばUSB接続=即充電開始（I2Cで停止も可能）
+- 今の設計にはCE制御GPIO割り当てがないので、ソフト制御に頼るのはリスクあり
+- RP2040がハングした場合に充電が止まる
+
+### 3. QON = GND接続
+QONはアクティブLow。GNDに固定すると「QONボタンが常時押されている」状態になります。
+
+TIのデータシートでGND接続のExampleを確認してほしいですが、通常は：
+- **10kΩ → 3V3にプルアップ** が安全
+- GND固定だとシップモード制御が意図しない動作をする可能性あり
+
+---
+
+## 現状でOK / 軽微な差
+
+| 項目 | 状況 | コメント |
+|------|------|---------|
+| ILIM = 270Ω | OK | 計算上限 ≈ 6.1A。I2Cの`IINLIM`レジスタで実際の電流制限をセットすること |
+| I2C プルアップ = 10kΩ | OK | TI exampleも10kΩ。FastMode不使用なら問題なし |
+| BTST = 47nF | OK | TI example同様。現在100nFでも動作上問題なし |
+| TS = 10kΩ×10kΩ | OK | V_TS/V_REGN ≈ 0.47〜0.50 → 正常温度範囲(0.19〜0.55)内 |
+| VBUS bypass = 10µF+100nF | OK | 推奨1µFより大きいので問題なし |
+| PMID (C6) = 10µF | OK | |
+
+---
+
+## まとめ
+
+修正が必要なのは実質 **C5の値(4.7nF → 4.7µF)** だけです。CEとQONは動作するか否かというより「ファームウェア設計で対応するか、ハードで対応するか」の判断です。
+
+**CE についての推奨アクション:** 現状の3V3接続のままにするか、GNDに変更するかを決めてください。GND変更を選ぶなら power シートのCEピン配線を修正。3V3接続のままなら、RP2040ファームウェアで必ず充電ONのI2Cコマンドを送ること。
+
+----------------------------------------
+
+[User]
+CEはGNDに落とすことにしとくわ
+QONはexamだとoptionalでスイッチがついてる
+
+----------------------------------------
+
+[Claude]
+了解です。整理すると：
+
+---
+
+## power シートで修正する内容 (3点)
+
+### 1. CE ピン: 3V3 → GND に変更
+KiCadで配線を切り替えるだけ。
+
+### 2. QON ピン: プルアップ追加
+TI exampleの正しい回路は：
+```
+REGN (または 3.3V)
+    │
+  10kΩ
+    │
+  QON ─── [オプション: モーメンタリSW] ─── GND
+```
+- 今 GND 直結になっているなら → **GND から切り離して 10kΩ プルアップに変更**
+- QON ボタン機能が不要なら → **10kΩ → 3.3V だけで OK**（スイッチなし）
+- QON 直 GND だと「常時シップモード操作中」の状態になるので要修正
+
+### 3. C5 (REGN bypass): 4.7nF → **4.7µF** に変更
+値を修正するだけ。
+
+---
+
+## チェックシートの更新
+
+```
+01_BQ25895_checklist.txt:
+  Pin 9 CE     → [NG→OK] GNDに変更予定
+  Pin 12 QON   → [NG] 10kΩプルアップ追加必要
+  C5           → [NG] 4.7µFに修正必要
+```
+
+この3点をKiCadで修正したら、他のICのチェックに進みますか？
+
+----------------------------------------
+
+[User]
+QONの説明こうなってた
+BATFET enable/reset control input.
+When BATFET is in ship mode, a logic low of tSHIPMODE duration turns on BATFET to exit shipping mode.
+When VBUS is not plugged-in, a logic low of tQON_RST duration resets SYS (system power) by turning BATFET
+off for tBATFET_RST and then re-enable BATFET to provide full system power reset.
+The pin contains an internal pull-up to maintain default high logic
+
+----------------------------------------
+
+[Claude]
+なるほど、重要なポイントが2つあります：
+
+---
+
+## QON の正しい理解
+
+**内部プルアップ内蔵** → 外部プルアップ抵抗は不要
+
+**GND 直結は NG の理由:**
+- VBUS 未接続時に QON が LOW のままだと → **tQON_RST 時間後に SYS (BATFET) がリセット → 再投入 → リセット → ループ**
+- バッテリーのみ動作中に「常時システムリセット状態」になる
+
+---
+
+## 修正内容
+
+| 現状 | 修正後 |
+|------|--------|
+| QON → GND 固定 | QON → **NC**（内部プルアップが HIGH を維持） |
+
+オプション: リセット/シップモード復帰機能が欲しい場合のみモーメンタリSW → GND を追加（外部プルアップは不要）
+
+今回の設計では QON ボタンを使う予定はないはずなので **NC で OK**。
+
+---
+
+## power シートの修正まとめ (確定)
+
+| ピン | 修正 |
+|------|------|
+| CE (Pin 9) | 3V3 → **GND** |
+| QON (Pin 12) | GND → **NC（または No Connect マーク）** |
+| C5 | 4.7nF → **4.7µF** |
+
+この3点修正したら BQ25895 はクリーンになります。
+
+----------------------------------------
+
+[User]
+修正した
+
+----------------------------------------
+
+[Claude]
+お疲れ様です。BQ25895 の修正内容をメモしておきます。
+
+修正済み確定:
+- **CE → GND**（常時充電許可）
+- **QON → NC**（内部プルアップで High 固定）
+- **C5: 4.7nF → 4.7µF**（REGN バイパス）
+
+---
+
+次のチェックシートに進みますか？
+
+優先度的には：
+
+1. **04_VL812_checklist.txt** — SSTX0/LX/W25Q32 IO2/IO3 など⚠️項目が多い
+2. **02_TPS61023_checklist.txt** — EN 回路の BAT54 向きなど
+3. **07_MAX98357A_checklist.txt** — SD_MODE と GAIN_SLOT の確認
+
+どれから確認しますか？
+
+----------------------------------------
+
+[User]
+powerシートから順に終わらせていくわ
+
+----------------------------------------
+
+[Claude]
+了解です。順番は：
+
+1. ~~BQ25895~~ ✅ 修正完了
+2. **TPS61023 (#1/#2)** ← 次
+3. **AP2112K**
+
+`02_TPS61023_checklist.txt` を開いて確認してください。
+
+主な確認ポイント：
+- **L2/L3** のインダクタ値と電流定格
+- **FB 分圧**（R9=910kΩ / R10=100kΩ → 5V 出力の計算）
+- **EN 回路**（BAT54 の向き、10µF ラッチキャップ）
+- **PS/SYNC** ピンの接続先
+
+疑問点があれば持ってきてください。
+
+----------------------------------------
+
+[User]
+D:\Projects\PortaRe0\Claude\checklists\02_TPS61023_checklist.txt
+
+----------------------------------------
+
+[Claude]
+チェック結果を整理します。
+
+---
+
+## 判明した問題
+
+### 1. キルスイッチ重複 → 要修正
+
+現状: TPS61023 #1 に KillSW + EN_SW、#2 にも KillSW + EN_SW が別々に存在
+
+**正しい設計:**
+```
++BATT ─→ BQ25895 SYS ─→ [KillSW 1個] ─→ VSYS ─┬→ TPS61023 #1 VIN
+                                                  └→ TPS61023 #2 VIN
+```
+- VSYS を物理遮断するスイッチは **1個** でよい
+- TPS61023 #2 の EN は GP24 のみ（ソフト制御）
+- usb_hub シートの SW4 (Kill) は削除してよい
+
+### 2. Pin 6 = VOUT (チェックシートの誤記)
+- チェックシートに「PS/SYNC」と書いていたが実際は **VOUT ピン**
+- 回路的には問題なし（インダクタ → SW → 内部ダイオード → VOUT の正しいトポロジー）
+
+### 3. FB 抵抗 (910kΩ/100kΩ)
+- 計算: Vout = 0.5 × (1 + 910/100) = **5.05V → OK**
+- TI example の 732kΩ は別の R_BOT 値と組み合わせで 5V を出している可能性。現状の値で問題なし。
+
+---
+
+## アクション
+
+| 作業 | 内容 |
+|------|------|
+| usb_hub シート | SW4 (KillSW) を削除し、U7 EN = USB_VBUS_EN (GP24) のみに |
+| power シート | SW2 を VSYS ラインに配置して両方の TPS61023 に効くように確認 |
+
+先に power シートの SW2 位置を確認しますか？
+
+----------------------------------------
+
+[User]
+The output voltage is set by an external resistor divider (R1, R2 in 図 8-1). When the output voltage is regulated,
+the typical voltage at the FB pin is VREF. Thus the resistor divider is determined by 式 4.
+式4 R1=(VOUT/VREF-1)xR2
+
+----------------------------------------
+
+[User]
+This session is being continued from a previous conversation that ran out of context. The summary below covers the earlier portion of the conversation.
+
+Analysis:
+Let me analyze the conversation chronologically:
+
+1. Session started with user saying "どおりに進めて" pointing to Claude.md
+2. Claude read Claude.md and PROGRESS.md to understand current state
+3. Current state: All KiCad sheets complete, next tasks are イヤホンジャック型番確定 and Phase 3 PCBレイアウト
+4. User asked to create checklist files for manual IC verification against datasheets
+5. Claude attempted to read schematic files but they were too large (93k+ tokens)
+6. Claude launched two background agents to parse schematics
+7. While waiting, Claude created checklist files in Claude/checklists/
+8. Agent 1 (power/usb_hub) completed with detailed findings including critical issues
+9. Agent 2 (audio/keyboard) completed with detailed component data
+10. Claude updated checklists with new findings, created 11 files total
+11. User filled in 01_BQ25895_checklist.txt and reported issues
+12. Discussion of BQ25895 issues: C5=4.7nF (NG), CE=3V3, QON=GND, ILIM=270Ω
+13. User decided: CE→GND, QON→NC (internal pullup), C5→4.7µF
+14. User made the 3 fixes in KiCad
+15. User moved to 02_TPS61023_checklist.txt
+16. TPS61023 issues found: Pin6=VOUT (not PS/SYNC), KillSW duplication problem
+17. Last message: User pasted TPS61023 datasheet formula for FB resistors
+
+Key technical findings:
+- BQ25895 C5: 4.7nF → 4.7µF (fixed)
+- BQ25895 CE: 3V3 → GND (fixed)  
+- BQ25895 QON: GND → NC (fixed)
+- TPS61023 Pin 6 = VOUT (checklist error)
+- Kill switch duplication: both #1 and #2 have separate KillSW and EN_SW, needs consolidation
+- FB formula: R1=(VOUT/VREF-1)×R2, current 910kΩ/100kΩ gives 5.05V
+
+Summary:
+1. Primary Request and Intent:
+   - User started session with "どおりに進めて" (proceed as planned) pointing to Claude.md
+   - Main request: Create checklist files (txt format) for each IC so user can manually verify circuit diagrams against datasheets
+   - User is manually working through each checklist in order, starting from power sheet
+   - Session goal: Complete IC-by-IC design review before starting Phase 3 PCB layout
+
+2. Key Technical Concepts:
+   - KiCad hierarchical schematic review (7 sheets: power, usb_hub, keyboard, audio, connectors, hdmi_adapter, usb_adapter)
+   - BQ25895 NVDC charging topology, CE pin (active-low charge enable), REGN internal LDO, QON ship mode
+   - TPS61023 boost converter: FB voltage divider formula Vout = Vref × (1 + R_TOP/R_BOT), SOT-563 Pin6=VOUT
+   - VL812 USB 3.0 Hub: SSREXT, LX inductor, SSTX pin connections, W25Q32 SPI flash WP#/HOLD#
+   - RP2040 GPIO assignments, USB series resistors (internal 27Ω), QSPI Flash
+   - MAX98357A SD_MODE vs GAIN_SLOT distinction
+   - TPA6132A2 HPVSS charge pump requirement (1µF cap, not GND direct)
+   - PCM5102A SCK-less mode (SCK→GND), LDOO bypass, VCOM
+   - Kill switch design: VSYS physical cut vs EN pin control
+
+3. Files and Code Sections:
+   - `D:\Projects\PortaRe0\Claude\Claude.md` — Project spec (read to understand current state)
+   - `D:\Projects\PortaRe0\Claude\PROGRESS.md` — Progress log (read to confirm all sheets complete, next tasks)
+   - `D:\Projects\PortaRe0\Claude\checklists\00_INDEX.txt` — Index of all checklists with priority ⚠️ items
+   - `D:\Projects\PortaRe0\Claude\checklists\01_BQ25895_checklist.txt` — BQ25895 checklist (user filled in, 3 fixes made)
+   - `D:\Projects\PortaRe0\Claude\checklists\02_TPS61023_checklist.txt` — TPS61023 checklist (currently being filled)
+   - `D:\Projects\PortaRe0\Claude\checklists\03_AP2112K_checklist.txt` — AP2112K checklist (pending)
+   - `D:\Projects\PortaRe0\Claude\checklists\04_VL812_checklist.txt` — VL812 checklist (updated with SSTX/LX/W25Q32 ⚠️ items)
+   - `D:\Projects\PortaRe0\Claude\checklists\05_RP2040_keyboard_checklist.txt` — RP2040 #1 checklist
+   - `D:\Projects\PortaRe0\Claude\checklists\06_RP2040_audio_checklist.txt` — RP2040 #2 checklist
+   - `D:\Projects\PortaRe0\Claude\checklists\07_MAX98357A_checklist.txt` — MAX98357A checklist
+   - `D:\Projects\PortaRe0\Claude\checklists\08_PCM5102A_checklist.txt` — PCM5102A checklist
+   - `D:\Projects\PortaRe0\Claude\checklists\09_TPA6132A2_checklist.txt` — TPA6132A2 checklist
+   - `D:\Projects\PortaRe0\Claude\checklists\10_TPS2042BDR_USBLC6_checklist.txt` — TPS2042BDR/USBLC6 checklist
+
+4. Errors and fixes:
+   - KiCad schematic files too large to read directly (93k+ tokens) → Used background agents with grep/offset to parse
+   - Agent coordinate-based netlist tracing gave unreliable results → Used findings as hints, flagged for manual verification
+   - Checklist had wrong TPS61023 Pin 6 description (wrote "PS/SYNC") → User corrected: Pin 6 = VOUT on SOT-563 package
+   - BQ25895 checklist I2C pullup listed as 4.7kΩ → Actual schematic uses 10kΩ (TI example also uses 10kΩ, confirmed OK)
+
+5. Problem Solving:
+   **BQ25895 issues found and fixed:**
+   - C5 (REGN bypass): 4.7nF → **4.7µF** (1000× wrong, FIXED in KiCad)
+   - CE pin: 3V3 → **GND** (was disabling charging, FIXED in KiCad)
+   - QON pin: GND → **NC** (GND would cause continuous system reset loop; internal pullup keeps it HIGH, FIXED in KiCad)
+   
+   **TPS61023 design issue identified (not yet fixed):**
+   - Kill switch duplication: TPS61023 #1 has KillSW+EN_SW in power sheet; TPS61023 #2 has KillSW+EN_SW in usb_hub sheet
+   - Should be: single VSYS kill switch → both TPS61023s, TPS61023 #2 EN = GP24 only
+   - usb_hub sheet SW4 (KillSW) should be removed
+   
+   **Other ⚠️ items flagged (pending manual verification):**
+   - VL812 LX pin (Pin39): L3(10µH) connection suspected floating
+   - VL812 SSTX0+/− (Pins 22/23): Upstream TX suspected floating → USB 3.0 uplink may not work
+   - VL812 SSTX1+/−, SSTX2+/−: Downstream TX suspected floating
+   - W25Q32 IO2(WP#)/IO3(HOLD#): Suspected floating, need 10kΩ pullup
+   - RP2040 USB D+ series resistors R27/R28=27Ω: RP2040 has internal 27Ω, external 27Ω may cause total 54Ω (exceeds USB spec 45Ω)
+   - MAX98357A: R35(220kΩ) must be on SD_MODE pin, not GAIN_SLOT
+
+6. All user messages:
+   - "D:\Projects\PortaRe0\Claude\Claude.md どおりに進めて"
+   - "データシートと今の回路図を見比べて問題がないかチェックする / チェックは手動でやるから各ICのチェックシート的なのをtxtとかで作ってほしい"
+   - "[BQ25895 checklist filled in] 結構問題ありかも"
+   - "CEはGNDに落とすことにしとくわ / QONはexamだとoptionalでスイッチがついてる"
+   - "QONの説明こうなってた: BATFET enable/reset control input... The pin contains an internal pull-up to maintain default high logic"
+   - "修正した"
+   - "powerシートから順に終わらせていくわ"
+   - "[TPS61023 checklist filled in - notification]"
+   - "The output voltage is set by an external resistor divider (R1, R2 in 図 8-1)... 式4 R1=(VOUT/VREF-1)×R2"
+
+7. Pending Tasks:
+   - Resolve TPS61023 kill switch duplication (remove SW4 from usb_hub, confirm single VSYS kill switch)
+   - Complete 03_AP2112K_checklist.txt (power sheet, next after TPS61023)
+   - Complete 04_VL812_checklist.txt (critical ⚠️ items: LX, SSTX0, SSTX1/2, W25Q32 IO2/IO3)
+   - Complete 05-10 checklists (RP2040×2, MAX98357A, PCM5102A, TPA6132A2, TPS2042BDR)
+   - LED C番号確定 (緑・橙, SMD)
+   - Phase 3: PCBレイアウト開始
+
+8. Current Work:
+   User is currently filling in `02_TPS61023_checklist.txt` (power sheet, TPS61023 #1 and #2).
+   
+   Issues found so far in TPS61023 checklist:
+   - Pin 6 = VOUT (not PS/SYNC as checklist stated)
+   - Kill switch duplication problem: "#1と#2でそれぞれKillSWとEN_SWが存在する → 共通化する必要あり"
+   - FB resistors: 910kΩ/100kΩ confirmed, user queried TI example using 732kΩ
+   - User just pasted TPS61023 datasheet FB formula: R1=(VOUT/VREF-1)×R2
+
+9. Optional Next Step:
+   Respond to the user's FB resistor formula question. With Vref (called VREF in datasheet) and the formula R1=(VOUT/VREF-1)×R2:
+   - If VREF=0.5V: R1=(5/0.5-1)×R2=9×R2 → with R2=100kΩ, R1=900kΩ≈910kΩ ✓ (current design correct)
+   - TI example 732kΩ likely uses different R2 value or slightly different VREF
+   - Then address the kill switch consolidation action needed in usb_hub sheet (remove SW4, verify SW2 covers both TPS61023s)
+   
+   User's most recent message verbatim: "The output voltage is set by an external resistor divider (R1, R2 in 図 8-1). When the output voltage is regulated, the typical voltage at the FB pin is VREF. Thus the resistor divider is determined by 式 4. 式4 R1=(VOUT/VREF-1)×R2"
+
+If you need specific details from before compaction (like exact code snippets, error messages, or content you generated), read the full transcript at: C:\Users\yuu\.claude\projects\D--Projects-PortaRe0\1dc3503e-84ac-419c-ac54-d6890034c75b.jsonl
+Please continue the conversation from where we left off without asking the user any further questions. Continue with the last task that you were asked to work on.
+
+----------------------------------------
+
+[Claude]
+FB抵抗の計算を確認します。
+
+**TPS61023 データシート式:**
+$$R1 = \left(\frac{V_{OUT}}{V_{REF}} - 1\right) \times R2$$
+
+VREF = 0.5V (チェックシートの式と同じ), VOUT = 5V:
+
+$$R1 = \left(\frac{5}{0.5} - 1\right) \times R2 = 9 \times R2$$
+
+**現在の設計:** R_TOP=910kΩ, R_BOT=100kΩ
+$$V_{OUT} = 0.5 \times \left(1 + \frac{910k}{100k}\right) = 0.5 \times 10.1 = 5.05V \approx 5V \checkmark$$
+
+**TI例の732kΩ** は別のR2値と組み合わせて同じ5Vを出力しているだけ（例: 732k/82kΩ → Vout≈4.97V）。現在の910k/100kΩで問題ありません。
+
+---
+
+**キルスイッチ統合について（要修正）:**
+
+チェックシートの備考に書いた通り:
+```
+KillSWとEN_SWが#1と#2でそれぞれ存在する → 共通化する必要あり
+```
+
+修正方針:
+- **SW2 (power シート)**: VSYS物理カット → TPS61023 #1も#2も両方止まる（VIN共通なので既にOK）
+- **SW4 (usb_hub シート)**: 削除してよい（#2のENはGP24で制御）
+- **TPS61023 #2 EN**: GP24のみ（電源制御=GP24、物理kill=VSYSカット）
+
+usb_hub シートのSW4（もしくは対応するKillSW）をKiCadで削除してください。確認できたらTPS61023チェックシートを `[ok]` にして次に進みましょうか？
+
+----------------------------------------
+
+[User]
+TI例の732kΩと100kΩ
+式はR1=(VOUT/VREF-1)*R2
+The output voltage is set by an external resistor divider (R1, R2 in 図 8-1). When the output voltage is regulated,
+the typical voltage at the FB pin is VREF. Thus the resistor divider is determined by 式 4.
+where
+• VOUT is the regulated output voltage
+• VREF is the internal reference voltage at the FB pin
+
+----------------------------------------
+
+[Claude]
+重要な発見です。TI例の数値から逆算してみます。
+
+**R1=732kΩ, R2=100kΩ で VREF を逆算:**
+
+$$V_{REF} = \frac{V_{OUT}}{1 + R1/R2} = \frac{5V}{1 + 732k/100k} = \frac{5}{8.32} = 0.601V \approx 0.6V$$
+
+**結論: チェックシートの VREF=0.5V は誤り → 正しくは VREF=0.6V**
+
+---
+
+**現在の設計 (R_TOP=910kΩ, R_BOT=100kΩ) で再計算:**
+
+$$V_{OUT} = 0.6 \times \left(1 + \frac{910k}{100k}\right) = 0.6 \times 10.1 = \mathbf{6.06V} \leftarrow \text{NG!}$$
+
+USBデバイスに6Vが印加される危険な値です。
+
+---
+
+**正しい R_TOP の計算:**
+
+$$R1 = \left(\frac{5}{0.6} - 1\right) \times 100k = 7.33 \times 100k = 733k\Omega \approx 732k\Omega$$
+
+| 設定 | R_TOP | R_BOT | VOUT |
+|------|-------|-------|------|
+| 現在（NG） | 910kΩ | 100kΩ | **6.06V** |
+| 正しい値 | **732kΩ** | 100kΩ | **4.99V ≈ 5V** ✓ |
+
+**KiCad で R9（TPS61023 #1）と対応する #2 の R_TOP を 910kΩ → 732kΩ に変更してください。**
+
+チェックシートも修正します。
+
+----------------------------------------
+
+[User]
+5.1Vくらいにしておきたくない？
+気持ち高めな方が安心な気がする
+
+----------------------------------------
+
+[Claude]
+理にかなってます。計算してみます。
+
+**VREF=0.6V, R_BOT=100kΩ で VOUT=5.1V:**
+
+$$R_{TOP} = \left(\frac{5.1}{0.6} - 1\right) \times 100k = 7.5 \times 100k = 750k\Omega$$
+
+$$V_{OUT} = 0.6 \times (1 + 7.5) = 0.6 \times 8.5 = 5.10V$$
+
+750kΩ はE96標準値なのでそのまま使えます。
+
+**VREF公差±2%での範囲確認:**
+- VREF max (0.612V): 0.612 × 8.5 = **5.20V** (USB spec 5.25V以内 ✓)
+- VREF min (0.588V): 0.588 × 8.5 = **5.00V** (4.75V以上 ✓)
+
+USB VBUS規格 (4.75〜5.25V) 内に収まるので問題ありません。
+
+| 設定 | R_TOP | VOUT |
+|------|-------|------|
+| 732kΩ (TI例) | 732kΩ | 4.99V |
+| **750kΩ (採用)** | **750kΩ** | **5.10V** ✓ |
+
+**KiCad で R_TOP を 910kΩ → 750kΩ に変更してください（#1・#2 両方）。**
+
+----------------------------------------
+
+[User]
+これkillスイッチって何Aくらい流れる？
+
+----------------------------------------
+
+[Claude]
+現在の設計（EN→GND方式）か、VSYS物理カット方式かで大きく違います。
+
+---
+
+**現在の設計: SW2 が EN ピンを GND に落とす方式**
+
+ENピンはCMOS論理入力。流れる電流はほぼ **0mA**（µAオーダー）。
+→ 安物のトグルスイッチで十分。
+
+---
+
+**VSYS物理カット方式にする場合**
+
+VSYS = 全システムの電流が通過：
+
+| 負荷 | 消費電力 | VSYS電流 (3.7V換算) |
+|------|---------|-------------------|
+| Cubie A7Z SBC | ~3〜5W | ~1.3A |
+| VL812 + 外部USB | ~2〜5W | ~0.5〜1.4A |
+| RP2040×2 + 音声 | ~1W | ~0.3A |
+| **合計** | **6〜11W** | **1.6〜3A** |
+| ピーク・余裕込み | — | **5A定格推奨** |
+
+→ 5A以上のパネルマウントスイッチが必要。発熱・接触抵抗も考慮が必要。
+
+---
+
+**どちらがいい？**
+
+| 方式 | メリット | デメリット |
+|------|---------|----------|
+| EN→GND | 小型スイッチでOK | BQ25895が通電し続ける |
+| VSYS物理カット | 完全遮断、電池保護 | 大電流スイッチが必要・サイズ大 |
+
+クラムシェル型ポータブルPCなら**VSYS物理カット**の方が安全で望ましいですが、スイッチの選定が重要になります。どちらを採用しますか？
+
+----------------------------------------
+
+[User]
+物理のほうが信頼性があるんだよなぁ
+
+----------------------------------------
+
+[Claude]
+同意です。EN経由だとBQ25895が生きてるし、ファームバグで止まらない場合のことを考えると物理が確実。
+
+**回路変更内容:**
+
+```
+現在: SW2 → EN ピンを GND に落とす（ほぼ0mA）
+変更: SW2 → VSYS ライン直列挿入（BQ25895 SYS出力の直後）
+```
+
+```
+[BAT] → [BQ25895] → SYS → [SW2] → VSYS → TPS61023 #1/#2, AP2112K
+                                  ↑
+                            ここに直列挿入
+```
+
+**起動シーケンス（変更後）:**
+1. SW2 ON → VSYS導通
+2. SW1 押す → EN HIGH → TPS61023起動
+3. RP2040が GP20 でEN維持 → 通常動作
+4. 緊急時: SW2 OFF → 即時全断
+
+**SW2 スイッチの選定条件:**
+- DC電流定格: **5A以上**
+- 電圧: 5V以下なので低くていい
+- ⚠️ AC定格だけで判断しない（DC動作は別途確認）
+- ラッチング（自己保持）タイプ
+
+**あわせてKiCad修正:**
+- power シート: SW2 を EN ノードから VSYS 直列に移動
+- usb_hub シート: SW4（#2用killスイッチ）削除 → VSYSカットで両方止まるから不要
+
+スイッチのJLCPCB部品番号も一緒に調べましょうか？
+
+----------------------------------------
+
+[User]
+いったん移動その他修正したわ
+
+----------------------------------------
+
+[Claude]
+お疲れ様です。修正内容の確認:
+
+**完了した修正:**
+- SW2: EN ノード → VSYS 直列
+- SW4 (usb_hub): 削除
+- R_TOP: 910kΩ → 750kΩ (5.1V設定)
+- BQ25895: C5(4.7nF→4.7µF), CE(3V3→GND), QON(GND→NC)
+
+TPS61023チェックシート、残りの確認事項はありますか？
+
+- **#2 (U3)** の各ピン（まだ未記入の欄）
+- Pin 6 (VOUT) → チェックシートの記述誤りとして記録済み
+
+問題なければ次は **03_AP2112K_checklist.txt** に進みましょう。AP2112Kは比較的シンプルなLDOなので速く終わるはずです。
+
+----------------------------------------
+
+[User]
+#2は#1のコピペだから
+
+----------------------------------------
+
+[Claude]
+了解です。#2は#1と同一回路なので確認済みとして扱えます。
+
+TPS61023チェックシート完了。次は **03_AP2112K_checklist.txt** を読みます。
+
+----------------------------------------
+
+[Claude]
+シンプルな内容ですね。確認お願いします。
+
+**AP2112K (U4) — 確認ポイント:**
+
+| Pin | 期待 | 確認 |
+|-----|------|------|
+| 1 GND | GND接続 | |
+| 2 VOUT | +3V3ネット + バイパスキャップ ≥1µF | |
+| 3 EN | VINに直結 or プルアップ（フローティングNG） | |
+| 4 NC | 未接続 | |
+| 5 VIN | 5V_SYSに接続 + バイパスキャップ ≥1µF | |
+
+一点だけ注意:
+
+**EN ピン（Pin 3）**: フローティングにするとリセットを繰り返す場合があります。`5V_SYS` または `VIN` に直結するか、10kΩ でプルアップしてください。現在どう接続されていますか？
+
+----------------------------------------
+
+[User]
+D:\Projects\PortaRe0\Claude\checklists\03_AP2112K_checklist.txt
+
+----------------------------------------
+
+[Claude]
+全項目 [ok] で問題なしです。
+
+一点だけ確認: バイパスキャップが VIN=1µF、VOUT=1µF とのことですが、AP2112Kデータシートでは最低1µFあれば動作するので問題ありません。余裕を持たせるなら4.7〜10µFが理想ですが、現状でも仕様内です。
+
+備考の「+3V3は未確認各ICセクションで確認」は後続チェックシートで順次確認されるので問題ありません。
+
+**AP2112K チェック完了。次は 04_VL812_checklist.txt へ。**
+
+VL812は最も重大な⚠️項目が集中しています：
+- LX ピン (Pin39) インダクタ接続
+- SSTX0+/− (Upstream TX) 接続
+- SSTX1+/−, SSTX2+/− (Downstream TX) 接続
+- W25Q32 IO2(WP#)/IO3(HOLD#) プルアップ
+
+回路図を見ながら04を確認してみてください。
+
+----------------------------------------
+
+[User]
+10µFにしとくわ
+VL812は過去に一回確認したけどもっかいね
+ただいったん今日はここまでで終了処理してほしい
+
+----------------------------------------
+
+[Claude]
+了解です。AP2112Kのキャップを10µFに更新してから終了処理します。
+
+----------------------------------------
+
+[Claude]
+更新完了。では終了処理を進めます。
+
+----------------------------------------
+

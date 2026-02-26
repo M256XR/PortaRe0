@@ -4,11 +4,15 @@
 **Phase 2: 回路設計 ← 進行中**
 
 ## 現在の作業箇所
-- KiCad `kicad/PortaRe0/` 全シート完成（power・usb_hub・keyboard・audio・connectors・hdmi_adapter・usb_adapter）
-- ERC実施・主要エラー対処完了（session22時点 / HP系のみ残存・想定内）
-- **次のタスク**:
-  1. イヤホンジャック型番・フットプリント確定
-  2. Phase 3: PCBレイアウト開始
+- IC設計レビュー（チェックシート照合）進行中（session24〜）
+  - チェックシート: `Claude/checklists/` に01〜10のtxtファイル作成済み
+  - 完了: 01_BQ25895 / 02_TPS61023 / 03_AP2112K
+  - **次のタスク**: 04_VL812（⚠️ 要注意項目多数: LX/SSTX0/SSTX1-2/W25Q32 IO2/IO3）
+- KiCad 修正済み（session24で実施）:
+  - BQ25895: C5(4.7nF→4.7µF) / CE(3V3→GND) / QON(GND→NC)
+  - TPS61023: R_TOP(910kΩ→750kΩ, 5.1V出力) / SW2をVSYS直列に移動 / usb_hubのSW4削除
+  - AP2112K: バイパスキャップ1µF→10µF
+- Phase 3 PCBレイアウト: チェックシート照合完了後に開始
 
 ---
 
@@ -115,6 +119,19 @@
 ---
 
 ## 直近の決定事項ログ
+
+### 2026-02-27（session24）
+- IC設計レビュー用チェックシート作成（`Claude/checklists/` 01〜10）
+- BQ25895 修正（KiCad済み）:
+  - C5: 4.7nF → **4.7µF**（REGN バイパス / 1000倍違いを修正）
+  - CE: 3V3 → **GND**（常時充電許可 / I2C制御で無効化可能）
+  - QON: GND → **NC**（内部プルアップでHIGH維持・GNDだとシップモードループ）
+- TPS61023 修正（KiCad済み）:
+  - VREF = 0.6V と判明（チェックシートの0.5Vは誤り）
+  - R_TOP: 910kΩ → **750kΩ**（VOUT = 5.1V / VREF=0.6V × (1+7.5) = 5.1V）
+  - SW2: ENピン制御 → **VSYS直列物理カット**（5A定格スイッチ必要）
+  - usb_hub シートの SW4（#2用キルスイッチ）削除（VSYS共通カットで両方止まる）
+- AP2112K: 全ピン問題なし / バイパスキャップ 1µF → **10µF**
 
 ### 2026-02-26（session23）
 - usb_adapterシート新設（hdmi_adapterと同じ方針）

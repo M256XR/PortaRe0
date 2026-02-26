@@ -4059,318 +4059,6 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Switch:SW_SPDT"
-			(pin_names
-				(offset 0)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "SW"
-				(at 0 5.08 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "SW_SPDT"
-				(at 0 -5.08 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "~"
-				(at 0 -7.62 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Switch, single pole double throw"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "switch single-pole double-throw spdt ON-ON"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "SW_SPDT_0_1"
-				(circle
-					(center -2.032 0)
-					(radius 0.4572)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -1.651 0.254) (xy 1.651 2.286)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 2.032 2.54)
-					(radius 0.4572)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 2.032 -2.54)
-					(radius 0.4572)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "SW_SPDT_1_1"
-				(rectangle
-					(start -3.175 3.81)
-					(end 3.175 -3.81)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-				(pin passive line
-					(at -5.08 0 0)
-					(length 2.54)
-					(name "B"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 5.08 2.54 180)
-					(length 2.54)
-					(name "A"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 5.08 -2.54 180)
-					(length 2.54)
-					(name "C"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "Switch:SW_SPST"
-			(pin_names
-				(offset 0)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "SW"
-				(at 0 3.175 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "SW_SPST"
-				(at 0 -2.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "~"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Single Pole Single Throw (SPST) switch"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "switch lever"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "SW_SPST_0_0"
-				(circle
-					(center -2.032 0)
-					(radius 0.508)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -1.524 0.254) (xy 1.524 1.778)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 2.032 0)
-					(radius 0.508)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "SW_SPST_1_1"
-				(pin passive line
-					(at -5.08 0 0)
-					(length 2.54)
-					(name "A"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 5.08 0 180)
-					(length 2.54)
-					(name "B"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 		(symbol "power:1V2_HUB"
 			(power)
 			(pin_numbers
@@ -5148,13 +4836,13 @@
 		(uuid "4effe0cc-4774-436b-b50f-01e5f53ce715")
 	)
 	(junction
-		(at 299.72 102.87)
+		(at 309.88 100.33)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "4fe1aac9-2d24-4828-b70c-c369a9b8b019")
 	)
 	(junction
-		(at 309.88 102.87)
+		(at 320.04 100.33)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "50168ec6-acda-47f7-9839-ac6358fab990")
@@ -5206,12 +4894,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "660b2df8-8b2d-495d-9d24-c7890bc13864")
-	)
-	(junction
-		(at 299.72 87.63)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "68f1cb3e-6c35-49ee-9084-36a42b4d27cd")
 	)
 	(junction
 		(at 158.75 91.44)
@@ -5516,10 +5198,6 @@
 		(uuid "9428a36b-55ff-480a-b7ee-f89ed9e5f9c6")
 	)
 	(no_connect
-		(at 326.39 105.41)
-		(uuid "ae74fd29-01a6-4777-b703-012b21c3f6f7")
-	)
-	(no_connect
 		(at 95.25 144.78)
 		(uuid "aea36e9e-4d9d-4ef5-8292-6234731f3ed2")
 	)
@@ -5603,7 +5281,7 @@
 	)
 	(wire
 		(pts
-			(xy 299.72 87.63) (xy 299.72 93.98)
+			(xy 299.72 78.74) (xy 299.72 93.98)
 		)
 		(stroke
 			(width 0)
@@ -6193,16 +5871,6 @@
 	)
 	(wire
 		(pts
-			(xy 287.02 87.63) (xy 289.56 87.63)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4de99bc0-295d-4df3-b162-547e87022bb7")
-	)
-	(wire
-		(pts
 			(xy 299.72 135.89) (xy 320.04 135.89)
 		)
 		(stroke
@@ -6403,7 +6071,7 @@
 	)
 	(wire
 		(pts
-			(xy 309.88 109.22) (xy 309.88 107.95)
+			(xy 320.04 106.68) (xy 320.04 105.41)
 		)
 		(stroke
 			(width 0)
@@ -6753,7 +6421,7 @@
 	)
 	(wire
 		(pts
-			(xy 299.72 102.87) (xy 309.88 102.87)
+			(xy 309.88 100.33) (xy 320.04 100.33)
 		)
 		(stroke
 			(width 0)
@@ -6833,7 +6501,7 @@
 	)
 	(wire
 		(pts
-			(xy 293.37 102.87) (xy 299.72 102.87)
+			(xy 303.53 100.33) (xy 309.88 100.33)
 		)
 		(stroke
 			(width 0)
@@ -6903,7 +6571,7 @@
 	)
 	(wire
 		(pts
-			(xy 299.72 109.22) (xy 299.72 107.95)
+			(xy 309.88 106.68) (xy 309.88 105.41)
 		)
 		(stroke
 			(width 0)
@@ -6933,7 +6601,7 @@
 	)
 	(wire
 		(pts
-			(xy 309.88 102.87) (xy 316.23 102.87)
+			(xy 320.04 100.33) (xy 326.39 100.33)
 		)
 		(stroke
 			(width 0)
@@ -7330,16 +6998,6 @@
 			(type default)
 		)
 		(uuid "d3ae7703-2a1b-46ba-a591-32b868b0220f")
-	)
-	(wire
-		(pts
-			(xy 299.72 78.74) (xy 299.72 87.63)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d4d3e0f9-841f-405f-9f27-babfc7309661")
 	)
 	(wire
 		(pts
@@ -12267,7 +11925,7 @@
 	)
 	(symbol
 		(lib_id "Device:C_Small")
-		(at 309.88 105.41 0)
+		(at 320.04 102.87 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -12275,7 +11933,7 @@
 		(dnp no)
 		(uuid "3c39b042-31eb-4c7e-80ba-51ff75b77d28")
 		(property "Reference" "C103"
-			(at 311.404 104.902 0)
+			(at 321.564 102.362 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12284,7 +11942,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 311.658 106.426 0)
+			(at 321.818 103.886 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12293,7 +11951,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 309.88 105.41 0)
+			(at 320.04 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12302,7 +11960,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 309.88 105.41 0)
+			(at 320.04 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12311,7 +11969,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
-			(at 309.88 105.41 0)
+			(at 320.04 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12559,7 +12217,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "910kΩ"
+		(property "Value" "750kΩ"
 			(at 319.532 89.916 0)
 			(effects
 				(font
@@ -13977,73 +13635,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Switch:SW_SPST")
-		(at 294.64 87.63 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "64239d52-a469-40dc-86db-247ff184fb34")
-		(property "Reference" "SW3"
-			(at 294.64 83.312 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "SW_START"
-			(at 294.64 84.836 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 294.64 87.63 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 294.64 87.63 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Single Pole Single Throw (SPST) switch"
-			(at 294.64 87.63 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "97756e8a-e48a-408f-bba5-08fb368d135e")
-		)
-		(pin "2"
-			(uuid "940f764b-6345-457e-a5cb-27aa9358d311")
-		)
-		(instances
-			(project "PortaRe0"
-				(path "/479aadc4-f9a0-4ec2-b000-6a17237038f1/8e76808d-de08-4fd1-9155-9dd498f0d9f9"
-					(reference "SW3")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:C_Small")
 		(at 35.56 172.72 0)
 		(unit 1)
@@ -14320,7 +13911,7 @@
 	)
 	(symbol
 		(lib_id "power:VSYS")
-		(at 293.37 102.87 90)
+		(at 303.53 100.33 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -14329,7 +13920,7 @@
 		(fields_autoplaced yes)
 		(uuid "6ae9121e-2ba7-4496-b2f0-fa9222a221ce")
 		(property "Reference" "#PWR0170"
-			(at 297.18 102.87 0)
+			(at 307.34 100.33 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14338,7 +13929,7 @@
 			)
 		)
 		(property "Value" "VSYS"
-			(at 289.56 102.8699 90)
+			(at 299.72 100.3299 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14347,7 +13938,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 293.37 102.87 0)
+			(at 303.53 100.33 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14356,7 +13947,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 293.37 102.87 0)
+			(at 303.53 100.33 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14365,7 +13956,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"VSYS\""
-			(at 293.37 102.87 0)
+			(at 303.53 100.33 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14729,7 +14320,7 @@
 	)
 	(symbol
 		(lib_id "power:GNDPWR")
-		(at 309.88 109.22 0)
+		(at 320.04 106.68 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -14737,7 +14328,7 @@
 		(dnp no)
 		(uuid "6f38e778-ccb9-46df-a3f6-d08a3d73afce")
 		(property "Reference" "#PWR0173"
-			(at 309.88 114.3 0)
+			(at 320.04 111.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14746,7 +14337,7 @@
 			)
 		)
 		(property "Value" "GNDPWR"
-			(at 309.88 112.268 0)
+			(at 320.04 109.728 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14754,7 +14345,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 309.88 110.49 0)
+			(at 320.04 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14763,7 +14354,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 309.88 110.49 0)
+			(at 320.04 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14772,7 +14363,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDPWR\" , global ground"
-			(at 309.88 109.22 0)
+			(at 320.04 106.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17487,7 +17078,7 @@
 	)
 	(symbol
 		(lib_id "Device:C_Small")
-		(at 299.72 105.41 0)
+		(at 309.88 102.87 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -17495,7 +17086,7 @@
 		(dnp no)
 		(uuid "a99f6edd-62ef-4eb7-90b3-ba3e0c41425a")
 		(property "Reference" "C102"
-			(at 301.244 104.902 0)
+			(at 311.404 102.362 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17504,7 +17095,7 @@
 			)
 		)
 		(property "Value" "10µF"
-			(at 301.498 106.426 0)
+			(at 311.658 103.886 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17513,7 +17104,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 299.72 105.41 0)
+			(at 309.88 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17522,7 +17113,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 299.72 105.41 0)
+			(at 309.88 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17531,7 +17122,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
-			(at 299.72 105.41 0)
+			(at 309.88 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18024,76 +17615,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Switch:SW_SPDT")
-		(at 321.31 102.87 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "b48d57d4-8398-4102-9f41-7678314529b7")
-		(property "Reference" "SW4"
-			(at 321.31 96.52 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "KillSW"
-			(at 321.31 98.044 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 321.31 102.87 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 321.31 110.49 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Switch, single pole double throw"
-			(at 321.31 102.87 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "16e4864b-a324-47fa-8197-ff1323ac350e")
-		)
-		(pin "1"
-			(uuid "c418d443-3684-46a2-945d-8781d25aae01")
-		)
-		(pin "3"
-			(uuid "3fa62bfb-18bb-472c-84af-7670e84dceeb")
-		)
-		(instances
-			(project "PortaRe0"
-				(path "/479aadc4-f9a0-4ec2-b000-6a17237038f1/8e76808d-de08-4fd1-9155-9dd498f0d9f9"
-					(reference "SW4")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:R_Small")
 		(at 184.15 147.32 270)
 		(unit 1)
@@ -18223,72 +17744,6 @@
 			(project "PortaRe0"
 				(path "/479aadc4-f9a0-4ec2-b000-6a17237038f1/8e76808d-de08-4fd1-9155-9dd498f0d9f9"
 					(reference "#PWR0196")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:VSYS")
-		(at 287.02 87.63 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "b8e1f033-517f-47b0-8b31-b2c4d33ca6be")
-		(property "Reference" "#PWR0153"
-			(at 290.83 87.63 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "VSYS"
-			(at 283.718 87.63 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 287.02 87.63 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 287.02 87.63 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"VSYS\""
-			(at 287.02 87.63 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "9898b92b-566a-46f8-91aa-698819461682")
-		)
-		(instances
-			(project "PortaRe0"
-				(path "/479aadc4-f9a0-4ec2-b000-6a17237038f1/8e76808d-de08-4fd1-9155-9dd498f0d9f9"
-					(reference "#PWR0153")
 					(unit 1)
 				)
 			)
@@ -20262,7 +19717,7 @@
 	)
 	(symbol
 		(lib_id "power:GNDPWR")
-		(at 299.72 109.22 0)
+		(at 309.88 106.68 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -20270,7 +19725,7 @@
 		(dnp no)
 		(uuid "e2e31f7a-7c8f-4f20-a41e-2d750014b86c")
 		(property "Reference" "#PWR0171"
-			(at 299.72 114.3 0)
+			(at 309.88 111.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20279,7 +19734,7 @@
 			)
 		)
 		(property "Value" "GNDPWR"
-			(at 299.72 112.268 0)
+			(at 309.88 109.728 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20287,7 +19742,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 299.72 110.49 0)
+			(at 309.88 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20296,7 +19751,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 299.72 110.49 0)
+			(at 309.88 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20305,7 +19760,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDPWR\" , global ground"
-			(at 299.72 109.22 0)
+			(at 309.88 106.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)

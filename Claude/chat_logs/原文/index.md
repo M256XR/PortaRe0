@@ -140,6 +140,14 @@
 - L300: SW_DET回路追加（SW1出力→10kΩ分圧→GP25 / 短押し=スリープ・長押し=シャットダウン）
 - L350: C5 100nF→4.7µF（REGN cap）・C6 4.7µF→10µF（PMID cap）・SYS cap +10µF
 
+### Session24 (2026-02-27) - 2026-02-26_Session24.txt
+- L1: セッション継続（コンテキスト圧縮後）・TPS61023 FB抵抗の検討
+- L30: TPS61023 VREF = 0.6V と判明（0.5Vは誤り） → R_TOP: 910kΩ → 750kΩ（5.1V出力）
+- L60: キルスイッチ: ENピン制御 → VSYS直列物理カット（5A定格スイッチ必要）
+- L80: KiCad修正完了（SW2移動 / usb_hub SW4削除 / R_TOP変更）
+- L90: BQ25895修正確認（C5/CE/QONはすでに修正済み）
+- L100: AP2112K チェック（全ok / バイパスキャップ1µF→10µF変更）
+
 ### Session23 (2026-02-26) - 2026-02-26_Session23.txt
 - L1: session23開始・git状態確認（kicad/PDF/ を .gitignore に追加）
 - L30: connectorsシートのJ_SBC_USB1/USB2がFPC分離点を持たない問題を指摘

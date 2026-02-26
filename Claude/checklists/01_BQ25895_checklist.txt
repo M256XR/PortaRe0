@@ -1,0 +1,183 @@
+================================================================================
+BQ25895RTWR 充電IC チェックシート
+データシート: https://www.ti.com/lit/ds/symlink/bq25895.pdf
+JLCPCB C番号: C80200
+パッケージ: QFN-24 (4mm × 4mm, 0.5mmピッチ)
+シート: power.kicad_sch / U1
+================================================================================
+
+■ 参考設計決定事項 (PROGRESS.md session15より):
+  - L1: SW → SYS 接続の NVDC トポロジー (L1接続変更 +BATT→SYS修正済み)
+  - C5: 100nF → 4.7µF (REGN bypass) に変更済み
+  - C6: 4.7µF → 10µF (PMID cap) に変更済み
+  - SYS cap: 10µF追加 (合計20µF / TI推奨値)
+  - TS: 分圧固定 (NTC不使用、温度センシング無効化)
+  - STAT LED: 330Ω + LED (アノード=3V3, カソード=STATピン)
+  - D1(STAT LED)極性修正済み
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PIN CHECK
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[ok] Pin 1 : VBUS
+    期待: J_USB_PWR の VBUS に接続
+          100nF + 1µF バイパスキャップ → AGND (ピン近傍に配置)
+    確認: ________
+
+[ok ] Pin 2 : D+ (USB_DP)
+    期待: J_USB_PWR の DP1/DP2 → BQ25895 D+ (BC1.2充電検出用)
+    確認: ________
+
+[ok ] Pin 3 : D- (USB_DM)
+    期待: J_USB_PWR の DN1/DN2 → BQ25895 D- (BC1.2充電検出用)
+    確認: ________
+
+[ok ] Pin 4 : STAT (充電ステータス、オープンドレイン出力)
+    期待: 3V3 → R3(330Ω) → LED_CHG(アノード) → LED_CHG(カソード) → STATピン
+          STAT は電流シンク (LOW=充電中で点灯)
+    注意: STATピン自体はオープンドレイン。外部プルアップは R3+LED で兼用。
+    確認: ________
+
+[? ] Pin 5 : SCL (I2C クロック)
+    期待: I2C_SCL ネット → RP2040 #1 GP17
+          4.7kΩ プルアップ → 3.3V (keyboard シートに配置)
+    確認: 10kΩでプルアップされている なおTIのデータシートのSystem Examplesは10kΩでプルアップ
+
+[? ] Pin 6 : SDA (I2C データ)
+    期待: I2C_SDA ネット → RP2040 #1 GP18
+          4.7kΩ プルアップ → 3.3V (keyboard シートに配置)
+    確認: 10kΩでプルアップされている なおTIのデータシートのSystem Examplesは10kΩでプルアップ
+
+[ok ] Pin 7 : INT (割り込み出力、オープンドレイン)
+    期待: BQ_INT ネット → RP2040 #1 GP19
+          10kΩ プルアップ → 3.3V
+    確認: ________
+
+[ok ] Pin 8 : OTG (OTG 有効化)
+    期待: OTG 未使用のため GND に接続 (またはNCで内部プルダウン)
+    注意: フローティングにしないこと
+    確認: ________
+
+⚠️ Pin 9 : CE (充電許可、アクティブLow)
+    エージェント解析結果: CE ピンが +3V3 に接続されている可能性
+    ・CE = HIGH (+3V3) の場合: ハードウェア充電は無効化される
+      → ただし I2C レジスタ (REG03 bit4=1) で充電 ON にすることは可能
+    ・CE = LOW (GND) の場合: 常時ハードウェア充電許可
+
+    どちらが意図か確認:
+    [〇 ] GND 接続 (常時充電許可、I2C での OFF 制御は可能)
+    [ ] +3V3 接続 (I2C での明示的な有効化が必要)
+    ⚠️ CE が 3V3 の場合: 起動時に I2C で充電を有効にするコードが必要
+    現在の接続: 3V3にプルアップされている TIのExamではHostにつながっているのみ
+    確認: ________
+
+[? ] Pin 10 : ILIM (入力電流制限設定)
+    期待: 抵抗 → AGND (入力電流上限設定用)
+          推奨値: 53.6kΩ (≈2A制限) または 40kΩ (≈2.5A制限)
+          BQ25895 ILIM式: I_ILIM_HW = 1660 / R_ILIM[kΩ] [mA]
+    現在の抵抗値: 270Ω  計算電流: ________
+    確認: Tiのexamは260Ω
+備考：TIのDescription
+Input current limit Input. ILIM pin sets the maximum input current and can be used to monitor input current
+ILIM pin sets the maximum input current limit by regulating the ILIM voltage at 0.8 V. A resistor is connected
+from ILIM pin to ground to set the maximum limit as IINMAX = KILIM/RILIM . The actual input current limit is the
+lower limit set by ILIM pin (when EN_ILIM bit is high) or IIINLIM register bits. Input current limit of less than 500
+mA is not support on ILIM pin.
+ILIM pin can also be used to monitor input current when the voltage is below 0.8V. The input current is
+proportional to the voltage on ILIM pin and can be calculated by IIN = (KILIM x VILIM) / (RILIM x 0.8)
+The ILIM pin function can be disabled when EN_ILIM bit is 0.
+
+
+[? ] Pin 11 : TS (温度センシング)
+    期待: 分圧固定で温度OK範囲を維持
+          推奨回路: REGN(4.5V) → 5.23kΩ → TS → 3kΩ → AGND
+          (V_TS ≈ 0.37×VREGN = 正常温度範囲内)
+          または REGN → 2kΩ → TS → 2kΩ → GND (V_TS = 0.5×VREGN)
+    現在の接続: 10kΩと10kΩの接続
+    注意: REGN を使う場合、REGNのバイパスキャップが先に決まること
+    確認: TIのexamは10kΩずつの分圧
+
+[? ] Pin 12 : QON (シップモード制御、アクティブLow)
+    期待: 10kΩ プルアップ → REGN または 3.3V (シップモード無効)
+          またはNCでもよい (内部プルアップあり)
+    確認: TiのexamはGNDに落ちている
+
+[ok ] Pin 13-14 : BAT (バッテリー接続)
+    期待: +BATT ネット → バッテリー正極 (J_BAT Pin1)
+          10µF バイパスキャップ → PGND
+    注意: 2本のピン両方が接続されていること
+    確認: 最大5Aが流れる部分なので複数pinに分けなくても大丈夫か
+
+[ok ] Pin 15-16 : SYS (システム出力)
+    期待: VSYS/5V_SYS ネット → TPS61023 #1/#2 の VIN
+          合計 20µF バイパスキャップ → PGND (TI推奨)
+    注意: 2本のピン両方が接続されていること
+          SYS ライン最大 5〜6A → PCB パターン極太必須
+    確認: 100nFのコンデンサーもついている
+
+[ok ] Pin 17-18 : PGND (パワーグランド)
+    期待: GNDPWR/PGND プレーンに接続
+          2本のピン両方が接続されていること
+    確認: ________
+
+[ok ] Pin 19-20 : SW (スイッチングノード)
+    期待: インダクタ L1 の一端に接続
+          L1 他端 → SYS (NVDC トポロジー)
+          L1 値: 2.2µH, 電流定格 ≥4A, DCR 低め推奨
+    注意: SW ノードには AC バイパスキャップ不要 (スイッチングノード!)
+    確認: ________
+
+[? ] Pin 21 : BTST (ブートストラップ)
+    期待: 100nF キャップ → SW (BTST と SW を 100nF で接続)
+    確認: TIのexamは47nF
+
+⚠️ Pin 22 : REGN (内部 LDO 出力 ≈4.5V)
+    期待: 4.7µF バイパスキャップ → GND のみ!
+    注意: REGN は BQ25895 内部の LDO 出力。外部電源(3.3V等)に接続してはいけない。
+          外部電源に接続するとデバイス破損の恐れがある。
+    ⚠️ 要確認: REGN が 3.3V や 5V 電源ネットに接続されていないこと!
+    ⚠️ 要確認: C5 の値が 4.7µF であること (4.7nF は NG)
+    現在の接続: 特に問題なし  C5値: 4.7nF
+    確認: コンデンサーの値が低すぎる修正必須
+
+[? ] Pin 23 : PMID (内部 MOSFET 中間ノード)
+    期待: 4.7µF バイパスキャップ → AGND
+    ⚠️ C6 が 10µF であること確認 (PROGRESS.md で 4.7µF→10µF に修正)
+    C6値: 10µF
+    確認: 10or4.7? TIのexamはOTGを使う影響か60µF
+
+[ok ] Pin 24 : DSEL (USB データ送受信方向選択)
+    期待: GND (標準 USB BC1.2 検出モード)
+          または REGN に接続 (CDP/DCP 優先モード)
+    確認: GNDに落ちている
+
+[ok ] EP (露出パッド)
+    期待: PGND (パワーグランド) に接続
+          サーマルビア推奨
+    確認: ________
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+バイパスキャップ まとめ確認
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[? ] VBUS バイパス: 100nF + 1µF → AGND   値: 10µF+100nF
+[ok ] PMID バイパス (C6): 10µF → AGND     値: ________
+[NG ] REGN バイパス (C5): 4.7µF → GND    値: 4.7nF ⚠️ 4.7nFは NG!
+[? ] SYS バイパス: 合計 20µF → PGND     値: 追加で100nF
+[? ] BAT バイパス: 10µF → PGND          値: 追加で100nF
+[ok ] BTST キャップ: 100nF (SW-BTST間)   値: ________
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+その他確認
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[? ] I2C_SCL/SDA プルアップ: 4.7kΩ → 3.3V (keyboard シートに配置か確認)
+[ok ] BQ_INT プルアップ: 10kΩ → 3.3V
+[ok ] STAT LED 接続方向: アノード側→3V3→R3(330Ω)、カソード→STATピン
+[? ] TS 分圧固定値: 正常温度範囲内に設定されているか
+    (V_TS / V_REGN が 0.19 〜 0.60 の範囲内であること)
+[ok ] J_BAT コネクタ: Pin1=+BATT, Pin2=GND (極性間違いは危険!)
+
+備考:
+________________________________________________________________________________
+________________________________________________________________________________
