@@ -76,7 +76,7 @@ Cubie A7Z SBCベースのクラムシェル型ポータブルPC（Cyberdeck）�
 |------|--------|
 | 回路図作成・PCBレイアウト | KiCad（手動） |
 | ライブラリ取得（easyeda2kicad） | Claude Code / ターミナル |
-| BOM更新・整合チェック | Claude Code |
+| BOM更新・整合チェック | 手動　Claude Code |
 | インダクタ値計算・電源計算 | Claude（チャット） |
 | データシート調査 | Claude（チャット）/ Gemini|
 | 筐体モデリング | Fusion 360 |
