@@ -6,12 +6,14 @@
 ## 現在の作業箇所
 - IC設計レビュー（チェックシート照合）進行中（session24〜）
   - チェックシート: `Claude/checklists/` に01〜10のtxtファイル作成済み
-  - 完了: 01_BQ25895 / 02_TPS61023 / 03_AP2112K
-  - **次のタスク**: 04_VL812（⚠️ 要注意項目多数: LX/SSTX0/SSTX1-2/W25Q32 IO2/IO3）
-- KiCad 修正済み（session24で実施）:
+  - 完了: 01_BQ25895 / 02_TPS61023 / 03_AP2112K / 04_VL812 / 05_RP2040_kbd / 06_RP2040_audio / 07_MAX98357A
+  - **次のタスク**: 08_PCM5102A → 09_TPA6132A2 → 10_TPS2042BDR_USBLC6
+- KiCad 修正済み（session24-25で実施）:
   - BQ25895: C5(4.7nF→4.7µF) / CE(3V3→GND) / QON(GND→NC)
   - TPS61023: R_TOP(910kΩ→750kΩ, 5.1V出力) / SW2をVSYS直列に移動 / usb_hubのSW4削除
   - AP2112K: バイパスキャップ1µF→10µF
+  - VL812: W25Q32 /CS GNDプルダウン→3V3_HUBプルアップ修正
+  - RP2040 #1/#2: クリスタルシンボル GND23→GND24 修正 / GP24・GP25接続追加
 - Phase 3 PCBレイアウト: チェックシート照合完了後に開始
 
 ---
@@ -132,6 +134,14 @@
   - SW2: ENピン制御 → **VSYS直列物理カット**（5A定格スイッチ必要）
   - usb_hub シートの SW4（#2用キルスイッチ）削除（VSYS共通カットで両方止まる）
 - AP2112K: 全ピン問題なし / バイパスキャップ 1µF → **10µF**
+
+### 2026-02-27（session25）
+- チェックシート照合 04〜07 完了
+  - 04_VL812: W25Q32 /CS GNDプルダウン→3V3_HUBプルアップ修正 / RESET# DragonBoard準拠確認 / LX 10µH確認 / SSTX 100nF ACカップリング正常
+  - 05_RP2040_kbd: クリスタルシンボル GND23→GND24修正 / GP24・GP25接続追加 / USB 27Ω外付け正しい（データシート「必須」と明記）/ 3DS VCC 3.3V OK確認
+  - 06_RP2040_audio: #1と同じ修正適用 / GPIO GP0〜GP6全OK
+  - 07_MAX98357A: SD_MODE回路正常確認（U9=直結=Left / U15=220kΩ直列=Right/RSMALL）/ GAIN_SLOT浮き=9dB OK
+- 3DSサークルパッド実物ピン配置確認: Pin1=GND / Pin2=X / Pin3=VCC(1.8V→3.3V使用) / Pin4=Y
 
 ### 2026-02-26（session23）
 - usb_adapterシート新設（hdmi_adapterと同じ方針）

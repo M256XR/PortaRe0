@@ -1,0 +1,889 @@
+# PortaRe0 Session25  2026-02-27
+# Source: 1c5b4635-854d-491d-9c21-a929bc7e3eb3.jsonl
+============================================================
+
+[User]
+/home/user/Projects/PortaRe0/Claude/Claude.md
+通りに進めて
+
+----------------------------------------
+
+[Claude]
+最新セッションログも確認します。
+
+----------------------------------------
+
+[Claude]
+現状把握できました。session24 開始です。
+
+---
+
+## 現在地（session23終了時点）
+
+**Phase 2: 回路設計 完了（ERC含む）**
+
+| シート | 状態 |
+|--------|------|
+| power | ✅ 完成 |
+| usb_hub | ✅ 完成 |
+| keyboard | ✅ 完成 |
+| audio | ✅ 完成 |
+| connectors | ✅ 完成 |
+| hdmi_adapter | ✅ 完成 |
+| usb_adapter | ✅ 完成 |
+| ERC | ✅ HP系のみ残存（想定内） |
+
+---
+
+## 次のタスク候補
+
+1. **BQ25895インダクタ C番号確定**（2.2µH / 3A以上 / DCR低め / JLCPCB在庫確認）
+2. **イヤホンジャック型番・フットプリント確定**
+3. **データシート照合**（各シート最終チェック）
+4. **Phase 3: PCBレイアウト開始**
+
+---
+
+今日はどこから進めますか？
+
+- BQ25895インダクタのJLCPCB在庫確認から始める？
+- イヤホンジャックを決める？
+- そのままPCBレイアウトに入る？
+
+----------------------------------------
+
+[User]
+gitでpullした？
+
+----------------------------------------
+
+[Claude]
+session24 があります。内容を確認します。
+
+----------------------------------------
+
+[Claude]
+session24のデータが来ました。現状を把握しました。
+
+---
+
+## 現在地（session24終了時点）
+
+**チェックシート照合 進行中**
+
+| チェックシート | 状態 |
+|----------------|------|
+| 01_BQ25895 | ✅ 完了・修正済み |
+| 02_TPS61023 | ✅ 完了・修正済み |
+| 03_AP2112K | ✅ 完了・修正済み |
+| 04_VL812 | ⚠️ **次 / 要注意項目多数** |
+| 05〜10 | 未着手 |
+
+**session24で実施した修正（KiCad）:**
+- BQ25895: C5(4.7nF→4.7µF) / CE→GND / QON→NC
+- TPS61023: R_TOP(910kΩ→750kΩ) / SW2をVSYS直列に移動 / usb_hub SW4削除
+- AP2112K: バイパスキャップ1µF→10µF
+
+---
+
+今日は **04_VL812チェックシート** から続きを始めますか？
+
+要注意項目として `LX / SSTX0 / SSTX1-2 / W25Q32 IO2/IO3` が挙がっています。チェックシートの中身を見てから確認しましょうか？
+
+----------------------------------------
+
+[User]
+/home/user/Projects/PortaRe0/Claude/checklists/04_VL812_checklist.txt
+
+----------------------------------------
+
+[Claude]
+チェックシートの内容を読みました。確認した項目と問題点を整理します。
+
+---
+
+## VL812 チェックシート 解析結果
+
+### 🔴 Critical（要修正）
+
+**W25Q32 `/CS` (Pin 1): GNDプルダウン → 誤り**
+
+```
+現在: /CS → 100kΩ → GND（常時 LOW = 常にSELECT状態）
+正解: /CS → 10kΩ → 3V3_HUB（アイドル時 HIGH = 非選択）
+```
+
+`/CS` はアクティブLow。GNDプルダウンだとSPIフラッシュが常時選択されてバスが衝突します。**3V3_HUBへのプルアップに修正必須。**
+
+---
+
+### 🟡 要確認
+
+**RESET# の「同時に100kでGNDに落ちている」**
+
+```
+期待: 10kΩ → 3V3_HUB（プルアップ）+ 1µF → GND（RC遅延）
+確認メモ: 「同時に100kでGNDに落ちている」
+```
+
+10kΩプルアップ＋100kΩプルダウン＋1µFなら定常電圧は約3.0Vになり動作はするが、意図的ですか？不要なら100kΩ→GNDは削除推奨。
+
+**LX インダクタ: 19µH**
+
+```
+現在: 19µH
+推奨: 10µH（DragonBoard実績値）
+```
+
+動作はするが最適ではありません。JLCPCB在庫で10µH品への変更を検討してください。
+
+---
+
+### ✅ OK（問題なし）
+
+**SSTX0/1/2の `100nF → TX`**
+
+USB 3.0 SuperSpeed差動ペアにはAC結合キャップ（75〜220nF）が必須です。100nFはUSB 3.0規格に準拠しており **正しい接続**です。
+
+---
+
+## まとめ
+
+| 項目 | 状態 | アクション |
+|------|------|-----------|
+| W25Q32 /CS | 🔴 NG | GND→3V3_HUBプルアップに修正 |
+| RESET# 100kΩ→GND | 🟡 要確認 | 意図的？なら回路図を再確認 |
+| LX インダクタ 19µH | 🟡 推奨外 | 10µHへ変更推奨 |
+| SSTX 100nF AC結合 | ✅ OK | 問題なし |
+
+---
+
+まず `/CS` の修正から進めてください。KiCadで W25Q32 の /CS ピンに繋がっているプルダウン抵抗を削除 → 10kΩ → 3V3_HUB に付け直す形です。
+
+----------------------------------------
+
+[User]
+3.9 Chip Select (/CS)
+The SPI Chip Select (/CS) pin enables and disables device operation. When /CS is high the device is
+deselected and the Serial Data Output (DO, or IO0, IO1, IO2, IO3) pins are at high impedance. When
+deselected, the devices power consumption will be at standby levels unless an internal erase, program or
+write status register cycle is in progress. When /CS is brought low the device will be selected, power
+consumption will increase to active levels and instructions can be written to and data read from the device.
+After power-up, /CS must transition from high to low before a new instruction will be accepted. The /CS
+input must track the VCC supply level at power-up and power-down (see “Write Protection” and Figure 58).
+If needed a pull-up resister on the /CS pin can be used to accomplish this.
+3.10 Serial Data Input, Output and IOs (DI, DO and IO0, IO1, IO2, IO3)
+The W25Q32JV supports standard SPI, Dual SPI and Quad SPI operation. Standard SPI instructions use
+the unidirectional DI (input) pin to serially write instructions, addresses or data to the device on the rising
+edge of the Serial Clock (CLK) input pin. Standard SPI also uses the unidirectional DO (output) to read data
+or status from the device on the falling edge of CLK.
+Dual and Quad SPI instructions use the bidirectional IO pins to serially write instructions, addresses or data
+to the device on the rising edge of CLK and read data or status from the device on the falling edge of CLK.
+Quad SPI instructions require the non-volatile Quad Enable bit (QE) in Status Register-2 to be set. When
+QE=1, the /WP pin becomes IO2 and the /HOLD pin becomes IO3.
+3.11 Write Protect (/WP)
+The Write Protect (/WP) pin can be used to prevent the Status Register from being written. Used in
+conjunction with the Status Register’s Block Protect (CMP, SEC, TB, BP2, BP1 and BP0) bits and Status
+Register Protect (SRP) bits, a portion as small as a 4KB sector or the entire memory array can be hardware
+protected. The /WP pin is active low.
+3.12 HOLD (/HOLD)
+The /HOLD pin allows the device to be paused while it is actively selected. When /HOLD is brought low,
+while /CS is low, the DO pin will be at high impedance and signals on the DI and CLK pins will be ignored
+(don’t care). When /HOLD is brought high, device operation can resume. The /HOLD function can be useful
+when multiple devices are sharing the same SPI signals. The /HOLD pin is active low. When the QE bit of
+Status Register-2 is set for Quad I/O, the /HOLD pin function is not available since this pin is used for IO3.
+See Figure 1a-c for the pin configuration of Quad I/O operation.
+3.13 Serial Clock (CLK)
+The SPI Serial Clock Input (CLK) pin provides the timing for serial input and output operations. ("See SPI
+Operations")
+3.14 Reset (/RESET)(1)
+A dedicated hardware /RESET pin is available on SOIC-16 and TFBGA packages. When it’s driven low for
+a minimum period of ~1µS, this device will terminate any external or internal operations and return to its
+power-on state.
+
+----------------------------------------
+
+[Claude]
+データシートの内容で確認できました。
+
+---
+
+## データシートによる確認結果
+
+### /CS ピン → **修正必須（変更なし）**
+
+> *"If needed a pull-up resistor on the /CS pin can be used to accomplish this."*
+> *"/CS must transition from high to low before a new instruction will be accepted."*
+
+電源投入時に /CS が HIGH（非選択）を保つためにプルアップが推奨されています。現在の **GNDプルダウンは誤り**で、**10kΩ → 3V3_HUB** への修正が必要です。
+
+---
+
+### IO2 (/WP) / IO3 (/HOLD) → **OK（問題なし確認）**
+
+> *"When QE=1, the /WP pin becomes IO2 and the /HOLD pin becomes IO3."*
+
+VL812はQuad SPIではなく**Standard SPI**でフラッシュを使用するので QE=0。
+- IO2 = /WP（アクティブLow）→ HIGH固定（10kΩ→3V3_HUB）✅ 書き込み保護 無効
+- IO3 = /HOLD（アクティブLow）→ HIGH固定（10kΩ→3V3_HUB）✅ 通常動作
+
+この2本は現在の接続で正しいです。
+
+---
+
+## まとめ（W25Q32 修正箇所）
+
+| ピン | 現在 | 修正後 |
+|------|------|--------|
+| /CS (Pin 1) | 10kΩ → GND | 10kΩ → 3V3_HUB |
+| IO2 /WP (Pin 3) | 10kΩ → 3V3 | そのままでOK |
+| IO3 /HOLD (Pin 7) | 10kΩ → 3V3 | そのままでOK |
+
+KiCadで /CS のプルダウン抵抗を 3V3_HUB 側に繋ぎ直してください。
+
+----------------------------------------
+
+[User]
+なおしたんよん
+
+----------------------------------------
+
+[Claude]
+了解です。残り2点確認しましょう。
+
+---
+
+**① RESET# ピン**
+
+チェックシートに「同時に100kでGNDに落ちている」とありましたが、回路図の実際の構成を教えてください。
+
+期待値は：
+```
+3V3_HUB → 100kΩ → RESET# → 1µF → GND
+```
+GNDへの100kΩは意図的なものでしたか？
+
+---
+
+**② LX インダクタ（19µH）**
+
+現在19µH、DragonBoard実績値は10µHです。動作はしますが、VL812内部DC-DCの設計値から外れています。
+
+JLCPCB在庫で10µH品に変更しますか？それとも19µHのまま進みますか？
+
+----------------------------------------
+
+[User]
+19μHはうち間違えホントは10
+ResetはDragonは一応そうなってる
+
+----------------------------------------
+
+[Claude]
+了解です。
+
+- LX: 10µH ✅（チェックシートの記入ミス）
+- RESET#: DragonBoard準拠 ✅（意図的な構成）
+
+**VL812チェックシート 完了です。**
+
+---
+
+次は `05_RP2040_keyboard_checklist.txt` に進みますか？
+
+----------------------------------------
+
+[User]
+おけい
+
+----------------------------------------
+
+[Claude]
+チェックシート内容を確認しました。重要な指摘事項をまとめます。
+
+---
+
+## RP2040 #1 チェックシート 注意点
+
+### 🔴 要検討（USB直列抵抗）
+
+```
+RP2040 内部に 27Ω 直列抵抗 内蔵済み
++ 外部 R27/R28 = 27Ω を追加
+= 合計 ≈ 54Ω → USB 規格(45Ω)超過
+```
+
+**Raspberry Pi Pico の公式回路図では外部抵抗なし。**
+
+現状 R27/R28 の値はどうなっていますか？27Ωなら削除推奨です。
+
+---
+
+### 確認が必要な主要項目
+
+ユーザー側で KiCad を見ながら確認してほしい項目：
+
+| 項目 | 確認ポイント |
+|------|------------|
+| QSPI W25Q32 /CS | 10kΩ → 3.3V プルアップ（VL812側と同じ問題がないか） |
+| RUN ピン | 10kΩ → 3.3V プルアップ |
+| TESTEN | GND接続 |
+| SW_DET (GP25) | VSYS → 10kΩ → 10kΩ → GND の分圧確認 |
+| GPIO割り当て | Claude.md仕様と回路図が一致しているか |
+| ダイオード向き | カソード → COL側 |
+
+---
+
+まずUSB直列抵抗（R27/R28）の現状を教えてください。
+
+----------------------------------------
+
+[User]
+/home/user/Projects/PortaRe0/Claude/checklists/05_RP2040_keyboard_checklist.txt
+
+----------------------------------------
+
+[Claude]
+更新後のチェックシートを確認しました。未解決の問題を整理します。
+
+---
+
+## 要対応項目
+
+### 🔴 修正必須
+
+**GP24 (USB_VBUS_EN): 未修正**
+TPS61023 #2 の ENピンに接続が必要です。power シートで追加してください。
+
+**GP25 (SW_DET): 未接続**
+電源ボタン検出の分圧回路（VSYS → 10kΩ → 10kΩ → GND）とGP25の接続が抜けています。
+
+---
+
+### 🟡 要確認
+
+**3DSスティック ピン配列**
+
+チェックシートに「gnd x 3v3 yになっているはず」とありますが…
+
+```
+期待値:  Pin1=VCC(3V3) / Pin2=X / Pin3=Y / Pin4=GND
+現状?:   Pin1=GND     / Pin2=X / Pin3=3V3/ Pin4=Y
+```
+
+もし現状が「Pin1=GND, Pin3=3V3」なら、3V3にGNDが繋がって**ショート**します。実際の3DSスライドパッドの実物FPCで Pin1 が何かを確認してください。
+
+**USB R27/R28 = 27Ω**
+前述の通り、RP2040内蔵27Ω + 外部27Ω = 54Ω で USB規格超過。**削除推奨**です。
+
+**クリスタルシンボル**
+「シンボルが間違っている可能性あり」とのこと。何のシンボルが使われていますか？VL812用と同様に `Crystal_GND24_Small`（4端子）にすべきか確認してください。
+
+---
+
+### 後回しOK
+
+- LED C番号（緑・橙）: PCBレイアウト前に確定
+- I2C プルアップ: powerシート確認時に合わせて確認
+
+---
+
+まず **3DSスティックのピン配列** と **GP24/GP25の未接続** から対応しましょうか？
+
+----------------------------------------
+
+[User]
+P11 - 4pin - Circle Pad (analog joystick)
+  1  GND
+  2  TP69  Circle Pad X (0.2V=Left, 1.5V=Right)
+  3  TP5   Supply 1.8V
+  4  TP68  Circle Pad Y (0.2V=Down, 1.5V=Up)
+
+https://problemkaputt.de/gbatek-3ds-connector-pinouts.htmより
+
+----------------------------------------
+
+[Claude]
+確認できました。2つのことがわかります。
+
+---
+
+## 3DSサークルパッド 確認結果
+
+### ✅ ピン順は正しい
+
+| ピン | 実物 | 回路図 |
+|-----|------|--------|
+| Pin 1 | GND | GND | ✅ |
+| Pin 2 | X軸 | STICK_X | ✅ |
+| Pin 3 | VCC | 3V3 | ⚠️ |
+| Pin 4 | Y軸 | STICK_Y | ✅ |
+
+ピン順は合っています。
+
+---
+
+### 🔴 電圧が違う: 1.8V 品を 3.3V で駆動
+
+実物の供給電圧は **1.8V** です。現在の回路図は **3.3V** を繋いでいます。
+
+影響：
+- アナログ出力レンジが変わる（0.2〜1.5V → 約0.37〜2.75V に拡大）
+- 内部回路が1.8V設計なら故障リスクあり
+
+---
+
+## 対応案
+
+**A: 1.8V LDO を追加する（安全）**
+AP2112K の 1.8V バージョン（C2481）などを1個追加。確実に安全。
+
+**B: 3.3V のまま使う（シンプル）**
+サークルパッドは抵抗分圧式なので実際には3.3Vで動作する報告が多い。ソフトウェアでキャリブレーションすれば使える。リスクは自己責任。
+
+**C: 分圧で1.8Vを生成（折衷案）**
+3.3V → 抵抗分圧 → 1.8V。精度は落ちるが部品追加なし。ただしアナログ電源に分圧は非推奨。
+
+---
+
+どの対応を選びますか？他のRP2040プロジェクトでも3.3Vで普通に使っているケースが多いので、**B（3.3Vのまま）** が現実的かとは思います。
+
+----------------------------------------
+
+[User]
+3.3vで動くんじゃね？
+
+----------------------------------------
+
+[Claude]
+それで問題ないと思います。抵抗分圧式なので3.3Vで動作します。出力レンジが少し広くなる（〜2.75V）だけで、RP2040のADCは3.3Vフルレンジなので余裕で読めます。ソフトでキャリブレーションすればOK。
+
+**3DS VCC = 3.3V で確定。**
+
+---
+
+残りの未対応項目に戻ります：
+
+| 項目 | アクション |
+|------|-----------|
+| GP24 (USB_VBUS_EN) | powerシートでTPS61023 #2 ENに接続 |
+| GP25 (SW_DET) | 分圧回路（VSYS→10kΩ→10kΩ→GND）とGP25を接続 |
+| USB R27/R28 (27Ω) | 削除推奨（RP2040内蔵27Ω+外部27Ω=54Ω問題） |
+| クリスタルシンボル | 使用シンボル確認 |
+
+GP24とGP25はkeyboardシートの話ですか？それともpowerシートで対処済みのはず？
+
+----------------------------------------
+
+[User]
+キーボードシートのRP2040に追加し忘れてたもう追加したけど
+
+----------------------------------------
+
+[Claude]
+了解です。
+
+残り2点：
+
+**① USB R27/R28 (27Ω) → 削除しますか？**
+RP2040内蔵27Ω + 外部27Ω = 54Ωで規格超過なので削除推奨です。
+
+**② クリスタルシンボル**
+「シンボルが間違っている可能性あり」とメモがありますが、今使っているシンボルは何ですか？
+
+----------------------------------------
+
+[User]
+RP2040のデータシートのこの部分のことかな？
+USB_DM and
+USB_DP
+USB controller, supporting Full Speed device and Full/Low Speed host. A 27Ω series termination
+resistor is required on each pin, but bus pull-ups and pull-downs are provided internally.
+
+----------------------------------------
+
+[Claude]
+それです。データシートを読むと明確に：
+
+> **"A 27Ω series termination resistor is required on each pin"**
+
+RP2040は **外部27Ω が必須** と明記されています。内蔵しているのはプルアップ/プルダウンだけで、直列終端抵抗は外付け必要です。
+
+**R27/R28 = 27Ω → 正しい。削除不要。**
+
+チェックシートの「削除した方が安全かも」というメモが誤りでした。そのままで問題ありません。
+
+---
+
+残りはクリスタルシンボルの確認だけです。KiCadで今使っているシンボルを教えてください。
+
+----------------------------------------
+
+[User]
+Crystal:Crystal_SMD_3225-4Pin_3.2x2.5mm
+なんだけどpinが1,2,4しか無い(2がGND)
+
+----------------------------------------
+
+[Claude]
+それが問題です。4ピン水晶のピン配置は：
+
+```
+Pin 1: XTAL1 → XIN (RP2040)
+Pin 2: GND (ケース)
+Pin 3: XTAL2 → XOUT (RP2040)  ← これが抜けてる！
+Pin 4: GND (ケース)
+```
+
+**Pin 3 が無いということは XOUT が繋がっていない可能性があります。**
+
+---
+
+VL812の水晶（Y1）はsession12で `Device:Crystal_GND24_Small`（4端子）に変更済みです。RP2040の水晶（Y2）も同じシンボルに変えてください。
+
+KiCad操作手順：
+1. Y2のシンボルを右クリック → 「シンボルを変更」
+2. `Device:Crystal_GND24_Small` を選択
+3. Pin 1 → XIN、Pin 3 → XOUT、Pin 2/4 → GND に配線し直す
+
+----------------------------------------
+
+[User]
+違うわシンボル名はDevice:Crystal_GND23_Small
+さっきのはフットプリントだった
+
+----------------------------------------
+
+[Claude]
+なるほど、`Device:Crystal_GND23_Small` ですね。
+
+整理すると：
+
+| シンボル | 水晶ピン | GNDピン |
+|---------|---------|---------|
+| `Crystal_GND24_Small` | Pin 1, **3** | Pin 2, **4** |
+| `Crystal_GND23_Small` | Pin 1, **4** | Pin **2, 3** |
+
+Pin 3が見えないのは**非表示のGNDピン**なので正常です。
+
+ただし、VL812の水晶Y1は `Crystal_GND24_Small`（session12で変更済み）を使っています。どちらが正しいかは**X322512MOBのデータシート**次第です。
+
+easyeda2kicadで取得したC70565のフットプリントで、Pad 1とPad 3が水晶端子 → `GND24`、Pad 1とPad 4が水晶端子 → `GND23` です。
+
+KiCadでC70565のフットプリントのPad番号を確認してもらえますか？
+
+----------------------------------------
+
+[User]
+今使ってる水晶の名前それぞれ教えて
+
+----------------------------------------
+
+[Claude]
+- **RP2040用（Y2）**: X322512MOB4SI（C70565 / 12MHz）
+- **VL812用（Y1）**: X322525MOB4SI（C9006 / 25MHz）
+
+----------------------------------------
+
+[User]
+X322512MOB4SIは2,4がGNDっぽい
+X322525MOB4SIも同じだわ
+
+----------------------------------------
+
+[Claude]
+それは問題です。
+
+両方とも **Pin 1, 3 が水晶端子 / Pin 2, 4 が GND** → `Crystal_GND24_Small` が正しいです。
+
+Y2（RP2040用）が現在 `Crystal_GND23_Small`（Pin 1,4 = 水晶 / Pin 2,3 = GND）になっているため：
+
+```
+Pin 3（本来XOUT）→ シンボル上は隠れGND → GNDに落ちている ❌
+Pin 4（本来GND）→ シンボル上は水晶端子 → XOUTに接続されている ❌
+```
+
+**XOUTとGNDが入れ替わっています。** Y1と同じく `Device:Crystal_GND24_Small` に変更してください。
+
+----------------------------------------
+
+[User]
+修正したなう
+
+----------------------------------------
+
+[Claude]
+ナイスです。
+
+RP2040 #1 チェックシートで発見した修正まとめ：
+
+| 修正内容 | 状態 |
+|---------|------|
+| GP24/GP25 追加 | ✅ |
+| W25Q32 /CS プルアップ（VL812側） | ✅ |
+| Y2 シンボル GND23→GND24 | ✅ |
+| USB R27/R28 27Ω | そのままでOK |
+
+**05_RP2040_keyboard 完了です。**
+
+次は `06_RP2040_audio_checklist.txt` に進みますか？
+
+----------------------------------------
+
+[User]
+audioのRP2040はKeyboardの2040のコピーだから同じ問題があるはず修正するわ
+
+----------------------------------------
+
+[Claude]
+了解です。同じコピー元なら同じ問題（クリスタルGND23→GND24、W25Q32 /CSプルアップ確認）が発生しているはずなので、まとめて直してしまってください。
+
+修正終わったら06のオーディオ固有部分（I2S接続・MAX98357A・PCM5102A・TPA6132A2）を一緒に確認しましょう。
+
+----------------------------------------
+
+[User]
+おｋチェックシート埋めてくわ
+
+----------------------------------------
+
+[Claude]
+了解です。チェック中に不明点があれば聞いてください。
+
+先に読んでおきます。
+
+----------------------------------------
+
+[Claude]
+読みました。RP2040 #2 は #1 と同構成なので確認項目はシンプルです。
+
+1点だけ：チェックシートの「USB外部27Ω」の⚠️メモは**古い情報**です。データシートで「必須」と確認済みなので、27Ωがあれば正しいです。
+
+GPIO GP0〜GP6の割り当てと、ICSのI2S接続が主な確認ポイントです。埋め終わったら教えてください。
+
+----------------------------------------
+
+[User]
+/home/user/Projects/PortaRe0/Claude/checklists/06_RP2040_audio_checklist.txt
+
+----------------------------------------
+
+[Claude]
+確認しました。
+
+- GPIO GP0〜GP6: ✅ 全OK
+- 電源デカップリング: ✅
+- クリスタル: ✅ 修正済み
+- USB/RUN/TESTEN: #1と同じで確認済み
+
+**06_RP2040_audio 完了です。**
+
+次は `07_MAX98357A_checklist.txt`（スピーカーアンプ）に進みますか？
+
+----------------------------------------
+
+[User]
+一旦ここまでで保存的なことして
+
+----------------------------------------
+
+[Claude]
+プッシュまで完了です。
+
+**今日の修正まとめ（session25）:**
+- VL812: W25Q32 /CS プルアップ修正
+- RP2040 #1/#2: クリスタルシンボル GND23→GND24 修正
+- RP2040 #1: GP24/GP25 接続追加
+- チェックシート 04/05/06 完了
+
+続きは07（MAX98357A）からです。
+
+----------------------------------------
+
+[User]
+ほな続きやリマヒョ
+
+----------------------------------------
+
+[Claude]
+読みました。MAX98357Aの特に重要な確認ポイントをまとめます。
+
+---
+
+## 07_MAX98357A チェックポイント
+
+### ⚠️ 特に注意して確認してほしい項目
+
+**① VDD は 5V_SYS か？**
+MAX98357Aは2.5〜5.5V対応です。3.3Vでも動きますが出力パワーが落ちます。5V_SYSに繋がっているか確認を。
+
+**② U9 の SD_MODE ピン**
+```
+期待: GP3 → SD_MODE ネット → A1 直結（直列抵抗なし）
+      フローティングに近い状態 = Left ch 出力
+```
+
+**③ U15 の R35（220kΩ）の接続先**
+```
+期待: GP3 → SD_MODE ネット → R35(220kΩ) → U15 A1(SD_MODE)
+     ↑ここが GAIN_SLOT(B2) ではなく SD_MODE(A1) に付いているか確認
+```
+
+**④ GAIN_SLOT（U9/U15 B2）の設定**
+フローティング=9dB、GND直結=3dB、VDD直結=12dB。現状何に繋がっていますか？
+
+---
+
+KiCadで確認しながらチェックシートを埋めてください。
+
+----------------------------------------
+
+[User]
+/home/user/Projects/PortaRe0/Claude/checklists/07_MAX98357A_checklist.txt
+
+----------------------------------------
+
+[Claude]
+確認しました。問題点をまとめます。
+
+---
+
+## MAX98357A 確認結果
+
+### ✅ OK
+
+- VDD = 5V_SYS ✅
+- I2S接続（BCLK/LRCLK/DIN）✅
+- OUTP/OUTN スピーカー接続 ✅
+- バイパスキャップ ✅
+
+### 🟡 GAIN_SLOT 未接続（両U9/U15）
+
+フローティング = **9dB ゲイン / スロット0** となります。小型スピーカーには適切な値なので意図的であれば問題なしです。
+
+### ⚠️ SD_MODE 動作の確認が必要
+
+**U9（Left）**: GP3 → SD_MODE直結
+```
+GP3 = Low  → 0V → シャットダウン ✅
+GP3 = Hi-Z → フローティング → Left ch ✅
+GP3 = High → 3.3V (VDDの66%) → Right chの可能性あり ⚠️
+```
+
+**U15（Right）**: GP3 → 220kΩ → SD_MODE
+MOSFET gate（高インピーダンス）に220kΩ直列のため、電圧はGP3とほぼ同じになります。**U9とU15でSD_MODE電圧に差が出ないため、L/Rチャンネル分離できない可能性があります。**
+
+正しいRight ch設定は一般的に **SD_MODE → 220kΩ → GND**（SDMODEからGNDへ）です。GP3から直列ではなく、SD_MODEピンからGNDへのプルダウンが正しい配線です。
+
+---
+
+**R35（220kΩ）の接続先を確認してください：**
+- 現在：GP3 → R35 → SD_MODE（直列）
+- 正解：SD_MODE → R35 → GND（プルダウン）
+
+どちらになっていますか？
+
+----------------------------------------
+
+[User]
+SD_MODE
+Shutdown and Channel Select. Pull SD_MODE low to place the device in shutdown. In I2S
+or LJ mode, SD_MODE selects the data channel (Table 5). In TDM mode, SD_MODE and
+GAIN_SLOT are both used for channel selection (Table 7).
+
+Gain_SLOT
+Gain and Channel Selection. In I2S and LJ mode determines amplifier output gain (Table 8)
+In TDM mode, used for channel selectiGain and Channel Selection. In I2S and LJ mode determines amplifier output gain (Table 8)
+In TDM mode, used for channel selection with SD_MODE (Table 7). In TDM mode, gain is
+fixed at 12dB.on with SD_MODE (Table 7). In TDM mode, gain is
+fixed at 12dB.
+
+Table5
+SD_MODE STATUS SELECTED CHANNEL
+High VSD_MODE > B2 trip point Left
+Pullup through RSMALL B2 trip point > VSD_MODE > B1 trip point Right
+Pullup through RLARGE B1 trip point > VSD_MODE > B0 trip point (Left/2 + right/2)
+Low B0 trip point > VSD_MODE Shutdown
+
+Table7
+SD_MODE GAIN_SLOT CHANNEL BITS
+Low X Off N/A
+VDD GND 0 16/32
+VDD VDD with 0Ω 1 16/32
+VDD Float 2 16/32
+VDD VDD with 100kΩ 3 16/32
+VDD GND with 100kΩ 4 16/32
+VDD through RLARGE GND 5 16/32
+VDD through RLARGE Float 6 16/32
+VDD through RLARGE VDD 7 16/32
+
+----------------------------------------
+
+[Claude]
+データシートで確認できました。
+
+**Table 5（I2Sモード）の解釈：**
+
+| SD_MODE状態 | チャンネル |
+|------------|----------|
+| High（直結） | Left ✅ |
+| RSMALLで引き上げ | Right ✅ |
+| RLARGEで引き上げ | Mono（L/2+R/2） |
+| Low | Shutdown |
+
+---
+
+## 現在の回路は正しい
+
+- **U9（Left）**: GP3 → SD_MODE 直結 → GP3 High = Left、GP3 Low = Shutdown ✅
+- **U15（Right）**: GP3 → 220kΩ → SD_MODE → 内部プルダウンとの分圧でRight範囲の電圧 ✅
+
+220kΩがRSMALLの役割を果たしています。私の前回の指摘は誤りでした。
+
+**GAIN_SLOT 未接続（フローティング）= 9dB** もI2Sモードでは正常動作です（Table 8）。
+
+---
+
+**07_MAX98357A チェックシート 完了です。修正不要。**
+
+次は `08_PCM5102A_checklist.txt` に進みますか？
+
+----------------------------------------
+
+[User]
+<local-command-caveat>Caveat: The messages below were generated by the user while running local commands. DO NOT respond to these messages or otherwise consider them in your response unless the user explicitly asks you to.</local-command-caveat>
+
+----------------------------------------
+
+[User]
+<command-name>/context</command-name>
+            <command-message>context</command-message>
+            <command-args></command-args>
+
+----------------------------------------
+
+[User]
+<local-command-stdout> [1mContext Usage[22m
+[38;2;136;136;136m⛁ ⛁ [38;2;153;153;153m⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ [39m  [38;2;153;153;153mclaude-sonnet-4-6 · 103k/200k tokens (52%)[39m
+[38;2;153;153;153m⛁ [38;2;215;119;87m⛀ [38;2;255;193;7m⛀ [38;2;147;51;234m⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ [39m
+[38;2;147;51;234m⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ [39m  [38;2;153;153;153m[3mEstimated usage by category[23m[39m
+[38;2;147;51;234m⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ [39m  [38;2;136;136;136m⛁[39m System prompt: [38;2;153;153;153m3.5k tokens (1.7%)[39m
+[38;2;147;51;234m⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ [39m  [38;2;153;153;153m⛁[39m System tools: [38;2;153;153;153m17.4k tokens (8.7%)[39m
+[38;2;147;51;234m⛁ ⛁ ⛁ ⛁ ⛁ [38;2;153;153;153m⛶ ⛶ ⛶ ⛶ ⛶ [39m  [38;2;215;119;87m⛁[39m Memory files: [38;2;153;153;153m1.3k tokens (0.6%)[39m
+[38;2;153;153;153m⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ [39m  [38;2;255;193;7m⛁[39m Skills: [38;2;153;153;153m61 tokens (0.0%)[39m
+[38;2;153;153;153m⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ [39m  [38;2;147;51;234m⛁[39m Messages: [38;2;153;153;153m84.6k tokens (42.3%)[39m
+[38;2;153;153;153m⛶ ⛶ ⛶ ⛝ ⛝ ⛝ ⛝ ⛝ ⛝ ⛝ [39m  [38;2;153;153;153m⛶[39m Free space: [38;2;153;153;153m60k (30.1%)[39m
+[38;2;153;153;153m⛝ ⛝ ⛝ ⛝ ⛝ ⛝ ⛝ ⛝ ⛝ ⛝ [39m  [38;2;153;153;153m⛝ Autocompact buffer: 33k tokens (16.5%)[39m
+
+[1mMemory files[22m[38;2;153;153;153m · /memory[39m
+└ ~/.claude/projects/-home-user-Projects-PortaRe0/memory/MEMORY.md: [38;2;153;153;153m1.3k tokens[39m
+
+[1mSkills[22m[38;2;153;153;153m · /skills[39m</local-command-stdout>
+
+----------------------------------------
+
+[User]
+一旦ここまでで終了処理して
+
+----------------------------------------
+

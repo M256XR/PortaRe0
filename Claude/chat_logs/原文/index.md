@@ -140,6 +140,13 @@
 - L300: SW_DET回路追加（SW1出力→10kΩ分圧→GP25 / 短押し=スリープ・長押し=シャットダウン）
 - L350: C5 100nF→4.7µF（REGN cap）・C6 4.7µF→10µF（PMID cap）・SYS cap +10µF
 
+### Session25 (2026-02-27) - 2026-02-27_Session25.txt
+- L1: git pull（session24の変更取得）
+- L20: 04_VL812チェックシート: W25Q32 /CS修正・RESET#確認・LX 10µH確認・SSTX 100nF正常
+- L80: 05_RP2040_kbdチェックシート: クリスタルGND23→GND24修正・GP24/GP25追加・USB 27Ω確認・3DS VCC確認
+- L150: 06_RP2040_audioチェックシート: #1と同修正適用・全GPIO OK
+- L180: 07_MAX98357Aチェックシート: SD_MODE動作確認（220kΩ=RSMALL/Right ch）・GAIN_SLOT浮き=9dB OK
+
 ### Session24 (2026-02-27) - 2026-02-26_Session24.txt
 - L1: セッション継続（コンテキスト圧縮後）・TPS61023 FB抵抗の検討
 - L30: TPS61023 VREF = 0.6V と判明（0.5Vは誤り） → R_TOP: 910kΩ → 750kΩ（5.1V出力）
