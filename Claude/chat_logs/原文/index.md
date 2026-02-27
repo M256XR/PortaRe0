@@ -140,6 +140,13 @@
 - L300: SW_DET回路追加（SW1出力→10kΩ分圧→GP25 / 短押し=スリープ・長押し=シャットダウン）
 - L350: C5 100nF→4.7µF（REGN cap）・C6 4.7µF→10µF（PMID cap）・SYS cap +10µF
 
+### Session26 (2026-02-27) - 2026-02-27_Session26.txt
+- L1: 08_PCM5102Aチェックシート照合開始
+- L30: SCK(Pin12)=GND確認（SCK-lessモード・変更不要）
+- L50: バイパスキャップ値をTI example準拠に修正（CAPP/CAPM→2.2µF / VNEG/AVDD/DVDD/CPVDD/LDOO→10µF MLCC）
+- L80: 音質劣化の影響検討（聴覚上ほぼ問題なし）
+- L90: 08_PCM5102A チェックシート完了
+
 ### Session25 (2026-02-27) - 2026-02-27_Session25.txt
 - L1: git pull（session24の変更取得）
 - L20: 04_VL812チェックシート: W25Q32 /CS修正・RESET#確認・LX 10µH確認・SSTX 100nF正常

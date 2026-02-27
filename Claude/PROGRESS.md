@@ -6,8 +6,8 @@
 ## 現在の作業箇所
 - IC設計レビュー（チェックシート照合）進行中（session24〜）
   - チェックシート: `Claude/checklists/` に01〜10のtxtファイル作成済み
-  - 完了: 01_BQ25895 / 02_TPS61023 / 03_AP2112K / 04_VL812 / 05_RP2040_kbd / 06_RP2040_audio / 07_MAX98357A
-  - **次のタスク**: 08_PCM5102A → 09_TPA6132A2 → 10_TPS2042BDR_USBLC6
+  - 完了: 01_BQ25895 / 02_TPS61023 / 03_AP2112K / 04_VL812 / 05_RP2040_kbd / 06_RP2040_audio / 07_MAX98357A / 08_PCM5102A
+  - **次のタスク**: 09_TPA6132A2 → 10_TPS2042BDR_USBLC6
 - KiCad 修正済み（session24-25で実施）:
   - BQ25895: C5(4.7nF→4.7µF) / CE(3V3→GND) / QON(GND→NC)
   - TPS61023: R_TOP(910kΩ→750kΩ, 5.1V出力) / SW2をVSYS直列に移動 / usb_hubのSW4削除
@@ -134,6 +134,18 @@
   - SW2: ENピン制御 → **VSYS直列物理カット**（5A定格スイッチ必要）
   - usb_hub シートの SW4（#2用キルスイッチ）削除（VSYS共通カットで両方止まる）
 - AP2112K: 全ピン問題なし / バイパスキャップ 1µF → **10µF**
+
+### 2026-02-27（session26）
+- チェックシート照合 08_PCM5102A 完了
+  - SCK(Pin12): GND接続確認（SCK-lessモード）
+  - バイパスキャップ値修正（KiCad済み）:
+    - CAPP/CAPM(Pin2/4): 1µF → **2.2µF**（TI example準拠）
+    - VNEG(Pin5): 1µF → **10µF** (MLCC)
+    - AVDD(Pin8): 100nF+1µF → 100nF+**10µF** (MLCC)
+    - DVDD(Pin20): 100nF → 100nF+**10µF** (MLCC) 追加
+    - CPVDD(Pin1): 100nF → 100nF+**10µF** (MLCC) 追加
+    - LDOO(Pin18): 1µF → 100nF+**10µF** (MLCC)
+  - 音質劣化への影響: ほぼ聴こえない範囲（SNR差5〜10dB程度・聴覚限界以下）
 
 ### 2026-02-27（session25）
 - チェックシート照合 04〜07 完了
