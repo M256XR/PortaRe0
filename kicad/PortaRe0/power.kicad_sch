@@ -3619,10 +3619,6 @@
 		(at 300.99 45.72)
 		(uuid "8f995f8b-eb62-4c59-ba2d-e70193bf9463")
 	)
-	(no_connect
-		(at 66.04 124.46)
-		(uuid "f021613f-9cce-4e28-9ba9-585ef8fe24bd")
-	)
 	(wire
 		(pts
 			(xy 63.5 63.5) (xy 63.5 66.04)
