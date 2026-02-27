@@ -140,6 +140,16 @@
 - L300: SW_DET回路追加（SW1出力→10kΩ分圧→GP25 / 短押し=スリープ・長押し=シャットダウン）
 - L350: C5 100nF→4.7µF（REGN cap）・C6 4.7µF→10µF（PMID cap）・SYS cap +10µF
 
+### Session27 (2026-02-28) - 2026-02-27_Session27.txt
+- L1: git pull（別PCからのpush取得）・前回セッション把握
+- L30: 09_TPA6132A2チェックシート照合開始
+- L50: HPVDD=チャージポンプ出力（VDD接続NG / 2.2µFのみ）確認
+- L70: INL+/INR+→GND / INL−/INR−→信号 と判明（現状逆だった）
+- L90: ACカップリング2.2µF + EMIフィルタ(470Ω+2.2nF) 追加決定
+- L110: G0=+3V3（0dBゲイン）に変更・全修正KiCad適用
+- L130: 09_TPA6132A2 完了 / 10_TPS2042BDR_USBLC6 全ピンOK
+- L140: チェックシート照合 全10IC完了 → Phase 3 PCBレイアウトへ
+
 ### Session26 (2026-02-27) - 2026-02-27_Session26.txt
 - L1: 08_PCM5102Aチェックシート照合開始
 - L30: SCK(Pin12)=GND確認（SCK-lessモード・変更不要）
@@ -396,6 +406,14 @@
 #### MAX98357A SD_MODE設定
 - 当初（R35 210kΩ → +3V3固定でL/R切り替え）: S02 L150
 - 変更後（GP3共通 → LRCLK自動L/R振り分け / U8に220kΩ直列追加）: S10 L351, S10 L363
+
+#### TPA6132A2 入力回路（session27）
+- シングルエンド入力: INL−/INR−に信号 / INL+/INR+→GND（データシート明記）: S27 L70
+- ACカップリング: 2.2µF直列（ポップノイズ防止）: S27 L90
+- EMIフィルタ: 470Ω直列 + 2.2nF(→GND) / fc≈154kHz: S27 L90
+- G0=+3V3, G1=GND → ゲイン0dB（当初GND/GND=-6dBから修正）: S27 L110
+- HPVDD: チャージポンプ正電圧出力 → 2.2µFのみ / VDD接続NG: S27 L50
+- EP: GNDPWRのみ（VDD接続はデータシートで明示NG）: S27 L130
 
 #### PCM5102A / TPA6132A2 追加の経緯
 - USB Audio + HID Composite実装困難 → RP2040を2個に分割: S10 L180

@@ -19,23 +19,23 @@ TPS2042: C138720  /  USBLC6: C7519
 TPS2042BDR 確認
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-[ ] VIN: USB_5V_SYS (TPS61023 #2 出力) に接続
+[ok ] VIN: USB_5V_SYS (TPS61023 #2 出力) に接続
     100nF バイパスキャップ → GND
     確認: ________
 
-[ ] OUT1: 外部 USB-C ポート (J_EXT_C) VBUS → USBLC6 経由
-[ ] OUT2: 外部 USB-A ポート (J_EXT_A) VBUS → USBLC6 経由
+[ok ] OUT1: 外部 USB-C ポート (J_EXT_C) VBUS → USBLC6 経由
+[ok ] OUT2: 外部 USB-A ポート (J_EXT_A) VBUS → USBLC6 経由
     確認: ________
 
-[ ] /EN1, /EN2 (アクティブ Low イネーブル):
+[ok ] /EN1, /EN2 (アクティブ Low イネーブル):
     期待: VL812 /USBHPE 出力に接続
     確認: ________
 
-[ ] /OC1, /OC2 (過電流フラグ出力):
+[ok ] /OC1, /OC2 (過電流フラグ出力):
     期待: VL812 /USBHOC# に接続 + 10kΩ → 3V3_HUB (プルアップ)
     確認: ________
 
-[ ] GND: GND に接続
+[ok ] GND: GND に接続
     確認: ________
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -44,20 +44,20 @@ USBLC6-2SC6 ESD 保護確認
 
 配置: USB-C / USB-A コネクタ直後 (できるだけコネクタに近く配置)
 
-[ ] J_EXT_C 用 USBLC6:
+[ok ] J_EXT_C 用 USBLC6:
     I/O1 → USB2.0 D+
     I/O2 → USB2.0 D-
     I/O3 → (必要に応じて SS 差動ペア保護)
     GND → GND
     確認: ________
 
-[ ] J_EXT_A 用 USBLC6:
+[ok ] J_EXT_A 用 USBLC6:
     I/O1 → USB2.0 D+
     I/O2 → USB2.0 D-
     GND → GND
     確認: ________
 
-[ ] USBLC6 はコネクタと VL812 の間に配置されているか
+[ok ] USBLC6 はコネクタと VL812 の間に配置されているか
     (VL812 → USBLC6 → コネクタ の順でなく、コネクタ側に近い方が効果的)
     確認: ________
 
@@ -65,25 +65,25 @@ USBLC6-2SC6 ESD 保護確認
 外部 USB-C コネクタ (J_EXT_C, C2880583)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-[ ] VBUS (A4/B4/A9/B9): → TPS2042BDR OUT1 経由
-[ ] CC1/CC2: 56kΩ × 2 → VBUS (Rp = Default Current = ≈900mA アドバタイズ)
+[ok ] VBUS (A4/B4/A9/B9): → TPS2042BDR OUT1 経由
+[ok ] CC1/CC2: 56kΩ × 2 → VBUS (Rp = Default Current = ≈900mA アドバタイズ)
     注意: ホスト側なので Rp (プルアップ) を VBUS に接続
     現在値: ________
     確認: ________
-[ ] D+ / D- (A6/B6): USBLC6 経由 → VL812 DP1 USB2.0 DP/DM
-[ ] SS TX+ / SS TX- (A10/B10): VL812 DP1 SS TX
-[ ] SS RX+ / SS RX- (A3/B3): VL812 DP1 SS RX
-[ ] SBU1/SBU2: NC (USB DP/AltMode 未使用)
-[ ] SHELL: GND (シールド)
+[ok ] D+ / D- (A6/B6): USBLC6 経由 → VL812 DP1 USB2.0 DP/DM
+[ok ] SS TX+ / SS TX- (A10/B10): VL812 DP1 SS TX
+[ok ] SS RX+ / SS RX- (A3/B3): VL812 DP1 SS RX
+[ok ] SBU1/SBU2: NC (USB DP/AltMode 未使用)
+[ok ] SHELL: GND (シールド)
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 外部 USB-A コネクタ (J_EXT_A, C7501850)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-[ ] VBUS: → TPS2042BDR OUT2 経由
-[ ] D+ / D-: USBLC6 経由 → VL812 DP2 USB2.0 DP/DM
-[ ] SS+ / SS-: VL812 DP2 SS TX/RX
-[ ] SHELL: GND
+[ok ] VBUS: → TPS2042BDR OUT2 経由
+[ok ] D+ / D-: USBLC6 経由 → VL812 DP2 USB2.0 DP/DM
+[ok ] SS+ / SS-: VL812 DP2 SS TX/RX
+[ok ] SHELL: GND
 
 備考:
 ________________________________________________________________________________

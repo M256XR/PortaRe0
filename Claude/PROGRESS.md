@@ -1,20 +1,20 @@
 # PortaRe0 進捗ログ
 
 ## 現在のフェーズ
-**Phase 2: 回路設計 ← 進行中**
+**Phase 2: 回路設計 ✅ 完了 → Phase 3: PCBレイアウト 開始待ち**
 
 ## 現在の作業箇所
-- IC設計レビュー（チェックシート照合）進行中（session24〜）
-  - チェックシート: `Claude/checklists/` に01〜10のtxtファイル作成済み
-  - 完了: 01_BQ25895 / 02_TPS61023 / 03_AP2112K / 04_VL812 / 05_RP2040_kbd / 06_RP2040_audio / 07_MAX98357A / 08_PCM5102A
-  - **次のタスク**: 09_TPA6132A2 → 10_TPS2042BDR_USBLC6
-- KiCad 修正済み（session24-25で実施）:
+- IC設計レビュー（チェックシート照合）**全10IC完了**（session24〜27）
+  - チェックシート: `Claude/checklists/` 01〜10 全て完了
+  - **次のタスク**: Phase 3 PCBレイアウト開始
+- KiCad 修正済み（session24-27で実施）:
   - BQ25895: C5(4.7nF→4.7µF) / CE(3V3→GND) / QON(GND→NC)
   - TPS61023: R_TOP(910kΩ→750kΩ, 5.1V出力) / SW2をVSYS直列に移動 / usb_hubのSW4削除
   - AP2112K: バイパスキャップ1µF→10µF
   - VL812: W25Q32 /CS GNDプルダウン→3V3_HUBプルアップ修正
   - RP2040 #1/#2: クリスタルシンボル GND23→GND24 修正 / GP24・GP25接続追加
-- Phase 3 PCBレイアウト: チェックシート照合完了後に開始
+  - PCM5102A: バイパスキャップ全修正（CAPP/CAPM→2.2µF / VNEG/AVDD/DVDD/CPVDD/LDOO→10µF）
+  - TPA6132A2: 入力ピン接続逆転修正（INL+/INR+→GND / INL−/INR−へ信号） / ACカップリング2.2µF+470Ω+2.2nF追加 / G0=+3V3(0dBゲイン) / HPVDD→2.2µF / VDD→100nF+2.2µF
 
 ---
 
@@ -70,7 +70,7 @@
   - HP_DET/HP_L/HP_R → No Connect（イヤホンジャック未確定）
   - USB2_DP1_DP 双方向誤報 → ERC除外
 
-### Phase 3: PCBレイアウト ⏳ 未着手
+### Phase 3: PCBレイアウト ← 次のフェーズ
 ### Phase 4: 試作・検証 ⏳ 未着手
 ### Phase 5: 筐体設計・組み立て ⏳ 未着手
 
@@ -134,6 +134,18 @@
   - SW2: ENピン制御 → **VSYS直列物理カット**（5A定格スイッチ必要）
   - usb_hub シートの SW4（#2用キルスイッチ）削除（VSYS共通カットで両方止まる）
 - AP2112K: 全ピン問題なし / バイパスキャップ 1µF → **10µF**
+
+### 2026-02-28（session27）
+- チェックシート照合 09_TPA6132A2 完了（修正多数）:
+  - 入力ピン接続が逆だった → INL−/INR−が信号入力（データシート明記）/ INL+/INR+→GND
+  - ACカップリングコンデンサ追加: 2.2µF（ポップノイズ防止）
+  - EMIフィルタ追加: 470Ω直列 + 2.2nF(INL−/INR−→GND) → fc≈154kHz
+  - G0: GND→+3V3（ゲイン: −6dB→0dB）
+  - HPVDD: チャージポンプ出力ピン（VDD接続NG）→ 2.2µFのみ（100nFから変更）
+  - VDD: 100nF→100nF+2.2µF追加
+  - EP（露出パッド）: GNDPWR接続（VDDへの接続はデータシートで明示NG）
+- チェックシート照合 10_TPS2042BDR_USBLC6 完了: 全ピン問題なし
+- **IC設計レビュー（チェックシート照合）全10IC完了 → Phase 3 PCBレイアウトへ**
 
 ### 2026-02-27（session26）
 - チェックシート照合 08_PCM5102A 完了
