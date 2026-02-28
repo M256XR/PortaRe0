@@ -5113,7 +5113,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "10µF"
+		(property "Value" "10μF"
 			(at 315.468 86.106 0)
 			(effects
 				(font
@@ -5655,7 +5655,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "10KΩ"
+		(property "Value" "10kΩ"
 			(at 30.988 85.598 0)
 			(effects
 				(font
@@ -5790,7 +5790,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "10KΩ"
+		(property "Value" "10kΩ"
 			(at 88.392 113.792 90)
 			(effects
 				(font
@@ -6685,7 +6685,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "5.1KΩ"
+		(property "Value" "5.1kΩ"
 			(at 92.71 167.64 90)
 			(effects
 				(font
@@ -6885,7 +6885,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "5.1KΩ"
+		(property "Value" "5.1kΩ"
 			(at 92.71 182.88 90)
 			(effects
 				(font
@@ -9067,7 +9067,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "10µF"
+		(property "Value" "10μF"
 			(at 94.488 43.434 0)
 			(effects
 				(font
@@ -9654,7 +9654,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "10µF"
+		(property "Value" "10μF"
 			(at 225.298 117.856 0)
 			(effects
 				(font
@@ -10140,7 +10140,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "10KΩ"
+		(property "Value" "10kΩ"
 			(at 110.744 113.03 0)
 			(effects
 				(font
@@ -10672,7 +10672,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "10KΩ"
+		(property "Value" "10kΩ"
 			(at 32.512 79.756 0)
 			(effects
 				(font
@@ -10806,7 +10806,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "10KΩ"
+		(property "Value" "10kΩ"
 			(at 112.014 102.87 0)
 			(effects
 				(font
@@ -10940,7 +10940,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "10µF"
+		(property "Value" "10μF"
 			(at 189.738 117.856 0)
 			(effects
 				(font
@@ -11009,7 +11009,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "10µF"
+		(property "Value" "10μF"
 			(at 283.718 61.976 0)
 			(effects
 				(font
@@ -11278,7 +11278,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "22µF"
+		(property "Value" "22μF"
 			(at 358.394 67.056 0)
 			(effects
 				(font
