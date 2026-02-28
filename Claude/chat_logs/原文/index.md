@@ -140,6 +140,14 @@
 - L300: SW_DET回路追加（SW1出力→10kΩ分圧→GP25 / 短押し=スリープ・長押し=シャットダウン）
 - L350: C5 100nF→4.7µF（REGN cap）・C6 4.7µF→10µF（PMID cap）・SYS cap +10µF
 
+### Session28 (2026-02-28) - 2026-02-28_Session28.txt
+- L1: git pull・PROGRESS.md確認・次タスク把握
+- L30: PCBレイアウト前の部品確定作業開始（パッケージ0603方針）
+- L60: 全シートのパッシブ部品を一覧化 → passive_parts.txt 作成
+- L100: usb_hub 10pFキャップ（10本）が100nFと同一ネット → 不要と判断・KiCad削除
+- L150: インダクタ要件確認（L1=Idc≥4A / L2,L4=Idc≥2A / L3=DragonBoard実績値）
+- L200: インダクタC番号確定（L1=C408335 / L2,L4=C3002557 / L3=C19274352）
+
 ### Session27 (2026-02-28) - 2026-02-27_Session27.txt
 - L1: git pull（別PCからのpush取得）・前回セッション把握
 - L30: 09_TPA6132A2チェックシート照合開始
@@ -501,3 +509,5 @@
 - TPS2042BDR: C138720: S10 L642
 - USBLC6-2SC6: C7519: S10 L764
 - BAT54（Schottky / SW1保護用）: C466635: S15 L200
+- パッシブ部品（抵抗/コンデンサ）全種類: S28 L60（passive_parts.txt参照）
+- インダクタ（L1=C408335 / L2,L4=C3002557 / L3=C19274352）: S28 L200

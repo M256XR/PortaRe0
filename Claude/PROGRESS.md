@@ -4,9 +4,10 @@
 **Phase 2: 回路設計 ✅ 完了 → Phase 3: PCBレイアウト 開始待ち**
 
 ## 現在の作業箇所
-- IC設計レビュー（チェックシート照合）**全10IC完了**（session24〜27）
-  - チェックシート: `Claude/checklists/` 01〜10 全て完了
-  - **次のタスク**: Phase 3 PCBレイアウト開始
+- PCBレイアウト前の部品確定作業（session28）
+  - パッシブ部品C番号 → `Claude/checklists/passive_parts.txt` 完成
+  - インダクタ3種類C番号確定済み
+  - **次のタスク**: LED C番号 / スイッチ型番 / 2.2nFキャップ追加（audio）→ PCBレイアウト開始
 - KiCad 修正済み（session24-27で実施）:
   - BQ25895: C5(4.7nF→4.7µF) / CE(3V3→GND) / QON(GND→NC)
   - TPS61023: R_TOP(910kΩ→750kΩ, 5.1V出力) / SW2をVSYS直列に移動 / usb_hubのSW4削除
@@ -80,7 +81,7 @@
 
 | 項目 | 解決タイミング |
 |------|--------------|
-| インダクタ値（BQ25895用 **2.2µH候補** / TPS61023用 1µH） | JLCPCB在庫確認後（TI例：2.2µH / 3A以上 / DCR低め） |
+| インダクタ値 | ✅ 確定（L1=C408335 / L2,L4=C3002557 / L3=C19274352） |
 | VL812用 25MHz水晶 C番号 | ✅ C9006確定（負荷C=18pF×2） |
 | FPCケーブル長さ（SBC接続用 30ピン 0.5mmピッチ） | 筐体CAD後 |
 | キルスイッチ型番 | KiCad フットプリント決める時 |
@@ -121,6 +122,22 @@
 ---
 
 ## 直近の決定事項ログ
+
+### 2026-02-28（session28）
+- パッシブ部品C番号を全確定 → `Claude/checklists/passive_parts.txt` 作成
+  - 抵抗15種類（0603 ±1% 100mW）/ コンデンサ8種類（0603）/ 150µFタンタル1種類
+  - Extended Parts: 5種類（27Ω/6.04kΩ/22kΩ/750kΩ/150µFタンタル）→ 追加料金$15
+- usb_hub 10pFキャップ削除（KiCad済み）:
+  - C27,C29,C31,C33,C35,C37,C39,C40,C43,C45（10本）削除
+  - 3V3_HUB/1V2_HUBに100nFが同一ネットに既存のため不要と判断
+- インダクタ3種類C番号確定（passive_parts.txtに記録）:
+  - L1 (BQ25895 2.2µH): **C408335**（Sunlord MWSA0402S-2R2MT / Idc=4.5A / DCR=58mΩ / 4.4×4.2mm）
+  - L2,L4 (TPS61023 1µH ×2): **C3002557**（CENKER CKST322512 / Idc=5A / DCR=30mΩ / 1210）
+  - L3 (VL812 10µH): **C19274352**（SHOU HAN CYA0420 / Idc=1.6A / DCR=294mΩ / 4.7×4.2mm）
+- 未対応確認事項（次セッションへ）:
+  - TPA6132A2 EMIフィルタ 2.2nFキャップ: audio.kicad_sch に未追加（C1604 / INL−/INR−→GND 計2本）
+  - BQ25895 C6（PMID）: 10V品 → 25V品への変更要検討
+  - LED C番号（D1〜D4）・スイッチ型番（SW1/SW2）未確定
 
 ### 2026-02-27（session24）
 - IC設計レビュー用チェックシート作成（`Claude/checklists/` 01〜10）
