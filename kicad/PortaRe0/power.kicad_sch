@@ -9067,7 +9067,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "10μF"
+		(property "Value" "10μF 25V"
 			(at 94.488 43.434 0)
 			(effects
 				(font

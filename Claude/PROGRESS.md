@@ -4,10 +4,10 @@
 **Phase 2: 回路設計 ✅ 完了 → Phase 3: PCBレイアウト 開始待ち**
 
 ## 現在の作業箇所
-- PCBレイアウト前の部品確定作業（session28）
-  - パッシブ部品C番号 → `Claude/checklists/passive_parts.txt` 完成
-  - インダクタ3種類C番号確定済み
-  - **次のタスク**: LED C番号 / スイッチ型番 / 2.2nFキャップ追加（audio）→ PCBレイアウト開始
+- PCBレイアウト前の部品確定作業（session29）ほぼ完了
+  - passive_parts.txt: LED・スイッチ・C6注記まで全更新済み
+  - **次のタスク**: KiCad フットプリント変更（肩ボタン/SW1→SKSCLBE010） → PCBレイアウト開始
+  - SW2（キルスイッチ 5A+スルーホール）: 筐体設計後に確定
 - KiCad 修正済み（session24-27で実施）:
   - BQ25895: C5(4.7nF→4.7µF) / CE(3V3→GND) / QON(GND→NC)
   - TPS61023: R_TOP(910kΩ→750kΩ, 5.1V出力) / SW2をVSYS直列に移動 / usb_hubのSW4削除
@@ -122,6 +122,21 @@
 ---
 
 ## 直近の決定事項ログ
+
+### 2026-03-02（session29）
+- LED C番号確定（passive_parts.txtに追記）:
+  - D1（赤/BQ25895 STAT直結）: **C2286**（KT-0603R / Basic）
+  - D2（青/LED_ACT GP23）: **C19171394**（YLED0603B / Extended / 手はんだ）
+  - D3（緑/LED_FULL GP22）: **C19273151**（YLED0603G / Extended / 手はんだ）
+  - D4（橙/LED_CHG GP21）: **C19273153**（YLED0603O / Extended / 手はんだ）
+- タクトスイッチ確定: 肩ボタン（Left/Right）・SW1（電源ボタン）すべて側面押しに変更
+  - **C115361**（Alps SKSCLBE010 / 横押しSMD / 3.6×3.5mm / 2.24N）に統一
+  - 旧: SKRPABE010（上押し）→ 新: SKSCLBE010（横押し）
+  - KiCad要作業: keyboard.kicad_schの肩ボタン2個 + power.kicad_schのSW1 フットプリント変更
+  - SW2（キルスイッチ / VSYS物理カット / 5A+スルーホール）: 筐体設計後に確定
+- TPA6132A2 EMIフィルタ 2.2nFキャップ追加: **audio.kicad_sch完了**（R8/R54出力→GND / C番号C1604）
+- BQ25895 C6（PMID）電圧変更: **power.kicad_sch完了**（10µF 25V / C番号C91606 / Murata GRM188R61E106MA73D）
+  - C19702（10V品）は他の10µFに引き続き使用、C6のみC91606
 
 ### 2026-02-28（session28）
 - パッシブ部品C番号を全確定 → `Claude/checklists/passive_parts.txt` 作成

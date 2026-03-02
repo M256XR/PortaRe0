@@ -140,6 +140,16 @@
 - L300: SW_DET回路追加（SW1出力→10kΩ分圧→GP25 / 短押し=スリープ・長押し=シャットダウン）
 - L350: C5 100nF→4.7µF（REGN cap）・C6 4.7µF→10µF（PMID cap）・SYS cap +10µF
 
+### Session29 (2026-03-02) - 2026-03-02_Session29.txt
+- L1: セッション開始・git状態確認（最新）
+- L20: LED C番号確定（D1赤=C2286 / D2青=C19171394 / D3緑=C19273151 / D4橙=C19273153）
+- L60: Vf問題確認（青緑は330Ωで~1.5mA→暗めだが許容）・Extended=手はんだ方針確定
+- L80: SW1（電源ボタン）・肩ボタン（Left/Right）→ 側面押し（横押し）に変更
+  - Alps SKSCLBE010（C115361）に統一 / SKRPABE010から変更
+  - SW2（キルスイッチ / VSYS物理カット / 5A+）は筐体設計後
+- L120: TPA6132A2 2.2nFキャップ: audio.kicad_sch追加済みと確認（C1604）
+- L130: C6（PMID）10µF 25V品に変更: power.kicad_sch完了（C91606 Murata）
+
 ### Session28 (2026-02-28) - 2026-02-28_Session28.txt
 - L1: git pull・PROGRESS.md確認・次タスク把握
 - L30: PCBレイアウト前の部品確定作業開始（パッケージ0603方針）
