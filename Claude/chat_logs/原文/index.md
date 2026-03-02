@@ -140,6 +140,23 @@
 - L300: SW_DET回路追加（SW1出力→10kΩ分圧→GP25 / 短押し=スリープ・長押し=シャットダウン）
 - L350: C5 100nF→4.7µF（REGN cap）・C6 4.7µF→10µF（PMID cap）・SYS cap +10µF
 
+### Session30 (2026-03-02) - 2026-03-02_Session30.txt
+- L1: フットプリント割り当て状況を全シート調査（316個未割り当てと判明）
+- L30: easyeda2kicad 7部品取得（DNS問題→/etc/hosts対応で解決）
+  - C115361(SKSCLBE010) / C115360(SKRPABE010) / C9006 / C70565 / C408335 / C3002557 / C19274352
+- L60: フットプリント割り当て表作成（全シート）
+  - 0603R/C→標準KiCadライブラリ / 1N4148W→SOD-123既存 / IC類→PortaRe0ライブラリ
+  - K_SW1/K_SW2（肩ボタン）→KEY-SMD_4P-SKSCLXX010 / K_SW3~K_SW65→KEY-SMD_4P-L4.2-W3.2
+- L80: コネクタ検討・決定
+  - バッテリー: JST PH 8pin（C157974 B8B-PH-K-S）→ VBAT×4+GND×4 / 8A
+  - スピーカー・FAN: JST PH 2pin（C131337 B2B-PH-K-S）
+  - J5(hdmi_adapter): PinHeader_2x08_P2.00mm_Vertical（ジャンパワイヤー受けパッド）
+  - J7/J8(usb_adapter): PCBエッジFPCテール・コンポーネント不要
+- L110: KiCadでフットプリント一括割り当て完了（SW2・J7/J8のみTBD）
+- L130: 4層基板構造・キーマトリクスと差動ペアの干渉対策を検討
+  - L1=COL/高速信号 / L2=GND面（シールド） / L3=電源 / L4=ROW
+  - キーマトリクスエリアと高速信号エリアを物理的に分離する方針確定
+
 ### Session29 (2026-03-02) - 2026-03-02_Session29.txt
 - L1: セッション開始・git状態確認（最新）
 - L20: LED C番号確定（D1赤=C2286 / D2青=C19171394 / D3緑=C19273151 / D4橙=C19273153）

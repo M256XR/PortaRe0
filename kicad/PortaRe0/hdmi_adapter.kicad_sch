@@ -1640,7 +1640,7 @@
 				)
 			)
 		)
-		(property "Value" "Conn_02x08_Odd_Even"
+		(property "Value" "HDMI_Jamp"
 			(at 120.65 53.34 0)
 			(effects
 				(font
@@ -1648,7 +1648,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinHeader_2.00mm:PinHeader_2x08_P2.00mm_Vertical"
 			(at 119.38 64.77 0)
 			(effects
 				(font

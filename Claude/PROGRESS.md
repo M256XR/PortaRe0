@@ -4,10 +4,11 @@
 **Phase 2: 回路設計 ✅ 完了 → Phase 3: PCBレイアウト 開始待ち**
 
 ## 現在の作業箇所
-- PCBレイアウト前の部品確定作業（session29）ほぼ完了
-  - passive_parts.txt: LED・スイッチ・C6注記まで全更新済み
-  - **次のタスク**: KiCad フットプリント変更（肩ボタン/SW1→SKSCLBE010） → PCBレイアウト開始
+- フットプリント割り当て完了（session30）
+  - 全シートのフットプリント割り当て完了（SW2・J7/J8のみTBD）
+  - **次のタスク**: PCBレイアウト開始（KiCadボードアウトライン引き→部品配置→ルーティング）
   - SW2（キルスイッチ 5A+スルーホール）: 筐体設計後に確定
+  - J7/J8（usb_adapter FPCエッジ）: PCBエッジ設計・コンポーネント不要
 - KiCad 修正済み（session24-27で実施）:
   - BQ25895: C5(4.7nF→4.7µF) / CE(3V3→GND) / QON(GND→NC)
   - TPS61023: R_TOP(910kΩ→750kΩ, 5.1V出力) / SW2をVSYS直列に移動 / usb_hubのSW4削除
@@ -122,6 +123,19 @@
 ---
 
 ## 直近の決定事項ログ
+
+### 2026-03-02（session30）
+- フットプリント割り当て調査・確定:
+  - easyeda2kicad取得: C115361(SKSCLBE010) / C115360(SKRPABE010) / C9006 / C70565 / C408335 / C3002557 / C19274352 / C157974 / C131337
+  - 全シート316個のフットプリント割り当て完了（SW2・J7/J8のみTBD）
+  - DNS問題(/etc/hostsにeasyeda.com追加で解決)
+- コネクタ確定:
+  - J4（バッテリー）: C157974（B8B-PH-K-S / JST PH 8pin / VBAT×4+GND×4）
+  - J2/J3（スピーカー）・J6（FAN）: C131337（B2B-PH-K-S / JST PH 2pin）
+  - J5（hdmi_adapter）: PinHeader_2x08_P2.00mm_Vertical（ジャンパワイヤー受けパッド）
+- Claude.md冷却セクション更新: ファンはRP2040 #1 GP26→BSS138制御（A7Z内蔵コネクタ不使用）
+- passive_parts.txtにコネクタセクション追加
+- 4層基板の構造・差動ペアとキーマトリクスの干渉対策を検討
 
 ### 2026-03-02（session29）
 - LED C番号確定（passive_parts.txtに追記）:
