@@ -20,7 +20,7 @@ Cubie A7Z SBCベースのクラムシェル型ポータブルPC（Cyberdeck）�
 
 ## 現在のフェーズ
 
-**Phase 2: KiCad 回路設計 完了 → Phase 3: PCBレイアウト 開始待ち**
+**Phase 3: PCBレイアウト 進行中**
 
 - [x] power シート（BQ25895 / TPS61023 ×2 / AP2112K）
 - [x] usb_hub シート（VL812 / W25Q32 / J_EXT_C / J_EXT_A）
