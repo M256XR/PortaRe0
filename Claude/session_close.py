@@ -69,12 +69,15 @@ def archive_progress(repo_root: Path) -> None:
 
 def git_commit_push(repo_root: Path, message: str) -> None:
     def run(cmd: list[str]) -> str:
-        result = subprocess.run(cmd, cwd=repo_root, capture_output=True, text=True)
+        result = subprocess.run(
+            cmd, cwd=repo_root, capture_output=True,
+            text=True, encoding="utf-8", errors="replace"
+        )
         if result.returncode != 0:
             print(f"  エラー: {' '.join(cmd)}")
             print(result.stderr)
             sys.exit(1)
-        return result.stdout.strip()
+        return (result.stdout or "").strip()
 
     print("  git add -A ...")
     run(["git", "add", "-A"])
