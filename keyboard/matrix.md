@@ -1,7 +1,7 @@
 # キーマトリクス割り当て
 
 物理配置ベース。PCBレイアウト時にCOL線が縦方向に短くなるよう設計。
-9COL × 8ROW = 72セル（使用66、空き6）
+9COL × 8ROW = 72セル（使用64、空き8）
 
 ## マトリクス表
 
@@ -17,6 +17,7 @@ ROW4 GP13:  [   Enter   Tab     A      S      D      F      G      H
 ROW5 GP14:  J     K      L      ;      :      ]    Shift    Z      X
 ROW6 GP15:  C     V      B      N      M      ,      .      /      ¥2
 ROW7 GP16: RSft  Spc   Back   Next   Ctrl    Fn    Alt    ---    ---
+Win: TBD（ROW7 COL7候補 / 確定はスケマティック整理後）
 ```
 
 ## キー一覧（ROW, COL順）
@@ -86,8 +87,9 @@ ROW7 GP16: RSft  Spc   Back   Next   Ctrl    Fn    Alt    ---    ---
 | 7 | 4 | Ctrl | GP16 | GP4 |
 | 7 | 5 | Fn | GP16 | GP5 |
 | 7 | 6 | Alt | GP16 | GP6 |
+| 7 | 7 | Win | TBD | TBD |
 
-合計: 63キー（空きセル: ROW0×7 + ROW7×2 = 9セル）
+合計: 64キー（空きセル: ROW0×7 + ROW7×1 = 8セル）
 
 ## PCBレイアウト時の配線メモ
 

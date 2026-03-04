@@ -152,6 +152,13 @@
 - L190: KiCad audio.kicad_sch: PJ-307C配線完了・pull-up追加
 - L220: BOMレビュー: Y4フットプリント誤り修正 / J7/J8空欄=意図的（PCBエッジ）
 - L240: **Phase 2 回路設計 全シート完了**
+- L383: M.2 SSD追加設計開始
+  - Cubie A7Z PCIe Gen3 x1 / F0506-16-BGR（16pin 0.5mm FPC / RPi5互換）確認
+  - M.2 2230 NVMe採用 / ソケット: NASM0-S6701-TP40（C367029）
+  - FPCコネクタ: FPC-05F-16PH20（C2856801）/ LDO: RT9080-33GJ5（C841192）
+  - m2_ssdシート新設・FPC→M.2全ピン接続確定
+  - 注意: M.2 Pin42/44/46/48/56 = NC（SATAピン / PCIe x1では未使用）
+  - ライブラリ取得済み: C2856801 / C841192 / C367029
 
 ### Session30 (2026-03-02) - 2026-03-02_Session30.txt
 - L1: フットプリント割り当て状況を全シート調査（316個未割り当てと判明）
@@ -297,6 +304,16 @@
 - L90: extract_session.py 作成・動作確認（JSONL → 読みやすい原文テキスト）
 - L110: セッション終了処理に extract_session.py を組み込み（Claude.md 更新）
 - L120: launch_claude_utf16.ps1 / chat_logs/raw/ を .gitignore に追加
+
+### Session32 (2026-03-04) - 2026-03-04_Session32.txt
+- L1: セッション開始・ドキュメント整理の検討
+- L30: CONTEXT.md を archive/ に移動・CLAUDE.md 冒頭にセッション開始手順統合
+- L60: CLOSING.md 新規作成（終了処理手順の独立ファイル化）
+- L90: CLAUDE.md のハードウェア仕様を specs/ に分割（index/power/keyboard/audio/m2_ssd）
+- L130: CLAUDE.md 10.4KB → 2.3KB に削減・信頼優先順位を変更
+- L160: specs/index.md・CLOSING.md・MEMORY.md・README.md の記述を修正
+- L200: session_close.py 新規作成（PROGRESS.mdアーカイブ + git自動化）
+- L250: 終了処理フロー確定（extract → Claude更新 → session_close.py）
 
 ### Session13 (2026-02-22) - 2026-02-22_Session13.txt
 - L1: Claude Desktop落下によるセッション消失の問題整理
@@ -525,6 +542,19 @@
 - 外部USBポートの電力不足問題の指摘: S10 L690
 - TPS61023 #2追加決定（出力名USB_5V_SYS）: S10 L711
 - usb_hubシートに配置・ENピン→GP24: S10 L757, S10 L716
+
+---
+
+### M.2 SSD / PCIe
+
+- M.2追加決定・Cubie A7Z PCIe Gen3 x1確認: S31 L383
+- F0506-16-BGR = 16pin 0.5mm FPC（RPi5互換）: S31 L409
+- M.2 2230採用・ソケット選定（C367029 NASM0-S6701-TP40）: S31 L412
+- m2_ssdシート設計案・部品リスト: S31 L542
+- FPC→M.2全接続図（TX AC結合/RX直結/REFCLK/制御信号）: S31 L703
+- FPC→M.2ピン番号対応表: S31 L811
+- M.2 Pin42/44/46/48/56 = NC確定（SATAピン / PCIe x1未使用）: S31 L900
+- ライブラリ取得: C2856801(FPC 16pin) / C841192(RT9080) / C367029(M.2ソケット): S31 L579
 
 ---
 

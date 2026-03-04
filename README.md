@@ -8,10 +8,11 @@ Cubie A7Z SBCベースのクラムシェル型ポータブルPC（Cyberdeck）�
 |------|------|
 | SBC | Cubie A7Z (Allwinner A733 / 8コア / WiFi6 / BT5.4) |
 | ディスプレイ | 5.5" Sharp LS055R1SX04 (1440×2560 / MIPI DSI) |
-| キーボード | カスタムPCB + Alps SKRPABE010 × 63キー / RP2040 / QMK |
+| キーボード | カスタムPCB + Alps SKRPABE010 × 64キー / RP2040 / QMK |
 | 入力 | 3DSスライドパッド（アナログスティック） |
 | 電源 | LiPo 606090 (4200mAh) + BQ25895 充電IC + TPS61023 昇圧DC-DC ×2 |
 | USBハブ | VL812 (USB 3.0 / 4ポート) |
+| ストレージ | M.2 2230 NVMe SSD（PCIe Gen3 x1 / Cubie A7Z F0506-16-BGR経由） |
 | オーディオ | MAX98357A × 2 (スピーカー I2S) / PCM5102A + TPA6132A2 (イヤホン DAC+アンプ) |
 | MCU | RP2040 × 2（キーボード専用 / オーディオ専用） |
 | PCB | 4層基板 / JLCPCB PCBA |
@@ -28,12 +29,14 @@ Cubie A7Z SBCベースのクラムシェル型ポータブルPC（Cyberdeck）�
 - [x] connectors シート（J_HDMI_CTRL / J_FAN）
 - [x] hdmi_adapter シート（別基板 / Micro HDMI → FFC変換）
 - [x] usb_adapter シート（別基板 / FPCスティフナー + USB-Cオス ×2）
-- [x] ERC（HP系のみ残存 / イヤホンジャック未確定につき想定内）
+- [x] m2_ssd シート（M.2 2230 NVMe / PCIe Gen3 x1 / RT9080 LDO）
+- [x] ERC（HP系のみ残存 / 想定内）
 
 ## ドキュメント
 
 - [Claude/PROGRESS.md](./Claude/PROGRESS.md) - 現在の進捗・次のタスク
-- [Claude/Claude.md](./Claude/Claude.md) - 確定済み仕様（最優先）
+- [Claude/CLAUDE.md](./Claude/CLAUDE.md) - 仕様サマリ・セッション開始手順
+- [Claude/specs/](./Claude/specs/) - ハードウェア詳細仕様（電源・キーボード・オーディオ・M.2）
 - [bom/cyberdeck_bom.xlsx](./bom/cyberdeck_bom.xlsx) - BOM (Excel)
 - [bom/cyberdeck_bom.csv](./bom/cyberdeck_bom.csv) - BOM (CSV)
 - [keyboard/matrix.md](./keyboard/matrix.md) - キーマトリクス割り当て表
@@ -74,6 +77,9 @@ Claude/                設計ドキュメント・進捗ログ・セッション
 | ショットキーダイオード（EN保護） | BAT54 | C466635 |
 | FPCコネクタ（スティック用） | Molex 5034800440 | C3170007 |
 | ZIF FPCコネクタ 24pin | FPC-05F-24PH20 | C2856805 |
+| ZIF FPCコネクタ 16pin（PCIe） | FPC-05F-16PH20 | C2856801 |
+| M.2ソケット（M-key 2230） | NASM0-S6701-TP40 | C367029 |
+| LDO 3.3V（M.2用） | RT9080-33GJ5 | C841192 |
 | USB-C レセプタクル（外部） | USB31-TYPE-C-FSABC | C2880583 |
 | USB-A レセプタクル（外部） | HC-USB3.0-L168-WP | C7501850 |
 | USB-C オス SMD（SBC接続） | 918-118A2021Y40000 | C168690 |
