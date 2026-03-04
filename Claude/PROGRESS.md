@@ -4,11 +4,14 @@
 **Phase 2: 回路設計 ✅ 完了 → Phase 3: PCBレイアウト 開始待ち**
 
 ## 現在の作業箇所
-- フットプリント割り当て完了（session30）
-  - 全シートのフットプリント割り当て完了（SW2・J7/J8のみTBD）
+- 全シート回路設計完了（session31）
   - **次のタスク**: PCBレイアウト開始（KiCadボードアウトライン引き→部品配置→ルーティング）
-  - SW2（キルスイッチ 5A+スルーホール）: 筐体設計後に確定
-  - J7/J8（usb_adapter FPCエッジ）: PCBエッジ設計・コンポーネント不要
+  - J7/J8（usb_adapter FPCエッジ）: PCBエッジ設計・コンポーネント不要（変更なし）
+  - Session31での主な確定事項:
+    - SW2（キルスイッチ）: MSK12C02（C431540）EN制御方式 / KiCad配線完了
+    - J4（バッテリー）: S8B-PH-K-S-LF-SN（C157915）水平型8pin JST PH / フットプリント確定
+    - J9（ヘッドフォンジャック）: PJ-307C（C16684）/ KiCad配線完了 / 100kΩ pull-up追加
+    - BOM Y4フットプリント修正: CONN-TH_B2B-PH-K-S → CRYSTAL-SMD_4P-L3.2-W2.5-BL
 - KiCad 修正済み（session24-27で実施）:
   - BQ25895: C5(4.7nF→4.7µF) / CE(3V3→GND) / QON(GND→NC)
   - TPS61023: R_TOP(910kΩ→750kΩ, 5.1V出力) / SW2をVSYS直列に移動 / usb_hubのSW4削除
@@ -41,7 +44,7 @@
   - 3DSスライドパッド（Molex 5034800440 FPCコネクタ / GP27,GP28）
   - LED × 3（GP21=CHG橙 / GP22=FULL緑 / GP23=ACT緑 / 330Ω）
 - [x] audio シート（RP2040 #2 + MAX98357A×2 + PCM5102A + TPA6132A2構成）
-  - イヤホンジャックはPCBレイアウト時に型番・フットプリント確定予定（HP_L/HP_R/HP_DETはNet Label済み）
+  - PJ-307C（C16684 / TH）確定・KiCad配線完了（Pin1=GND / Pin2=HP_L / Pin4=HP_DET+100kΩpull-up / Pin5=HP_R）
 - [x] power シートにJ_BAT（汎用2pin）・J_USB_PWR（TYPE-C-31-M-12）追加完了
   - J_BAT: Conn_01x02プレースホルダー / Pin1=+BATT / Pin2=GND
   - J_USB_PWR: VBUS/GND/CC1-CC2(5.1kΩ→GND)/DP1-DN1-DP2-DN2(USB_DP/USB_DM)/SBU=NC/EH=GND
@@ -85,10 +88,10 @@
 | インダクタ値 | ✅ 確定（L1=C408335 / L2,L4=C3002557 / L3=C19274352） |
 | VL812用 25MHz水晶 C番号 | ✅ C9006確定（負荷C=18pF×2） |
 | FPCケーブル長さ（SBC接続用 30ピン 0.5mmピッチ） | 筐体CAD後 |
-| キルスイッチ型番 | KiCad フットプリント決める時 |
-| モーメンタリスイッチ型番 | KiCad フットプリント決める時 |
+| キルスイッチ型番 | ✅ 確定（C431540 MSK12C02 / EN制御方式・KiCad完了） |
+| モーメンタリスイッチ型番 | ✅ 確定（C115361 SKSCLBE010 / session29確定） |
 | LED C番号（緑・橙） | connectors/audioシート時 |
-| イヤホンジャック型番 | PCBレイアウト時（HP_L/HP_R/HP_DETはNet Label済み） |
+| イヤホンジャック型番 | ✅ 確定（C16684 PJ-307C / TH 5pin / KiCad完了） |
 | キーキャップ型番 | スイッチ嵌合確認後 |
 | ヒンジ機構 | 筐体CAD後 |
 | RTCバッテリー有無 | A7Z実機届いたら確認 |
@@ -123,6 +126,31 @@
 ---
 
 ## 直近の決定事項ログ
+
+### 2026-03-03（session31）
+- キルスイッチ確定: MSK12C02（C431540）EN制御方式
+  - 当初: DMP3010LK3-13（TO-252 P-ch MOSFET）でVSYS直列カット → 発熱問題（1.6W@8A）で断念
+  - 変更: MSK12C02でTPS61023 EN pin直接制御（COM→ENノード / NO→GND）
+  - MOSFETは不要（ENピンはµA級 → 発熱ゼロ）
+  - GP20→10kΩ→BAT54→ENノード の既存保護回路はそのまま流用
+  - KiCad power.kicad_sch: SW2配線完了
+- バッテリーコネクタ確定: S8B-PH-K-S-LF-SN（C157915）水平型8pin JST PH
+  - B8B-PH-K-S（垂直）からS8B-PH-K-S（水平・サイドエントリー）に変更
+  - フットプリント: PortaRe0:CONN-TH_S8B-PH-K-S-LF-SN
+- ヘッドフォンジャック確定: PJ-307C（C16684）TH 5pin
+  - PJ-393-8P（SMD Extended 8pin）から変更（ExtendedかつSMDで不利）
+  - ピン配置（データシート確認）:
+    - Pin1=GND(Sleeve) / Pin2=L Tip / Pin3=L SW(Pin2ペア) / Pin4=R SW(Pin5ペア) / Pin5=R Ring
+  - 接続: Pin1→GND / Pin2→HP_L / Pin3→NC / Pin4→HP_DET(GP6+100kΩpull-up) / Pin5→HP_R
+  - HP_DET動作: プラグ未挿入=Pin4-Pin5導通→LOW / 挿入=Pin4開放+pull-up→HIGH
+  - KiCad audio.kicad_sch: 配線完了
+- 新規ライブラリ取得（easyeda2kicad）:
+  - C431540（MSK12C02 スライドスイッチ）/ C157915（S8B-PH-K-S-LF-SN）
+  - C16684（PJ-307C）/ C154730（DMP3010LK3-13 / 未使用）
+- BOM確認・修正:
+  - Y4フットプリント誤り修正（CONN-TH_B2B-PH-K-S → CRYSTAL-SMD_4P-L3.2-W2.5-BL）
+  - J7/J8フットプリント空欄: 意図的（PCBエッジ設計・コンポーネント不要）
+- **Phase 2 回路設計 全シート完了 → Phase 3 PCBレイアウトへ**
 
 ### 2026-03-02（session30）
 - フットプリント割り当て調査・確定:

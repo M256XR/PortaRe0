@@ -140,6 +140,19 @@
 - L300: SW_DET回路追加（SW1出力→10kΩ分圧→GP25 / 短押し=スリープ・長押し=シャットダウン）
 - L350: C5 100nF→4.7µF（REGN cap）・C6 4.7µF→10µF（PMID cap）・SYS cap +10µF
 
+### Session31 (2026-03-03) - 2026-03-03_Session31.txt
+- L1: セッション継続・MSK12C02キルスイッチ確定（前回session確定済み）
+- L30: P-ch MOSFET（DMP3010LK3-13 / C154730）発熱問題分析（1.6W@8A → TO-252で過熱）
+- L60: キルスイッチ案B採用: MSK12C02でTPS61023 ENピン直接制御（COM→EN / NO→GND）
+- L80: バッテリーコネクタ: B8B-PH-K-S(垂直)→S8B-PH-K-S（C157915 / 水平）確定
+- L100: ヘッドフォンジャック: PJ-393-8P(SMD Extended)→PJ-307C(C16684 TH)に変更
+- L130: PJ-307C ピン配置確定（データシートGemini確認）:
+  - Pin1=GND / Pin2=L Tip / Pin3=L SW(Pin2ペア) / Pin4=R SW(Pin5ペア) / Pin5=R Ring
+- L160: HP_DET回路: Pin4→HP_DET(GP6)/ 100kΩ pull-up / プラグ挿入でHIGH検出
+- L190: KiCad audio.kicad_sch: PJ-307C配線完了・pull-up追加
+- L220: BOMレビュー: Y4フットプリント誤り修正 / J7/J8空欄=意図的（PCBエッジ）
+- L240: **Phase 2 回路設計 全シート完了**
+
 ### Session30 (2026-03-02) - 2026-03-02_Session30.txt
 - L1: フットプリント割り当て状況を全シート調査（316個未割り当てと判明）
 - L30: easyeda2kicad 7部品取得（DNS問題→/etc/hosts対応で解決）

@@ -258,6 +258,48 @@
 		)
 	)
 	(sheet
+		(at 58.42 106.68)
+		(size 40.64 39.37)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "c43a06e3-1419-45ee-8519-3cfff24381b4")
+		(property "Sheetname" "m2_ssd"
+			(at 58.42 105.9684 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "m2_ssd.kicad_sch"
+			(at 58.42 146.6346 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "PortaRe0"
+				(path "/479aadc4-f9a0-4ec2-b000-6a17237038f1"
+					(page "9")
+				)
+			)
+		)
+	)
+	(sheet
 		(at 16.51 106.68)
 		(size 40.64 39.37)
 		(exclude_from_sim no)

@@ -1329,6 +1329,331 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "PortaRe0:PJ-307C"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "J"
+				(at 0 8.89 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "PJ-307C"
+				(at 0 -11.43 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "PortaRe0:AUDIO-TH_PJ307C"
+				(at 0 -13.97 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://lcsc.com/product-detail/Audio-Connectors_Headphone-interface_C16684.html"
+				(at 0 -16.51 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "LCSC Part" "C16684"
+				(at 0 -19.05 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "PJ-307C_0_1"
+				(polyline
+					(pts
+						(xy 0.51 3.81) (xy -7.11 3.81) (xy -7.11 0) (xy -8.64 0) (xy -8.64 -6.35) (xy -7.11 -6.35) (xy -7.11 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.51 1.27) (xy 0 0.51)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.51 1.27) (xy 1.02 0.51)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 3.3 -6.35) (xy 2.79 -5.59)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 3.3 -6.35) (xy 3.81 -5.59)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 5.59 3.81) (xy 0.51 3.81)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 5.59 3.81)
+					(radius 0.51)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 5.59 1.27) (xy -3.3 1.27) (xy -4.57 0) (xy -5.84 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 5.59 1.27)
+					(radius 0.51)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 5.59 -1.27) (xy 0.51 -1.27) (xy 0.51 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 5.59 -1.27)
+					(radius 0.51)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 5.59 -3.81) (xy 3.3 -3.81) (xy 3.3 -6.35)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 5.59 -3.81)
+					(radius 0.51)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 5.59 -6.35) (xy 1.78 -6.35) (xy 0.76 -5.33) (xy -0.25 -6.35)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 5.59 -6.35)
+					(radius 0.51)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin input line
+					(at 7.62 3.81 180)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 7.62 1.27 180)
+					(length 2.54)
+					(name "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 7.62 -1.27 180)
+					(length 2.54)
+					(name "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 7.62 -3.81 180)
+					(length 2.54)
+					(name "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 7.62 -6.35 180)
+					(length 2.54)
+					(name "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "PortaRe0:RP2040"
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -3853,6 +4178,12 @@
 		(uuid "5d1a248c-103c-4be8-bd52-76df68ae8e75")
 	)
 	(junction
+		(at 137.16 111.76)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "6903ddfd-dc00-4d2d-b6f7-9e199077e79f")
+	)
+	(junction
 		(at 92.71 66.04)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -4061,6 +4392,10 @@
 		(uuid "403c0707-b6aa-46c1-85f8-8efa90c3cc27")
 	)
 	(no_connect
+		(at 210.82 201.93)
+		(uuid "4b464d06-1a28-4aaf-92cb-0a4b6274e4eb")
+	)
+	(no_connect
 		(at 125.73 137.16)
 		(uuid "4d023920-819b-4d3c-b2ae-15dc1dbba59e")
 	)
@@ -4169,6 +4504,16 @@
 			(type default)
 		)
 		(uuid "01f38783-d8d9-4e16-b745-1dbe3d625fc1")
+	)
+	(wire
+		(pts
+			(xy 137.16 111.76) (xy 125.73 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0425628c-4c6a-4c14-87d6-2542d5cda407")
 	)
 	(wire
 		(pts
@@ -4612,6 +4957,16 @@
 	)
 	(wire
 		(pts
+			(xy 215.9 207.01) (xy 210.82 207.01)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "48e9817a-7e2d-4803-8b36-36b264ea3956")
+	)
+	(wire
+		(pts
 			(xy 45.72 132.08) (xy 45.72 134.62)
 		)
 		(stroke
@@ -4729,6 +5084,16 @@
 			(type default)
 		)
 		(uuid "54b1534c-cf2d-48ed-8433-b4c11179f35c")
+	)
+	(wire
+		(pts
+			(xy 215.9 199.39) (xy 210.82 199.39)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "54de6865-2644-4a6c-856c-7067f91fbd92")
 	)
 	(wire
 		(pts
@@ -4922,6 +5287,16 @@
 	)
 	(wire
 		(pts
+			(xy 137.16 118.11) (xy 137.16 116.84)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7bdb9f49-788a-4433-a093-4a7d4a86d18c")
+	)
+	(wire
+		(pts
 			(xy 60.96 97.79) (xy 62.23 97.79)
 		)
 		(stroke
@@ -4989,6 +5364,16 @@
 			(type default)
 		)
 		(uuid "8166732f-1b5b-4cde-88e1-0225ef69ca15")
+	)
+	(wire
+		(pts
+			(xy 140.97 111.76) (xy 137.16 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "82712d1f-96a0-4ed0-b1b6-66a8ff35e80f")
 	)
 	(wire
 		(pts
@@ -6260,6 +6645,16 @@
 		)
 		(uuid "b5254808-9227-4355-96bf-eaaba1b277d2")
 	)
+	(label "HP_L"
+		(at 215.9 199.39 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "b551a41a-3100-4bdb-95b0-0ae6e3970e13")
+	)
 	(label "SPK_L+"
 		(at 201.93 97.79 0)
 		(effects
@@ -6291,7 +6686,7 @@
 		(uuid "c03dfc80-be5e-4f70-bdbc-843f15399fc3")
 	)
 	(label "HP_DET"
-		(at 125.73 111.76 0)
+		(at 140.97 111.76 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6380,6 +6775,16 @@
 		)
 		(uuid "db23f5be-abd0-41a5-aacf-ad994f55bae8")
 	)
+	(label "HP_R"
+		(at 215.9 207.01 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "e5dcbf72-4e8c-4276-a560-e136e8cad83d")
+	)
 	(label "QSPI_SD0"
 		(at 50.8 101.6 0)
 		(effects
@@ -6399,6 +6804,16 @@
 			(justify left bottom)
 		)
 		(uuid "eb2793a7-ee29-4639-8dff-6f833aac4955")
+	)
+	(label "HP_DET"
+		(at 210.82 204.47 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "ebcffe72-de09-40a3-a2ff-8d88c469e308")
 	)
 	(global_label "USB2_RP_DP2"
 		(shape input)
@@ -7716,6 +8131,71 @@
 			(project "PortaRe0"
 				(path "/479aadc4-f9a0-4ec2-b000-6a17237038f1/6f018b3a-f554-45a0-adb8-bf1e4994a5d2"
 					(reference "C82")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 137.16 118.11 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "2787aab4-521c-45af-95a9-306ceb50f4ac")
+		(property "Reference" "#PWR0276"
+			(at 137.16 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 137.16 123.444 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 137.16 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 137.16 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+			(at 137.16 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "1059e8cb-ee70-495c-a05a-6d9c0a46c70b")
+		)
+		(instances
+			(project "PortaRe0"
+				(path "/479aadc4-f9a0-4ec2-b000-6a17237038f1/6f018b3a-f554-45a0-adb8-bf1e4994a5d2"
+					(reference "#PWR0276")
 					(unit 1)
 				)
 			)
@@ -9168,7 +9648,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "PortaRe0:CONN-TH_B2B-PH-K-S"
+		(property "Footprint" "PortaRe0:CONN-TH_S2B-PH-K-S-LF-SN"
 			(at 262.89 102.87 0)
 			(effects
 				(font
@@ -9607,6 +10087,72 @@
 			(project "PortaRe0"
 				(path "/479aadc4-f9a0-4ec2-b000-6a17237038f1/6f018b3a-f554-45a0-adb8-bf1e4994a5d2"
 					(reference "#PWR0143")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GNDPWR")
+		(at 210.82 196.85 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "71325b43-8530-426b-b612-d01fd97e0ce1")
+		(property "Reference" "#PWR0275"
+			(at 215.9 196.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GNDPWR"
+			(at 213.36 196.088 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" ""
+			(at 212.09 196.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 212.09 196.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GNDPWR\" , global ground"
+			(at 210.82 196.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "750549f1-5503-471e-9031-6315145924d2")
+		)
+		(instances
+			(project "PortaRe0"
+				(path "/479aadc4-f9a0-4ec2-b000-6a17237038f1/6f018b3a-f554-45a0-adb8-bf1e4994a5d2"
+					(reference "#PWR0275")
 					(unit 1)
 				)
 			)
@@ -10215,6 +10761,73 @@
 			(project "PortaRe0"
 				(path "/479aadc4-f9a0-4ec2-b000-6a17237038f1/6f018b3a-f554-45a0-adb8-bf1e4994a5d2"
 					(reference "C90")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_Small")
+		(at 137.16 114.3 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "8cde3f04-c0cf-4c99-b2fe-fc53475bd67d")
+		(property "Reference" "R63"
+			(at 138.684 114.3 90)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+			)
+		)
+		(property "Value" "100kΩ"
+			(at 135.382 115.062 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 137.16 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 137.16 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor, small symbol"
+			(at 137.16 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "f5bacbf1-1326-46d7-8bdc-1df753ed8492")
+		)
+		(pin "2"
+			(uuid "2d0dfe18-25a1-41bc-9cb6-3f0cd807fccd")
+		)
+		(instances
+			(project "PortaRe0"
+				(path "/479aadc4-f9a0-4ec2-b000-6a17237038f1/6f018b3a-f554-45a0-adb8-bf1e4994a5d2"
+					(reference "R63")
 					(unit 1)
 				)
 			)
@@ -11755,6 +12368,92 @@
 		)
 	)
 	(symbol
+		(lib_id "PortaRe0:PJ-307C")
+		(at 203.2 200.66 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d426a8fc-ae76-40d3-b8a9-576a9581db02")
+		(property "Reference" "J9"
+			(at 201.93 191.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "PJ-307C"
+			(at 201.93 194.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "PortaRe0:AUDIO-TH_PJ307C"
+			(at 203.2 214.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://lcsc.com/product-detail/Audio-Connectors_Headphone-interface_C16684.html"
+			(at 203.2 217.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 203.2 200.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part" "C16684"
+			(at 203.2 219.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "4"
+			(uuid "9b78b8e3-50cb-4361-94d4-f3a522d7c5f2")
+		)
+		(pin "1"
+			(uuid "743cfe68-1cdc-43eb-bdc7-cda6a142911c")
+		)
+		(pin "2"
+			(uuid "46393a7f-60c3-400e-92ae-6bb00cc33497")
+		)
+		(pin "3"
+			(uuid "2a01b07d-8dcf-4fb6-a3f4-72a303e5a3d7")
+		)
+		(pin "5"
+			(uuid "c7022705-de11-4d6f-b7b0-095b507f9bb8")
+		)
+		(instances
+			(project ""
+				(path "/479aadc4-f9a0-4ec2-b000-6a17237038f1/6f018b3a-f554-45a0-adb8-bf1e4994a5d2"
+					(reference "J9")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:C_Small")
 		(at 271.78 121.92 270)
 		(mirror x)
@@ -13133,7 +13832,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "PortaRe0:CONN-TH_B2B-PH-K-S"
+		(property "Footprint" "PortaRe0:CONN-TH_S2B-PH-K-S-LF-SN"
 			(at 265.43 74.93 0)
 			(effects
 				(font

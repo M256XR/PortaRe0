@@ -4232,7 +4232,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "PortaRe0:CONN-TH_B2B-PH-K-S"
+		(property "Footprint" "PortaRe0:CONN-TH_S2B-PH-K-S-LF-SN"
 			(at 226.06 121.92 0)
 			(effects
 				(font

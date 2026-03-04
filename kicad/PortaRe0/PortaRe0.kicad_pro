@@ -498,7 +498,7 @@
   },
   "schematic": {
     "annotate_start_num": 0,
-    "bom_export_filename": "PortaRe0.csv",
+    "bom_export_filename": "${PROJECTNAME}.csv",
     "bom_fmt_presets": [],
     "bom_fmt_settings": {
       "field_delimiter": ",",
@@ -685,6 +685,10 @@
     [
       "ef56189a-a3eb-463c-a6e0-1b813a079cd5",
       "usb_adapter"
+    ],
+    [
+      "c43a06e3-1419-45ee-8519-3cfff24381b4",
+      "m2_ssd"
     ]
   ],
   "text_variables": {}

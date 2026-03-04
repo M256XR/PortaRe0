@@ -113,7 +113,7 @@ Cubie A7Z Micro HDMI → HDMIコントローラ基板
 - **PCM5102APWR**（C107671）イヤホン用ステレオDAC / TSSOP-20
 - **TPA6132A2RTER**（C69901）イヤホン用ヘッドフォンアンプ / WQFN-16
 - スピーカー：Nintendo Switch互換品 8Ω 20×14×4mm × 2個（L/R）
-- イヤホンジャック：3.5mm TRRS SMT（挿入時スピーカーミュート）
+- イヤホンジャック：PJ-307C（C16684 / TH 5pin / 挿入時スピーカーミュート / HP_DET=GP6+100kΩpull-up）
 - I2S接続：RP2040 #2 → MAX98357A × 2（スピーカー）/ PCM5102A（DAC）→ TPA6132A2 → ジャック
 
 **RP2040 #2 GPIO割り当て：**

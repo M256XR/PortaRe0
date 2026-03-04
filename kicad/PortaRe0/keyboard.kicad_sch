@@ -18480,7 +18480,7 @@
 				)
 			)
 		)
-		(property "Footprint" "PortaRe0:CONN-TH_B2B-PH-K-S"
+		(property "Footprint" "PortaRe0:CRYSTAL-SMD_4P-L3.2-W2.5-BL"
 			(at 67.31 176.53 0)
 			(effects
 				(font
