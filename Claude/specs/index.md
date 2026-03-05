@@ -25,6 +25,7 @@
 | 昇圧DC-DC | TPS61023DRLR ×2 | C919459 / 5V_SYS / USB_5V_SYS |
 | LDO 3.3V | AP2112K-3.3TRG1 | C51118 / RP2040用 |
 | バッテリー | LiPo 606090 | 4200mAh / 3.7V |
+| バッテリーコネクタ | BM06B-ACHFKS-GACN-ETF | JST ACH 6pin / 実装高1.43mm / 7.5A / DigiKey別途購入・手はんだ |
 | USBハブ | VL812-Q7 | C69417 / USB3.0 4ポート |
 | MCU | RP2040 ×2 | C2040 / #1=キーボード / #2=オーディオ |
 | キースイッチ | Alps SKRPABE010 | C115360 / 63キー |
