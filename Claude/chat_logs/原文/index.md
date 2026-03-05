@@ -305,6 +305,17 @@
 - L110: セッション終了処理に extract_session.py を組み込み（Claude.md 更新）
 - L120: launch_claude_utf16.ps1 / chat_logs/raw/ を .gitignore に追加
 
+### Session33 (2026-03-06) - 2026-03-05_Session33.txt
+- L1: セッション開始・PROGRESS.md C番号確定リスト更新
+- L30: J4バッテリーコネクタ変更: S8B-PH-K-S → BM06B-ACHFKS-GACN-ETF（JST ACH 6pin）
+  - 検討経緯: JST PH → AUH → ACH / 実装高1.43mm / 幅9.1mm / 7.5A
+  - バッテリー電流計算（最大5.1A / 通常4.4A）
+  - シンボル+フットプリントをPortaRe0ライブラリに追加
+- L80: pcb_layout_notes.txt 新規作成（配置方針・発熱量・近接配置・電源フロー）
+- L120: specs/index.md PCB層数 4層→6層に更新
+- L150: バッテリー上配置可否・発熱量計算（インダクタDCR損失 P=I²×R）
+- L200: バッテリー↔IC間の熱的クリアランス検討（3mm〜5mm）
+
 ### Session32 (2026-03-04) - 2026-03-04_Session32.txt
 - L1: セッション開始・ドキュメント整理の検討
 - L30: CONTEXT.md を archive/ に移動・CLAUDE.md 冒頭にセッション開始手順統合

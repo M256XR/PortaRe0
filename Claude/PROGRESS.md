@@ -1,16 +1,22 @@
 # PortaRe0 進捗ログ
 
 ## 現在のフェーズ
-**Phase 2: 回路設計 ✅ 完了 → Phase 3: PCBレイアウト 開始待ち**
+**Phase 2: 回路設計 ✅ 完了 → Phase 3: PCBレイアウト 進行中**
 
 ## 現在の作業箇所
 - PCBレイアウト進行中（session32〜）
   - **次のタスク**: PCBレイアウト継続（部品配置・ルーティング）
   - J7/J8（usb_adapter FPCエッジ）: PCBエッジ設計・コンポーネント不要（変更なし）
+  - Session33での主な確定事項:
+    - J4（バッテリー）: BM06B-ACHFKS-GACN-ETF（JST ACH 6pin）/ 実装高1.43mm / 幅9.1mm / VBAT×3+GND×3 / 7.5A容量
+      - DigiKey別途購入・手はんだ / シンボル+フットプリントをPortaRe0ライブラリに追加済み
+      - バッテリー側: ACHFR-06V-H + SACHF-003GAC-P0.2×6 / リード線AWG #28に交換必要
+      - KiCad J4シンボル差し替え・Pin1-3=VBAT / Pin4-6=GND
+    - pcb_layout_notes.txt 新規作成（配置方針・発熱量・近接配置ペア・電源フロー）
+    - specs/index.md PCB層数を6層に更新
   - Session32での主な作業: ドキュメント構成整理（下記参照）
   - Session31での主な確定事項:
     - SW2（キルスイッチ）: MSK12C02（C431540）EN制御方式 / KiCad配線完了
-    - J4（バッテリー）: S8B-PH-K-S-LF-SN（C157915）水平型8pin JST PH / フットプリント確定
     - J9（ヘッドフォンジャック）: PJ-307C（C16684）/ KiCad配線完了 / 100kΩ pull-up追加
     - BOM Y4フットプリント修正: CONN-TH_B2B-PH-K-S → CRYSTAL-SMD_4P-L3.2-W2.5-BL
 - KiCad 修正済み（session24-27で実施）:
@@ -214,22 +220,59 @@
 
 ## JLCPCB C番号確定リスト
 
+### IC・半導体
+
 | 部品 | 型番 | C番号 |
 |------|------|-------|
 | 充電IC | BQ25895RTWR | C80200 |
 | 昇圧DC-DC | TPS61023DRLR | C919459 |
 | LDO 3.3V | AP2112K-3.3TRG1 | C51118 |
+| M.2 LDO | RT9080-33GJ5 | C841192 |
 | USB HUBチップ | VL812-Q7 | C69417 |
 | SPI Flash | W25Q32JVSSIQ | C82344 |
 | キーボードMCU | RP2040 | C2040 |
-| クリスタル（RP2040用） | X322512MOB4SI | C70565 |
 | I2Sアンプ | MAX98357AEWL+T | C2682619 |
-| キースイッチ | Alps SKRPABE010 | C115360 |
-| ダイオード | 1N4148W | C2099 |
-| MOSFET | BSS138 | C52895 |
-| FPCコネクタ（スティック用） | Molex 5034800440 | C3170007 |
 | イヤホン用DAC | PCM5102APWR | C107671 |
 | ヘッドフォンアンプ | TPA6132A2RTER | C69901 |
 | USBパワースイッチ | TPS2042BDR | C138720 |
 | USB ESD保護 | USBLC6-2SC6 | C7519 |
-| VL812用水晶 | X322525MOB4SI | C9006 |
+| MOSFET（FAN/audio） | BSS138 | C52895 |
+| Schottkyダイオード（電源保護） | BAT54 | C466635 |
+| ダイオード（キーマトリクス） | 1N4148W | C2099 |
+
+### 水晶・インダクタ
+
+| 部品 | 型番 | C番号 |
+|------|------|-------|
+| クリスタル（RP2040用） | X322512MOB4SI | C70565 |
+| クリスタル（VL812用） | X322525MOB4SI | C9006 |
+| インダクタ L1（BQ25895 2.2µH） | MWSA0402S-2R2MT | C408335 |
+| インダクタ L2/L4（TPS61023 1µH） | CKST322512 | C3002557 |
+| インダクタ L3（VL812 10µH） | CYA0420 | C19274352 |
+
+### スイッチ・LED
+
+| 部品 | 型番 | C番号 |
+|------|------|-------|
+| キースイッチ（63キー） | Alps SKRPABE010 | C115360 |
+| タクトSW（電源ボタン/肩ボタン×2） | Alps SKSCLBE010 | C115361 |
+| キルスイッチ | MSK12C02 | C431540 |
+| LED 赤（STAT直結） | KT-0603R | C2286 |
+| LED 青（LED_ACT） | YLED0603B | C19171394 |
+| LED 緑（LED_FULL） | YLED0603G | C19273151 |
+| LED 橙（LED_CHG） | YLED0603O | C19273153 |
+
+### コネクタ
+
+| 部品 | 型番 | C番号 |
+|------|------|-------|
+| バッテリーコネクタ J4（水平 8pin JST PH） | S8B-PH-K-S-LF-SN | C157915 |
+| スピーカー/FAN J2/J3/J6（2pin JST PH） | B2B-PH-K-S | C131337 |
+| イヤホンジャック J9 | PJ-307C | C16684 |
+| M.2ソケット | NASM0-S6701-TP40 | C367029 |
+| FPCコネクタ 24pin ZIF（HDMI/SBC用） | FPC-05F-24PH20 | C2856805 |
+| FPCコネクタ 16pin ZIF（M.2用） | FPC-05F-16PH20 | C2856801 |
+| FPCコネクタ 4pin ZIF（スティック用） | Molex 5034800440 | C3170007 |
+| USB-Cオス Vertical（SBC接続） | 918-118A2021Y40000 | C168690 |
+| 外部USB-C レセプタクル | USB31-TYPE-C-FSABC | C2880583 |
+| 外部USB-A レセプタクル | HC-USB3.0-L168-WP | C7501850 |

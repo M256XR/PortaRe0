@@ -108,7 +108,12 @@ SW2       未定      -             SPDT / ロック式 / 5A+        VSYS物理�
 
 部品          C番号     型番              ピン数  仕様
 ------------  --------  ----------------  ------  ----------------------------------------
-J4（バッテリ）  C157974   B8B-PH-K-S        8pin    VBAT×4 / GND×4 / 8A / SMD垂直
+J4（バッテリ）  -         BM06B-ACHFKS-GACN-ETF  6pin    VBAT×3 / GND×3 / 7.5A / JST ACH SMT / 実装高1.43mm / 幅9.1mm
+                           ※基板側 PCBヘッダー : BM06B-ACHFKS-GACN-ETF  $0.95（DigiKey 在庫9,492 / 手はんだ）
+                           ※バッテリー側ハウジング: ACHFR-06V-H           $0.26（DigiKey 在庫2,963）
+                           ※コンタクト          : SACHF-003GAC-P0.2      $0.12×6本（DigiKey 在庫72,930）
+                           ※フットプリント: ネット上にあり（自作不要）
+                           ※バッテリー側リード線: AWG #28に交換必要
 J2/J3（SPK）   C131337   B2B-PH-K-S        2pin    各スピーカー×2個 / SMD垂直
 J6（FAN）      C131337   B2B-PH-K-S        2pin    FAN 2線（5V+GND）/ SMD垂直
 
