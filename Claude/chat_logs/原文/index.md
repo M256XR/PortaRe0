@@ -305,7 +305,7 @@
 - L110: セッション終了処理に extract_session.py を組み込み（Claude.md 更新）
 - L120: launch_claude_utf16.ps1 / chat_logs/raw/ を .gitignore に追加
 
-### Session34 (2026-03-06) - 2026-03-06_Session34.txt
+### Session34 (2026-03-06) - 2026-03-06_Session35.txt（完全版 / Session34は途中抽出）
 - L1: セッション開始・PROGRESS.md確認・PCBレイアウト継続
 - L57: 電源配線幅の目安（VSYS/5V_SYS/3V3別）・6層基板の基礎説明
 - L182: RP2040↔VL812 USB2.0 HS 許容距離（100mm以内・ペア内等長優先）
