@@ -253,3 +253,18 @@
 - 主要IC全部のJLCPCB C番号確定（下記参照）
 
 ---
+
+### 2026-03-02（session29）
+- LED C番号確定（passive_parts.txtに追記）:
+  - D1（赤/BQ25895 STAT直結）: **C2286**（KT-0603R / Basic）
+  - D2（青/LED_ACT GP23）: **C19171394**（YLED0603B / Extended / 手はんだ）
+  - D3（緑/LED_FULL GP22）: **C19273151**（YLED0603G / Extended / 手はんだ）
+  - D4（橙/LED_CHG GP21）: **C19273153**（YLED0603O / Extended / 手はんだ）
+- タクトスイッチ確定: 肩ボタン（Left/Right）・SW1（電源ボタン）すべて側面押しに変更
+  - **C115361**（Alps SKSCLBE010 / 横押しSMD / 3.6×3.5mm / 2.24N）に統一
+  - 旧: SKRPABE010（上押し）→ 新: SKSCLBE010（横押し）
+  - KiCad要作業: keyboard.kicad_schの肩ボタン2個 + power.kicad_schのSW1 フットプリント変更
+  - SW2（キルスイッチ / VSYS物理カット / 5A+スルーホール）: 筐体設計後に確定
+- TPA6132A2 EMIフィルタ 2.2nFキャップ追加: **audio.kicad_sch完了**（R8/R54出力→GND / C番号C1604）
+- BQ25895 C6（PMID）電圧変更: **power.kicad_sch完了**（10µF 25V / C番号C91606 / Murata GRM188R61E106MA73D）
+  - C19702（10V品）は他の10µFに引き続き使用、C6のみC91606

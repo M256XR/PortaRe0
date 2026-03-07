@@ -305,6 +305,27 @@
 - L110: セッション終了処理に extract_session.py を組み込み（Claude.md 更新）
 - L120: launch_claude_utf16.ps1 / chat_logs/raw/ を .gitignore に追加
 
+### Session34 (2026-03-06) - 2026-03-06_Session34.txt
+- L1: セッション開始・PROGRESS.md確認・PCBレイアウト継続
+- L57: 電源配線幅の目安（VSYS/5V_SYS/3V3別）・6層基板の基礎説明
+- L182: RP2040↔VL812 USB2.0 HS 許容距離（100mm以内・ペア内等長優先）
+- L236: L3↔VL812 最短必須（2mm以内・スイッチングループ最小化）
+- L284: B.Cu高速差動ペアとIC密集の干渉問題 → USB3.0 SS・HDMIをIn2へ移動
+- L510: LS055R1SX04 + MIP-1000 動作確認（PC正常 / スマホ不可）
+- L600: MIP-1000特定・STM32 HID（VID_0483/PID_5750）確認・HIDでの制御断念
+- L1280: MIP-1000 STM32 HIDドライバ認識・Monitorianで認識不可確認
+- L1539: MIPI 60pin配置（LED_VOUT Pin51-53 / LED_1 Pin55 / LED_2 Pin56）
+- L1624: LP3320B6F LEDドライバ特定（ENピンPWM調光1%〜100%対応）
+- L1700: XIAO ESP32-S3でPWM実験開始・コンパイルエラー修正（ledcAttach新API）
+- L1954: XIAO ESP32-S3破損（半田ショート）→ 実験断念
+- L2044: 明るさ制御確定: 手動6段階・バウンス式・電源オフ後保持・RP2040制御不要
+- L2127: 明るさ調整ボタン→下筐体へ信号線1本（GNDは下筐体から取る）
+- L2165: SBC→VL812 USB3.0 距離 20cm以内安全
+- L2226: 抵抗・コンデンサ 0402化方針（Basic品→0402 / Extended品→0603維持）
+- L2300: 0402 C番号確認・passive_parts.txt大幅更新
+- L2400: 10µF分類（3.3Vライン=C15525 0402 / 5V/VSYS/BATT=C96446 0603 25V）
+- L終: C6(0402→0603)・C104(0402→0603) KiCad修正完了・CSV確認
+
 ### Session33 (2026-03-06) - 2026-03-05_Session33.txt
 - L1: セッション開始・PROGRESS.md C番号確定リスト更新
 - L30: J4バッテリーコネクタ変更: S8B-PH-K-S → BM06B-ACHFKS-GACN-ETF（JST ACH 6pin）

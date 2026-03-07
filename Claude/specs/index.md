@@ -12,6 +12,7 @@
 | [keyboard.md](./keyboard.md) | キーボード・RP2040 #1 GPIO・アナログスティック・LED |
 | [audio.md](./audio.md) | オーディオ・RP2040 #2 GPIO・信号フロー |
 | [m2_ssd.md](./m2_ssd.md) | M.2 SSD・PCIe FPC接続・LDO |
+| [display.md](./display.md) | ディスプレイ・HDMIコントローラ基板・組み込み方法 |
 
 ---
 

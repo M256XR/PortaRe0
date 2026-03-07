@@ -43,16 +43,18 @@ C3002557   1µH   CENKER CKST322512        ×2  L2,L4 TPS61023用 要JLCPCB確�
 C19274352  10µH  SHOU HAN CYA0420         ×1  L3 VL812用     要JLCPCB確認
 
 ================================================================================
-【C】IC類（要JLCPCB確認 / Extended可能性高）
+【C】IC類（Extended確定 / JLCPCB PCBA対象 / 2026-03-08確認済み）
 ================================================================================
 
-C919459    TPS61023DRLR     昇圧DC-DC        ×2   要確認
-C69417     VL812-Q7         USB Hubチップ    ×1   Extended濃厚
-C2682619   MAX98357AEWL+T   I2Sアンプ        ×2   Extended濃厚
-C69901     TPA6132A2RTER    HPアンプ         ×1   Extended濃厚
-C138720    TPS2042BDR       USBパワースイッチ ×1   要確認
-C3170007   Molex 5034800440 FPCコネクタ      ×1   要確認
-C431540    MSK12C02         スライドSW       ×1   Extended濃厚
+C番号     型番              役割             数  在庫       備考
+--------  ----------------  ---------------  --  ---------  --------------------
+C919459   TPS61023DRLR      昇圧DC-DC        ×2  18,758     Extended
+C69417    VL812-Q7          USB Hubチップ    ×1  0          Extended・要Pre-order
+C2682619  MAX98357AEWL+T    I2Sアンプ        ×2  7,114      Extended
+C69901    TPA6132A2RTER     HPアンプ         ×1  504        Extended
+C138720   TPS2042BDR        USBパワースイッチ ×1  1,214      Extended
+C3170007  Molex 5034800440  FPCコネクタ      ×1  893        Extended
+C431540   MSK12C02          スライドSW       ×1  149,059    Extended
 
 ================================================================================
 【D】Basic確認済み（PCBA任せ）

@@ -5,7 +5,8 @@
 
 ## 現在の作業箇所
 - PCBレイアウト進行中（session32〜）
-  - **次のタスク**: PCBレイアウト継続（部品配置・ルーティング）
+  - **次のタスク**: 受動部品配置（デカップリングキャップ優先）→ルーティング
+  - Session34現在: 受動部品以外の配置はほぼ確定済み / 受動部品を0402化してから配置中
   - J7/J8（usb_adapter FPCエッジ）: PCBエッジ設計・コンポーネント不要（変更なし）
   - Session33での主な確定事項:
     - J4（バッテリー）: BM06B-ACHFKS-GACN-ETF（JST ACH 6pin）/ 実装高1.43mm / 幅9.1mm / VBAT×3+GND×3 / 7.5A容量
@@ -124,6 +125,7 @@
 - Cubie A7Z 8GB → AliExpress 注文済み ✅
 - LS055R1SX04 + HDMIコントローラ基板セット → AliExpress 注文済み ✅
 - LiPo 606090（4200mAh）→ 要発注（6060100から変更）
+- VS-CXMIPI-V1（D000118-VS-CXMIPI-V1-50Hz）→ AliExpress 注文済み ✅（5,731円 / UART輝度制御確認用）
 - フラットヒートパイプ 3mm厚 → AliExpress 注文済み ✅
 - 3DSスライドパッド → 別途購入予定
 
@@ -137,6 +139,27 @@
 ---
 
 ## 直近の決定事項ログ
+
+### 2026-03-06（session34）
+- LS055R1SX04 + MIP-1000 動作確認（PC接続で正常表示 / スマホは解像度固定のため不可）
+- MIP-1000確定: STM32（VID_0483/PID_5750 HID）+ N76E003A120 + LP3320B6F（LEDドライバ）
+  - LP3320B6F: ENピンPWM調光対応（1%〜100%）/ ただし実装断念（XIAO ESP32-S3破損）
+  - 明るさ: 手動6段階・バウンス式（6→5→...→1→2→...→6）・電源オフ後値保持
+  - **確定: 明るさ調整は手動運用（RP2040制御不要）**
+  - 明るさ調整ボタンはヒンジ経由で下筐体に信号線1本引き出し予定（GNDは下筐体から取る）
+- VS-CXMIPI-V1（D000118-VS-CXMIPI-V1-50Hz）購入（5,731円）
+  - 届いたらUART（RX/TX 3.3V / N76E003A120）で輝度制御コマンド確認予定
+- 受動部品 0603→0402 化（スペース節約）
+  - 抵抗: Basic品は全0402化 / Extended品（27Ω/6.04kΩ/750kΩ）は0603維持
+  - 特例: 270Ω/56kΩ/220kΩは0402がExtended→0603 Basicのまま
+  - コンデンサ 〜4.7µF: 0402化（100nF=C307331 / 1µF=C52923 / 2.2µF=C12530 / 4.7µF=C23733）
+  - コンデンサ 10µF: 3.3Vライン→C15525(0402 6.3V) / 5V/VSYS/BATT/PMID→C96446(0603 25V)
+  - コンデンサ 22µF（C59461 / 0603）・150µF（C156458 タンタル）: 0603維持
+  - KiCadフットプリント修正完了（C6 10µF 25V → 0603 / C104 22µF → 0603）
+  - passive_parts.txt・extended_parts.txt 更新済み
+- PCBレイアウト: 受動部品以外の配置ほぼ確定（受動部品配置中）
+- display.md 新規作成・specs/index.md 更新（LS055R1SX04 / MIP-1000 / VS-CXMIPI-V1 仕様）
+- pcb_layout_notes.txt 更新: USB3.0 SS・HDMIをIn2へ移動 / PCIeのみB.Cuに残す
 
 ### 2026-03-04（session32）
 - ドキュメント構成を整理・スリム化:
@@ -203,21 +226,6 @@
 - passive_parts.txtにコネクタセクション追加
 - 4層基板の構造・差動ペアとキーマトリクスの干渉対策を検討
 
-### 2026-03-02（session29）
-- LED C番号確定（passive_parts.txtに追記）:
-  - D1（赤/BQ25895 STAT直結）: **C2286**（KT-0603R / Basic）
-  - D2（青/LED_ACT GP23）: **C19171394**（YLED0603B / Extended / 手はんだ）
-  - D3（緑/LED_FULL GP22）: **C19273151**（YLED0603G / Extended / 手はんだ）
-  - D4（橙/LED_CHG GP21）: **C19273153**（YLED0603O / Extended / 手はんだ）
-- タクトスイッチ確定: 肩ボタン（Left/Right）・SW1（電源ボタン）すべて側面押しに変更
-  - **C115361**（Alps SKSCLBE010 / 横押しSMD / 3.6×3.5mm / 2.24N）に統一
-  - 旧: SKRPABE010（上押し）→ 新: SKSCLBE010（横押し）
-  - KiCad要作業: keyboard.kicad_schの肩ボタン2個 + power.kicad_schのSW1 フットプリント変更
-  - SW2（キルスイッチ / VSYS物理カット / 5A+スルーホール）: 筐体設計後に確定
-- TPA6132A2 EMIフィルタ 2.2nFキャップ追加: **audio.kicad_sch完了**（R8/R54出力→GND / C番号C1604）
-- BQ25895 C6（PMID）電圧変更: **power.kicad_sch完了**（10µF 25V / C番号C91606 / Murata GRM188R61E106MA73D）
-  - C19702（10V品）は他の10µFに引き続き使用、C6のみC91606
-
 ## JLCPCB C番号確定リスト
 
 ### IC・半導体
@@ -266,7 +274,7 @@
 
 | 部品 | 型番 | C番号 |
 |------|------|-------|
-| バッテリーコネクタ J4（水平 8pin JST PH） | S8B-PH-K-S-LF-SN | C157915 |
+| バッテリーコネクタ J4（JST ACH 6pin / VBAT×3+GND×3） | BM06B-ACHFKS-GACN-ETF | DigiKey別途購入 |
 | スピーカー/FAN J2/J3/J6（2pin JST PH） | B2B-PH-K-S | C131337 |
 | イヤホンジャック J9 | PJ-307C | C16684 |
 | M.2ソケット | NASM0-S6701-TP40 | C367029 |
