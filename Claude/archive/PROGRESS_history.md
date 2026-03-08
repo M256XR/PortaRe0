@@ -268,3 +268,16 @@
 - TPA6132A2 EMIフィルタ 2.2nFキャップ追加: **audio.kicad_sch完了**（R8/R54出力→GND / C番号C1604）
 - BQ25895 C6（PMID）電圧変更: **power.kicad_sch完了**（10µF 25V / C番号C91606 / Murata GRM188R61E106MA73D）
   - C19702（10V品）は他の10µFに引き続き使用、C6のみC91606
+
+### 2026-03-02（session30）
+- フットプリント割り当て調査・確定:
+  - easyeda2kicad取得: C115361(SKSCLBE010) / C115360(SKRPABE010) / C9006 / C70565 / C408335 / C3002557 / C19274352 / C157974 / C131337
+  - 全シート316個のフットプリント割り当て完了（SW2・J7/J8のみTBD）
+  - DNS問題(/etc/hostsにeasyeda.com追加で解決)
+- コネクタ確定:
+  - J4（バッテリー）: C157974（B8B-PH-K-S / JST PH 8pin / VBAT×4+GND×4）
+  - J2/J3（スピーカー）・J6（FAN）: C131337（B2B-PH-K-S / JST PH 2pin）
+  - J5（hdmi_adapter）: PinHeader_2x08_P2.00mm_Vertical（ジャンパワイヤー受けパッド）
+- Claude.md冷却セクション更新: ファンはRP2040 #1 GP26→BSS138制御（A7Z内蔵コネクタ不使用）
+- passive_parts.txtにコネクタセクション追加
+- 4層基板の構造・差動ペアとキーマトリクスの干渉対策を検討

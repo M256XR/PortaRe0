@@ -305,6 +305,14 @@
 - L110: セッション終了処理に extract_session.py を組み込み（Claude.md 更新）
 - L120: launch_claude_utf16.ps1 / chat_logs/raw/ を .gitignore に追加
 
+### Session35 (2026-03-09) - 2026-03-08_Session35.txt
+- L1: セッション開始・CLAUDE.md手順に従い git status・PROGRESS.md確認
+- L20: TPS61023 FB R_TOP（750kΩ）が5V_SYSに接続されているのはミスと確認
+  - 正: HUB_5V（TPS61023出力）→ R_TOP → FB → R_BOT → GND
+- L50: M.2ソケット（NASM0-S6701-TP40）下クリアランス = 1.1mm
+  - 0402部品（~0.5mm）のみ安全 / 0603はギリギリ / SOT-23系は不可
+- PCBレイアウト: 受動部品配置進行中
+
 ### Session34 (2026-03-06) - 2026-03-06_Session34.txt
 - L1: セッション開始・PROGRESS.md確認・PCBレイアウト継続
 - L57: 電源配線幅の目安（VSYS/5V_SYS/3V3別）・6層基板の基礎説明

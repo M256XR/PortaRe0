@@ -6977,6 +6977,16 @@
 		)
 		(uuid "20d94d28-47f1-4462-99dd-5c90f4ae202f")
 	)
+	(label "HUB_5V"
+		(at 318.77 86.36 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "27d9073b-0b3b-4722-a3a8-64fb792b9283")
+	)
 	(label "USB1_VBUS"
 		(at 383.54 135.89 0)
 		(effects
@@ -19088,72 +19098,6 @@
 			(project "PortaRe0"
 				(path "/479aadc4-f9a0-4ec2-b000-6a17237038f1/8e76808d-de08-4fd1-9155-9dd498f0d9f9"
 					(reference "#PWR0180")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:5V_SYS")
-		(at 318.77 86.36 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "eaf927f5-7375-42de-a9c2-e1e220944064")
-		(property "Reference" "#PWR0174"
-			(at 318.77 90.17 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "5V_SYS"
-			(at 318.77 81.28 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 318.77 86.36 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 318.77 86.36 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"VSYS\""
-			(at 318.516 80.264 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "2f4a2445-d4e1-40fd-87dc-7ace8c59b6b2")
-		)
-		(instances
-			(project "PortaRe0"
-				(path "/479aadc4-f9a0-4ec2-b000-6a17237038f1/8e76808d-de08-4fd1-9155-9dd498f0d9f9"
-					(reference "#PWR0174")
 					(unit 1)
 				)
 			)
