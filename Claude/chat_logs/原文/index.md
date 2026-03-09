@@ -305,6 +305,15 @@
 - L110: セッション終了処理に extract_session.py を組み込み（Claude.md 更新）
 - L120: launch_claude_utf16.ps1 / chat_logs/raw/ を .gitignore に追加
 
+### Session36 (2026-03-10) - 2026-03-09_Session36.txt
+- L1: セッション開始・CLAUDE.md手順に従い git status・PROGRESS.md確認
+- L20: VL812周辺の受動部品配置方針確定
+  - L3インダクタ4mm / SPI最遠6〜7mm / SMDAT/SMCLK 4.7kΩ 5〜6mm → すべてOK
+  - 水晶負荷キャップ（18pF×2）を水晶外側→VL812 XIN/XOUT間（経由地）に修正
+  - VBUSDET分圧: 低速アナログ・数mm〜10mm許容
+- L80: デカップリングキャップの距離原則: 1mm以内が理想・2mmまで許容
+- PCBレイアウト受動部品配置継続中
+
 ### Session35 (2026-03-09) - 2026-03-08_Session35.txt
 - L1: セッション開始・CLAUDE.md手順に従い git status・PROGRESS.md確認
 - L20: TPS61023 FB R_TOP（750kΩ）が5V_SYSに接続されているのはミスと確認

@@ -281,3 +281,34 @@
 - Claude.md冷却セクション更新: ファンはRP2040 #1 GP26→BSS138制御（A7Z内蔵コネクタ不使用）
 - passive_parts.txtにコネクタセクション追加
 - 4層基板の構造・差動ペアとキーマトリクスの干渉対策を検討
+
+### 2026-03-03（session31）
+- M.2 SSD追加設計:
+  - Cubie A7Z PCIe Gen3 x1 / F0506-16-BGR（16pin 0.5mm FPC / RPi5互換）
+  - M.2 2230 NVMe採用 / ソケット: NASM0-S6701-TP40（C367029）
+  - FPCコネクタ: FPC-05F-16PH20（C2856801）/ LDO: RT9080-33GJ5（C841192）
+  - m2_ssdシート新設・全ピン接続確定・ライブラリ取得済み
+  - 注意: M.2 Pin42/44/46/48/56 = NC（SATAピン / PCIe x1では未使用）
+- キルスイッチ確定: MSK12C02（C431540）EN制御方式
+  - 当初: DMP3010LK3-13（TO-252 P-ch MOSFET）でVSYS直列カット → 発熱問題（1.6W@8A）で断念
+  - 変更: MSK12C02でTPS61023 EN pin直接制御（COM→ENノード / NO→GND）
+  - MOSFETは不要（ENピンはµA級 → 発熱ゼロ）
+  - GP20→10kΩ→BAT54→ENノード の既存保護回路はそのまま流用
+  - KiCad power.kicad_sch: SW2配線完了
+- バッテリーコネクタ確定: S8B-PH-K-S-LF-SN（C157915）水平型8pin JST PH
+  - B8B-PH-K-S（垂直）からS8B-PH-K-S（水平・サイドエントリー）に変更
+  - フットプリント: PortaRe0:CONN-TH_S8B-PH-K-S-LF-SN
+- ヘッドフォンジャック確定: PJ-307C（C16684）TH 5pin
+  - PJ-393-8P（SMD Extended 8pin）から変更（ExtendedかつSMDで不利）
+  - ピン配置（データシート確認）:
+    - Pin1=GND(Sleeve) / Pin2=L Tip / Pin3=L SW(Pin2ペア) / Pin4=R SW(Pin5ペア) / Pin5=R Ring
+  - 接続: Pin1→GND / Pin2→HP_L / Pin3→NC / Pin4→HP_DET(GP6+100kΩpull-up) / Pin5→HP_R
+  - HP_DET動作: プラグ未挿入=Pin4-Pin5導通→LOW / 挿入=Pin4開放+pull-up→HIGH
+  - KiCad audio.kicad_sch: 配線完了
+- 新規ライブラリ取得（easyeda2kicad）:
+  - C431540（MSK12C02 スライドスイッチ）/ C157915（S8B-PH-K-S-LF-SN）
+  - C16684（PJ-307C）/ C154730（DMP3010LK3-13 / 未使用）
+- BOM確認・修正:
+  - Y4フットプリント誤り修正（CONN-TH_B2B-PH-K-S → CRYSTAL-SMD_4P-L3.2-W2.5-BL）
+  - J7/J8フットプリント空欄: 意図的（PCBエッジ設計・コンポーネント不要）
+- **Phase 2 回路設計 全シート完了 → Phase 3 PCBレイアウトへ**

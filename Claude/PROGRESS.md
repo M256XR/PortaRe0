@@ -5,8 +5,8 @@
 
 ## 現在の作業箇所
 - PCBレイアウト進行中（session32〜）
-  - **次のタスク**: 受動部品配置（デカップリングキャップ優先）→ルーティング
-  - Session34現在: 受動部品以外の配置はほぼ確定済み / 受動部品を0402化してから配置中
+  - **次のタスク**: 受動部品配置の続き→ルーティング
+  - Session36現在: VL812周辺の受動部品配置進行中 / 残りの受動部品配置中
   - J7/J8（usb_adapter FPCエッジ）: PCBエッジ設計・コンポーネント不要（変更なし）
   - Session33での主な確定事項:
     - J4（バッテリー）: BM06B-ACHFKS-GACN-ETF（JST ACH 6pin）/ 実装高1.43mm / 幅9.1mm / VBAT×3+GND×3 / 7.5A容量
@@ -140,6 +140,16 @@
 
 ## 直近の決定事項ログ
 
+### 2026-03-10（session36）
+- VL812周辺の受動部品配置方針確定:
+  - L3（インダクタ）: VL812から4mm → OK
+  - W25Q32 SPI最遠パッド: 6〜7mm → OK
+  - SMDAT/SMCLK 4.7kΩ: 5〜6mm → I2C低速なのでOK
+  - 水晶（C9006）負荷キャップ（18pF×2）: 水晶の外側→VL812とのXIN/XOUT間に修正済み
+  - VBUSDET分圧: 低速アナログなので数mm〜10mm許容
+- デカップリングキャップ距離の原則: 1mm以内が理想、2mmまで許容
+- PCBレイアウト: 受動部品配置継続中
+
 ### 2026-03-09（session35）
 - TPS61023 FB R_TOP（750kΩ）の接続先ミス確認: `5V_SYS` → `HUB_5V` に修正必要
   - FBピンは出力電圧フィードバック用 → R_TOP上側はTPS61023出力（HUB_5V）に接続すべき
@@ -188,37 +198,6 @@
   2. Claude: PROGRESS.md・index.md 更新
   3. Claude: README等確認・更新
   4. `python Claude/session_close.py "..."`（archive + git）
-
-### 2026-03-03（session31）
-- M.2 SSD追加設計:
-  - Cubie A7Z PCIe Gen3 x1 / F0506-16-BGR（16pin 0.5mm FPC / RPi5互換）
-  - M.2 2230 NVMe採用 / ソケット: NASM0-S6701-TP40（C367029）
-  - FPCコネクタ: FPC-05F-16PH20（C2856801）/ LDO: RT9080-33GJ5（C841192）
-  - m2_ssdシート新設・全ピン接続確定・ライブラリ取得済み
-  - 注意: M.2 Pin42/44/46/48/56 = NC（SATAピン / PCIe x1では未使用）
-- キルスイッチ確定: MSK12C02（C431540）EN制御方式
-  - 当初: DMP3010LK3-13（TO-252 P-ch MOSFET）でVSYS直列カット → 発熱問題（1.6W@8A）で断念
-  - 変更: MSK12C02でTPS61023 EN pin直接制御（COM→ENノード / NO→GND）
-  - MOSFETは不要（ENピンはµA級 → 発熱ゼロ）
-  - GP20→10kΩ→BAT54→ENノード の既存保護回路はそのまま流用
-  - KiCad power.kicad_sch: SW2配線完了
-- バッテリーコネクタ確定: S8B-PH-K-S-LF-SN（C157915）水平型8pin JST PH
-  - B8B-PH-K-S（垂直）からS8B-PH-K-S（水平・サイドエントリー）に変更
-  - フットプリント: PortaRe0:CONN-TH_S8B-PH-K-S-LF-SN
-- ヘッドフォンジャック確定: PJ-307C（C16684）TH 5pin
-  - PJ-393-8P（SMD Extended 8pin）から変更（ExtendedかつSMDで不利）
-  - ピン配置（データシート確認）:
-    - Pin1=GND(Sleeve) / Pin2=L Tip / Pin3=L SW(Pin2ペア) / Pin4=R SW(Pin5ペア) / Pin5=R Ring
-  - 接続: Pin1→GND / Pin2→HP_L / Pin3→NC / Pin4→HP_DET(GP6+100kΩpull-up) / Pin5→HP_R
-  - HP_DET動作: プラグ未挿入=Pin4-Pin5導通→LOW / 挿入=Pin4開放+pull-up→HIGH
-  - KiCad audio.kicad_sch: 配線完了
-- 新規ライブラリ取得（easyeda2kicad）:
-  - C431540（MSK12C02 スライドスイッチ）/ C157915（S8B-PH-K-S-LF-SN）
-  - C16684（PJ-307C）/ C154730（DMP3010LK3-13 / 未使用）
-- BOM確認・修正:
-  - Y4フットプリント誤り修正（CONN-TH_B2B-PH-K-S → CRYSTAL-SMD_4P-L3.2-W2.5-BL）
-  - J7/J8フットプリント空欄: 意図的（PCBエッジ設計・コンポーネント不要）
-- **Phase 2 回路設計 全シート完了 → Phase 3 PCBレイアウトへ**
 
 ## JLCPCB C番号確定リスト
 
