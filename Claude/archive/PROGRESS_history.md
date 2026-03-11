@@ -312,3 +312,24 @@
   - Y4フットプリント誤り修正（CONN-TH_B2B-PH-K-S → CRYSTAL-SMD_4P-L3.2-W2.5-BL）
   - J7/J8フットプリント空欄: 意図的（PCBエッジ設計・コンポーネント不要）
 - **Phase 2 回路設計 全シート完了 → Phase 3 PCBレイアウトへ**
+
+### 2026-03-04（session32）
+- ドキュメント構成を整理・スリム化:
+  - CONTEXT.md → `archive/` に移動（廃止）
+  - CLAUDE.md 冒頭にセッション開始手順を統合（CONTEXT.md参照不要に）
+  - CLOSING.md 新規作成（終了処理手順を独立ファイルに）
+  - CLAUDE.md のハードウェア仕様を `specs/` に分割
+    - specs/index.md（コンポーネント一覧・筐体・PCB仕様）
+    - specs/power.md / keyboard.md / audio.md / m2_ssd.md
+  - CLAUDE.md: 10.4KB → 2.3KB に削減
+  - 信頼優先順位変更: 原文ログ > specs/* > CLAUDE.md > PROGRESS.md
+  - PROJECT_PLAN.md・要約_archive/ → `archive/` に移動（ユーザーが手動）
+- session_close.py 新規作成（`Claude/session_close.py`）
+  - PROGRESS.md の古いセッションログを `archive/PROGRESS_history.md` に自動移動（直近4件残す）
+  - git add -A + commit + push を自動実行
+  - 使い方: `python Claude/session_close.py "コミットメッセージ"`
+- 終了処理フロー確定:
+  1. `python Claude/extract_session.py`（原文保存）
+  2. Claude: PROGRESS.md・index.md 更新
+  3. Claude: README等確認・更新
+  4. `python Claude/session_close.py "..."`（archive + git）

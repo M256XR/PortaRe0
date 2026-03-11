@@ -305,6 +305,23 @@
 - L110: セッション終了処理に extract_session.py を組み込み（Claude.md 更新）
 - L120: launch_claude_utf16.ps1 / chat_logs/raw/ を .gitignore に追加
 
+### Session37 (2026-03-12) - 2026-03-10_Session37.txt
+- L1: セッション開始・CLAUDE.md・PROGRESS.md確認
+- L20: RP2040水晶距離確認（≤5mm推奨・3mm以内でOK）
+- L40: VL812水晶距離確認（≤5mm推奨・3mm以内でOK）
+- L60: RP2040 QSPI Flash距離確認（≤10mm・10mm以内でOK）
+- L80: 部品配置完了・ルーティング開始
+- L100: ルーティング推奨順序・トレース幅・層別ルール・差動ペア確認
+- L150: GNDベタ = Fill Zone（Net=GND / Solid / Direct connect）
+- L200: 電源幹線ルーティング開始・B.Cu使用可否・パッド根元細くなる件
+- L300: Teardrops使い方（全配線後に一括適用）
+- L350: ビア vs マイクロビア（このプロジェクトは通常ビアのみ）
+- L400: FPC給電ピン割り当て修正（SBC給電FPC・HDMI FPC）
+  - SBC給電FPC: Pin1〜10=5V / Pin11〜22=GND / Pin23=CC1 / Pin24=CC2
+  - CC Rp抵抗 22kΩ→10kΩ変更（Cubie A7Z 5V/2A仕様・3A広告が安全）
+  - UP_VBUS 1pinでOK・HDMI 5V基板側供給OK
+  - HDMIコントローラ給電: Pin20〜21=GND / Pin22〜24=5V（3pin）
+
 ### Session36 (2026-03-10) - 2026-03-09_Session36.txt
 - L1: セッション開始・CLAUDE.md手順に従い git status・PROGRESS.md確認
 - L20: VL812周辺の受動部品配置方針確定

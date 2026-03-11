@@ -5,8 +5,8 @@
 
 ## 現在の作業箇所
 - PCBレイアウト進行中（session32〜）
-  - **次のタスク**: 受動部品配置の続き→ルーティング
-  - Session36現在: VL812周辺の受動部品配置進行中 / 残りの受動部品配置中
+  - **次のタスク**: ルーティング継続（電源幹線〜信号線）
+  - Session37現在: 部品配置完了・電源幹線ルーティング開始
   - J7/J8（usb_adapter FPCエッジ）: PCBエッジ設計・コンポーネント不要（変更なし）
   - Session33での主な確定事項:
     - J4（バッテリー）: BM06B-ACHFKS-GACN-ETF（JST ACH 6pin）/ 実装高1.43mm / 幅9.1mm / VBAT×3+GND×3 / 7.5A容量
@@ -140,6 +140,24 @@
 
 ## 直近の決定事項ログ
 
+### 2026-03-12（session37）
+- 部品配置完了・ルーティング開始
+- RP2040水晶: 3mm以内 → OK / QSPI Flash: 10mm以内 → OK / VL812水晶: 3mm以内 → OK
+- ルーティング推奨順: GNDベタ → 電源幹線 → 電源プレーン → スイッチングノード → 高速差動ペア → IC間信号 → 一般信号
+- FPC給電（SBCへの電源供給）ピン割り当て修正:
+  - SBC給電FPC（24pin）: Pin1〜10=5V / Pin11〜22=GND / Pin23=CC1 / Pin24=CC2
+  - CC Rp抵抗: 22kΩ → **10kΩ**に変更（Cubie A7Z 5V/2A → 3A広告が安全）
+  - UP_VBUS（SBC→VL812 upstream）: 1pinでOK（検出用のみ）
+  - HDMIコントローラ給電FPC: Pin20〜21=GND / Pin22〜24=5V（3pin・1A対応）
+  - HDMI 5V（Pin18）: 基板側5V_SYSから供給でOK（DDC/HPD用・50mA以下）
+- トレース幅目安: 一般信号0.1〜0.15mm / 3.3V/5V 0.3〜0.5mm / VSYS/5V_SYS 1.5〜2.0mm以上
+- デカップリングキャップ距離: 1mm以内理想・2mmまで許容（前回確認）
+- GNDベタ: KiCad Fill Zone（Net=GND / Solid / Direct connect）でOK
+- B.Cu電源ルーティング: J4（バッテリー）〜BQ25895間は短距離・障害物なしのためB.Cuで直結OK
+- パッド根元で0.5mm程度に細くなるのは短区間なら許容
+- Teardrops: 全配線完了後にEdit→Teardrops...で一括適用推奨
+- ビア vs マイクロビア: このプロジェクトは通常ビアのみ（マイクロビアはHDI基板が必要）
+
 ### 2026-03-10（session36）
 - VL812周辺の受動部品配置方針確定:
   - L3（インダクタ）: VL812から4mm → OK
@@ -177,27 +195,6 @@
 - PCBレイアウト: 受動部品以外の配置ほぼ確定（受動部品配置中）
 - display.md 新規作成・specs/index.md 更新（LS055R1SX04 / MIP-1000 / VS-CXMIPI-V1 仕様）
 - pcb_layout_notes.txt 更新: USB3.0 SS・HDMIをIn2へ移動 / PCIeのみB.Cuに残す
-
-### 2026-03-04（session32）
-- ドキュメント構成を整理・スリム化:
-  - CONTEXT.md → `archive/` に移動（廃止）
-  - CLAUDE.md 冒頭にセッション開始手順を統合（CONTEXT.md参照不要に）
-  - CLOSING.md 新規作成（終了処理手順を独立ファイルに）
-  - CLAUDE.md のハードウェア仕様を `specs/` に分割
-    - specs/index.md（コンポーネント一覧・筐体・PCB仕様）
-    - specs/power.md / keyboard.md / audio.md / m2_ssd.md
-  - CLAUDE.md: 10.4KB → 2.3KB に削減
-  - 信頼優先順位変更: 原文ログ > specs/* > CLAUDE.md > PROGRESS.md
-  - PROJECT_PLAN.md・要約_archive/ → `archive/` に移動（ユーザーが手動）
-- session_close.py 新規作成（`Claude/session_close.py`）
-  - PROGRESS.md の古いセッションログを `archive/PROGRESS_history.md` に自動移動（直近4件残す）
-  - git add -A + commit + push を自動実行
-  - 使い方: `python Claude/session_close.py "コミットメッセージ"`
-- 終了処理フロー確定:
-  1. `python Claude/extract_session.py`（原文保存）
-  2. Claude: PROGRESS.md・index.md 更新
-  3. Claude: README等確認・更新
-  4. `python Claude/session_close.py "..."`（archive + git）
 
 ## JLCPCB C番号確定リスト
 
