@@ -305,6 +305,23 @@
 - L110: セッション終了処理に extract_session.py を組み込み（Claude.md 更新）
 - L120: launch_claude_utf16.ps1 / chat_logs/raw/ を .gitignore に追加
 
+### Session38 (2026-03-13) - 2026-03-13_Session38.txt
+- L1: セッション開始・CLAUDE.md確認
+- L30: 電源ルーティング優先順の議論（5V先・3V3先の比較）
+- L80: VL812周辺の混雑対策・5V_SYSをIn3ベタ+ビア化でB.Cu解放
+- L150: ベタ形状の美観について（孤立アイランドがなければOK）
+- L200: 電源幹線（5V_SYS/3V3/VSYS/BATT）トレース完了
+- L300: インダクタトレース幅（L1/L2/L4=2mm以上 / L3=0.5〜1mm）
+- L350: BQ25895 BTSTキャップ・SWピン周辺配線
+- L400: VL812 HUB系（3V3_HUB/1V2_HUB）配線完了
+- L450: HDMI差動ペア（In2）配線完了・SCL/SDAはI2C=個別トレース
+- L500: USB3.0 SS配線・USB-C TH側SSをNC（15mmスタブ回避）
+- L550: ビアサイズ確認（JLCPCBスペック・推奨ドリル0.2mm/外径0.35mm）
+- L600: VL812 SPI Flash配線（In3隙間経由・等長11〜12mm）
+- L650: RP2040 QSPI Flash配線（等長11〜12mm）
+- L700: TPS2042配線（HUB_1V2ベタ化でスペース確保）
+- L750: 信号線0.2mm・BQ_INT/LED/VBUS等配線
+
 ### Session37 (2026-03-12) - 2026-03-10_Session37.txt
 - L1: セッション開始・CLAUDE.md・PROGRESS.md確認
 - L20: RP2040水晶距離確認（≤5mm推奨・3mm以内でOK）

@@ -1738,6 +1738,10 @@
 		(color 0 0 0 0)
 		(uuid "fc5895bd-eeac-4038-968f-c444c09a7f2a")
 	)
+	(no_connect
+		(at 147.32 68.58)
+		(uuid "faa2a473-6d11-4fee-ba3d-a39da37660ed")
+	)
 	(wire
 		(pts
 			(xy 147.32 81.28) (xy 147.32 83.82)
@@ -2187,16 +2191,6 @@
 			(type default)
 		)
 		(uuid "b70276ad-1861-4d14-a78a-66005fe55f50")
-	)
-	(wire
-		(pts
-			(xy 157.48 68.58) (xy 147.32 68.58)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ba16e10e-f685-4077-bd85-5ff3f386264a")
 	)
 	(wire
 		(pts
@@ -4301,73 +4295,6 @@
 			(project "PortaRe0"
 				(path "/479aadc4-f9a0-4ec2-b000-6a17237038f1/5dfd9f94-b7e1-4763-8093-33f7cf406206"
 					(reference "R57")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:5V_SYS")
-		(at 157.48 68.58 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "6b9da162-7900-48b6-b68a-155146290808")
-		(property "Reference" "#PWR0234"
-			(at 153.67 68.58 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "5V_SYS"
-			(at 161.29 68.5799 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 157.48 68.58 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 157.48 68.58 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"VSYS\""
-			(at 163.576 68.326 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "83c954ca-c1cd-4c34-b9f6-1abfb489a030")
-		)
-		(instances
-			(project "PortaRe0"
-				(path "/479aadc4-f9a0-4ec2-b000-6a17237038f1/5dfd9f94-b7e1-4763-8093-33f7cf406206"
-					(reference "#PWR0234")
 					(unit 1)
 				)
 			)

@@ -333,3 +333,24 @@
   2. Claude: PROGRESS.md・index.md 更新
   3. Claude: README等確認・更新
   4. `python Claude/session_close.py "..."`（archive + git）
+
+### 2026-03-06（session34）
+- LS055R1SX04 + MIP-1000 動作確認（PC接続で正常表示 / スマホは解像度固定のため不可）
+- MIP-1000確定: STM32（VID_0483/PID_5750 HID）+ N76E003A120 + LP3320B6F（LEDドライバ）
+  - LP3320B6F: ENピンPWM調光対応（1%〜100%）/ ただし実装断念（XIAO ESP32-S3破損）
+  - 明るさ: 手動6段階・バウンス式（6→5→...→1→2→...→6）・電源オフ後値保持
+  - **確定: 明るさ調整は手動運用（RP2040制御不要）**
+  - 明るさ調整ボタンはヒンジ経由で下筐体に信号線1本引き出し予定（GNDは下筐体から取る）
+- VS-CXMIPI-V1（D000118-VS-CXMIPI-V1-50Hz）購入（5,731円）
+  - 届いたらUART（RX/TX 3.3V / N76E003A120）で輝度制御コマンド確認予定
+- 受動部品 0603→0402 化（スペース節約）
+  - 抵抗: Basic品は全0402化 / Extended品（27Ω/6.04kΩ/750kΩ）は0603維持
+  - 特例: 270Ω/56kΩ/220kΩは0402がExtended→0603 Basicのまま
+  - コンデンサ 〜4.7µF: 0402化（100nF=C307331 / 1µF=C52923 / 2.2µF=C12530 / 4.7µF=C23733）
+  - コンデンサ 10µF: 3.3Vライン→C15525(0402 6.3V) / 5V/VSYS/BATT/PMID→C96446(0603 25V)
+  - コンデンサ 22µF（C59461 / 0603）・150µF（C156458 タンタル）: 0603維持
+  - KiCadフットプリント修正完了（C6 10µF 25V → 0603 / C104 22µF → 0603）
+  - passive_parts.txt・extended_parts.txt 更新済み
+- PCBレイアウト: 受動部品以外の配置ほぼ確定（受動部品配置中）
+- display.md 新規作成・specs/index.md 更新（LS055R1SX04 / MIP-1000 / VS-CXMIPI-V1 仕様）
+- pcb_layout_notes.txt 更新: USB3.0 SS・HDMIをIn2へ移動 / PCIeのみB.Cuに残す
