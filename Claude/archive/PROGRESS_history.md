@@ -354,3 +354,10 @@
 - PCBレイアウト: 受動部品以外の配置ほぼ確定（受動部品配置中）
 - display.md 新規作成・specs/index.md 更新（LS055R1SX04 / MIP-1000 / VS-CXMIPI-V1 仕様）
 - pcb_layout_notes.txt 更新: USB3.0 SS・HDMIをIn2へ移動 / PCIeのみB.Cuに残す
+
+### 2026-03-09（session35）
+- TPS61023 FB R_TOP（750kΩ）の接続先ミス確認: `5V_SYS` → `HUB_5V` に修正必要
+  - FBピンは出力電圧フィードバック用 → R_TOP上側はTPS61023出力（HUB_5V）に接続すべき
+- M.2ソケット（NASM0-S6701-TP40）下クリアランス: **1.1mm**
+  - 0402部品（実装高~0.5mm）のみ配置可 / 0603はギリギリ / SOT-23系は厳しい
+- PCBレイアウト: 受動部品配置が進行中

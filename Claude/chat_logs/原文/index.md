@@ -305,6 +305,18 @@
 - L110: セッション終了処理に extract_session.py を組み込み（Claude.md 更新）
 - L120: launch_claude_utf16.ps1 / chat_logs/raw/ を .gitignore に追加
 
+### Session39 (2026-03-15) - 2026-03-15_Session39.txt
+- L1: セッション開始・CLAUDE.md手順に従い確認
+- L30: MAX98357A I2S配線の検討（B.Cu→In2→B.Cu経由でM.2エリア回避）
+- L80: 配置確認（RP2040 #2上方・L/R下左右のL字構成）
+- L120: SD_MODE配線（U15: 220kΩ経由Rch / U9: 直結Lch）
+- L150: MAX98357A I2S配線完了
+- L180: RP2040 BOOTSELスイッチ配置・配線（#1/#2両方・30〜40mm離れでOK）
+- L220: M.2 PCIe配線（ACカップリングキャップはFPCコネクタ側）
+- L260: PCIeペア内等長のみ必要・ペア間差はCDRで吸収
+- L300: FPC全ピン逆順の懸念（PCIe: 壊れない / HDMI: 改造時に合わせる）
+- L370: PCIe FPC逆順でも電源はPCB内生成のためハード破損なし確認
+
 ### Session38 (2026-03-13) - 2026-03-13_Session38.txt
 - L1: セッション開始・CLAUDE.md確認
 - L30: 電源ルーティング優先順の議論（5V先・3V3先の比較）
