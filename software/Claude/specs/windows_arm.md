@@ -92,8 +92,63 @@ strings /dev/mmcblk0 | grep -i "bl31\|trusted" | head -20
 
 ---
 
+## 現状のブートチェーン（調査済み）
+
+```
+SPL → U-Boot（2024-03-20ビルド、UEFI無効）→ extlinux.conf → Linux
+```
+
+- `/boot/efi/` パーティションは存在するが空・未使用
+- U-Boot に EFI/ACPI 文字列なし → UEFI 完全無効
+- PSCI / TF-A BL31 の有無は調査中
+
+---
+
+## EDK2 移植に必要なコンポーネント（調査済み）
+
+### 参考リポジトリ
+| リポジトリ | 用途 |
+|-----------|------|
+| https://github.com/pftf/RPi4 | ブートフロー・FDF構造・ACPIテーブル記述方法 |
+| https://github.com/awwiniot/UEFI-aw1689 | Allwinner固有実装（AXP PMIC・SMC・GICアドレス）|
+| https://github.com/tianocore/edk2-platforms | ARM標準ライブラリ・DXEドライバ群 |
+
+### 流用可能なコンポーネント
+| コンポーネント | 流用元 | 備考 |
+|--------------|--------|------|
+| AXP PMIC ドライバ | awwiniot SunxiPlatformPkg | A733のPMICがAXP系なら流用可 |
+| ACPI GTDT テーブル | 任意のARM SBC | IRQ 29/30/27/26 は全ARM共通 |
+| DXEコアドライバ（CPU/GIC/Timer） | ArmPkg標準 | そのまま使用 |
+| SerialPortLib | BaseSerialPortLib16550 | Allwinner UARTは16550互換 |
+
+### 自作が必要なコンポーネント
+- `ArmPlatformLib`（A733メモリマップ・固有初期化）
+- `ResetSystemLib`（PMIC経由リセット）
+- TF-A BL31 A733ポート（sun50i_h616 を参考）
+- ACPI MADT（GICアドレス確認後）
+- ACPI DSDT（UART/GPIO/eMMCデバイス記述）
+
+### 最小ACPIテーブルセット（Windows ARM必須）
+FADT + MADT + GTDT + DSDT
+
+---
+
+## 実装ステップ（更新版）
+
+```
+Step 1: A733 DTS から GIC/タイマーアドレス確認 ⏳
+Step 2: TF-A BL31 を A733 向けにポート（sun50i_h616 ベース）
+Step 3: EDK2 awwiniot/UEFI-aw1689 ベースでテンプレート作成
+Step 4: UART DEBUG() ログ取得 ← 最初のマイルストーン
+Step 5: UEFI Shell 起動
+Step 6: Windows ARM 起動
+```
+
+---
+
 ## 注意事項
 
 - **GPU ドライバ**: Imagination BXM-4-64 の Windows ドライバが存在しない可能性が高い。「起動する」と「実用的に動く」は別問題。
 - **Allwinner SDK は主に中国語ドキュメント**
-- BSP U-Boot は 2018.07 ベースと古い。mainline U-Boot パッチ（v2）のマージを待つか自力適用を検討。
+- **U-Boot mainline A733パッチ**: v3投稿済み（2026-01-13）だが未マージ。v2026.07以降見込み。EDK2移植はマージ待ちせずBSPベースで進める。
+- **DDR初期化**: SPL/ベンダーboot0が処理済みのためEDK2側では不要。
