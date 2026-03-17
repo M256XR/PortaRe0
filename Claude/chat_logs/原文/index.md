@@ -305,6 +305,21 @@
 - L110: セッション終了処理に extract_session.py を組み込み（Claude.md 更新）
 - L120: launch_claude_utf16.ps1 / chat_logs/raw/ を .gitignore に追加
 
+### Session40 (2026-03-17〜18) - 2026-03-16_Session40.txt
+- L1: セッション開始・CLAUDE.md手順に従い確認
+- L20: software/ フォルダ構成作成（Claude/・CLAUDE.md・PROGRESS.md・スクリプト等）
+- L80: キーマトリクス配線開始（層: F.Cu/In2/In3混在 / 配線長制約なし）
+- L200: キーマトリクス63キー配線完了（肩ボタン2個は筐体CAD後）
+- L250: GNDベタ・Teardrops完了・DRC実施
+- L300: DRCエラー対応（ネットクラス設定・アニュラー幅・スルーホール・クリアランス等）
+- L400: EPサーマルビア追加・孤立GNDゾーン対応
+- L500: hdmi_adapter 新規プロジェクト作成・PCBレイアウト完了
+- L600: usb_adapter FPC基板 設計開始
+  - mikeWShef/Kicad_FPC_board_ends から FPC-24P-0.5mm.kicad_mod 取得
+  - JLCPCBフレキシブル基板スペック確認・DRC設定調整
+  - スティフナー: USB-Cコネクタ部・FPCエッジ挿入部（発注時手動指定）
+- L700: usb_adapter PCBレイアウト完了・DRC通過
+
 ### Session39 (2026-03-15) - 2026-03-15_Session39.txt
 - L1: セッション開始・CLAUDE.md手順に従い確認
 - L30: MAX98357A I2S配線の検討（B.Cu→In2→B.Cu経由でM.2エリア回避）

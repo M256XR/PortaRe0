@@ -37,9 +37,9 @@
         "other_text_thickness": 0.15,
         "other_text_upright": false,
         "pads": {
-          "drill": 1.7,
-          "height": 1.7,
-          "width": 1.7
+          "drill": 0.75,
+          "height": 0.65,
+          "width": 0.65
         },
         "silk_line_width": 0.1,
         "silk_text_italic": false,
@@ -48,7 +48,7 @@
         "silk_text_thickness": 0.1,
         "silk_text_upright": false,
         "zones": {
-          "min_clearance": 0.1
+          "min_clearance": 0.2
         }
       },
       "diff_pair_dimensions": [
@@ -66,7 +66,7 @@
         "annular_width": "error",
         "clearance": "error",
         "connection_width": "ignore",
-        "copper_edge_clearance": "error",
+        "copper_edge_clearance": "ignore",
         "copper_sliver": "warning",
         "courtyards_overlap": "error",
         "creepage": "error",
@@ -125,7 +125,7 @@
         "max_error": 0.005,
         "min_clearance": 0.1,
         "min_connection": 0.1,
-        "min_copper_edge_clearance": 0.25,
+        "min_copper_edge_clearance": 0.3,
         "min_groove_width": 0.0,
         "min_hole_clearance": 0.1,
         "min_hole_to_hole": 0.25,
@@ -137,8 +137,8 @@
         "min_text_thickness": 0.08,
         "min_through_hole_diameter": 0.2,
         "min_track_width": 0.1,
-        "min_via_annular_width": 0.075,
-        "min_via_diameter": 0.35,
+        "min_via_annular_width": 0.18,
+        "min_via_diameter": 0.55,
         "solder_mask_to_copper_clearance": 0.0,
         "use_height_for_length_calcs": true
       },
@@ -147,7 +147,7 @@
           "td_onpthpad": true,
           "td_onroundshapesonly": false,
           "td_onsmdpad": true,
-          "td_ontrackend": true,
+          "td_ontrackend": false,
           "td_onvia": true
         }
       ],
@@ -242,6 +242,18 @@
         },
         {
           "diameter": 0.45,
+          "drill": 0.3
+        },
+        {
+          "diameter": 0.56,
+          "drill": 0.2
+        },
+        {
+          "diameter": 0.6,
+          "drill": 0.2
+        },
+        {
+          "diameter": 0.6,
           "drill": 0.3
         },
         {
@@ -460,19 +472,19 @@
       "label_dangling": "error",
       "label_multiple_wires": "warning",
       "lib_symbol_issues": "warning",
-      "lib_symbol_mismatch": "ignore",
+      "lib_symbol_mismatch": "warning",
       "missing_bidi_pin": "warning",
       "missing_input_pin": "warning",
       "missing_power_pin": "error",
       "missing_unit": "warning",
-      "multiple_net_names": "ignore",
+      "multiple_net_names": "warning",
       "net_not_bus_member": "warning",
       "no_connect_connected": "warning",
       "no_connect_dangling": "warning",
       "pin_not_connected": "error",
-      "pin_not_driven": "ignore",
-      "pin_to_pin": "ignore",
-      "power_pin_not_driven": "ignore",
+      "pin_not_driven": "error",
+      "pin_to_pin": "warning",
+      "power_pin_not_driven": "error",
       "same_local_global_label": "warning",
       "similar_label_and_power": "warning",
       "similar_labels": "warning",
@@ -492,7 +504,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "PortaRe0.kicad_pro",
+    "filename": "PortaRe0_USB_adapter.kicad_pro",
     "version": 3
   },
   "net_settings": {
@@ -606,50 +618,14 @@
           "label": "Datasheet",
           "name": "Datasheet",
           "show": true
-        },
-        {
-          "group_by": false,
-          "label": "Sim.Device",
-          "name": "Sim.Device",
-          "show": false
-        },
-        {
-          "group_by": false,
-          "label": "Sim.Pin",
-          "name": "Sim.Pin",
-          "show": false
-        },
-        {
-          "group_by": false,
-          "label": "Sim.Pins",
-          "name": "Sim.Pins",
-          "show": false
-        },
-        {
-          "group_by": false,
-          "label": "LCSC Part",
-          "name": "LCSC Part",
-          "show": false
-        },
-        {
-          "group_by": false,
-          "label": "説明",
-          "name": "Description",
-          "show": false
-        },
-        {
-          "group_by": false,
-          "label": "#",
-          "name": "${ITEM_NUMBER}",
-          "show": false
         }
       ],
       "filter_string": "",
       "group_symbols": true,
       "include_excluded_from_bom": true,
-      "name": "",
+      "name": "Default Editing",
       "sort_asc": true,
-      "sort_field": "Value"
+      "sort_field": "リファレンス"
     },
     "connection_grid_size": 50.0,
     "drawing": {
@@ -679,16 +655,8 @@
       "version": 1
     },
     "net_format_name": "",
-    "ngspice": {
-      "fix_include_paths": true,
-      "meta": {
-        "version": 0
-      },
-      "model_mode": 4,
-      "workbook_filename": ""
-    },
     "page_layout_descr_file": "",
-    "plot_directory": "../PDF/",
+    "plot_directory": "",
     "space_save_all_events": true,
     "spice_current_sheet_as_root": false,
     "spice_external_command": "spice \"%I\"",
@@ -701,40 +669,8 @@
   },
   "sheets": [
     [
-      "479aadc4-f9a0-4ec2-b000-6a17237038f1",
+      "fb24cd04-3d6c-447c-86fe-52792f195004",
       "Root"
-    ],
-    [
-      "bbdd0b45-407f-430f-96c4-71b6262b4665",
-      "power"
-    ],
-    [
-      "8e76808d-de08-4fd1-9155-9dd498f0d9f9",
-      "usb_hub"
-    ],
-    [
-      "6a589eb8-1cb5-4d2d-b60c-ea2cdc8e2546",
-      "keyboard"
-    ],
-    [
-      "6f018b3a-f554-45a0-adb8-bf1e4994a5d2",
-      "audio"
-    ],
-    [
-      "5dfd9f94-b7e1-4763-8093-33f7cf406206",
-      "Connectors"
-    ],
-    [
-      "52509579-12d3-4127-aa5d-ce987f800fc4",
-      "hdmi_adapter"
-    ],
-    [
-      "ef56189a-a3eb-463c-a6e0-1b813a079cd5",
-      "usb_adapter"
-    ],
-    [
-      "c43a06e3-1419-45ee-8519-3cfff24381b4",
-      "m2_ssd"
     ]
   ],
   "text_variables": {}

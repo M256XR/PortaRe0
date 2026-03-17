@@ -1,11 +1,12 @@
 # PortaRe0 進捗ログ
 
 ## 現在のフェーズ
-**Phase 2: 回路設計 ✅ 完了 → Phase 3: PCBレイアウト 進行中**
+**Phase 3: PCBレイアウト ほぼ完了（肩ボタンのみ残）**
 
 ## 現在の作業箇所
 - PCBレイアウト進行中（session32〜）
-  - **次のタスク**: キーマトリクス（63キー）・GNDベタ・Teardrops
+  - **次のタスク**: 肩ボタン配置・配線（筐体CAD後）→ JLCPCB発注
+  - Session40現在: メインPCB完了・hdmi_adapter完了・usb_adapter（FPC基板）完了
   - Session39現在: MAX98357A I2S・BOOTSELスイッチ・M.2 PCIe配線完了
   - Session38現在: 電源幹線・HUB系・HDMI・USB・SPI Flash・RP2040 Flash・TPS2042・LED配線完了
   - J7/J8（usb_adapter FPCエッジ）: PCBエッジ設計・コンポーネント不要（変更なし）
@@ -141,6 +142,24 @@
 
 ## 直近の決定事項ログ
 
+### 2026-03-17〜18（session40）
+- メインPCB DRC完了・各種制約値をJLCPCBスペックに合わせて修正
+  - Defaultネットクラス: クリアランス0.1mm / ビアサイズ0.35mm / ビア穴0.2mm
+  - 最小アニュラー幅0.075mm / 最小スルーホール0.2mm / 基板端クリアランス0.25mm
+  - EPサーマルビア追加（各IC）/ スポーク最小数1に変更
+- キーマトリクス（63キー）配線完了（肩ボタン2個のみ未配線・筐体CAD後）
+  - 配線層: F.Cu/In2/In3混在（全体に広がるため層を選ばず使用）
+- GNDベタ・Teardrops完了
+- hdmi_adapter 新規プロジェクト作成・PCBレイアウト完了
+  - 2層基板（Micro HDMIオス + 24pin FFCコネクタのみ）
+- usb_adapter FPC基板 新規プロジェクト作成・PCBレイアウト完了
+  - JLCPCBフレキシブル基板で発注予定
+  - FPCエッジパッドフットプリント: mikeWShef/Kicad_FPC_board_ends から FPC-24P-0.5mm.kicad_mod を取得
+  - スティフナー: USB-Cコネクタ部分・FPCエッジ挿入部分に必要（発注時に手動指定）
+  - DRC設定: クリアランス0.1mm / アニュラー0.18mm / ビアドリル0.2mm・外径0.56mm / 基板端0.2mm
+- software/ フォルダ作成（Claude/・スクリプト・PROGRESS.md等）
+- **残り**: 肩ボタン（筐体CAD後）→ JLCPCB発注
+
 ### 2026-03-15（session39）
 - MAX98357A I2S配線完了（BCLK/LRCLK/SDIN/SD_MODE）
   - B.CuはM.2 PCIeで塞がれており、In2経由（via→In2→via）でM.2エリアを通過
@@ -191,16 +210,6 @@
 - パッド根元で0.5mm程度に細くなるのは短区間なら許容
 - Teardrops: 全配線完了後にEdit→Teardrops...で一括適用推奨
 - ビア vs マイクロビア: このプロジェクトは通常ビアのみ（マイクロビアはHDI基板が必要）
-
-### 2026-03-10（session36）
-- VL812周辺の受動部品配置方針確定:
-  - L3（インダクタ）: VL812から4mm → OK
-  - W25Q32 SPI最遠パッド: 6〜7mm → OK
-  - SMDAT/SMCLK 4.7kΩ: 5〜6mm → I2C低速なのでOK
-  - 水晶（C9006）負荷キャップ（18pF×2）: 水晶の外側→VL812とのXIN/XOUT間に修正済み
-  - VBUSDET分圧: 低速アナログなので数mm〜10mm許容
-- デカップリングキャップ距離の原則: 1mm以内が理想、2mmまで許容
-- PCBレイアウト: 受動部品配置継続中
 
 ## JLCPCB C番号確定リスト
 
