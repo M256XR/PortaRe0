@@ -1,0 +1,19 @@
+## @file
+# Allwinner A733 ACPI Tables
+##
+
+[Defines]
+  INF_VERSION    = 0x00010005
+  BASE_NAME      = A733AcpiTables
+  FILE_GUID      = a733ac01-acpi-acpi-acpi-a733a733a733
+  MODULE_TYPE    = USER_DEFINED
+  VERSION_STRING = 0.1
+
+[Sources]
+  Gtdt.aslc
+  Madt.aslc
+
+[Packages]
+  ArmPkg/ArmPkg.dec
+  MdePkg/MdePkg.dec
+  Platform/Allwinner/A733Pkg/A733Pkg.dec

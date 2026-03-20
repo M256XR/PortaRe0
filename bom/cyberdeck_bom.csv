@@ -1,38 +1,49 @@
 カテゴリ,用途,部品名,型番,JLCPCB C番号,数量,備考
-SBC,メインコンピュータ,Cubie A7Z,Cubie A7Z,—,1,Allwinner A733 / 8コア / Micro HDMI + USB-C出力 / 別途購入
+SBC,メインコンピュータ,Cubie A7Z,Cubie A7Z,—,1,Allwinner A733 / 8コア / WiFi6 / BT5.4 / 別途購入（AliExpress）
 ディスプレイ,LCDパネル,Sharp 5.5インチ液晶,LS055R1SX04,—,1,1440x2560 / MIPI DSI 4レーン / 別途購入（AliExpress）
-ディスプレイ,HDMIコントローラ基板,HDMI→MIPI DSI変換基板,汎用品,—,1,別途購入（AliExpress）
+ディスプレイ,HDMIコントローラ基板,HDMI→MIPI DSI変換基板,VS-CXMIPI-V1,—,1,別途購入（AliExpress）
 電源,充電IC,BQ25895RTWR,BQ25895RTWR,C80200,1,USB PD対応 / バッテリー保護内蔵 / QFN-24
-電源,昇圧DC-DC,TPS61023DRLR,TPS61023DRLR,C919459,1,LiPo 3.7V → 5V / 最大3.7A / SOT-563-6
+電源,昇圧DC-DC,TPS61023DRLR,TPS61023DRLR,C919459,2,#1=5V_SYS / #2=USB_5V_SYS
 電源,LDO 3.3V,AP2112K-3.3TRG1,AP2112K-3.3TRG1,C51118,1,5V → 3.3V / 600mA / RP2040用
-電源,BQ25895用インダクタ,1.5µH 3A以上,SWPA4012S1R5MT等,TBD,1,スイッチング周波数1.5MHz / DCR<50mΩ / 要JLCPCB在庫確認
-電源,TPS61023用インダクタ,1µH 3A以上,—,TBD,1,DCR低め / 要JLCPCB在庫確認
-電源,バッテリー,LiPo 6060100,6060100,—,1,約3500mAh / 3.7V / 別途購入（AliExpress）
-電源,モーメンタリスイッチ,起動ボタン,—,—,1,VSYS→ENへ / 型番未定（筐体設計後）
-電源,ロック式スイッチ,キルスイッチ,—,—,1,VSYS→TPS61023/AP2112K VIN間 / 型番未定（筐体設計後）
-USBハブ,USB 3.0 HUBチップ,VL812-Q7,VL812-Q7,C69417,1,QFN-76-EP 9x9mm / JLCPCB PCBA必須
-USBハブ,SPI Flash（VL812用）,W25Q32JVSSIQ,W25Q32JVSSIQ,C82344,1,VL812ファームウェア用 / SPI接続
-USBハブ,クリスタル（VL812用）,25MHz水晶,—,TBD,1,負荷容量12〜18pF / SMD / 要JLCPCB在庫確認
-キーボードMCU,マイコン,RP2040,RP2040,C2040,1,QMK対応 / ADCでアナログスティック / QFN-56
-キーボードMCU,SPI Flash（RP2040用）,W25Q32JVSSIQ,W25Q32JVSSIQ,C82344,1,RP2040プログラム保存 / QSPI接続 / 必須
-キーボードMCU,クリスタル（RP2040用）,X322512MOB4SI,X322512MOB4SI,C70565,1,12MHz / 12pF / ±10ppm / SMD3225-4P / 外付けC 15pF×2
-キースイッチ,SMDタクタイルスイッチ,Alps SKRPABE010,SKRPABE010,C115360,63,63キー / 4.2×3.2mm SMD / JLCPCB在庫54355個確認済み
-ダイオード,スイッチングダイオード,1N4148W,1N4148W,C2099,63,キーマトリクス用（63キー分）
-入力,アナログスティック,3DSスライドパッド,—,—,1,カーソル操作用 / FPC 4ピン 1.0mmピッチ / VCC=3.3V直結OK / ピンアサイン: GND-X-VCC-Y / 別途購入（AliExpress or 中古）
-入力,FPCコネクタ（スティック用）,Molex 5034800440,5034800440,C3170007,1,4P 1.0mmピッチ ZIF ヒンジ式 両面接触 / 3DSスライドパッド接続用 / JLCPCB在庫928個
-オーディオ,I2Sアンプ,MAX98357AEWL+T,MAX98357AEWL+T,C2682619,2,ステレオ構成 / I2S入力
-オーディオ,スピーカー,マイクロスピーカー 8Ω,秋月P-12494 or P-12495,—,1,23×16×4.6mm / 片チャンネルのみ / 別途購入（秋月）
-オーディオ,イヤホンジャック,3.5mm TRRS SMT,—,TBD,1,挿入時スピーカーミュート / 型番未定
-汎用,NchMOSFET,BSS138,BSS138,C52895,適宜,レベルシフト等
-LED,電源LED（緑）,緑色LED,—,TBD,1,TPS61023出力（5V）から電流制限抵抗で駆動
-LED,充電中LED（橙）,橙色LED,—,TBD,1,RP2040 GP24 / BQ25895 I2C読み
-LED,充電完了LED（緑）,緑色LED,—,TBD,1,RP2040 GP25 / BQ25895 I2C読み
-LED,ACT LED,緑色LED,—,TBD,1,RP2040 GP26（ADC0兼用）/ SBC経由制御
-冷却,フラットヒートパイプ,3mm厚フラット銅製ヒートパイプ,—,—,1,SoC→90度曲げ→バッテリー上端 / 別途購入
-冷却,ヒートシンク,小型ヒートシンク,—,—,4,14×9×4mm程度 / サーマルパッド必要 / 別途購入
-コネクタ,外部USB-Cレセプタクル,USB-C レセプタクル SMT,—,TBD,1,DATAポート（VL812 downstream 1）
-コネクタ,外部USB-Aレセプタクル,USB-A レセプタクル SMT,—,TBD,1,汎用USBポート（VL812 downstream 2）
-コネクタ,FPCコネクタ,30ピン 0.5mmピッチ FPCコネクタ,—,TBD,2,SBC接続用サブ基板 / ケーブル長は筐体CAD後に確定
-コネクタ,SWDデバッグコネクタ,SWDコネクタ,—,TBD,1,RP2040デバッグ用
-コンデンサ,電解/セラミック 各種,—,—,—,多数,回路設計に従い適宜
-抵抗,チップ抵抗 各種,—,—,—,多数,回路設計に従い適宜
+電源,M.2 LDO,RT9080-33GJ5,RT9080-33GJ5,C841192,1,5V → 3.3V / M.2 SSD用
+電源,USBパワースイッチ,TPS2042BDR,TPS2042BDR,C138720,1,HUB downstream電源制御
+電源,Schottkyダイオード,BAT54,BAT54,C466635,1,電源保護（ENライン）
+電源,インダクタ L1（BQ25895用）,MWSA0402S-2R2MT,MWSA0402S-2R2MT,C408335,1,2.2µH / スイッチング用
+電源,インダクタ L2/L4（TPS61023用）,CKST322512,CKST322512,C3002557,2,1µH / 各TPS61023用
+電源,インダクタ L3（VL812用）,CYA0420,CYA0420,C19274352,1,10µH / VL812電源用
+電源,バッテリー,LiPo 606090,606090,—,1,4200mAh / 3.7V / 要発注
+電源,バッテリーコネクタ,JST ACH 6pin,BM06B-ACHFKS-GACN-ETF,DigiKey別途購入,1,VBAT×3+GND×3 / 実装高1.43mm / 手はんだ
+電源,電源ボタン,Alps SKSCLDE010,SKSCLDE010,C115362,1,モーメンタリ / 手はんだ
+電源,キルスイッチ,MSK12C02,MSK12C02,C431540,1,EN制御方式 / 手はんだ
+USBハブ,USB 3.0 HUBチップ,VL812-Q7,VL812-Q7,C69417,1,QFN-76-EP 9x9mm
+USBハブ,SPI Flash（VL812用）,W25Q32JVSSIQ,W25Q32JVSSIQ,C82344,1,VL812ファームウェア用
+USBハブ,クリスタル（VL812用）,X322525MOB4SI,X322525MOB4SI,C9006,1,25MHz / 負荷容量18pF / SMD3225-4P
+USBハブ,USB ESD保護,USBLC6-2SC6,USBLC6-2SC6,C7519,2,USB-C ESD保護
+MCU,キーボード/オーディオMCU,RP2040,RP2040,C2040,2,#1=キーボード / #2=オーディオ / QFN-56
+MCU,SPI Flash（RP2040用）,W25Q32JVSSIQ,W25Q32JVSSIQ,C82344,2,各RP2040のQSPIフラッシュ
+MCU,クリスタル（RP2040用）,X322512MOB4SI,X322512MOB4SI,C70565,2,12MHz / 負荷容量15pF / 各RP2040用
+キースイッチ,SMDタクタイルスイッチ,Alps SKRPAKE010,SKRPAKE010,C19724062,63,63キー / 4.2×3.2mm SMD / 手はんだ
+キースイッチ,肩ボタン,Alps SKSCLDE010,SKSCLDE010,C115362,2,L/R肩ボタン / サイドプッシュ / 手はんだ
+ダイオード,スイッチングダイオード,1N4148W,1N4148W,C2099,64,63=キーマトリクス / 1=J_FAN フライバック保護
+入力,アナログスティック,3DSスライドパッド,—,—,1,FPC 4ピン 1.0mmピッチ / 別途購入
+入力,FPCコネクタ（スティック用）,Molex 5034800440,5034800440,C3170007,1,4P 1.0mmピッチ ZIF ヒンジ式
+オーディオ,I2Sアンプ,MAX98357AEWL+T,MAX98357AEWL+T,C2682619,2,ステレオ構成（L/R）/ I2S入力
+オーディオ,イヤホン用DAC,PCM5102APWR,PCM5102APWR,C107671,1,I2S DAC
+オーディオ,ヘッドフォンアンプ,TPA6132A2RTER,TPA6132A2RTER,C69901,1,ヘッドフォン出力
+オーディオ,イヤホンジャック,PJ-307C,PJ-307C,C16684,1,5pin TH / 手はんだ
+オーディオ,スピーカー,マイクロスピーカー 8Ω,秋月P-12494 or P-12495,—,1,23×16×4.6mm / 別途購入（秋月）
+M.2 SSD,M.2ソケット,NASM0-S6701-TP40,NASM0-S6701-TP40,C367029,1,M-key / 2230
+M.2 SSD,FPCコネクタ（M.2用）,FPC-05F-16PH20,FPC-05F-16PH20,C2856801,1,16pin ZIF
+汎用,NchMOSFET,BSS138,BSS138,C52895,適宜,FAN制御・オーディオ等
+LED,STAT LED（赤）,KT-0603R,KT-0603R,C2286,1,BQ25895 STAT端子直結
+LED,ACT LED（青）,YLED0603B,YLED0603B,C19171394,1,GP23 / OS動作表示 / 手はんだ
+LED,充電完了LED（緑）,YLED0603G,YLED0603G,C19273151,1,GP22 / 満充電 / 手はんだ
+LED,充電中LED（橙）,YLED0603O,YLED0603O,C19273153,1,GP21 / 充電中 / 手はんだ
+コネクタ,スピーカー/FANコネクタ,B2B-PH-K-S,B2B-PH-K-S,C131337,3,J2/J3（スピーカーL/R）/ J6（FAN）
+コネクタ,HDMI/SBC用FPCコネクタ,FPC-05F-24PH20,FPC-05F-24PH20,C2856805,4,24pin ZIF / J_HDMI_CTRL/J_SBC_HDMI + usb_adapter接続×2
+コネクタ,SBC接続 USB-Cオス,918-118A2021Y40000,918-118A2021Y40000,C168690,2,USB-C Vertical SMD / J_SBC_USB1/2
+コネクタ,外部USB-Cレセプタクル,USB31-TYPE-C-FSABC,USB31-TYPE-C-FSABC,C2880583,1,CC1/CC2=56kΩ Rp / SS両サイド直結
+コネクタ,外部USB-Aレセプタクル,HC-USB3.0-L168-WP,HC-USB3.0-L168-WP,C7501850,1,USB3.0 SS対応
+冷却,フラットヒートパイプ,3mm厚フラット銅製,—,—,1,別途購入（AliExpress）
+冷却,ヒートシンク,小型ヒートシンク,—,—,4,14×9×4mm程度 / 別途購入
+パッシブ,コンデンサ・抵抗 各種,—,—,—,多数,回路設計に従い適宜

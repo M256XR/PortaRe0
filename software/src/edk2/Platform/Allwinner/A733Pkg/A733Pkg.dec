@@ -1,0 +1,28 @@
+## @file
+#  Allwinner A733 Platform Package Declaration
+#
+#  Based on Allwinner A733 (sun50i-a733) SoC
+#  Reference: awwiniot/UEFI-aw1689 (A64), pftf/RPi4 (RPi4)
+##
+
+[Defines]
+  DEC_SPECIFICATION              = 0x00010005
+  PACKAGE_NAME                   = A733Pkg
+  PACKAGE_GUID                   = 4a733000-dead-beef-cafe-a733a733a733
+  PACKAGE_VERSION                = 0.1
+
+[Includes]
+  Include
+
+[Guids]
+  gA733TokenSpaceGuid = { 0xa733a733, 0xa733, 0xa733, { 0xa7, 0x33, 0xa7, 0x33, 0xa7, 0x33, 0xa7, 0x33 } }
+
+[PcdsFixedAtBuild]
+  # UART0 base address (Allwinner A733 UART0)
+  gA733TokenSpaceGuid.PcdSerialRegisterBase|0x02500000|UINT64|0x00000001
+
+  # GICv3 addresses (confirmed from DTB: interrupt-controller@3400000)
+  gA733TokenSpaceGuid.PcdGicDistributorBase|0x03400000|UINT64|0x00000002
+  gA733TokenSpaceGuid.PcdGicRedistributorsBase|0x03460000|UINT64|0x00000003
+
+  # Note: PcdSystemMemoryBase/Size and PcdFdBaseAddress are from ArmPkg.dec (gArmTokenSpaceGuid)

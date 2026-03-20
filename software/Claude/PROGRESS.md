@@ -6,7 +6,7 @@
 ## 現在の作業箇所
 - **筐体・PCB完成待ちのため QMK/TinyUSB は保留**
 - **EDK2 移植（Windows ARM）を優先的に進行中**
-- **次のタスク**: Cubie A7Z の GIC/TF-A 情報収集 → TF-A BL31 A733 ポート開始
+- **次のタスク**: ArmMmuLibCore.c に診断プリント追加 → FillTranslationTable vs ArmEnableMmu クラッシュ切り分け
 - 参照: `specs/windows_arm.md`（ロードマップ・参考リポジトリ一覧）
 
 ---
@@ -31,11 +31,13 @@
 - [ ] USB HUB（VL812）動作確認
 - [ ] M.2 SSD 認識確認
 
-### Windows ARM（ロマン枠） ⏳ 調査完了・環境整備待ち
+### Windows ARM（ロマン枠） 🔨 EDK2移植 進行中
 - [x] リソース調査（specs/windows_arm.md に記録）
-- [ ] 現在のブートチェーン確認（TF-A BL31使用有無）
-- [ ] TF-A BL31 移植（必要な場合）
-- [ ] EDK2 移植
+- [x] 現在のブートチェーン確認（TF-A BL31使用有無）→ boot0→TF-A BL31→BL33(EDK2)
+- [ ] TF-A BL31 移植（不要・既存BL31をそのまま使用）
+- [x] EDK2 SD起動・UEFI表示まで到達
+- [~] EDK2 MMU初期化クラッシュ修正中（ArmConfigureMmu内部）
+- [ ] DXE Core起動・UEFI Shell
 - [ ] Windows ARM 起動
 
 ---
@@ -51,6 +53,19 @@
 ---
 
 ## 直近の決定事項ログ
+
+### 2026-03-20（session02）
+- EDK2 SD起動: PEILESS_ENTRY を FV ZeroVector から正確に特定する手法を確立
+- PEILESS_ENTRY = `0x4A007550`（FV_base 0x4A001000 + B_offset 0x6550）
+- クラッシュ場所を `ArmConfigureMmu()` 内部に絞り込み完了
+  - `[A733] InitMmu: calling ArmConfigureMmu` まで出力 → その後ハング
+  - FillTranslationTable か ArmEnableMmu かは未特定
+- 診断プリント追加済みファイル:
+  - `ArmPlatformPkg/MemoryInitPei/MemoryInitPeiLib.c` に DbgStr2 + InitMmu前後のプリント
+  - `Platform/Allwinner/A733Pkg/Library/PlatformLib/A733Platform.c` に GetVirtualMemoryMap 診断
+- `make_sd_image.py` の backslash escaping 問題発見: WSL越しのheredocで `\\r` が CR になる
+  → Windows側でPythonスクリプトを書いてWSLで実行する方式で解決
+- **次のアクション**: `ArmMmuLibCore.c` の `ArmConfigureMmu()` に診断プリントを追加して FillTranslationTable vs ArmEnableMmu を特定する
 
 ### 2026-03-17〜18（session01）
 - フレームワーク確定: RP2040 #1 → **QMK**、RP2040 #2 → **Pico SDK + TinyUSB（UAC2）**

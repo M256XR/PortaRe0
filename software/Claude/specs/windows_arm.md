@@ -95,12 +95,14 @@ strings /dev/mmcblk0 | grep -i "bl31\|trusted" | head -20
 ## 現状のブートチェーン（調査済み）
 
 ```
-SPL → U-Boot（2024-03-20ビルド、UEFI無効）→ extlinux.conf → Linux
+boot0(Allwinner SPL) → TF-A BL31（eMMC内蔵） → U-Boot（2024-03-20ビルド、UEFI無効）→ extlinux.conf → Linux
 ```
 
+- TF-A BL31 はAllwinnerのboot0に埋め込まれ動作確認済み（eMMC文字列・PSCI smc確認）
+- PSCI 1.0 / SMC方式 / CPU enable-method: psci
 - `/boot/efi/` パーティションは存在するが空・未使用
 - U-Boot に EFI/ACPI 文字列なし → UEFI 完全無効
-- PSCI / TF-A BL31 の有無は調査中
+- **TF-A移植は不要** → EDK2移植（BL33差し替え）に直接進める
 
 ---
 
@@ -124,8 +126,8 @@ SPL → U-Boot（2024-03-20ビルド、UEFI無効）→ extlinux.conf → Linux
 ### 自作が必要なコンポーネント
 - `ArmPlatformLib`（A733メモリマップ・固有初期化）
 - `ResetSystemLib`（PMIC経由リセット）
-- TF-A BL31 A733ポート（sun50i_h616 を参考）
-- ACPI MADT（GICアドレス確認後）
+- ~~TF-A BL31 A733ポート~~ → **不要**（boot0に内蔵済み）
+- ACPI MADT（GICv3構成、アドレス確認済み）
 - ACPI DSDT（UART/GPIO/eMMCデバイス記述）
 
 ### 最小ACPIテーブルセット（Windows ARM必須）
@@ -133,12 +135,24 @@ FADT + MADT + GTDT + DSDT
 
 ---
 
+## A733 確認済みハードウェア情報（2026-03-19 調査5）
+
+| 項目 | 値 |
+|------|-----|
+| GIC バージョン | **GICv3** |
+| GIC Distributor | **0x3400000** |
+| GIC Redistributor | **0x3460000** |
+| ARMタイマー IRQ | **29, 30, 27, 26**（ARM標準） |
+| PSCI バージョン | 1.0 / SMC方式 |
+| PMIC | AXP系 / I2Cアドレス0x36 / twi@7083000 |
+| TF-A BL31 | boot0内蔵・動作確認済み |
+
 ## 実装ステップ（更新版）
 
 ```
-Step 1: A733 DTS から GIC/タイマーアドレス確認 ⏳
-Step 2: TF-A BL31 を A733 向けにポート（sun50i_h616 ベース）
-Step 3: EDK2 awwiniot/UEFI-aw1689 ベースでテンプレート作成
+Step 1: A733 DTS から GIC/タイマーアドレス確認 ✅
+Step 2: TF-A BL31 を A733 向けにポート ✅ 不要（boot0内蔵）
+Step 3: EDK2 awwiniot/UEFI-aw1689 ベースでテンプレート作成 ⏳
 Step 4: UART DEBUG() ログ取得 ← 最初のマイルストーン
 Step 5: UEFI Shell 起動
 Step 6: Windows ARM 起動
