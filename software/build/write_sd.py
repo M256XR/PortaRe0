@@ -1,5 +1,6 @@
 """Write EDK2 boot sectors to PhysicalDrive3, locking all volumes first."""
-import ctypes, ctypes.wintypes, subprocess, sys, re, hashlib
+import ctypes, ctypes.wintypes, subprocess, sys, re, hashlib, os
+from pathlib import Path
 
 GENERIC_READ  = 0x80000000
 GENERIC_WRITE = 0x40000000
@@ -14,10 +15,26 @@ INVALID_HANDLE_VALUE = ctypes.wintypes.HANDLE(-1).value
 
 k32 = ctypes.windll.kernel32
 
-IMG  = r"D:\Projects\PortaRe0\software\build\sd_boot.img"
+SCRIPT_DIR = Path(__file__).resolve().parent
+IMG  = str(SCRIPT_DIR / "sd_boot.img")
+FD   = str(SCRIPT_DIR / "A733.fd")
+MAKE_SD_IMAGE = str(SCRIPT_DIR / "make_sd_image.py")
 DISK = r"\\.\PhysicalDrive3"
 SKIP = 0x000000  # Write from LBA 0: GPT + boot0 + EDK2 in one pass (was 0x020000)
 SIZE = 16 * 1024 * 1024
+
+
+def ensure_fresh_sd_image():
+    if not os.path.exists(FD):
+        print(f"Missing firmware image: {FD}")
+        sys.exit(1)
+
+    if (not os.path.exists(IMG)) or (os.path.getmtime(IMG) < os.path.getmtime(FD)):
+        print("--- Regenerating sd_boot.img from latest A733.fd ---")
+        subprocess.run([sys.executable, MAKE_SD_IMAGE], check=True)
+
+
+ensure_fresh_sd_image()
 
 def open_handle(path, write=False):
     access = GENERIC_READ | (GENERIC_WRITE if write else 0)
