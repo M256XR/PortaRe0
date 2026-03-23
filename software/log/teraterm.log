@@ -18,39 +18,39 @@
 [288]DRAM_VCC set to 1100 mv
 [330]Training result is = ff
 [333]DRAM Pstate 0 training, frequency is 1800 Mhz
-[338]DRAM Pstate 0 training fail, fail result is 0xff!
-[2093]Training result is = 7
-[2096]DRAM Pstate 0 training, frequency is 1800 Mhz
-[2104][AUTO DEBUG]16 bit,1 ranks training success!
-[3861]Training result is = 7
+[337]DRAM Pstate 0 training fail, fail result is 0xff!
+[2092]Training result is = 7
+[2095]DRAM Pstate 0 training, frequency is 1800 Mhz
+[2103][AUTO DEBUG]16 bit,1 ranks training success!
+[3860]Training result is = 7
 [3863]DRAM Pstate 0 training, frequency is 1800 Mhz
-[5621]Training result is = 7
-[5624]DRAM Pstate 0 training, frequency is 1800 Mhz
-[5632]DRAM CLK =1800 MHZ
-[5634]DRAM Type =8 (8:LPDDR4,9:LPDDR5)
-[5704]Training result is = 7
-[5707]DRAM Pstate 1 training, frequency is 1200 Mhz
-[5771]Training result is = 7
-[5774]DRAM Pstate 2 training, frequency is 800 Mhz
-[5888]Training result is = 7
-[5891]DRAM Pstate 3 training, frequency is 400 Mhz
-[7626]Training result is = 7
-[7628]DRAM Pstate 0 training, frequency is 1800 Mhz
-[7637]Actual DRAM SIZE =1024 M
-[7640]DRAM SIZE =1024 MBytes, para1 = 30fa, para2 = 4000001, dram_tpr13 = 6067
-[7654]DRAM simple test OK.
-[7657]key press : .
-[7664]error:bad magic.
-[7728]error: dtb not found for scp
-[7732]mmc not para
-[7734]Jump to ATF: monitor_base = 0x48000000, uboot_base = 0x4a000000, optee_base = 0x0
+[5619]Training result is = 7
+[5621]DRAM Pstate 0 training, frequency is 1800 Mhz
+[5629]DRAM CLK =1800 MHZ
+[5632]DRAM Type =8 (8:LPDDR4,9:LPDDR5)
+[5702]Training result is = 7
+[5705]DRAM Pstate 1 training, frequency is 1200 Mhz
+[5768]Training result is = 7
+[5771]DRAM Pstate 2 training, frequency is 800 Mhz
+[5886]Training result is = 7
+[5888]DRAM Pstate 3 training, frequency is 400 Mhz
+[7622]Training result is = 7
+[7625]DRAM Pstate 0 training, frequency is 1800 Mhz
+[7633]Actual DRAM SIZE =1024 M
+[7636]DRAM SIZE =1024 MBytes, para1 = 30fa, para2 = 4000001, dram_tpr13 = 6067
+[7651]DRAM simple test OK.
+[7653]key press : .
+[7660]error:bad magic.
+[7724]error: dtb not found for scp
+[7728]mmc not para
+[7730]Jump to ATF: monitor_base = 0x48000000, uboot_base = 0x4a000000, optee_base = 0x0
 NOTICE:  BL31: OP-TEE 32bit detected
 NOTICE:  BL31: U-BOOT 64bit detected
 NOTICE:  BL31: v2.5(debug):5fc237a6a
 NOTICE:  BL31: Built : 09:05:28, Feb 26 2025
 NOTICE:  BL31: No DTB found.
 ERROR:   Error initializing runtime service opteed_fast
-UEFI firmware (version  built at 22:33:58 on Mar 23 2026)
+UEFI firmware (version  built at 22:43:56 on Mar 23 2026)
 [A733] InitMmu: calling ArmConfigureMmu
 [A733] ArmConfigureMmu: EL=4 T0SZ=24 MaxBits=40 TCR=0x280803518
 [A733] ArmConfigureMmu: TCR set
@@ -92,14 +92,15 @@ UEFI firmware (version  built at 22:33:58 on Mar 23 2026)
 [A733] InitMmu: ArmConfigureMmu returned
 [A733] InitMmu: MMU OK
 [A733] URR L2: AllocPages start
-[A733] URR L2: AllocPages=0x7E1A2000
+[A733] URR L2: AllocPages=0x7E201000
 [A733] URR L2: ZeroMem start
 [A733] URR L2: ZeroMem done
 [A733] URR L2: AllocPages start
-[A733] URR L2: AllocPages=0x7E1A1000
+[A733] URR L2: AllocPages=0x7E200000
 [A733] URR L2: ZeroMem start
 [A733] URR L2: ZeroMem done
 ReplaceTableEntry: splitting block entry with MMU disabled
+[A733] Installed non-deferred SecurityStub
 !!!!!!!!  Image Section Alignment(0x1000) does not match Required Alignment (0x10000)  !!!!!!!!
 !!!!!!!!  Image Section Alignment(0x1000) does not match Required Alignment (0x10000)  !!!!!!!!
 ProtectUefiImage failed to create image properties record
@@ -172,11 +173,7 @@ InitializeRealTimeClock: using default timezone/daylight settings
 [A733Acpi] ReadSection result   = 0x800000000000000E
 [A733Acpi] No more RAW sections (done)
 [A733Acpi] All tables installed OK
-Error: Image at 0007E160000 start failed: 00000001
-[A733] URR L2: AllocPages start
-[A733] URR L2: AllocPages=0x7E0AA000
-[A733] URR L2: ZeroMem start
-[A733] URR L2: ZeroMem done
+Error: Image at 0007E1B4000 start failed: 00000001
 [Bds]BootManagerMenu FFS section can not be found, skip its boot option registration
 [A733] PlatformBootManagerAfterConsole entered
 [SMHC] CMD_DONE ERR RINT=0x00000100
@@ -189,7 +186,7 @@ Error: Image at 0007E160000 start failed: 00000001
 [A733] LoadImage failed: Not Found
 [A733] Booting option: UEFI Shell
 [A733] URR L2: AllocPages start
-[A733] URR L2: AllocPages=0x7DA2B000
+[A733] URR L2: AllocPages=0x7DA90000
 [A733] URR L2: ZeroMem start
 [A733] URR L2: ZeroMem done
 UEFI Interactive Shell v2.2
@@ -197,11 +194,11 @@ EDK II
 UEFI v2.70 (EDK II, 0x00010000)
 Mapping table
       FS0: Alias(s):HD0b:;BLK1:
-          MemoryMapped(0xB,0x4020000,0x4020FFF)/SD(0x0)/HD(1,GPT,FDB97D0F-98E4-4847-8E73-A08A63180290)
+          MemoryMapped(0xB,0x4020000,0x4020FFF)/SD(0x0)/HD(1,GPT,6A353C62-29CF-4A49-875A-CAB84442B6BE)
      BLK0: Alias(s):
           MemoryMapped(0xB,0x4020000,0x4020FFF)/SD(0x0)
 Press ESC in 5 seconds to skip startup.nsh or any other key to continue.Press ESC in 4 seconds to skip startup.nsh or any other key to continue.Press ESC in 3 seconds to skip startup.nsh or any other key to continue.Press ESC in 2 seconds to skip startup.nsh or any other key to continue.Press ESC in 1 seconds to skip startup.nsh or any other key to continue.
-Shell> ls fs0:
+Shell> fs0:lfs0:sfs0: fs0:
 ls: UEFI function 'gRT->GetTime' returned: Device Error
 Directory of: fs0:\
 00/00/1980  00:00                  91  PORTARE0.TXT

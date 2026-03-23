@@ -4,6 +4,7 @@
 import argparse
 import sys
 from pathlib import Path
+import subprocess
 
 
 SCRIPT_DIR = Path(__file__).resolve().parent
@@ -37,6 +38,24 @@ def normalize_esp_root(path_text: str) -> Path:
     if not esp_root.exists():
         fail(f"ESP path does not exist: {esp_root}")
     return esp_root
+
+
+def autodetect_disk3_esp_root() -> Path:
+    command = (
+        "Get-Partition -DiskNumber 3 | "
+        "Where-Object { $_.GptType -eq '{C12A7328-F81F-11D2-BA4B-00A0C93EC93B}' } | "
+        "Get-Volume | Select-Object -ExpandProperty Path"
+    )
+    result = subprocess.run(
+        ["powershell", "-Command", command],
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+    path_text = result.stdout.strip()
+    if not path_text:
+        fail("Could not auto-detect ESP path for Disk 3")
+    return normalize_esp_root(path_text)
 
 
 def install_bootaa64(esp_root: Path, source: Path) -> Path:
@@ -75,8 +94,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--esp",
-        required=True,
-        help="Mounted ESP root path, for example S:\\ or E:\\",
+        help="Mounted ESP root path, for example S:\\ or E:\\. If omitted, auto-detect Disk 3 ESP.",
     )
     parser.add_argument(
         "--bootaa64-source",
@@ -103,7 +121,7 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
-    esp_root = normalize_esp_root(args.esp)
+    esp_root = normalize_esp_root(args.esp) if args.esp else autodetect_disk3_esp_root()
     boot_source = Path(args.bootaa64_source)
     test_app_source = Path(args.test_app_source)
 

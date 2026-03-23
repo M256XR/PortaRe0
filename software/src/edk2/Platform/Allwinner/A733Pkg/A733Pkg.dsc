@@ -281,7 +281,7 @@
   }
 
   # Security stub (provides Security/Security2 Arch Protocol - required for image loading)
-  MdeModulePkg/Universal/SecurityStubDxe/SecurityStubDxe.inf
+  Platform/Allwinner/A733Pkg/Drivers/SecurityStubDxe/A733SecurityStubDxe.inf
 
   # Metronome and Watchdog Timer Arch Protocols
   MdeModulePkg/Universal/Metronome/Metronome.inf

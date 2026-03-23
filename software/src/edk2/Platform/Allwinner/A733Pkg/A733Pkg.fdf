@@ -93,7 +93,7 @@ READ_LOCK_STATUS   = TRUE
   INF MdeModulePkg/Core/Dxe/DxeMain.inf
 
   # Security stub, Metronome, Watchdog, BDS Arch Protocols
-  INF MdeModulePkg/Universal/SecurityStubDxe/SecurityStubDxe.inf
+  INF Platform/Allwinner/A733Pkg/Drivers/SecurityStubDxe/A733SecurityStubDxe.inf
   INF MdeModulePkg/Universal/Metronome/Metronome.inf
   INF MdeModulePkg/Universal/WatchdogTimerDxe/WatchdogTimer.inf
 
