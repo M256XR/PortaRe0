@@ -1,0 +1,11 @@
+rem PortaRe0 SD Card GPT Setup
+rem Target: Disk 3 (PhysicalDrive3 / Generic STORAGE DEVICE USB Device ~119GB)
+rem WARNING: All data on Disk 3 will be erased.
+
+select disk 3
+clean
+convert gpt
+create partition efi size=260
+format fs=fat32 quick label="ESP"
+assign letter=S
+exit

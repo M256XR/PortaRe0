@@ -10,10 +10,12 @@
 #include <Library/DebugLib.h>
 #include <Library/DevicePathLib.h>
 #include <Library/MemoryAllocationLib.h>
+#include <Library/PrintLib.h>
 #include <Library/PcdLib.h>
 #include <Library/UefiBootManagerLib.h>
 #include <Library/UefiBootServicesTableLib.h>
 #include <Library/UefiLib.h>
+#include <Protocol/BlockIo.h>
 #include <Protocol/DevicePath.h>
 #include <Protocol/FirmwareVolume2.h>
 #include <Guid/SerialPortLibVendor.h>
@@ -73,6 +75,212 @@ STATIC EFI_GUID  mShellFileGuid = {
   0x7C04A583, 0x9E3E, 0x4F1C,
   { 0xAD, 0x65, 0xE0, 0x52, 0x68, 0xD0, 0xB4, 0xD1 }
 };
+
+#if 0
+STATIC
+VOID
+DumpBlockIoProbe (
+  IN EFI_BLOCK_IO_PROTOCOL  *BlockIo,
+  IN UINT32                 HandleIndex
+  )
+{
+  STATIC CONST EFI_LBA  mProbeLbas[] = { 0, 1, 2, 256 };
+  EFI_STATUS            Status;
+  UINTN                 Index;
+  UINT8                 *Buffer;
+  UINT32                Head;
+  UINT32                Tail;
+  UINT32                MbrEntryStart;
+  UINT32                MbrEntryType;
+  UINT32                GptSigLow;
+  UINT32                GptSigHigh;
+  UINT32                StoredHeaderCrc;
+  UINT32                CalculatedHeaderCrc;
+  UINT32                HeaderSize;
+  UINT32                EntryCount;
+  UINT32                EntrySize;
+  UINT32                EntryArrayCrc;
+  UINT64                MyLba;
+  UINT64                AlternateLba;
+  UINT64                EntryLba;
+  EFI_STATUS            CrcStatus;
+  UINT8                 SavedCrc[4];
+
+  if ((BlockIo == NULL) || (BlockIo->Media == NULL)) {
+    return;
+  }
+
+  DEBUG ((
+    DEBUG_INFO,
+    "[A733] BLK%d: BlockSize=%d LastBlock=0x%lx Logical=%d Present=%d\n",
+    (INT32)HandleIndex,
+    (INT32)BlockIo->Media->BlockSize,
+    (UINT64)BlockIo->Media->LastBlock,
+    (INT32)BlockIo->Media->LogicalPartition,
+    (INT32)BlockIo->Media->MediaPresent
+    ));
+
+  if (!BlockIo->Media->MediaPresent || (BlockIo->Media->BlockSize < 512)) {
+    return;
+  }
+
+  Buffer = AllocateZeroPool (BlockIo->Media->BlockSize);
+  if (Buffer == NULL) {
+    DEBUG ((DEBUG_ERROR, "[A733] BLK%d: AllocateZeroPool failed\n", (INT32)HandleIndex));
+    return;
+  }
+
+  for (Index = 0; Index < ARRAY_SIZE (mProbeLbas); Index++) {
+    if (mProbeLbas[Index] > BlockIo->Media->LastBlock) {
+      continue;
+    }
+
+    SetMem (Buffer, BlockIo->Media->BlockSize, 0xA5);
+    Status = BlockIo->ReadBlocks (
+                        BlockIo,
+                        BlockIo->Media->MediaId,
+                        mProbeLbas[Index],
+                        BlockIo->Media->BlockSize,
+                        Buffer
+                        );
+    if (EFI_ERROR (Status)) {
+      DEBUG ((
+        DEBUG_ERROR,
+        "[A733] BLK%d LBA=0x%lx ReadBlocks failed: %r\n",
+        (INT32)HandleIndex,
+        (UINT64)mProbeLbas[Index],
+        Status
+        ));
+      continue;
+    }
+
+    Head = ((UINT32)Buffer[3] << 24) | ((UINT32)Buffer[2] << 16) |
+           ((UINT32)Buffer[1] << 8)  | (UINT32)Buffer[0];
+    Tail = ((UINT32)Buffer[511] << 8) | (UINT32)Buffer[510];
+    DEBUG ((
+      DEBUG_INFO,
+      "[A733] BLK%d LBA=0x%lx head=0x%08x tail=0x%04x\n",
+      (INT32)HandleIndex,
+      (UINT64)mProbeLbas[Index],
+      Head,
+      Tail
+      ));
+
+    if (mProbeLbas[Index] == 0) {
+      MbrEntryStart = ((UINT32)Buffer[449] << 24) | ((UINT32)Buffer[448] << 16) |
+                      ((UINT32)Buffer[447] << 8)  | (UINT32)Buffer[446];
+      MbrEntryType  = ((UINT32)Buffer[461] << 24) | ((UINT32)Buffer[460] << 16) |
+                      ((UINT32)Buffer[459] << 8)  | (UINT32)Buffer[458];
+      DEBUG ((
+        DEBUG_INFO,
+        "[A733] BLK%d LBA0 MBR[446..449]=0x%08x MBR[458..461]=0x%08x Sig=0x%02x%02x\n",
+        (INT32)HandleIndex,
+        MbrEntryStart,
+        MbrEntryType,
+        Buffer[511],
+        Buffer[510]
+        ));
+    } else if (mProbeLbas[Index] == 1) {
+      GptSigLow  = ((UINT32)Buffer[3] << 24) | ((UINT32)Buffer[2] << 16) |
+                   ((UINT32)Buffer[1] << 8)  | (UINT32)Buffer[0];
+      GptSigHigh = ((UINT32)Buffer[7] << 24) | ((UINT32)Buffer[6] << 16) |
+                   ((UINT32)Buffer[5] << 8)  | (UINT32)Buffer[4];
+      HeaderSize = ReadUnaligned32 ((CONST UINT32 *)&Buffer[12]);
+      StoredHeaderCrc = ReadUnaligned32 ((CONST UINT32 *)&Buffer[16]);
+      MyLba = ReadUnaligned64 ((CONST UINT64 *)&Buffer[24]);
+      AlternateLba = ReadUnaligned64 ((CONST UINT64 *)&Buffer[32]);
+      EntryLba = ReadUnaligned64 ((CONST UINT64 *)&Buffer[72]);
+      EntryCount = ReadUnaligned32 ((CONST UINT32 *)&Buffer[80]);
+      EntrySize = ReadUnaligned32 ((CONST UINT32 *)&Buffer[84]);
+      EntryArrayCrc = ReadUnaligned32 ((CONST UINT32 *)&Buffer[88]);
+      CopyMem (SavedCrc, &Buffer[16], sizeof (SavedCrc));
+      ZeroMem (&Buffer[16], sizeof (SavedCrc));
+      CalculatedHeaderCrc = 0;
+      CrcStatus = gBS->CalculateCrc32 (
+                         Buffer,
+                         MIN (HeaderSize, (UINT32)BlockIo->Media->BlockSize),
+                         &CalculatedHeaderCrc
+                         );
+      CopyMem (&Buffer[16], SavedCrc, sizeof (SavedCrc));
+      DEBUG ((
+        DEBUG_INFO,
+        "[A733] BLK%d LBA1 GPTSIG=0x%08x 0x%08x Rev=0x%02x%02x%02x%02x\n",
+        (INT32)HandleIndex,
+        GptSigLow,
+        GptSigHigh,
+        Buffer[11],
+        Buffer[10],
+        Buffer[9],
+        Buffer[8]
+        ));
+      DEBUG ((
+        DEBUG_INFO,
+        "[A733] BLK%d LBA1 HdrSize=%d StoredCrc=0x%08x CalcCrc=0x%08x CrcStatus=%r\n",
+        (INT32)HandleIndex,
+        HeaderSize,
+        StoredHeaderCrc,
+        CalculatedHeaderCrc,
+        CrcStatus
+        ));
+      DEBUG ((
+        DEBUG_INFO,
+        "[A733] BLK%d LBA1 MyLba=0x%lx AltLba=0x%lx EntryLba=0x%lx EntCnt=%d EntSize=%d EntCrc=0x%08x\n",
+        (INT32)HandleIndex,
+        MyLba,
+        AlternateLba,
+        EntryLba,
+        EntryCount,
+        EntrySize,
+        EntryArrayCrc
+        ));
+    }
+  }
+
+  FreePool (Buffer);
+}
+
+STATIC
+VOID
+DumpAllBlockIoProbes (
+  VOID
+  )
+{
+  EFI_STATUS             Status;
+  EFI_HANDLE             *Handles;
+  EFI_BLOCK_IO_PROTOCOL  *BlockIo;
+  UINTN                  HandleCount;
+  UINTN                  Index;
+
+  Status = gBS->LocateHandleBuffer (
+                  ByProtocol,
+                  &gEfiBlockIoProtocolGuid,
+                  NULL,
+                  &HandleCount,
+                  &Handles
+                  );
+  if (EFI_ERROR (Status)) {
+    DEBUG ((DEBUG_ERROR, "[A733] LocateHandleBuffer(BlockIo) failed: %r\n", Status));
+    return;
+  }
+
+  DEBUG ((DEBUG_INFO, "[A733] BlockIo handles: %d\n", (INT32)HandleCount));
+  for (Index = 0; Index < HandleCount; Index++) {
+    Status = gBS->HandleProtocol (
+                    Handles[Index],
+                    &gEfiBlockIoProtocolGuid,
+                    (VOID **)&BlockIo
+                    );
+    if (EFI_ERROR (Status)) {
+      DEBUG ((DEBUG_ERROR, "[A733] BLK%d HandleProtocol failed: %r\n", (INT32)Index, Status));
+      continue;
+    }
+
+    DumpBlockIoProbe (BlockIo, (UINT32)Index);
+  }
+
+  FreePool (Handles);
+}
+#endif
 
 /**
   Build an FV-based device path for a file in the FV that contains the

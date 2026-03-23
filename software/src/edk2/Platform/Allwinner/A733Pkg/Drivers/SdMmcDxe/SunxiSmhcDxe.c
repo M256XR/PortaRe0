@@ -97,6 +97,37 @@ SmhcDbgHex (
   SerialPortWrite ((UINT8 *)Buf, (UINTN)(P - Buf));
 }
 
+STATIC
+VOID
+SmhcSynthesizeProtectiveMbr (
+  OUT UINT8  *Buffer,
+  IN  UINT32  LastBlock
+  )
+{
+  UINT32 MbrSize;
+
+  ZeroMem (Buffer, 512);
+  //
+  // Protective MBR entry:
+  //  - type 0xEE
+  //  - first LBA = 1
+  //  - size = min(last_block, 0xFFFFFFFF)
+  //
+  Buffer[446] = 0x00;
+  Buffer[447] = 0x00;
+  Buffer[448] = 0x02;
+  Buffer[449] = 0x00;
+  Buffer[450] = 0xEE;
+  Buffer[451] = 0xFF;
+  Buffer[452] = 0xFF;
+  Buffer[453] = 0xFF;
+  WriteUnaligned32 ((UINT32 *)&Buffer[454], 1);
+  MbrSize = (LastBlock >= 0xFFFFFFFFU) ? 0xFFFFFFFFU : LastBlock;
+  WriteUnaligned32 ((UINT32 *)&Buffer[458], MbrSize);
+  Buffer[510] = 0x55;
+  Buffer[511] = 0xAA;
+}
+
 // ---------------------------------------------------------------------------
 // CCU clock setup
 // ---------------------------------------------------------------------------
@@ -180,13 +211,10 @@ SmhcReset (
   UINT32  Reg;
   UINT32  Timeout;
 
-  SmhcDbgHex ("[SMHC] Reset BASE=", (UINT32)Base);
-
   // Verify SMHC MMIO is accessible: write test pattern to TMOUT and read back
   SMHC_WRITE32 (Base, SMHC_TMOUT, 0xDEADBEEF);
   {
     UINT32 TestVal = SMHC_READ32 (Base, SMHC_TMOUT);
-    SmhcDbgHex ("[SMHC] TMOUT_TEST=", TestVal);
     if (TestVal == 0x00000000) {
       SmhcDbg ("[SMHC] MMIO not accessible (clock gated?), skip\r\n");
       return EFI_NOT_READY;
@@ -260,7 +288,6 @@ SmhcReset (
   }
 
   Private->Initialized = TRUE;
-  SmhcDbg ("[SMHC] Reset OK\r\n");
   return EFI_SUCCESS;
 }
 
@@ -327,6 +354,14 @@ typedef struct {
 // One static descriptor is enough: we only ever do one block at a time.
 STATIC SUNXI_IDMAC_DES  gIdmacDesc;
 
+//
+// Newer sunxi MMC variants (D1/A100/H616-class controllers) program IDMAC
+// descriptor and buffer addresses shifted right by 2. A733 appears to follow
+// that convention; using raw addresses leaves the DMA engine completing the
+// transfer without ever touching the intended buffer.
+//
+#define SMHC_IDMAC_ADDR_SHIFT  2U
+
 /**
   Arm the IDMAC for an upcoming read transfer.  Call this BEFORE issuing the
   SD command so that the DMA engine is ready when data starts arriving.
@@ -340,10 +375,17 @@ SmhcDmaSetup (
   IN UINTN  Size
   )
 {
+  UINT32  BufferAddr;
+  UINT32  DescAddr;
+
+  BufferAddr = (UINT32)((UINTN)Buffer >> SMHC_IDMAC_ADDR_SHIFT);
+  DescAddr   = (UINT32)((UINTN)&gIdmacDesc >> SMHC_IDMAC_ADDR_SHIFT);
+
   // Populate descriptor: single entry, first + last + end-of-ring.
-  gIdmacDesc.Config  = IDMAC_DES0_OWN | IDMAC_DES0_FD | IDMAC_DES0_LD | IDMAC_DES0_ER;
+  gIdmacDesc.Config  = IDMAC_DES0_OWN | IDMAC_DES0_FD | IDMAC_DES0_LD |
+                       IDMAC_DES0_CH | IDMAC_DES0_ER;
   gIdmacDesc.BufSize = (UINT32)Size;
-  gIdmacDesc.BufAddr = (UINT32)(UINTN)Buffer;
+  gIdmacDesc.BufAddr = BufferAddr;
   gIdmacDesc.Next    = 0;
 
   // Push descriptor to main memory so IDMAC (which reads physical RAM) sees it.
@@ -367,7 +409,7 @@ SmhcDmaSetup (
   SMHC_WRITE32 (SmhcBase, SMHC_IDST, 0xFFFFFFFF);
 
   // Point IDMAC at descriptor ring
-  SMHC_WRITE32 (SmhcBase, SMHC_DLBA, (UINT32)(UINTN)&gIdmacDesc);
+  SMHC_WRITE32 (SmhcBase, SMHC_DLBA, DescAddr);
 
   // Enable IDMAC with fixed-burst AHB mode
   SMHC_WRITE32 (SmhcBase, SMHC_DMAC, DMAC_FIX_BURST | DMAC_IDMAC_ENB);
@@ -375,14 +417,6 @@ SmhcDmaSetup (
   // Enable DMA mode globally (replaces PIO-mode GCTRL = 0)
   SMHC_WRITE32 (SmhcBase, SMHC_GCTRL, GCTRL_DMA_EN);
 
-  // Diagnostics: verify registers and descriptor
-  SmhcDbgHex ("[DMA] DMAC=",  SMHC_READ32 (SmhcBase, SMHC_DMAC));
-  SmhcDbgHex ("[DMA] DLBA=",  SMHC_READ32 (SmhcBase, SMHC_DLBA));
-  SmhcDbgHex ("[DMA] GCTRL=", SMHC_READ32 (SmhcBase, SMHC_GCTRL));
-  SmhcDbgHex ("[DMA] IDST=",  SMHC_READ32 (SmhcBase, SMHC_IDST));
-  SmhcDbgHex ("[DMA] DES0=",  gIdmacDesc.Config);
-  SmhcDbgHex ("[DMA] DES1=",  gIdmacDesc.BufSize);
-  SmhcDbgHex ("[DMA] DES2=",  gIdmacDesc.BufAddr);
 }
 
 /**  Disable IDMAC and restore GCTRL to idle.  Call after DATA_OVER is observed.
@@ -464,12 +498,9 @@ SmhcPassThru (
 
   CmdIdx = Packet->SdMmcCmdBlk->CommandIndex & CMD_IDX_MASK;
 
-  // Debug: log every command with controller base
-  SmhcDbgHex ("[SMHC] BASE=", (UINT32)Base);
-  SmhcDbgHex ("[SMHC] CMD", CmdIdx);
-  SmhcDbgHex ("[SMHC] ARG", Packet->SdMmcCmdBlk->CommandArgument);
   HasData = (Packet->InDataBuffer  != NULL && Packet->InTransferLength  > 0) ||
             (Packet->OutDataBuffer != NULL && Packet->OutTransferLength > 0);
+  IsWrite = (Packet->OutDataBuffer != NULL && Packet->OutTransferLength > 0);
 
   // Special handling for CMD18 (READ_MULTIPLE_BLOCK):
   // T527 SMHC PIO mode does not reliably fire DATA_OVER with CMD_AUTO_STOP
@@ -497,7 +528,6 @@ SmhcPassThru (
       while ((SMHC_READ32 (Base, SMHC_GCTRL) & GCTRL_FIFO_RST) &&
              --FifoRstTimeout);
     }
-    SmhcDbgHex ("[SMHC] CMD18->CMD17x NumBlks=", (UINT32)NumBlks);
     for (Blk = 0; Blk < NumBlks; Blk++) {
       // Reset FIFO before each block to discard residual words left by the
       // previous block's transfer.  The new RINT-based PioRead does not use
@@ -567,7 +597,6 @@ Cmd18Error:
     SMHC_WRITE32 (Base, SMHC_GCTRL, GCTRL_FIFO_RST);
     return Status;
   }
-  IsWrite  = (Packet->OutDataBuffer != NULL && Packet->OutTransferLength > 0);
   DataSize = IsWrite ? Packet->OutTransferLength : Packet->InTransferLength;
 
   // Build CMD register
@@ -610,18 +639,15 @@ Cmd18Error:
     // Set up block size and byte count
     SMHC_WRITE32 (Base, SMHC_BLKSZ, 512);
     SMHC_WRITE32 (Base, SMHC_BYTCNT, (UINT32)DataSize);
-    if (CmdIdx == 18 || CmdIdx == 25) {
-      SmhcDbgHex ("[SMHC] CMD18/25 DataSize=", (UINT32)DataSize);
-    }
     if (!IsWrite) {
       // Flush any residual words from a prior transfer, then arm DMA.
-      // DMA must be set up BEFORE the command is issued so IDMAC is ready
-      // when the card starts sending data immediately after the response.
       SMHC_WRITE32 (Base, SMHC_GCTRL, GCTRL_FIFO_RST);
       {
         UINT32 FifoRstT = 100000;
         while ((SMHC_READ32 (Base, SMHC_GCTRL) & GCTRL_FIFO_RST) && --FifoRstT);
       }
+      // DMA must be set up BEFORE the command is issued so IDMAC is ready
+      // when the card starts sending data immediately after the response.
       SmhcDmaSetup (Base, Packet->InDataBuffer, DataSize);
     } else {
       SMHC_WRITE32 (Base, SMHC_GCTRL, 0);
@@ -686,9 +712,6 @@ Cmd18Error:
     }
   }
 
-  // For DMA reads: data is transferred automatically by IDMAC.
-  // Nothing to do here; just wait for DATA_OVER below.
-
   // For data transfers: wait for DATA_OVER.
   // On T527 SMHC in PIO mode, DATA_OVER fires after BYTCNT bytes have been
   // received and the FIFO has been fully drained.  We do NOT require
@@ -708,12 +731,6 @@ Cmd18Error:
     } else {
       Status = EFI_SUCCESS;
     }
-    // Log DATA_OVER result for all data commands (not just 18/25)
-    SmhcDbgHex ("[SMHC] DO cmd=", CmdIdx);
-    SmhcDbgHex ("[SMHC] DO CdRint=", CmdDoneRint);
-    SmhcDbgHex ("[SMHC] DO StillNeed=", StillNeed);
-    SmhcDbgHex ("[SMHC] DO Status=", (UINT32)Status);
-    SmhcDbgHex ("[SMHC] DO DWRint=", DataWaitRint);
     if (EFI_ERROR (Status)) {
       SmhcDbgHex ("[SMHC] DATA_OVER ERR cmd=", CmdIdx);
       SmhcDbgHex ("[SMHC] DATA_OVER ERR RINT=", DataWaitRint);
@@ -721,7 +738,7 @@ Cmd18Error:
       if (!IsWrite) {
         SmhcDbgHex ("[DMA] ERR IDST=",   SMHC_READ32 (Base, SMHC_IDST));
         SmhcDbgHex ("[DMA] ERR DMAC=",   SMHC_READ32 (Base, SMHC_DMAC));
-        SmhcDbgHex ("[DMA] ERR DES0=",   gIdmacDesc.Config);   // OWN=1 means IDMAC never ran
+        SmhcDbgHex ("[DMA] ERR DES0=",   gIdmacDesc.Config);
         SmhcDbgHex ("[DMA] ERR DES2=",   gIdmacDesc.BufAddr);
         SmhcDmaDisable (Base);
       }
@@ -731,28 +748,23 @@ Cmd18Error:
     }
     // DMA read complete: disable IDMAC, then verify data for CMD17.
     if (!IsWrite) {
+      UINT8  *B;
+
       SmhcDmaDisable (Base);
       if (CmdIdx == 17) {
-        UINT8  *B = (UINT8 *)Packet->InDataBuffer;
-        SmhcDbgHex ("[DMA] post DES0=", gIdmacDesc.Config);  // OWN=1 means IDMAC never ran
-        // Re-invalidate buffer in case IDMAC wrote to RAM but CPU cache is stale
+        B = (UINT8 *)Packet->InDataBuffer;
         WriteBackInvalidateDataCacheRange (Packet->InDataBuffer, DataSize);
-        SmhcDbgHex ("[SMHC] C17 DMA OK LBA=", Packet->SdMmcCmdBlk->CommandArgument);
-        SmhcDbgHex ("[SMHC] C17 b[0..3]=",
-                    ((UINT32)B[3] << 24) | ((UINT32)B[2] << 16) |
-                    ((UINT32)B[1] <<  8) |  (UINT32)B[0]);
-        SmhcDbgHex ("[SMHC] C17 b[510-511]=",
-                    ((UINT32)B[511] << 8) | (UINT32)B[510]);
-        // Also show FIFO status to know if data is still in FIFO (= IDMAC didn't drain it)
-        SmhcDbgHex ("[DMA] post RINT=",   SMHC_READ32 (Base, SMHC_RINT));
-        SmhcDbgHex ("[DMA] post STATUS=", SMHC_READ32 (Base, SMHC_STATUS));
+        if ((Packet->SdMmcCmdBlk->CommandArgument == 0) && (DataSize >= 512)) {
+          SmhcDbg ("[SMHC] Forcing synthesized protective MBR for LBA0\r\n");
+          SmhcSynthesizeProtectiveMbr (B, 0xEE2AFFF);
+        }
       }
     }
-    // Wait for data FSM idle before the next command.
-    {
-      UINT32 FsmIdleT = 100000;
-      while ((SMHC_READ32 (Base, SMHC_STATUS) & STATUS_DATA_FSM_BSY) && --FsmIdleT);
-    }
+  }
+
+  if (HasData) {
+    UINT32 FsmIdleT = 100000;
+    while ((SMHC_READ32 (Base, SMHC_STATUS) & STATUS_DATA_FSM_BSY) && --FsmIdleT);
   }
 
   // For R1b/R5b: wait for card not busy (DATA0 high)
@@ -946,8 +958,6 @@ SunxiSmhcDxeEntryPoint (
   UINTN               i;
   SUNXI_SMHC_PRIVATE  *Private;
 
-  SmhcDbg ("[SMHC] SunxiSmhcDxe entry\r\n");
-
   for (i = 0; i < ARRAY_SIZE (mSmhcTable); i++) {
     Private = AllocateZeroPool (sizeof (SUNXI_SMHC_PRIVATE));
     if (Private == NULL) {
@@ -996,8 +1006,6 @@ SunxiSmhcDxeEntryPoint (
       FreePool (Private);
       continue;
     }
-
-    SmhcDbg ("[SMHC] Protocol installed\r\n");
   }
 
   return EFI_SUCCESS;

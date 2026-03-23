@@ -27,6 +27,6 @@ touch /home/linux/edk2/ArmPlatformPkg/PeilessSec/PeilessSec.c
 python3 /home/linux/edk2/BaseTools/Source/Python/build/build.py \
     -a AARCH64 -t GCC \
     -p Platform/Allwinner/A733Pkg/A733Pkg.dsc \
-    -b DEBUG 2>&1 && \
-cp /home/linux/edk2/Build/A733/DEBUG_GCC/FV/A733.fd /mnt/d/Projects/PortaRe0/software/build/A733.fd && \
+    -b RELEASE 2>&1 && \
+cp /home/linux/edk2/Build/A733/RELEASE_GCC/FV/A733.fd /mnt/d/Projects/PortaRe0/software/build/A733.fd && \
 echo "A733.fd copied to build/"

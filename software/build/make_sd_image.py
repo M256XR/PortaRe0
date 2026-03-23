@@ -3,20 +3,240 @@
 Allwinner A733 EDK2 SD card image builder
 Creates a 16MB raw image to be written to an SD card at offset 0.
 
-Layout (copied from eMMC analysis):
-  0x020000: boot0 (eGON.BT0, 240KB)
-  0xC00000: sunxi-package with EDK2 replacing u-boot component
+Layout:
+  0x000000 (LBA   0): Protective MBR
+  0x000200 (LBA   1): Primary GPT header
+  0x000400 (LBA   2): Primary GPT entries (LBA 2-33)
+  0x020000 (LBA 256): boot0 (eGON.BT0, 240KB)
+  0x100000 (LBA 2048): ESP FAT32 VBR + FAT headers
+  0xC00000 (LBA 6144): sunxi-package with EDK2 replacing u-boot component
 
 Usage:
   python3 make_sd_image.py
-  Then write sd_boot.img to SD card:
-    Linux:   sudo dd if=sd_boot.img of=/dev/sdX bs=1M
-    Windows: use Win32DiskImager or 'dd' for Windows
+  Then write sd_boot.img to SD card with write_sd.py (SKIP=0).
 """
 
+import binascii
+import hashlib
 import struct
 import sys
 import os
+import uuid
+from datetime import datetime, timezone
+
+# ---------------------------------------------------------------------------
+# GPT / FAT32 constants  (mirror format_sd.py, kept self-contained)
+# ---------------------------------------------------------------------------
+SECTOR_SIZE        = 512
+DISK_SECTORS       = 249_730_815          # 120GB SD card
+LAST_LBA           = DISK_SECTORS - 1
+
+GPT_HEADER_LBA     = 1
+GPT_ENTRIES_LBA    = 2
+GPT_ENTRY_COUNT    = 128
+GPT_ENTRY_SIZE     = 128
+GPT_ENTRIES_SECTORS = (GPT_ENTRY_COUNT * GPT_ENTRY_SIZE) // SECTOR_SIZE  # 32
+PRIMARY_FIRST_USABLE_LBA = 34
+PRIMARY_LAST_USABLE_LBA  = 249_730_781
+BACKUP_ENTRIES_LBA = 249_730_782
+BACKUP_HEADER_LBA  = 249_730_814
+
+ESP_START_LBA      = 2048
+ESP_SECTOR_COUNT   = 532_480              # 260 MB
+ESP_END_LBA        = ESP_START_LBA + ESP_SECTOR_COUNT - 1
+
+# FAT32 geometry
+BYTES_PER_SECTOR   = 512
+SECTORS_PER_CLUSTER = 8
+RESERVED_SECTORS   = 32
+FAT_COUNT          = 2
+ROOT_CLUSTER       = 2
+MARKER_CLUSTER     = 3
+FSINFO_SECTOR      = 1
+BACKUP_BOOT_SECTOR = 6
+MEDIA_DESCRIPTOR   = 0xF8
+
+
+def _crc32(data):
+    return binascii.crc32(data) & 0xFFFFFFFF
+
+
+def _calculate_fat_size(total_sectors, reserved, sectors_per_cluster, fat_count):
+    fat_size = 1
+    while True:
+        data_sectors = total_sectors - reserved - (fat_count * fat_size)
+        cluster_count = data_sectors // sectors_per_cluster
+        needed = ((cluster_count + 2) * 4 + (BYTES_PER_SECTOR - 1)) // BYTES_PER_SECTOR
+        if needed == fat_size:
+            return fat_size
+        fat_size = needed
+
+
+def _build_protective_mbr():
+    mbr = bytearray(SECTOR_SIZE)
+    mbr[446:462] = struct.pack(
+        "<B3sB3sII",
+        0x00, b"\x00\x02\x00",
+        0xEE, b"\xFF\xFF\xFF",
+        1, 0xFFFFFFFF,
+    )
+    mbr[510:512] = b"\x55\xAA"
+    return bytes(mbr)
+
+
+def _build_partition_entries():
+    entries = bytearray(GPT_ENTRY_COUNT * GPT_ENTRY_SIZE)
+    esp_type_guid   = uuid.UUID("c12a7328-f81f-11d2-ba4b-00a0c93ec93b").bytes_le
+    esp_unique_guid = uuid.uuid4().bytes_le
+    esp_name        = "ESP".encode("utf-16le").ljust(72, b"\x00")
+    entries[0:GPT_ENTRY_SIZE] = struct.pack(
+        "<16s16sQQQ72s",
+        esp_type_guid, esp_unique_guid,
+        ESP_START_LBA, ESP_END_LBA, 0, esp_name,
+    )
+    return bytes(entries)
+
+
+def _build_gpt_header(my_lba, alternate_lba, entries_lba, entries_crc, disk_guid):
+    header = bytearray(SECTOR_SIZE)
+    struct.pack_into(
+        "<8sIIIIQQQQ16sQIII", header, 0,
+        b"EFI PART", 0x00010000, 92, 0, 0,
+        my_lba, alternate_lba,
+        PRIMARY_FIRST_USABLE_LBA, PRIMARY_LAST_USABLE_LBA,
+        disk_guid, entries_lba,
+        GPT_ENTRY_COUNT, GPT_ENTRY_SIZE, entries_crc,
+    )
+    struct.pack_into("<I", header, 16, _crc32(header[:92]))
+    return bytes(header)
+
+
+def _build_fat32_vbr(total_sectors, fat_size_sectors):
+    vbr = bytearray(SECTOR_SIZE)
+    vbr[0:3]   = b"\xEB\x58\x90"
+    vbr[3:11]  = b"MSDOS5.0"
+    struct.pack_into("<H", vbr, 11, BYTES_PER_SECTOR)
+    vbr[13]    = SECTORS_PER_CLUSTER
+    struct.pack_into("<H", vbr, 14, RESERVED_SECTORS)
+    vbr[16]    = FAT_COUNT
+    struct.pack_into("<H", vbr, 17, 0)
+    struct.pack_into("<H", vbr, 19, 0)
+    vbr[21]    = MEDIA_DESCRIPTOR
+    struct.pack_into("<H", vbr, 22, 0)
+    struct.pack_into("<H", vbr, 24, 63)
+    struct.pack_into("<H", vbr, 26, 255)
+    struct.pack_into("<I", vbr, 28, ESP_START_LBA)
+    struct.pack_into("<I", vbr, 32, total_sectors)
+    struct.pack_into("<I", vbr, 36, fat_size_sectors)
+    struct.pack_into("<H", vbr, 40, 0)
+    struct.pack_into("<H", vbr, 42, 0)
+    struct.pack_into("<I", vbr, 44, ROOT_CLUSTER)
+    struct.pack_into("<H", vbr, 48, FSINFO_SECTOR)
+    struct.pack_into("<H", vbr, 50, BACKUP_BOOT_SECTOR)
+    vbr[64]    = 0x80
+    vbr[66]    = 0x29
+    vbr[67:71] = struct.pack("<I", uuid.uuid4().int & 0xFFFFFFFF)
+    vbr[71:82] = b"ESP        "
+    vbr[82:90] = b"FAT32   "
+    vbr[510:512] = b"\x55\xAA"
+    return bytes(vbr)
+
+
+def _build_fsinfo():
+    fsinfo = bytearray(SECTOR_SIZE)
+    struct.pack_into("<I", fsinfo, 0,   0x41615252)
+    struct.pack_into("<I", fsinfo, 484, 0x61417272)
+    struct.pack_into("<I", fsinfo, 488, 0xFFFFFFFF)
+    struct.pack_into("<I", fsinfo, 492, 0xFFFFFFFF)
+    struct.pack_into("<I", fsinfo, 508, 0xAA550000)
+    return bytes(fsinfo)
+
+
+def _build_fat_sector_image(fat_size_sectors):
+    fat = bytearray(fat_size_sectors * SECTOR_SIZE)
+    struct.pack_into("<I", fat, 0, 0x0FFFFFF8)
+    struct.pack_into("<I", fat, 4, 0x0FFFFFFF)
+    struct.pack_into("<I", fat, 8, 0x0FFFFFFF)
+    return bytes(fat)
+
+
+def _build_root_dir_and_marker(marker_text):
+    root_dir = bytearray(SECTORS_PER_CLUSTER * SECTOR_SIZE)
+    marker_data = marker_text.encode("ascii")
+    marker_cluster = bytearray(SECTORS_PER_CLUSTER * SECTOR_SIZE)
+    marker_cluster[:len(marker_data)] = marker_data
+
+    # 8.3 short entry: PORTARE0.TXT
+    entry = bytearray(32)
+    entry[0:11] = b"PORTARE0TXT"
+    entry[11] = 0x20  # archive
+    struct.pack_into("<H", entry, 26, MARKER_CLUSTER)
+    struct.pack_into("<I", entry, 28, len(marker_data))
+    root_dir[0:32] = entry
+
+    return bytes(root_dir), bytes(marker_cluster)
+
+
+def embed_gpt_and_esp(img):
+    """Write Protective MBR, primary GPT, and FAT32 ESP headers into the image bytearray."""
+    fat_size = _calculate_fat_size(ESP_SECTOR_COUNT, RESERVED_SECTORS, SECTORS_PER_CLUSTER, FAT_COUNT)
+    fat_start_lba  = ESP_START_LBA + RESERVED_SECTORS
+    fat2_start_lba = fat_start_lba + fat_size
+    data_start_lba = fat2_start_lba + fat_size
+    root_dir_lba   = data_start_lba
+    marker_lba     = root_dir_lba + SECTORS_PER_CLUSTER
+
+    fd_bytes = open(EDK2_FD, "rb").read()
+    fd_sha = hashlib.sha256(fd_bytes).hexdigest()[:16]
+    fd_mtime = datetime.fromtimestamp(os.path.getmtime(EDK2_FD), timezone.utc)
+    marker_text = (
+        "PORTARE0 A733 ESP MARKER\r\n"
+        f"FD_SHA256_16={fd_sha}\r\n"
+        f"FD_MTIME_UTC={fd_mtime.strftime('%Y-%m-%d %H:%M:%S')}\r\n"
+    )
+
+    partition_entries = _build_partition_entries()
+    entries_crc = _crc32(partition_entries)
+    disk_guid   = uuid.uuid4().bytes_le
+
+    primary_header = _build_gpt_header(
+        GPT_HEADER_LBA, BACKUP_HEADER_LBA, GPT_ENTRIES_LBA, entries_crc, disk_guid)
+    backup_header  = _build_gpt_header(
+        BACKUP_HEADER_LBA, GPT_HEADER_LBA, BACKUP_ENTRIES_LBA, entries_crc, disk_guid)
+    protective_mbr = _build_protective_mbr()
+
+    vbr     = _build_fat32_vbr(ESP_SECTOR_COUNT, fat_size)
+    fsinfo  = _build_fsinfo()
+    fat     = bytearray(_build_fat_sector_image(fat_size))
+    struct.pack_into("<I", fat, MARKER_CLUSTER * 4, 0x0FFFFFFF)
+    root_dir, marker_cluster = _build_root_dir_and_marker(marker_text)
+
+    def _place(lba, data, label):
+        off = lba * SECTOR_SIZE
+        img[off:off + len(data)] = data
+        print(f"  GPT/ESP [{label}] at LBA {lba} (offset 0x{off:06X}), {len(data)} bytes")
+
+    _place(0,                    protective_mbr,   "Protective MBR")
+    _place(GPT_HEADER_LBA,       primary_header,   "Primary GPT header")
+    _place(GPT_ENTRIES_LBA,      partition_entries,"Primary GPT entries")
+    # Backup GPT entries and header are beyond the 16MB image — skipped intentionally.
+    # EDK2 (and any OS) will use the primary GPT; backup is only for recovery.
+
+    _place(ESP_START_LBA,                        vbr,     "FAT32 VBR")
+    _place(ESP_START_LBA + FSINFO_SECTOR,        fsinfo,  "FAT32 FSInfo")
+    _place(ESP_START_LBA + BACKUP_BOOT_SECTOR,   vbr,     "FAT32 backup VBR")
+    _place(fat_start_lba,                        fat,     "FAT32 FAT1")
+    _place(fat2_start_lba,                       fat,     "FAT32 FAT2")
+    _place(root_dir_lba,                         root_dir,"FAT32 root dir")
+    _place(marker_lba,                           marker_cluster, "FAT32 marker cluster")
+
+    print(f"  FAT size: {fat_size} sectors/FAT, root dir at LBA {root_dir_lba}")
+    print("  FAT32 marker file: \\PORTARE0.TXT")
+    print(f"    FD_SHA256_16={fd_sha}")
+    print(f"    FD_MTIME_UTC={fd_mtime.strftime('%Y-%m-%d %H:%M:%S')}")
+    return root_dir_lba + SECTORS_PER_CLUSTER  # last LBA written + 1
+
+# ---------------------------------------------------------------------------
 
 import platform
 _BASE = "/mnt/d/Projects/PortaRe0/software" if platform.system() == "Linux" else "D:/Projects/PortaRe0/software"
@@ -318,6 +538,19 @@ def main():
     img[PKG_OFFSET:PKG_OFFSET + pkg_total] = pkg_data[:pkg_total]
     print(f"  sunxi-package written at 0x{PKG_OFFSET:06X} ({pkg_total//1024}KB)")
 
+    # Embed GPT (LBA 0-33) and FAT32 ESP headers (LBA 2048+) into the image.
+    # This ensures a single write_sd.py run (SKIP=0) commits everything to the
+    # physical flash atomically, avoiding the Windows USB MSC cache problem that
+    # prevented format_sd.py's LBA 0 writes from reaching the physical NAND.
+    print("Embedding GPT and FAT32 ESP headers into image...")
+    embed_gpt_and_esp(img)
+
+    # Verify no clobber of boot0
+    boot0_check = img[BOOT0_OFFSET:BOOT0_OFFSET + 4]
+    assert boot0_check == boot0[:4], \
+        f"BUG: boot0 clobbered at 0x{BOOT0_OFFSET:X}! GPT/ESP placement error."
+    print(f"  Verified: boot0 not clobbered at 0x{BOOT0_OFFSET:06X}")
+
     # Write output
     print(f"Writing: {OUTPUT_IMG}")
     with open(OUTPUT_IMG, 'wb') as f:
@@ -325,11 +558,9 @@ def main():
     print(f"Done! Image size: {len(img)//1024//1024}MB")
     print()
     print("=== Next steps ===")
-    print("Write to SD card:")
-    print("  Linux (from Cubie or PC):")
-    print("    sudo dd if=sd_boot.img of=/dev/sdX bs=1M status=progress")
-    print("  Windows (Win32DiskImager or balena Etcher):")
-    print("    Select sd_boot.img → select SD card drive → Write")
+    print("1. Run write_sd.py (SKIP is now 0 - writes full image from LBA 0).")
+    print("   This writes GPT + boot0 + EDK2 in a single pass, bypassing the")
+    print("   Windows USB MSC caching issue that affected format_sd.py.")
     print()
     print("Insert SD card into Cubie A7Z and power on.")
     print("Connect UART (115200 8N1) to see UEFI debug output.")

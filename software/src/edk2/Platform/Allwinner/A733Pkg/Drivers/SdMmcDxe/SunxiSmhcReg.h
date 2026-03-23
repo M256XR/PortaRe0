@@ -75,6 +75,7 @@
 #define GCTRL_INT_EN      (1U << 4)
 #define GCTRL_DMA_EN      (1U << 5)
 #define GCTRL_DEBOUNCE_EN (1U << 8)
+#define GCTRL_ACCESS_DONE_DIRECT (1U << 30)
 #define GCTRL_HALT_FLOW   (1U << 31)  // FIFO access mode: 1=hold, 0=normal
 
 // ---- SMHC_CLKCR bits ----

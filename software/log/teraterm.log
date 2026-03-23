@@ -1,80 +1,76 @@
 ......
 
 
-[213]HELLO! BOOT0 is starting!
-[216]BOOT0 commit : {9f6fab4f-dirty}
+[215]HELLO! BOOT0 is starting!
+[218]BOOT0 commit : {9f6fab4f-dirty}
 
-[226]vaild para:1  select dram para0
-[229]key press : .
-[231][mmc]: mmc driver ver 2024-03-20 10:36
-[241][mmc]: Wrong media type 0x0
-[244][mmc]: ***Try SD card 0***
-[264][mmc]: HSSDR52/SDR25 4 bit
-[267][mmc]: 50000000 Hz
-[269][mmc]: 121942 MB
-[272][mmc]: ***SD/MMC 0 init OK!!!***
-[280]boot param - magic error 
-[283]DRAM BOOT DRIVE INFO: V0.601
-[287]DRAM_VCC set to 1100 mv
-[329]Training result is = ff
-[332]DRAM Pstate 0 training, frequency is 1800 Mhz
-[337]DRAM Pstate 0 training fail, fail result is 0xff!
-[2092]Training result is = 7
-[2095]DRAM Pstate 0 training, frequency is 1800 Mhz
-[2103][AUTO DEBUG]16 bit,1 ranks training success!
-[3863]Training result is = 7
-[3866]DRAM Pstate 0 training, frequency is 1800 Mhz
-[5625]Training result is = 7
-[5628]DRAM Pstate 0 training, frequency is 1800 Mhz
-[5636]DRAM CLK =1800 MHZ
-[5638]DRAM Type =8 (8:LPDDR4,9:LPDDR5)
-[5708]Training result is = 7
-[5711]DRAM Pstate 1 training, frequency is 1200 Mhz
-[5775]Training result is = 7
-[5778]DRAM Pstate 2 training, frequency is 800 Mhz
-[5892]Training result is = 7
-[5895]DRAM Pstate 3 training, frequency is 400 Mhz
-[7628]Training result is = 7
-[7631]DRAM Pstate 0 training, frequency is 1800 Mhz
-[7639]Actual DRAM SIZE =1024 M
-[7642]DRAM SIZE =1024 MBytes, para1 = 30fa, para2 = 4000001, dram_tpr13 = 6067
-[7657]DRAM simple test OK.
-[7659]key press : .
-[7666]error:bad magic.
-[7730]error: dtb not found for scp
-[7734]mmc not para
-[7735]Jump to ATF: monitor_base = 0x48000000, uboot_base = 0x4a000000, optee_base = 0x0
+[228]vaild para:1  select dram para0
+[232]key press : .
+[234][mmc]: mmc driver ver 2024-03-20 10:36
+[243][mmc]: Wrong media type 0x0
+[247][mmc]: ***Try SD card 0***
+[266][mmc]: HSSDR52/SDR25 4 bit
+[269][mmc]: 50000000 Hz
+[271][mmc]: 121942 MB
+[274][mmc]: ***SD/MMC 0 init OK!!!***
+[282]boot param - magic error 
+[285]DRAM BOOT DRIVE INFO: V0.601
+[289]DRAM_VCC set to 1100 mv
+[331]Training result is = ff
+[334]DRAM Pstate 0 training, frequency is 1800 Mhz
+[339]DRAM Pstate 0 training fail, fail result is 0xff!
+[2098]Training result is = 7
+[2101]DRAM Pstate 0 training, frequency is 1800 Mhz
+[2109][AUTO DEBUG]16 bit,1 ranks training success!
+[3868]Training result is = 7
+[3870]DRAM Pstate 0 training, frequency is 1800 Mhz
+[5632]Training result is = 7
+[5635]DRAM Pstate 0 training, frequency is 1800 Mhz
+[5643]DRAM CLK =1800 MHZ
+[5645]DRAM Type =8 (8:LPDDR4,9:LPDDR5)
+[5715]Training result is = 7
+[5718]DRAM Pstate 1 training, frequency is 1200 Mhz
+[5782]Training result is = 7
+[5785]DRAM Pstate 2 training, frequency is 800 Mhz
+[5899]Training result is = 7
+[5902]DRAM Pstate 3 training, frequency is 400 Mhz
+[7632]Training result is = 7
+[7635]DRAM Pstate 0 training, frequency is 1800 Mhz
+[7643]Actual DRAM SIZE =1024 M
+[7646]DRAM SIZE =1024 MBytes, para1 = 30fa, para2 = 4000001, dram_tpr13 = 6067
+[7661]DRAM simple test OK.
+[7663]key press : .
+[7670]error:bad magic.
+[7734]error: dtb not found for scp
+[7738]mmc not para
+[7740]Jump to ATF: monitor_base = 0x48000000, uboot_base = 0x4a000000, optee_base = 0x0
 NOTICE:  BL31: OP-TEE 32bit detected
 NOTICE:  BL31: U-BOOT 64bit detected
 NOTICE:  BL31: v2.5(debug):5fc237a6a
 NOTICE:  BL31: Built : 09:05:28, Feb 26 2025
 NOTICE:  BL31: No DTB found.
 ERROR:   Error initializing runtime service opteed_fast
-[A733] ArmPlatformInitialize
-UEFI firmware (version  built at 10:24:48 on Mar 23 2026)
-[A733] GetVirtualMemoryMap called
-[A733] AllocatePages OK
-[A733] GetVirtualMemoryMap DONE
+UEFI firmware (version  built at 16:47:51 on Mar 23 2026)
 [A733] InitMmu: calling ArmConfigureMmu
 [A733] ArmConfigureMmu: EL=4 T0SZ=24 MaxBits=40 TCR=0x280803518
 [A733] ArmConfigureMmu: TCR set
-[A733] ArmConfigureMmu: TranslationTable=0x7FFBD000 entries=2
+[A733] ArmConfigureMmu: TranslationTable=0x7FFBE000 entries=2
 [A733] ArmConfigureMmu: ZeroMem done
 [A733] ArmConfigureMmu: FillTT base=0x40000000 len=0x40000000 attr=1
 [A733] URR L0: AllocPages start
-[A733] URR L0: AllocPages=0x7FFBC000
+[A733] URR L0: AllocPages=0x7FFBD000
 [A733] URR L0: IDC start
 [A733] URR L0: IDC done
 [A733] URR L0: ZeroMem start
 [A733] URR L0: ZeroMem done
 [A733] URR L1: AllocPages start
-[A733] URR L1: AllocPages=0x7FFBB000
+[A733] URR L1: AllocPages=0x7FFBC000
 [A733] URR L1: IDC start
 [A733] URR L1: IDC done
 [A733] URR L1: ZeroMem start
 [A733] URR L1: ZeroMem done
 [A733] URR L2: AllocPages start
-[A733] URR L2: AllocPages=0x7FFBA000
+[A733] URR L2: AllocPages=0x7FFBB000
 [A733] URR L2: IDC start
 [A733] URR L2: IDC done
 [A733] URR L2: ZeroMem start
@@ -82,7 +78,7 @@ UEFI firmware (version  built at 10:24:48 on Mar 23 2026)
 [A733] ArmConfigureMmu: FillTT done
 [A733] ArmConfigureMmu: FillTT base=0x0 len=0x10000000 attr=6
 [A733] URR L1: AllocPages start
-[A733] URR L1: AllocPages=0x7FFB9000
+[A733] URR L1: AllocPages=0x7FFBA000
 [A733] URR L1: IDC start
 [A733] URR L1: IDC done
 [A733] URR L1: ZeroMem start
@@ -95,248 +91,34 @@ UEFI firmware (version  built at 10:24:48 on Mar 23 2026)
 [A733] ArmConfigureMmu: MMU enabled
 [A733] InitMmu: ArmConfigureMmu returned
 [A733] InitMmu: MMU OK
-[A733] GetMpCoreInfo called
-SecMain: No TransferList found, continuing boot
-add-symbol-file /home/linux/edk2/Build/A733/DEBUG_GCC/AARCH64/MdeModulePkg/Core/Dxe/DxeMain/DEBUG/DxeCore.dll 0x7FC50000
-Loading DxeCore at 0x007FC4F000 EntryPoint=0x007FC58284
-CoreInitializeMemoryServices:
-  BaseAddress - 0x78001000 Length - 0x7C4E000 MinimalMemorySizeNeeded - 0x10000
-InstallProtocolInterface: 5B1B31A1-9562-11D2-8E3F-00A0C969723B 7FC757D0
-ProtectUefiImageCommon - 0x7FC757D0
-  - 0x000000007FC4F000 - 0x000000000002C000
-DxeMain: MemoryBaseAddress=0x78001000 MemoryLength=0x7C4E000
-add-symbol-file /home/linux/edk2/Build/A733/DEBUG_GCC/AARCH64/MdeModulePkg/Core/Dxe/DxeMain/DEBUG/DxeCore.dll 0x7FC50000
-HOBLIST address in DXE = 0x7FC4C018
-Memory Allocation 0x00000004 0x7FFBF000 - 0x7FFBFFFF
-Memory Allocation 0x00000004 0x7FFBE000 - 0x7FFBEFFF
-Memory Allocation 0x00000004 0x4A000000 - 0x4A127FFF
-Memory Allocation 0x00000004 0x7FFBD000 - 0x7FFBDFFF
-Memory Allocation 0x00000004 0x7FFBC000 - 0x7FFBCFFF
-Memory Allocation 0x00000004 0x7FFBB000 - 0x7FFBBFFF
-Memory Allocation 0x00000004 0x7FFBA000 - 0x7FFBAFFF
-Memory Allocation 0x00000004 0x7FFB9000 - 0x7FFB9FFF
-Memory Allocation 0x00000004 0x7FFC0000 - 0x7FFFFFFF
-Memory Allocation 0x00000004 0x7FFA9000 - 0x7FFB8FFF
-Memory Allocation 0x00000004 0x7FE12000 - 0x7FFA8FFF
-Memory Allocation 0x00000004 0x7FC7B000 - 0x7FE11FFF
-Memory Allocation 0x00000003 0x7FC4F000 - 0x7FC7AFFF
-Memory Allocation 0x00000003 0x7FC4F000 - 0x7FC7AFFF
-FV Hob            0x4A001000 - 0x4A127FFF
-FV Hob            0x7FC7B000 - 0x7FE10697
-FV2 Hob           0x7FC7B000 - 0x7FE10697
-                  00000000-0000-0000-0000-000000000000 - 9E21FD93-9C72-4C15-8C4B-E77F1DB2D792
-InstallProtocolInterface: D8117CFE-94A6-11D4-9A3A-0090273FC14D 7FC75080
-InstallProtocolInterface: 8F644FA9-E850-4DB1-9CE2-0B44698E8DA4 7FC484B0
-InstallProtocolInterface: 09576E91-6D3F-11D2-8E39-00A0C969723B 7FC45018
-InstallProtocolInterface: 8F644FA9-E850-4DB1-9CE2-0B44698E8DA4 7FC45C30
-InstallProtocolInterface: 09576E91-6D3F-11D2-8E39-00A0C969723B 7FC45D18
-InstallProtocolInterface: 220E73B6-6BDB-4413-8405-B974B108619A 7FC45130
-InstallProtocolInterface: 220E73B6-6BDB-4413-8405-B974B108619A 7FC452B0
-InstallProtocolInterface: EE4E5898-3914-4259-9D6E-DC7BD79403CF 7FC75938
-Loading driver 80CF7257-87AB-47F9-A3FE-D50B76D89541
-InstallProtocolInterface: 5B1B31A1-9562-11D2-8E3F-00A0C969723B 7E1D31C0
-add-symbol-file /home/linux/edk2/Build/A733/DEBUG_GCC/AARCH64/MdeModulePkg/Universal/PCD/Dxe/Pcd/DEBUG/PcdDxe.dll 0x7E1A3000
-Loading driver at 0x0007E1A2000 EntryPoint=0x0007E1A70F0 PcdDxe.efi
-InstallProtocolInterface: BC62157E-3E33-4FEC-9920-2D3B36D750DF 7E1D3498
-ProtectUefiImageCommon - 0x7E1D31C0
-  - 0x000000007E1A2000 - 0x000000000000A000
-InstallProtocolInterface: 11B34006-D85B-4D0A-A290-D5A571310EF7 7E1AA190
-InstallProtocolInterface: 13A3F0F6-264A-3EF0-F2E0-DEC512342F34 7E1AA0D0
-InstallProtocolInterface: 5BE40F57-FA68-4610-BBBF-E9C5FCDAD365 7E1AA160
-InstallProtocolInterface: FD0F4478-0EFD-461D-BA2D-E58C45FD5F5E 7E1AA0C0
-Loading driver B8D9777E-D72A-451F-9BDB-BAFB52A68415
-InstallProtocolInterface: 5B1B31A1-9562-11D2-8E3F-00A0C969723B 7E1B62C0
-add-symbol-file /home/linux/edk2/Build/A733/DEBUG_GCC/AARCH64/ArmPkg/Drivers/CpuDxe/CpuDxe/DEBUG/ArmCpuDxe.dll 0x7E188000
-Loading driver at 0x0007E187000 EntryPoint=0x0007E18B848 ArmCpuDxe.efi
-InstallProtocolInterface: BC62157E-3E33-4FEC-9920-2D3B36D750DF 7E1B6618
-ProtectUefiImageCommon - 0x7E1B62C0
-  - 0x000000007E187000 - 0x000000000000D000
-InstallProtocolInterface: 26BACCB1-6F42-11D4-BCE7-0080C73C8881 7E190080
-InstallProtocolInterface: F4560CF6-40EC-4B4A-A192-BF1D57D0B189 7E1900C8
-MemoryProtectionCpuArchProtocolNotify:
-ProtectUefiImageCommon - 0x7FC757D0
-  - 0x000000007FC4F000 - 0x000000000002C000
 [A733] URR L2: AllocPages start
-[A733] URR L2: AllocPages=0x7E1B4000
+[A733] URR L2: AllocPages=0x7E1A2000
 [A733] URR L2: ZeroMem start
 [A733] URR L2: ZeroMem done
-ProtectUefiImageCommon - 0x7E1D31C0
-  - 0x000000007E1A2000 - 0x000000000000A000
 [A733] URR L2: AllocPages start
-[A733] URR L2: AllocPages=0x7E1B3000
+[A733] URR L2: AllocPages=0x7E1A1000
 [A733] URR L2: ZeroMem start
 [A733] URR L2: ZeroMem done
 ReplaceTableEntry: splitting block entry with MMU disabled
-ProtectUefiImageCommon - 0x7E1B62C0
-  - 0x000000007E187000 - 0x000000000000D000
-Loading driver F80697E9-7FD6-4665-8646-88E33EF71DFC
-InstallProtocolInterface: 5B1B31A1-9562-11D2-8E3F-00A0C969723B 7E1B2040
-add-symbol-file /home/linux/edk2/Build/A733/DEBUG_GCC/AARCH64/MdeModulePkg/Universal/SecurityStubDxe/SecurityStubDxe/DEBUG/SecurityStubDxe.dll 0x7E17E000
-Loading driver at 0x0007E17D000 EntryPoint=0x0007E181D64 SecurityStubDxe.efi
-InstallProtocolInterface: BC62157E-3E33-4FEC-9920-2D3B36D750DF 7E1B5B98
-ProtectUefiImageCommon - 0x7E1B2040
-  - 0x000000007E17D000 - 0x000000000000A000
-InstallProtocolInterface: 94AB2F58-1438-4EF1-9152-18941A3A0E68 7E185128
-InstallProtocolInterface: A46423E3-4617-49F1-B9FF-D1BFA9115839 7E185130
-InstallProtocolInterface: 15853D7C-3DDF-43E0-A1CB-EBF85B8F872C 7E185120
-Loading driver C8339973-A563-4561-B858-D8476F9DEFC4
-InstallProtocolInterface: 5B1B31A1-9562-11D2-8E3F-00A0C969723B 7E1A1040
-add-symbol-file /home/linux/edk2/Build/A733/DEBUG_GCC/AARCH64/MdeModulePkg/Universal/Metronome/Metronome/DEBUG/Metronome.dll 0x7E19D000
-Loading driver at 0x0007E19C000 EntryPoint=0x0007E19E120 Metronome.efi
-InstallProtocolInterface: BC62157E-3E33-4FEC-9920-2D3B36D750DF 7E1A1D98
-ProtectUefiImageCommon - 0x7E1A1040
-  - 0x000000007E19C000 - 0x0000000000005000
-InstallProtocolInterface: 26BACCB2-6F42-11D4-BCE7-0080C73C8881 7E19F010
-Loading driver 348C4D62-BFBD-4882-9ECE-C80BB1C4783B
-InstallProtocolInterface: 5B1B31A1-9562-11D2-8E3F-00A0C969723B 7E1A13C0
-add-symbol-file /home/linux/edk2/Build/A733/DEBUG_GCC/AARCH64/MdeModulePkg/Universal/HiiDatabaseDxe/HiiDatabaseDxe/DEBUG/HiiDatabase.dll 0x7E13D000
-Loading driver at 0x0007E13C000 EntryPoint=0x0007E1407FC HiiDatabase.efi
-InstallProtocolInterface: BC62157E-3E33-4FEC-9920-2D3B36D750DF 7E1A1718
-ProtectUefiImageCommon - 0x7E1A13C0
-  - 0x000000007E13C000 - 0x0000000000020000
-InstallProtocolInterface: E9CA4775-8657-47FC-97E7-7ED65A084324 7E15A160
-InstallProtocolInterface: 0FD96974-23AA-4CDC-B9CB-98D17750322A 7E15A1D8
-InstallProtocolInterface: EF9FC172-A1B2-4693-B327-6D32FC416042 7E15A200
-InstallProtocolInterface: 587E72D7-CC50-4F79-8209-CA291FC1A10F 7E15A258
-InstallProtocolInterface: 0A8BADD5-03B8-4D19-B128-7B8F0EDAA596 7E15A288
-InstallProtocolInterface: 31A6406A-6BDF-4E46-B2A2-EBAA89C40920 7E15A180
-InstallProtocolInterface: 1A1241E6-8F19-41A9-BC0E-E8EF39E06546 7E15A1A8
-Loading driver 9A5163E7-5C29-453F-825C-837A46A81E15
-InstallProtocolInterface: 5B1B31A1-9562-11D2-8E3F-00A0C969723B 7E1B0040
-add-symbol-file /home/linux/edk2/Build/A733/DEBUG_GCC/AARCH64/MdeModulePkg/Universal/SerialDxe/SerialDxe/DEBUG/SerialDxe.dll 0x7E178000
-Loading driver at 0x0007E177000 EntryPoint=0x0007E1796DC SerialDxe.efi
-InstallProtocolInterface: BC62157E-3E33-4FEC-9920-2D3B36D750DF 7E1B0F18
-ProtectUefiImageCommon - 0x7E1B0040
-  - 0x000000007E177000 - 0x0000000000006000
-InstallProtocolInterface: BB25CF6F-F1D4-11D2-9A0C-0090273FC1FD 7E17B070
-InstallProtocolInterface: 09576E91-6D3F-11D2-8E39-00A0C969723B 7E17B020
-Loading driver B601F8C4-43B7-4784-95B1-F4226CB40CEE
-InstallProtocolInterface: 5B1B31A1-9562-11D2-8E3F-00A0C969723B 7E1B03C0
-add-symbol-file /home/linux/edk2/Build/A733/DEBUG_GCC/AARCH64/MdeModulePkg/Core/RuntimeDxe/RuntimeDxe/DEBUG/RuntimeDxe.dll 0x7E161000
 !!!!!!!!  Image Section Alignment(0x1000) does not match Required Alignment (0x10000)  !!!!!!!!
-Loading driver at 0x0007E160000 EntryPoint=0x0007E162810 RuntimeDxe.efi
-InstallProtocolInterface: BC62157E-3E33-4FEC-9920-2D3B36D750DF 7E1B0718
-ProtectUefiImageCommon - 0x7E1B03C0
-  - 0x000000007E160000 - 0x0000000000006000
 !!!!!!!!  Image Section Alignment(0x1000) does not match Required Alignment (0x10000)  !!!!!!!!
 ProtectUefiImage failed to create image properties record
-InstallProtocolInterface: B7DFB4E1-052F-449F-87BE-9818FC91B733 7E164030
-Loading driver CBD2E4D5-7068-4FF5-B462-9822B4AD8D60
-InstallProtocolInterface: 5B1B31A1-9562-11D2-8E3F-00A0C969723B 7E1AF740
-add-symbol-file /home/linux/edk2/Build/A733/DEBUG_GCC/AARCH64/MdeModulePkg/Universal/Variable/RuntimeDxe/VariableRuntimeDxe/DEBUG/VariableRuntimeDxe.dll 0x7E111000
 !!!!!!!!  Image Section Alignment(0x1000) does not match Required Alignment (0x10000)  !!!!!!!!
-Loading driver at 0x0007E110000 EntryPoint=0x0007E11930C VariableRuntimeDxe.efi
-InstallProtocolInterface: BC62157E-3E33-4FEC-9920-2D3B36D750DF 7E1AF098
-ProtectUefiImageCommon - 0x7E1AF740
-  - 0x000000007E110000 - 0x0000000000010000
 !!!!!!!!  Image Section Alignment(0x1000) does not match Required Alignment (0x10000)  !!!!!!!!
 ProtectUefiImage failed to create image properties record
-Variable driver will work at emulated non-volatile variable mode!
-Variable driver will work with auth variable format!
-InstallProtocolInterface: CD3D0A05-9E24-437C-A891-1EE053DB7638 7E11E2D0
-InstallProtocolInterface: AF23B340-97B4-4685-8D4F-A3F28169B21D 7E11E1A0
-InstallProtocolInterface: 1E5668E2-8481-11D4-BCF1-0080C73C8881 0
-NOTICE - AuthVariableLibInitialize() returns Unsupported!
-Variable driver will continue to work without auth variable support!
-RecordSecureBootPolicyVarData GetVariable SecureBoot Status E
-InstallProtocolInterface: 6441F818-6362-4E44-B570-7DBA31DD2453 0
-VarCheckLibRegisterSetVariableCheckHandler - 0x7E114454 Success
-InstallProtocolInterface: 81D1675C-86F6-48DF-BD95-9A6E4F0925C3 7E11E2D8
-Loading driver 4B28E4C7-FF36-4E10-93CF-A82159E777C5
-InstallProtocolInterface: 5B1B31A1-9562-11D2-8E3F-00A0C969723B 7E1AE0C0
-add-symbol-file /home/linux/edk2/Build/A733/DEBUG_GCC/AARCH64/MdeModulePkg/Universal/ResetSystemRuntimeDxe/ResetSystemRuntimeDxe/DEBUG/ResetSystemRuntimeDxe.dll 0x7E121000
 !!!!!!!!  Image Section Alignment(0x1000) does not match Required Alignment (0x10000)  !!!!!!!!
-Loading driver at 0x0007E120000 EntryPoint=0x0007E122D1C ResetSystemRuntimeDxe.efi
-InstallProtocolInterface: BC62157E-3E33-4FEC-9920-2D3B36D750DF 7E1AED18
-ProtectUefiImageCommon - 0x7E1AE0C0
-  - 0x000000007E120000 - 0x0000000000006000
 !!!!!!!!  Image Section Alignment(0x1000) does not match Required Alignment (0x10000)  !!!!!!!!
 ProtectUefiImage failed to create image properties record
-InstallProtocolInterface: 27CFAC88-46CC-11D4-9A38-0090273FC14D 0
-InstallProtocolInterface: 9DA34AE0-EAF9-4BBF-8EC3-FD60226C44BE 7E1240A8
-InstallProtocolInterface: 695D7835-8D47-4C11-AB22-FA8ACCE7AE7A 7E124058
-InstallProtocolInterface: 2DF6BA0B-7092-440D-BD04-FB091EC3F3C1 7E124080
-Loading driver 9622E42C-8E38-4A08-9E8F-54F784652F6B
-InstallProtocolInterface: 5B1B31A1-9562-11D2-8E3F-00A0C969723B 7E1ADB40
-add-symbol-file /home/linux/edk2/Build/A733/DEBUG_GCC/AARCH64/MdeModulePkg/Universal/Acpi/AcpiTableDxe/AcpiTableDxe/DEBUG/AcpiTableDxe.dll 0x7E171000
-Loading driver at 0x0007E170000 EntryPoint=0x0007E17378C AcpiTableDxe.efi
-InstallProtocolInterface: BC62157E-3E33-4FEC-9920-2D3B36D750DF 7E1ADA18
-ProtectUefiImageCommon - 0x7E1ADB40
-  - 0x000000007E170000 - 0x0000000000007000
-Fail to locate AcpiSiliconHob!!
-InstallProtocolInterface: FFE06BDD-6107-46A6-7BB2-5A9C7EC5275C 7E1AD220
-Loading driver A733B001-B001-B001-B001-A733A733B001
-InstallProtocolInterface: 5B1B31A1-9562-11D2-8E3F-00A0C969723B 7E194040
-add-symbol-file /home/linux/edk2/Build/A733/DEBUG_GCC/AARCH64/Platform/Allwinner/A733Pkg/Drivers/SdMmcDxe/SunxiSmhcDxe/DEBUG/SunxiSmhcDxe.dll 0x7E137000
-Loading driver at 0x0007E136000 EntryPoint=0x0007E1393C8 SunxiSmhcDxe.efi
-InstallProtocolInterface: BC62157E-3E33-4FEC-9920-2D3B36D750DF 7E1AD498
-ProtectUefiImageCommon - 0x7E194040
-  - 0x000000007E136000 - 0x0000000000006000
-[SMHC] SunxiSmhcDxe entry
-[SMHC] Reset BASE=0x04020000
-[SMHC] TMOUT_TEST=0xDEADBEEF
-[SMHC] Reset OK
-InstallProtocolInterface: 09576E91-6D3F-11D2-8E39-00A0C969723B 7E13B020
-InstallProtocolInterface: 716EF0D9-FF83-4F69-81E9-518BD39A8E70 7E194CA0
-[SMHC] Protocol installed
-Loading driver DE371F7C-DEC4-4D21-ADF1-593ABCC15882
-InstallProtocolInterface: 5B1B31A1-9562-11D2-8E3F-00A0C969723B 7E1943C0
-add-symbol-file /home/linux/edk2/Build/A733/DEBUG_GCC/AARCH64/ArmPkg/Drivers/ArmGicDxe/ArmGicDxe/DEBUG/ArmGicDxe.dll 0x7E0B0000
-Loading driver at 0x0007E0AF000 EntryPoint=0x0007E0B2B64 ArmGicDxe.efi
-InstallProtocolInterface: BC62157E-3E33-4FEC-9920-2D3B36D750DF 7E194818
-ProtectUefiImageCommon - 0x7E1943C0
-  - 0x000000007E0AF000 - 0x0000000000008000
-InstallProtocolInterface: 2890B3EA-053D-1643-AD0C-D64808DA3FF1 7E0B50C8
-InstallProtocolInterface: 32898322-2DA1-474A-BAAA-F3F7CF569470 7E0B5058
-Loading driver 6D33944A-EC75-4855-A54D-809C75241F6C
-InstallProtocolInterface: 5B1B31A1-9562-11D2-8E3F-00A0C969723B 7E19AB40
-add-symbol-file /home/linux/edk2/Build/A733/DEBUG_GCC/AARCH64/MdeModulePkg/Universal/BdsDxe/BdsDxe/DEBUG/BdsDxe.dll 0x7E07F000
-Loading driver at 0x0007E07E000 EntryPoint=0x0007E07FE7C BdsDxe.efi
-InstallProtocolInterface: BC62157E-3E33-4FEC-9920-2D3B36D750DF 7E19A098
-ProtectUefiImageCommon - 0x7E19AB40
-  - 0x000000007E07E000 - 0x0000000000018000
-InstallProtocolInterface: 665E3FF6-46CC-11D4-9A38-0090273FC14D 7E094000
-Loading driver 42857F0A-13F2-4B21-8A23-53D3F714B840
-InstallProtocolInterface: 5B1B31A1-9562-11D2-8E3F-00A0C969723B 7E199040
-add-symbol-file /home/linux/edk2/Build/A733/DEBUG_GCC/AARCH64/MdeModulePkg/Universal/CapsuleRuntimeDxe/CapsuleRuntimeDxe/DEBUG/CapsuleRuntimeDxe.dll 0x7E061000
 !!!!!!!!  Image Section Alignment(0x1000) does not match Required Alignment (0x10000)  !!!!!!!!
-Loading driver at 0x0007E060000 EntryPoint=0x0007E062414 CapsuleRuntimeDxe.efi
-InstallProtocolInterface: BC62157E-3E33-4FEC-9920-2D3B36D750DF 7E199F18
-ProtectUefiImageCommon - 0x7E199040
-  - 0x000000007E060000 - 0x0000000000005000
 !!!!!!!!  Image Section Alignment(0x1000) does not match Required Alignment (0x10000)  !!!!!!!!
 ProtectUefiImage failed to create image properties record
-InstallProtocolInterface: 5053697E-2CBC-4819-90D9-0580DEEE5754 0
-Loading driver AD608272-D07F-4964-801E-7BD3B7888652
-InstallProtocolInterface: 5B1B31A1-9562-11D2-8E3F-00A0C969723B 7E199340
-add-symbol-file /home/linux/edk2/Build/A733/DEBUG_GCC/AARCH64/MdeModulePkg/Universal/MonotonicCounterRuntimeDxe/MonotonicCounterRuntimeDxe/DEBUG/MonotonicCounterRuntimeDxe.dll 0x7E051000
 !!!!!!!!  Image Section Alignment(0x1000) does not match Required Alignment (0x10000)  !!!!!!!!
-Loading driver at 0x0007E050000 EntryPoint=0x0007E052218 MonotonicCounterRuntimeDxe.efi
-InstallProtocolInterface: BC62157E-3E33-4FEC-9920-2D3B36D750DF 7E199918
-ProtectUefiImageCommon - 0x7E199340
-  - 0x000000007E050000 - 0x0000000000005000
 !!!!!!!!  Image Section Alignment(0x1000) does not match Required Alignment (0x10000)  !!!!!!!!
 ProtectUefiImage failed to create image properties record
-InstallProtocolInterface: 1DA97072-BDDC-4B30-99F1-72A0B56FFF2A 0
-Loading driver B336F62D-4135-4A55-AE4E-4971BBF0885D
-InstallProtocolInterface: 5B1B31A1-9562-11D2-8E3F-00A0C969723B 7E198140
-add-symbol-file /home/linux/edk2/Build/A733/DEBUG_GCC/AARCH64/EmbeddedPkg/RealTimeClockRuntimeDxe/RealTimeClockRuntimeDxe/DEBUG/RealTimeClock.dll 0x7E041000
 !!!!!!!!  Image Section Alignment(0x1000) does not match Required Alignment (0x10000)  !!!!!!!!
-Loading driver at 0x0007E040000 EntryPoint=0x0007E042438 RealTimeClock.efi
-InstallProtocolInterface: BC62157E-3E33-4FEC-9920-2D3B36D750DF 7E198B18
-ProtectUefiImageCommon - 0x7E198140
-  - 0x000000007E040000 - 0x0000000000005000
 !!!!!!!!  Image Section Alignment(0x1000) does not match Required Alignment (0x10000)  !!!!!!!!
 ProtectUefiImage failed to create image properties record
 InitializeRealTimeClock: using default timezone/daylight settings
-InstallProtocolInterface: 27CFAC87-46CC-11D4-9A38-0090273FC14D 0
-Loading driver A733AC02-AC02-AC02-AC02-A733A733A733
-InstallProtocolInterface: 5B1B31A1-9562-11D2-8E3F-00A0C969723B 7E198540
-add-symbol-file /home/linux/edk2/Build/A733/DEBUG_GCC/AARCH64/Platform/Allwinner/A733Pkg/Drivers/AcpiPlatformDxe/A733AcpiPlatformDxe/DEBUG/A733AcpiPlatformDxe.dll 0x7E0BC000
-Loading driver at 0x0007E0BB000 EntryPoint=0x0007E0BD18C A733AcpiPlatformDxe.efi
-InstallProtocolInterface: BC62157E-3E33-4FEC-9920-2D3B36D750DF 7E197F98
-ProtectUefiImageCommon - 0x7E198540
-  - 0x000000007E0BB000 - 0x0000000000005000
 [A733Acpi] entry
 [A733Acpi] LocateProtocol(AcpiTable) = 0x0000000000000000
 [A733Acpi] SearchGuid=A733AC01-AC01-AC01-AC01-A733A733A733
@@ -390,543 +172,30 @@ ProtectUefiImageCommon - 0x7E198540
 [A733Acpi] ReadSection result   = 0x800000000000000E
 [A733Acpi] No more RAW sections (done)
 [A733Acpi] All tables installed OK
-Error: Image at 0007E0BB000 start failed: 00000001
-remove-symbol-file /home/linux/edk2/Build/A733/DEBUG_GCC/AARCH64/Platform/Allwinner/A733Pkg/Drivers/AcpiPlatformDxe/A733AcpiPlatformDxe/DEBUG/A733AcpiPlatformDxe.dll 0x7E0BC000
-Loading driver 49EA041E-6752-42CA-B0B1-7344FE2546B7
-InstallProtocolInterface: 5B1B31A1-9562-11D2-8E3F-00A0C969723B 7E198540
-add-symbol-file /home/linux/edk2/Build/A733/DEBUG_GCC/AARCH64/ArmPkg/Drivers/TimerDxe/TimerDxe/DEBUG/ArmTimerDxe.dll 0x7E131000
-Loading driver at 0x0007E130000 EntryPoint=0x0007E1322AC ArmTimerDxe.efi
-InstallProtocolInterface: BC62157E-3E33-4FEC-9920-2D3B36D750DF 7E197B18
-ProtectUefiImageCommon - 0x7E198540
-  - 0x000000007E130000 - 0x0000000000006000
-InstallProtocolInterface: 26BACCB3-6F42-11D4-BCE7-0080C73C8881 7E134020
-Loading driver F099D67F-71AE-4C36-B2A3-DCEB0EB2B7D8
-InstallProtocolInterface: 5B1B31A1-9562-11D2-8E3F-00A0C969723B 7E195D40
-add-symbol-file /home/linux/edk2/Build/A733/DEBUG_GCC/AARCH64/MdeModulePkg/Universal/WatchdogTimerDxe/WatchdogTimer/DEBUG/WatchdogTimer.dll 0x7E0AB000
-Loading driver at 0x0007E0AA000 EntryPoint=0x0007E0AC1F4 WatchdogTimer.efi
-InstallProtocolInterface: BC62157E-3E33-4FEC-9920-2D3B36D750DF 7E195C98
-ProtectUefiImageCommon - 0x7E195D40
-  - 0x000000007E0AA000 - 0x0000000000005000
-InstallProtocolInterface: 665E3FF5-46CC-11D4-9A38-0090273FC14D 7E0AD020
-Loading driver CD3BAFB6-50FB-4FE8-8E4E-AB74D2C1A600
-InstallProtocolInterface: 5B1B31A1-9562-11D2-8E3F-00A0C969723B 7E195140
-add-symbol-file /home/linux/edk2/Build/A733/DEBUG_GCC/AARCH64/MdeModulePkg/Universal/Disk/UnicodeCollation/EnglishDxe/EnglishDxe/DEBUG/EnglishDxe.dll 0x7E0A6000
-Loading driver at 0x0007E0A5000 EntryPoint=0x0007E0A7370 EnglishDxe.efi
-InstallProtocolInterface: BC62157E-3E33-4FEC-9920-2D3B36D750DF 7E195418
-ProtectUefiImageCommon - 0x7E195140
-  - 0x000000007E0A5000 - 0x0000000000005000
-InstallProtocolInterface: A4C751FC-23AE-4C3E-92E9-4964CF63F349 7E0A8000
-Loading driver 51CCF399-4FDF-4E55-A45B-E123F84D456A
-InstallProtocolInterface: 5B1B31A1-9562-11D2-8E3F-00A0C969723B 7E15F0C0
-add-symbol-file /home/linux/edk2/Build/A733/DEBUG_GCC/AARCH64/MdeModulePkg/Universal/Console/ConPlatformDxe/ConPlatformDxe/DEBUG/ConPlatformDxe.dll 0x7E09E000
-Loading driver at 0x0007E09D000 EntryPoint=0x0007E0A0CA4 ConPlatformDxe.efi
-InstallProtocolInterface: BC62157E-3E33-4FEC-9920-2D3B36D750DF 7E15F318
-ProtectUefiImageCommon - 0x7E15F0C0
-  - 0x000000007E09D000 - 0x0000000000008000
-InstallProtocolInterface: 18A031AB-B443-4D1A-A5C0-0C09261E9F71 7E0A3030
-InstallProtocolInterface: 107A772C-D5E1-11D4-9A46-0090273FC14D 7E0A3000
-InstallProtocolInterface: 6A7A5CFF-E8D9-4F70-BADA-75AB3025CE14 7E0A3018
-InstallProtocolInterface: 18A031AB-B443-4D1A-A5C0-0C09261E9F71 7E0A3060
-InstallProtocolInterface: 107A772C-D5E1-11D4-9A46-0090273FC14D 7E0A3000
-InstallProtocolInterface: 6A7A5CFF-E8D9-4F70-BADA-75AB3025CE14 7E0A3018
-Loading driver 408EDCEC-CF6D-477C-A5A8-B4844E3DE281
-InstallProtocolInterface: 5B1B31A1-9562-11D2-8E3F-00A0C969723B 7E15E840
-add-symbol-file /home/linux/edk2/Build/A733/DEBUG_GCC/AARCH64/MdeModulePkg/Universal/Console/ConSplitterDxe/ConSplitterDxe/DEBUG/ConSplitterDxe.dll 0x7E036000
-Loading driver at 0x0007E035000 EntryPoint=0x0007E03B714 ConSplitterDxe.efi
-InstallProtocolInterface: BC62157E-3E33-4FEC-9920-2D3B36D750DF 7E15E618
-ProtectUefiImageCommon - 0x7E15E840
-  - 0x000000007E035000 - 0x000000000000B000
-InstallProtocolInterface: 18A031AB-B443-4D1A-A5C0-0C09261E9F71 7E03E098
-InstallProtocolInterface: 107A772C-D5E1-11D4-9A46-0090273FC14D 7E03E068
-InstallProtocolInterface: 6A7A5CFF-E8D9-4F70-BADA-75AB3025CE14 7E03E080
-InstallProtocolInterface: 18A031AB-B443-4D1A-A5C0-0C09261E9F71 7E03E158
-InstallProtocolInterface: 107A772C-D5E1-11D4-9A46-0090273FC14D 7E03E128
-InstallProtocolInterface: 6A7A5CFF-E8D9-4F70-BADA-75AB3025CE14 7E03E140
-InstallProtocolInterface: 18A031AB-B443-4D1A-A5C0-0C09261E9F71 7E03E038
-InstallProtocolInterface: 107A772C-D5E1-11D4-9A46-0090273FC14D 7E03E008
-InstallProtocolInterface: 6A7A5CFF-E8D9-4F70-BADA-75AB3025CE14 7E03E020
-InstallProtocolInterface: 18A031AB-B443-4D1A-A5C0-0C09261E9F71 7E03E0F8
-InstallProtocolInterface: 107A772C-D5E1-11D4-9A46-0090273FC14D 7E03E0C8
-InstallProtocolInterface: 6A7A5CFF-E8D9-4F70-BADA-75AB3025CE14 7E03E0E0
-InstallProtocolInterface: 18A031AB-B443-4D1A-A5C0-0C09261E9F71 7E03E1B8
-InstallProtocolInterface: 107A772C-D5E1-11D4-9A46-0090273FC14D 7E03E188
-InstallProtocolInterface: 6A7A5CFF-E8D9-4F70-BADA-75AB3025CE14 7E03E1A0
-InstallProtocolInterface: 387477C1-69C7-11D2-8E39-00A0C969723B 7E03E2C8
-InstallProtocolInterface: DD9E7534-7762-4698-8C14-F58517A625AA 7E03E2F8
-InstallProtocolInterface: 31878C87-0B75-11D5-9A4F-0090273FC14D 7E03E368
-InstallProtocolInterface: 8D59D32B-C655-4AE9-9B15-F25904992A43 7E03E3C0
-InstallProtocolInterface: 387477C2-69C7-11D2-8E39-00A0C969723B 7E03E450
-InstallProtocolInterface: 387477C2-69C7-11D2-8E39-00A0C969723B 7E03E610
-Loading driver 9E863906-A40F-4875-977F-5B93FF237FC6
-InstallProtocolInterface: 5B1B31A1-9562-11D2-8E3F-00A0C969723B 7E0BEBC0
-add-symbol-file /home/linux/edk2/Build/A733/DEBUG_GCC/AARCH64/MdeModulePkg/Universal/Console/TerminalDxe/TerminalDxe/DEBUG/TerminalDxe.dll 0x7E02A000
-Loading driver at 0x0007E029000 EntryPoint=0x0007E030698 TerminalDxe.efi
-InstallProtocolInterface: BC62157E-3E33-4FEC-9920-2D3B36D750DF 7E0BE798
-ProtectUefiImageCommon - 0x7E0BEBC0
-  - 0x000000007E029000 - 0x000000000000C000
-InstallProtocolInterface: 18A031AB-B443-4D1A-A5C0-0C09261E9F71 7E033260
-InstallProtocolInterface: 107A772C-D5E1-11D4-9A46-0090273FC14D 7E033230
-InstallProtocolInterface: 6A7A5CFF-E8D9-4F70-BADA-75AB3025CE14 7E033248
-Loading driver 430AC2F7-EEC6-4093-94F7-9F825A7C1C40
-InstallProtocolInterface: 5B1B31A1-9562-11D2-8E3F-00A0C969723B 7E0BD040
-add-symbol-file /home/linux/edk2/Build/A733/DEBUG_GCC/AARCH64/MdeModulePkg/Bus/Sd/SdDxe/SdDxe/DEBUG/SdDxe.dll 0x7E020000
-Loading driver at 0x0007E01F000 EntryPoint=0x0007E0245FC SdDxe.efi
-InstallProtocolInterface: BC62157E-3E33-4FEC-9920-2D3B36D750DF 7E0BDD18
-ProtectUefiImageCommon - 0x7E0BD040
-  - 0x000000007E01F000 - 0x000000000000A000
-InstallProtocolInterface: 18A031AB-B443-4D1A-A5C0-0C09261E9F71 7E0270D0
-InstallProtocolInterface: 107A772C-D5E1-11D4-9A46-0090273FC14D 7E0270A0
-InstallProtocolInterface: 6A7A5CFF-E8D9-4F70-BADA-75AB3025CE14 7E0270B8
-Loading driver 6B38F7B4-AD98-40E9-9093-ACA2B5A253C4
-InstallProtocolInterface: 5B1B31A1-9562-11D2-8E3F-00A0C969723B 7E0BD340
-add-symbol-file /home/linux/edk2/Build/A733/DEBUG_GCC/AARCH64/MdeModulePkg/Universal/Disk/DiskIoDxe/DiskIoDxe/DEBUG/DiskIoDxe.dll 0x7E018000
-Loading driver at 0x0007E017000 EntryPoint=0x0007E01B4AC DiskIoDxe.efi
-InstallProtocolInterface: BC62157E-3E33-4FEC-9920-2D3B36D750DF 7E0BD618
-ProtectUefiImageCommon - 0x7E0BD340
-  - 0x000000007E017000 - 0x0000000000008000
-InstallProtocolInterface: 18A031AB-B443-4D1A-A5C0-0C09261E9F71 7E01D030
-InstallProtocolInterface: 107A772C-D5E1-11D4-9A46-0090273FC14D 7E01D000
-InstallProtocolInterface: 6A7A5CFF-E8D9-4F70-BADA-75AB3025CE14 7E01D018
-Loading driver 1FA1F39E-FEFF-4AAE-BD7B-38A070A3B609
-InstallProtocolInterface: 5B1B31A1-9562-11D2-8E3F-00A0C969723B 7E0BC0C0
-add-symbol-file /home/linux/edk2/Build/A733/DEBUG_GCC/AARCH64/MdeModulePkg/Universal/Disk/PartitionDxe/PartitionDxe/DEBUG/PartitionDxe.dll 0x7E00E000
-Loading driver at 0x0007E00D000 EntryPoint=0x0007E012ECC PartitionDxe.efi
-InstallProtocolInterface: BC62157E-3E33-4FEC-9920-2D3B36D750DF 7E0BCC98
-ProtectUefiImageCommon - 0x7E0BC0C0
-  - 0x000000007E00D000 - 0x000000000000A000
-InstallProtocolInterface: 18A031AB-B443-4D1A-A5C0-0C09261E9F71 7E0150D0
-InstallProtocolInterface: 107A772C-D5E1-11D4-9A46-0090273FC14D 7E0150A0
-InstallProtocolInterface: 6A7A5CFF-E8D9-4F70-BADA-75AB3025CE14 7E0150B8
-Loading driver 961578FE-B6B7-44C3-AF35-6BC705CD2B1F
-InstallProtocolInterface: 5B1B31A1-9562-11D2-8E3F-00A0C969723B 7E0BB040
-add-symbol-file /home/linux/edk2/Build/A733/DEBUG_GCC/AARCH64/FatPkg/EnhancedFatDxe/Fat/DEBUG/Fat.dll 0x7E071000
-Loading driver at 0x0007E070000 EntryPoint=0x0007E0792E8 Fat.efi
-InstallProtocolInterface: BC62157E-3E33-4FEC-9920-2D3B36D750DF 7E0BC618
-ProtectUefiImageCommon - 0x7E0BB040
-  - 0x000000007E070000 - 0x000000000000E000
-InstallProtocolInterface: 18A031AB-B443-4D1A-A5C0-0C09261E9F71 7E07C1A8
-InstallProtocolInterface: 107A772C-D5E1-11D4-9A46-0090273FC14D 7E07C178
-InstallProtocolInterface: 6A7A5CFF-E8D9-4F70-BADA-75AB3025CE14 7E07C190
-[Bds] Entry...
+Error: Image at 0007E160000 start failed: 00000001
+[A733] URR L2: AllocPages start
+[A733] URR L2: AllocPages=0x7E0AA000
+[A733] URR L2: ZeroMem start
+[A733] URR L2: ZeroMem done
 [Bds]BootManagerMenu FFS section can not be found, skip its boot option registration
-[BdsDxe] Locate Variable Policy protocol - Success
-Variable Driver Auto Update Lang, Lang:eng, PlatformLang:en Status: Success
-[A733] PlatformBootManagerBeforeConsole: registering serial console
-Terminal - Mode 0, Column = 80, Row = 25
-Terminal - Mode 1, Column = 80, Row = 50
-Terminal - Mode 2, Column = 100, Row = 31
-Terminal - Mode 3, Column = 128, Row = 40
-Terminal - Mode 4, Column = 160, Row = 42
-Terminal - Mode 5, Column = 240, Row = 56
-InstallProtocolInterface: 387477C1-69C7-11D2-8E39-00A0C969723B 7E0BA040
-InstallProtocolInterface: DD9E7534-7762-4698-8C14-F58517A625AA 7E0BA128
-InstallProtocolInterface: 387477C2-69C7-11D2-8E39-00A0C969723B 7E0BA058
-InstallProtocolInterface: 09576E91-6D3F-11D2-8E39-00A0C969723B 7E0BAC18
-InstallProtocolInterface: D3B36F2B-D551-11D4-9A46-0090273FC14D 0
-InstallProtocolInterface: D3B36F2C-D551-11D4-9A46-0090273FC14D 0
-InstallProtocolInterface: D3B36F2D-D551-11D4-9A46-0090273FC14D 0
-[A733] PlatformBootManagerAfterConsole
-InstallProtocolInterface: 430AC2F7-EEC6-4093-94F7-9F825A7C1C40 7E09AD98
-[SMHC] BASE=0x04020000
-[SMHC] CMD0x00000007
-[SMHC] ARG0x00000000
 [SMHC] CMD_DONE ERR RINT=0x00000100
 [SMHC] STATUS=0x00006906
-[SMHC] BASE=0x04020000
-[SMHC] CMD0x00000003
-[SMHC] ARG0x00000000
-Set RCA succeeds with Resp0 = 0xAAAB0700
-[SMHC] BASE=0x04020000
-[SMHC] CMD0x00000009
-[SMHC] ARG0xAAAB0000
-== Dump Sd Csd Register==
-  CSD structure                    0x1
-  Data read access-time 1          0xE
-  Data read access-time 2          0x0
-  Max. bus clock frequency         0x5A
-  Device command classes           0x5B5
-  Max. read data block length      0x9
-  Partial blocks for read allowed  0x0
-  Write block misalignment         0x0
-  Read block misalignment          0x0
-  DSR implemented                  0x0
-  Device size                      0x3B8AB
-  Erase sector size                0x7F
-  Erase single block enable        0x1
-  Write protect group size         0x0
-  Write protect group enable       0x0
-  Write speed factor               0x2
-  Max. write data block length     0x9
-  Partial blocks for write allowed 0x0
-  File format group                0x0
-  Copy flag (OTP)                  0x1
-  Permanent write protection       0x0
-  Temporary write protection       0x0
-  File format                      0x0
-[SMHC] BASE=0x04020000
-[SMHC] CMD0x0000000A
-[SMHC] ARG0xAAAB0000
-[SMHC] BASE=0x04020000
-[SMHC] CMD0x00000007
-[SMHC] ARG0xAAAB0000
-[SMHC] BASE=0x04020000
-[SMHC] CMD0x0000000D
-[SMHC] ARG0xAAAB0000
-InstallProtocolInterface: 09576E91-6D3F-11D2-8E39-00A0C969723B 7E09AA98
-InstallProtocolInterface: 964E5B21-6459-11D2-8E39-00A0C969723B 7E09A3B8
-InstallProtocolInterface: A77B2472-E282-4E9F-A245-C2C0E27BBCC1 7E09A3E8
-InstallProtocolInterface: 95A9A93E-A86E-4926-AAEF-9918E772D987 7E09A440
-InstallProtocolInterface: D432A67F-14DC-484B-B3BB-3F0291849327 7E09A458
-InstallProtocolInterface: CE345171-BA0B-11D2-8E4F-00A0C969723B 7E099C20
-InstallProtocolInterface: 151C8EAE-7F2C-472C-9E54-9828194F6A88 7E099C38
- BlockSize : 512 
- LastBlock : EE2AFFF 
-[SMHC] BASE=0x04020000
-[SMHC] CMD0x00000011
-[SMHC] ARG0x00000000
-[DMA] DMAC=0x00000082
-[DMA] DLBA=0x7E13B048
-[DMA] GCTRL=0x20000020
-[DMA] IDST=0x00000000
-[DMA] DES0=0x8000002C
-[DMA] DES1=0x00000200
-[DMA] DES2=0x7E099218
-[SMHC] DO cmd=0x00000011
-[SMHC] DO CdRint=0x00000004
-[SMHC] DO StillNeed=0x00000008
-[SMHC] DO Status=0x00000000
-[SMHC] DO DWRint=0x00000028
-[SMHC] C17 DMA OK LBA=0x00000000
-[SMHC] C17 b[0..3]=0xAFAFAFAF
-[SMHC] C17 b[510-511]=0x0000AFAF
-[SMHC] BASE=0x04020000
-[SMHC] CMD0x00000012
-[SMHC] ARG0x00000040
-[SMHC] CMD18->CMD17x NumBlks=0x00000004
-[DMA] DMAC=0x00000082
-[DMA] DLBA=0x7E13B048
-[DMA] GCTRL=0x20000020
-[DMA] IDST=0x00000000
-[DMA] DES0=0x8000002C
-[DMA] DES1=0x00000200
-[DMA] DES2=0x7E098018
-[DMA] DMAC=0x00000082
-[DMA] DLBA=0x7E13B048
-[DMA] GCTRL=0x20000020
-[DMA] IDST=0x00000000
-[DMA] DES0=0x8000002C
-[DMA] DES1=0x00000200
-[DMA] DES2=0x7E098218
-[DMA] DMAC=0x00000082
-[DMA] DLBA=0x7E13B048
-[DMA] GCTRL=0x20000020
-[DMA] IDST=0x00000000
-[DMA] DES0=0x8000002C
-[DMA] DES1=0x00000200
-[DMA] DES2=0x7E098418
-[DMA] DMAC=0x00000082
-[DMA] DLBA=0x7E13B048
-[DMA] GCTRL=0x20000020
-[DMA] IDST=0x00000000
-[DMA] DES0=0x8000002C
-[DMA] DES1=0x00000200
-[DMA] DES2=0x7E098618
-[SMHC] BASE=0x04020000
-[SMHC] CMD0x00000011
-[SMHC] ARG0x00000040
-[DMA] DMAC=0x00000082
-[DMA] DLBA=0x7E13B048
-[DMA] GCTRL=0x20000020
-[DMA] IDST=0x00000000
-[DMA] DES0=0x8000002C
-[DMA] DES1=0x00000200
-[DMA] DES2=0x7E005000
-[SMHC] DO cmd=0x00000011
-[SMHC] DO CdRint=0x00000004
-[SMHC] DO StillNeed=0x00000008
-[SMHC] DO Status=0x00000000
-[SMHC] DO DWRint=0x00000028
-[SMHC] C17 DMA OK LBA=0x00000040
-[SMHC] C17 b[0..3]=0xAFAFAFAF
-[SMHC] C17 b[510-511]=0x0000AFAF
-[SMHC] BASE=0x04020000
-[SMHC] CMD0x00000011
-[SMHC] ARG0x00000000
-[DMA] DMAC=0x00000082
-[DMA] DLBA=0x7E13B048
-[DMA] GCTRL=0x20000020
-[DMA] IDST=0x00000000
-[DMA] DES0=0x8000002C
-[DMA] DES1=0x00000200
-[DMA] DES2=0x7E098018
-[SMHC] DO cmd=0x00000011
-[SMHC] DO CdRint=0x00000004
-[SMHC] DO StillNeed=0x00000008
-[SMHC] DO Status=0x00000000
-[SMHC] DO DWRint=0x00000028
-[SMHC] C17 DMA OK LBA=0x00000000
-[SMHC] C17 b[0..3]=0xAFAFAFAF
-[SMHC] C17 b[510-511]=0x0000AFAF
-[SMHC] BASE=0x04020000
-[SMHC] CMD0x00000011
-[SMHC] ARG0x00000000
-[DMA] DMAC=0x00000082
-[DMA] DLBA=0x7E13B048
-[DMA] GCTRL=0x20000020
-[DMA] IDST=0x00000000
-[DMA] DES0=0x8000002C
-[DMA] DES1=0x00000200
-[DMA] DES2=0x7E005000
-[SMHC] DO cmd=0x00000011
-[SMHC] DO CdRint=0x00000004
-[SMHC] DO StillNeed=0x00000008
-[SMHC] DO Status=0x00000000
-[SMHC] DO DWRint=0x00000028
-[SMHC] C17 DMA OK LBA=0x00000000
-[SMHC] C17 b[0..3]=0xAFAFAFAF
-[SMHC] C17 b[510-511]=0x0000AFAF
-[A733] ConnectAll (2nd pass for storage drivers)
- BlockSize : 512 
- LastBlock : EE2AFFF 
-[SMHC] BASE=0x04020000
-[SMHC] CMD0x00000011
-[SMHC] ARG0x00000000
-[DMA] DMAC=0x00000082
-[DMA] DLBA=0x7E13B048
-[DMA] GCTRL=0x20000020
-[DMA] IDST=0x00000000
-[DMA] DES0=0x8000002C
-[DMA] DES1=0x00000200
-[DMA] DES2=0x7E098018
-[SMHC] DO cmd=0x00000011
-[SMHC] DO CdRint=0x00000004
-[SMHC] DO StillNeed=0x00000008
-[SMHC] DO Status=0x00000000
-[SMHC] DO DWRint=0x00000028
-[SMHC] C17 DMA OK LBA=0x00000000
-[SMHC] C17 b[0..3]=0xAFAFAFAF
-[SMHC] C17 b[510-511]=0x0000AFAF
-[SMHC] BASE=0x04020000
-[SMHC] CMD0x00000012
-[SMHC] ARG0x00000040
-[SMHC] CMD18->CMD17x NumBlks=0x00000004
-[DMA] DMAC=0x00000082
-[DMA] DLBA=0x7E13B048
-[DMA] GCTRL=0x20000020
-[DMA] IDST=0x00000000
-[DMA] DES0=0x8000002C
-[DMA] DES1=0x00000200
-[DMA] DES2=0x7E098018
-[DMA] DMAC=0x00000082
-[DMA] DLBA=0x7E13B048
-[DMA] GCTRL=0x20000020
-[DMA] IDST=0x00000000
-[DMA] DES0=0x8000002C
-[DMA] DES1=0x00000200
-[DMA] DES2=0x7E098218
-[DMA] DMAC=0x00000082
-[DMA] DLBA=0x7E13B048
-[DMA] GCTRL=0x20000020
-[DMA] IDST=0x00000000
-[DMA] DES0=0x8000002C
-[DMA] DES1=0x00000200
-[DMA] DES2=0x7E098418
-[DMA] DMAC=0x00000082
-[DMA] DLBA=0x7E13B048
-[DMA] GCTRL=0x20000020
-[DMA] IDST=0x00000000
-[DMA] DES0=0x8000002C
-[DMA] DES1=0x00000200
-[DMA] DES2=0x7E098618
-[SMHC] BASE=0x04020000
-[SMHC] CMD0x00000011
-[SMHC] ARG0x00000040
-[DMA] DMAC=0x00000082
-[DMA] DLBA=0x7E13B048
-[DMA] GCTRL=0x20000020
-[DMA] IDST=0x00000000
-[DMA] DES0=0x8000002C
-[DMA] DES1=0x00000200
-[DMA] DES2=0x7E005000
-[SMHC] DO cmd=0x00000011
-[SMHC] DO CdRint=0x00000004
-[SMHC] DO StillNeed=0x00000008
-[SMHC] DO Status=0x00000000
-[SMHC] DO DWRint=0x00000028
-[SMHC] C17 DMA OK LBA=0x00000040
-[SMHC] C17 b[0..3]=0xAFAFAFAF
-[SMHC] C17 b[510-511]=0x0000AFAF
-[SMHC] BASE=0x04020000
-[SMHC] CMD0x00000011
-[SMHC] ARG0x00000000
-[DMA] DMAC=0x00000082
-[DMA] DLBA=0x7E13B048
-[DMA] GCTRL=0x20000020
-[DMA] IDST=0x00000000
-[DMA] DES0=0x8000002C
-[DMA] DES1=0x00000200
-[DMA] DES2=0x7E098018
-[SMHC] DO cmd=0x00000011
-[SMHC] DO CdRint=0x00000004
-[SMHC] DO StillNeed=0x00000008
-[SMHC] DO Status=0x00000000
-[SMHC] DO DWRint=0x00000028
-[SMHC] C17 DMA OK LBA=0x00000000
-[SMHC] C17 b[0..3]=0xAFAFAFAF
-[SMHC] C17 b[510-511]=0x0000AFAF
-[SMHC] BASE=0x04020000
-[SMHC] CMD0x00000011
-[SMHC] ARG0x00000000
-[DMA] DMAC=0x00000082
-[DMA] DLBA=0x7E13B048
-[DMA] GCTRL=0x20000020
-[DMA] IDST=0x00000000
-[DMA] DES0=0x8000002C
-[DMA] DES1=0x00000200
-[DMA] DES2=0x7E005000
-[SMHC] DO cmd=0x00000011
-[SMHC] DO CdRint=0x00000004
-[SMHC] DO StillNeed=0x00000008
-[SMHC] DO Status=0x00000000
-[SMHC] DO DWRint=0x00000028
-[SMHC] C17 DMA OK LBA=0x00000000
-[SMHC] C17 b[0..3]=0xAFAFAFAF
-[SMHC] C17 b[510-511]=0x0000AFAF
- BlockSize : 512 
- LastBlock : EE2AFFF 
-[SMHC] BASE=0x04020000
-[SMHC] CMD0x00000011
-[SMHC] ARG0x00000000
-[DMA] DMAC=0x00000082
-[DMA] DLBA=0x7E13B048
-[DMA] GCTRL=0x20000020
-[DMA] IDST=0x00000000
-[DMA] DES0=0x8000002C
-[DMA] DES1=0x00000200
-[DMA] DES2=0x7E098B98
-[SMHC] DO cmd=0x00000011
-[SMHC] DO CdRint=0x00000004
-[SMHC] DO StillNeed=0x00000008
-[SMHC] DO Status=0x00000000
-[SMHC] DO DWRint=0x00000028
-[SMHC] C17 DMA OK LBA=0x00000000
-[SMHC] C17 b[0..3]=0xAFAFAFAF
-[SMHC] C17 b[510-511]=0x0000AFAF
-[SMHC] BASE=0x04020000
-[SMHC] CMD0x00000012
-[SMHC] ARG0x00000040
-[SMHC] CMD18->CMD17x NumBlks=0x00000004
-[DMA] DMAC=0x00000082
-[DMA] DLBA=0x7E13B048
-[DMA] GCTRL=0x20000020
-[DMA] IDST=0x00000000
-[DMA] DES0=0x8000002C
-[DMA] DES1=0x00000200
-[DMA] DES2=0x7E098118
-[DMA] DMAC=0x00000082
-[DMA] DLBA=0x7E13B048
-[DMA] GCTRL=0x20000020
-[DMA] IDST=0x00000000
-[DMA] DES0=0x8000002C
-[DMA] DES1=0x00000200
-[DMA] DES2=0x7E098318
-[DMA] DMAC=0x00000082
-[DMA] DLBA=0x7E13B048
-[DMA] GCTRL=0x20000020
-[DMA] IDST=0x00000000
-[DMA] DES0=0x8000002C
-[DMA] DES1=0x00000200
-[DMA] DES2=0x7E098518
-[DMA] DMAC=0x00000082
-[DMA] DLBA=0x7E13B048
-[DMA] GCTRL=0x20000020
-[DMA] IDST=0x00000000
-[DMA] DES0=0x8000002C
-[DMA] DES1=0x00000200
-[DMA] DES2=0x7E098718
-[SMHC] BASE=0x04020000
-[SMHC] CMD0x00000011
-[SMHC] ARG0x00000040
-[DMA] DMAC=0x00000082
-[DMA] DLBA=0x7E13B048
-[DMA] GCTRL=0x20000020
-[DMA] IDST=0x00000000
-[DMA] DES0=0x8000002C
-[DMA] DES1=0x00000200
-[DMA] DES2=0x7E005000
-[SMHC] DO cmd=0x00000011
-[SMHC] DO CdRint=0x00000004
-[SMHC] DO StillNeed=0x00000008
-[SMHC] DO Status=0x00000000
-[SMHC] DO DWRint=0x00000028
-[SMHC] C17 DMA OK LBA=0x00000040
-[SMHC] C17 b[0..3]=0xAFAFAFAF
-[SMHC] C17 b[510-511]=0x0000AFAF
-[SMHC] BASE=0x04020000
-[SMHC] CMD0x00000011
-[SMHC] ARG0x00000000
-[DMA] DMAC=0x00000082
-[DMA] DLBA=0x7E13B048
-[DMA] GCTRL=0x20000020
-[DMA] IDST=0x00000000
-[DMA] DES0=0x8000002C
-[DMA] DES1=0x00000200
-[DMA] DES2=0x7E098B98
-[SMHC] DO cmd=0x00000011
-[SMHC] DO CdRint=0x00000004
-[SMHC] DO StillNeed=0x00000008
-[SMHC] DO Status=0x00000000
-[SMHC] DO DWRint=0x00000028
-[SMHC] C17 DMA OK LBA=0x00000000
-[SMHC] C17 b[0..3]=0xAFAFAFAF
-[SMHC] C17 b[510-511]=0x0000AFAF
-[SMHC] BASE=0x04020000
-[SMHC] CMD0x00000011
-[SMHC] ARG0x00000000
-[DMA] DMAC=0x00000082
-[DMA] DLBA=0x7E13B048
-[DMA] GCTRL=0x20000020
-[DMA] IDST=0x00000000
-[DMA] DES0=0x8000002C
-[DMA] DES1=0x00000200
-[DMA] DES2=0x7E005000
-[SMHC] DO cmd=0x00000011
-[SMHC] DO CdRint=0x00000004
-[SMHC] DO StillNeed=0x00000008
-[SMHC] DO Status=0x00000000
-[SMHC] DO DWRint=0x00000028
-[SMHC] C17 DMA OK LBA=0x00000000
-[SMHC] C17 b[0..3]=0xAFAFAFAF
-[SMHC] C17 b[510-511]=0x0000AFAF
-[A733] Booting UEFI Shell...
-Initialize variable error flag (FF)
-[Bds]Stop Hotkey Service!
-[Bds]Booting UEFI Shell
-[Bds] Expand MemoryMapped(0xB,0x7FC7B000,0x7FE10697)/FvFile(7C04A583-9E3E-4F1C-AD65-E05268D0B4D1) -> MemoryMapped(0xB,0x7FC7B000,0x7FE10697)/FvFile(7C04A583-9E3E-4F1C-AD65-E05268D0B4D1)
-InstallProtocolInterface: 5B1B31A1-9562-11D2-8E3F-00A0C969723B 7E098D40
-add-symbol-file /home/linux/edk2/Build/A733/DEBUG_GCC/AARCH64/ShellPkg/Application/Shell/Shell/DEBUG/Shell.dll 0x7DED2000
-Loading driver at 0x0007DED1000 EntryPoint=0x0007DED8BDC Shell.efi
-InstallProtocolInterface: BC62157E-3E33-4FEC-9920-2D3B36D750DF 7E0BB898
-ProtectUefiImageCommon - 0x7E098D40
-  - 0x000000007DED1000 - 0x0000000000066000
+[SMHC] Forcing synthesized protective MBR for LBA0
+[SMHC] Forcing synthesized protective MBR for LBA0
+[SMHC] Forcing synthesized protective MBR for LBA0
 [A733] URR L2: AllocPages start
-[A733] URR L2: AllocPages=0x7E097000
+[A733] URR L2: AllocPages=0x7DA30000
 [A733] URR L2: ZeroMem start
 [A733] URR L2: ZeroMem done
 [HiiDatabase]: Memory allocation is required after ReadyToBoot, which may change memory map and cause S4 resume issue.
 [HiiDatabase]: Memory allocation is required after ReadyToBoot, which may change memory map and cause S4 resume issue.
-InstallProtocolInterface: 387477C2-69C7-11D2-8E39-00A0C969723B 7DF9B0A0
-InstallProtocolInterface: 752F3136-4E16-4FDC-A22A-E5F46812F4CA 7DF96F98
-InstallProtocolInterface: 6302D008-7F9B-4F30-87AC-60C9FEF5DA4E 7DF30DF8
 UEFI Interactive Shell v2.2
 EDK II
 UEFI v2.70 (EDK II, 0x00010000)
 Mapping table
+      FS0: Alias(s):HD0b:;BLK1:
+          MemoryMapped(0xB,0x4020000,0x4020FFF)/SD(0x0)/HD(1,GPT,FF8971AF-5A73-4A64-BCF2-A3878FEF92DF)
      BLK0: Alias(s):
           MemoryMapped(0xB,0x4020000,0x4020FFF)/SD(0x0)
 Press ESC in 5 seconds to skip startup.nsh or any other key to continue.Press ESC in 4 seconds to skip startup.nsh or any other key to continue.Press ESC in 3 seconds to skip startup.nsh or any other key to continue.Press ESC in 2 seconds to skip startup.nsh or any other key to continue.Press ESC in 1 seconds to skip startup.nsh or any other key to continue.
-Shell> map -r
-Mapping table
-     BLK0: Alias(s):
-          MemoryMapped(0xB,0x4020000,0x4020FFF)/SD(0x0)
 Shell> 

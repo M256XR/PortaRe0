@@ -11,17 +11,7 @@
 #include <Library/IoLib.h>
 #include <Library/MemoryAllocationLib.h>
 #include <Library/PcdLib.h>
-#include <Library/SerialPortLib.h>
 #include <Ppi/ArmMpCoreInfo.h>
-
-// Direct UART write helper - works even before SerialPortInitialize (boot0 already set up UART)
-STATIC VOID
-DbgStr (CONST CHAR8 *Str)
-{
-  UINTN  Len = 0;
-  while (Str[Len]) { Len++; }
-  SerialPortWrite ((UINT8 *)Str, Len);
-}
 
 // A733 has 4 Cortex-A55 cores in a single cluster (Aff1=0, Aff0=0..3)
 // Mailbox fields are zeroed - secondary cores not used in first milestone
@@ -40,7 +30,6 @@ A733GetMpCoreInfo (
   OUT ARM_CORE_INFO  **ArmCoreTable
   )
 {
-  DbgStr ("[A733] GetMpCoreInfo called\r\n");
   *CoreCount    = ARRAY_SIZE (mA733CoreInfoTable);
   *ArmCoreTable = mA733CoreInfoTable;
   return EFI_SUCCESS;
@@ -89,8 +78,6 @@ ArmPlatformInitialize (
   IN  UINTN  MpId
   )
 {
-  DbgStr ("[A733] ArmPlatformInitialize\r\n");
-
   // TF-A drops BL33 to EL1 with CPACR_EL1.FPEN=0b00 (default after reset),
   // which traps all FP/NEON instructions as synchronous exceptions.
   // BaseMemoryLibOptDxe uses NEON for ZeroMem >= ~64 bytes, so the first
@@ -123,17 +110,6 @@ ArmPlatformGetVirtualMemoryMap (
     return;
   }
 
-  DbgStr ("[A733] GetVirtualMemoryMap called\r\n");
-
-  VirtualMemoryTable = AllocatePages (
-                         EFI_SIZE_TO_PAGES (sizeof (ARM_MEMORY_REGION_DESCRIPTOR) * 16)
-                         );
-  if (VirtualMemoryTable == NULL) {
-    DbgStr ("[A733] AllocatePages FAILED\r\n");
-    return;
-  }
-  DbgStr ("[A733] AllocatePages OK\r\n");
-
   CacheAttributes = ARM_MEMORY_REGION_ATTRIBUTE_WRITE_BACK;
 
   // System DRAM (1GB at 0x40000000)
@@ -157,6 +133,5 @@ ArmPlatformGetVirtualMemoryMap (
   VirtualMemoryTable[Index].Length       = 0;
   VirtualMemoryTable[Index].Attributes   = (ARM_MEMORY_REGION_ATTRIBUTES)0;
 
-  DbgStr ("[A733] GetVirtualMemoryMap DONE\r\n");
   *VirtualMemoryMap = VirtualMemoryTable;
 }

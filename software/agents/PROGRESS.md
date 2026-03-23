@@ -6,8 +6,9 @@
 ## 現在の作業箇所
 - **筐体・PCB完成待ちのため QMK/TinyUSB は保留**
 - **EDK2 移植（Windows ARM）を優先的に進行中**
-- **現在地**: SMHC0（SD）ドライバ実装済み・DiskIoDxe/PartitionDxe/Fat 追加済み → ビルド・実機確認待ち
-- **次のタスク**: ビルド → SMHC0 動作確認（UEFI Shell で `map -r` → SD パーティション認識）→ Windows ARM SD インストール
+- **現在地**: DEBUG 版で `SMHC0 -> GPT -> FAT -> fs0: -> Shell` まで安定動作確認済み。現在 SD に入っている識別子は `FD_SHA256_16=14fa086e514f1353`
+- **RELEASE版の状況**: `AllocatePoolPages: failed to allocate 719611 pages` の後に `Synchronous Exception at 0xAFAFAFAFAFAFAFAF` で別系統クラッシュ
+- **次のタスク**: DEBUG 版ベースで `fs0:` 上のブート導線整備（`EFI\BOOT\BOOTAA64.EFI`、必要なら `startup.nsh`）→ 手動起動確認 → 自動起動へ
 - **方針確定**: PCIe（M.2 SSD）は実機PCB完成まで保留 → SD カードへの Windows インストールを先行
 - 参照: `specs/windows_arm.md`（ロードマップ・参考リポジトリ一覧）、`specs/edk2_porting.md`（EDK2構成詳細）
 
@@ -42,7 +43,9 @@
 - [x] DXE Core起動・UEFI Shell（Shell> プロンプト・キーボード入力動作確認済み）
 - [x] ACPI テーブル実機ロード確認済み（FACP/GTDT/APIC/SPCR/DSDT 全5テーブル）
 - [x] SMHC0（SD）DXE ドライバ実装・DiskIoDxe/PartitionDxe/Fat 追加（Phase B コード完）
-- [ ] SMHC0 実機動作確認（UEFI Shell `map -r`）
+- [x] SMHC0 実機動作確認（DEBUG版で `map -r` → `fs0:` まで確認済み）
+- [ ] RELEASE版クラッシュ原因切り分け
+- [ ] `fs0:` 上のブート導線整備（`BOOTAA64.EFI` / `startup.nsh`）
 - [ ] Windows ARM SD インストール
 - [ ] Windows ARM 起動
 
@@ -59,6 +62,18 @@
 ---
 
 ## 直近の決定事項ログ
+
+### 2026-03-24（session08）
+- **到達点更新**: DEBUG 版では `SMHC0 -> GPT -> FAT -> fs0: -> Shell` まで安定
+- **RELEASE版は未解決の別問題あり**:
+  - `AllocatePoolPages: failed to allocate 719611 pages`
+  - `Synchronous Exception at 0xAFAFAFAFAFAFAFAF`
+- **方針**: 次セッションは RELEASE 版を追わず、DEBUG 版ベースで先に進める
+- **現在 SD に入っているビルド識別子**: `FD_SHA256_16=14fa086e514f1353`
+- **次のアクション**: `fs0:` 上のブート導線整備
+  - `EFI\BOOT\BOOTAA64.EFI`
+  - 必要なら `startup.nsh`
+  - 手動起動確認から自動起動へ
 
 ### 2026-03-22（session07）
 - **方針転換確定**: PCIe（M.2 SSD）は実機PCBまたはM.2-PCIeアダプタ入手まで保留

@@ -248,7 +248,7 @@ A733AcpiPlatformEntryPoint (
     DbgPrintHex ("[A733Acpi] ReadSection result   = ", (UINT64)Status);
 
     if (EFI_ERROR (Status)) {
-      // EFI_NOT_FOUND means no more sections — this is the normal end
+      // EFI_NOT_FOUND means no more sections - this is the normal end
       DbgPrint ("[A733Acpi] No more RAW sections (done)\r\n");
       break;
     }

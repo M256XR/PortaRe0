@@ -224,7 +224,9 @@
   gEmbeddedTokenSpaceGuid.PcdTimerPeriod|100000
 
   # Debug output
-  gEfiMdePkgTokenSpaceGuid.PcdDebugPrintErrorLevel|0x8000004F
+  # Keep only WARN/ERROR on UART. This suppresses the verbose driver load and
+  # filesystem/partition INFO logs now that storage bring-up is working.
+  gEfiMdePkgTokenSpaceGuid.PcdDebugPrintErrorLevel|0x80000002
   gEfiMdePkgTokenSpaceGuid.PcdDebugPropertyMask|0x2F
 
   # Use RAM-based variable store (no NV flash storage available at this stage)
