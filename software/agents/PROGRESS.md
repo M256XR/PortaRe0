@@ -6,10 +6,10 @@
 ## 現在の作業箇所
 - **筐体・PCB完成待ちのため QMK/TinyUSB は保留**
 - **EDK2 移植（Windows ARM）を優先的に進行中**
-- **現在地**: DEBUG 版で `SMHC0 -> GPT -> FAT -> fs0: -> Shell` まで安定動作確認済み。現行 SD の DEBUG イメージは `FD_SHA256_16=b34058618f8dac16`
-- **最新ビルド成果物**: `build/A733.fd` は `FD_SHA256_16=b34058618f8dac16`、`build/BootProbe.efi` と `build/Shell.efi` を出力済み
+- **現在地**: DEBUG 版で `SMHC0 -> GPT -> FAT -> fs0: -> Shell` まで安定動作確認済み。現行 SD の DEBUG イメージは `FD_SHA256_16=d7c7762bb8b98fd8`
+- **最新ビルド成果物**: `build/A733.fd` は `FD_SHA256_16=d7c7762bb8b98fd8`、`build/BootProbe.efi` と `build/Shell.efi` を出力済み
 - **RELEASE版の状況**: `AllocatePoolPages: failed to allocate 719611 pages` の後に `Synchronous Exception at 0xAFAFAFAFAFAFAFAF` で別系統クラッシュ
-- **次のタスク**: 最新 DEBUG 版で再起動し、`startup.nsh` から `TESTA7Z.EFI` / `BOOTAA64.EFI` の起動結果と `[A733] Boot result` ログを回収
+- **次のタスク**: 最新 DEBUG 版で再起動し、`startup.nsh` / Boot Manager の両方について `TESTA7Z.EFI` / `BOOTAA64.EFI` の `LoadImage` / `StartImage` 結果ログを回収
 - **方針確定**: PCIe（M.2 SSD）は実機PCB完成まで保留 → SD カードへの Windows インストールを先行
 - 参照: `specs/windows_arm.md`（ロードマップ・参考リポジトリ一覧）、`specs/edk2_porting.md`（EDK2構成詳細）
 
@@ -84,6 +84,11 @@
 - **次のアクション**:
   - 最新 `FD_SHA256_16=b34058618f8dac16` で再起動
   - `log/teraterm.log` に `BootProbe` 文字列または `[A733] Boot result` が出るか確認
+
+- **追加切り分け（再起動前に反映済み）**:
+  - `PlatformBootManagerLib` の外部起動経路を `EfiBootManagerBoot()` から `gBS->LoadImage(TRUE, ...)` / `gBS->StartImage()` へ置き換え
+  - `"[A733] PlatformBootManagerAfterConsole entered"` / `"[A733] LoadImage failed: %r"` / `"[A733] StartImage failed: %r"` を出す診断版 DEBUG に更新
+  - 新しい SD 書き込み済みイメージ識別子は `FD_SHA256_16=d7c7762bb8b98fd8`
 
 ### 2026-03-24（session09）
 - **DEBUG 方針をコードへ反映**: `build/build_edk2.sh` を DEBUG ビルド出力に戻し、`build/Shell.efi` も取り出すよう更新

@@ -364,40 +364,46 @@ BootDevicePathOnce (
   IN EFI_DEVICE_PATH_PROTOCOL  *DevicePath
   )
 {
-  EFI_STATUS                    Status;
-  EFI_BOOT_MANAGER_LOAD_OPTION  BootOption;
-  EFI_STATUS                    BootStatus;
+  EFI_STATUS  Status;
+  EFI_HANDLE  ImageHandle;
+  UINTN       ExitDataSize;
+  CHAR16      *ExitData;
 
   if (DevicePath == NULL) {
     return FALSE;
   }
 
-  Status = EfiBootManagerInitializeLoadOption (
-             &BootOption,
-             LoadOptionNumberUnassigned,
-             LoadOptionTypeBoot,
-             LOAD_OPTION_ACTIVE,
-             Description,
-             DevicePath,
-             NULL,
-             0
-             );
+  DEBUG ((DEBUG_ERROR, "[A733] Booting option: %s\n", Description));
+  ImageHandle = NULL;
+  ExitData = NULL;
+  ExitDataSize = 0;
+
+  Status = gBS->LoadImage (
+                  TRUE,
+                  gImageHandle,
+                  DevicePath,
+                  NULL,
+                  0,
+                  &ImageHandle
+                  );
   if (EFI_ERROR (Status)) {
-    DEBUG ((DEBUG_ERROR, "[A733] Failed to init boot option: %r\n", Status));
+    DEBUG ((DEBUG_ERROR, "[A733] LoadImage failed: %r\n", Status));
     return FALSE;
   }
 
-  DEBUG ((DEBUG_ERROR, "[A733] Booting option\n"));
-  EfiBootManagerBoot (&BootOption);
-  BootStatus = BootOption.Status;
-  EfiBootManagerFreeLoadOption (&BootOption);
-
-  if (EFI_ERROR (BootStatus)) {
-    DEBUG ((DEBUG_ERROR, "[A733] Boot result: %r\n", BootStatus));
+  Status = gBS->StartImage (ImageHandle, &ExitDataSize, &ExitData);
+  if (EFI_ERROR (Status)) {
+    DEBUG ((DEBUG_ERROR, "[A733] StartImage failed: %r\n", Status));
   } else {
-    DEBUG ((DEBUG_ERROR, "[A733] Boot result: EFI_SUCCESS\n"));
+    DEBUG ((DEBUG_ERROR, "[A733] StartImage returned EFI_SUCCESS\n"));
   }
-  return !EFI_ERROR (BootStatus);
+
+  if ((ExitData != NULL) && (ExitDataSize >= sizeof (CHAR16))) {
+    DEBUG ((DEBUG_ERROR, "[A733] ExitData: %s\n", ExitData));
+    FreePool (ExitData);
+  }
+
+  return !EFI_ERROR (Status);
 }
 
 STATIC
@@ -471,7 +477,7 @@ PlatformBootManagerAfterConsole (
 {
   EFI_DEVICE_PATH_PROTOCOL      *ShellPath;
 
-  DEBUG ((DEBUG_INFO, "[A733] PlatformBootManagerAfterConsole\n"));
+  DEBUG ((DEBUG_ERROR, "[A733] PlatformBootManagerAfterConsole entered\n"));
 
   // Connect all drivers so storage / console devices are available.
   EfiBootManagerConnectAll ();
