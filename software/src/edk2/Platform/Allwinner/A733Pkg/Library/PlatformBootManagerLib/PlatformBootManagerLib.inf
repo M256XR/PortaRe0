@@ -33,6 +33,7 @@
 
 [Protocols]
   gEfiFirmwareVolume2ProtocolGuid
+  gEfiSimpleFileSystemProtocolGuid
 
 [Guids]
   gEdkiiSerialPortLibVendorGuid

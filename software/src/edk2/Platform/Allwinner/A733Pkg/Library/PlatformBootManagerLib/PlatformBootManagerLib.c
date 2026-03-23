@@ -18,6 +18,7 @@
 #include <Protocol/BlockIo.h>
 #include <Protocol/DevicePath.h>
 #include <Protocol/FirmwareVolume2.h>
+#include <Protocol/SimpleFileSystem.h>
 #include <Guid/SerialPortLibVendor.h>
 #include <Guid/PcAnsi.h>
 
@@ -75,6 +76,8 @@ STATIC EFI_GUID  mShellFileGuid = {
   0x7C04A583, 0x9E3E, 0x4F1C,
   { 0xAD, 0x65, 0xE0, 0x52, 0x68, 0xD0, 0xB4, 0xD1 }
 };
+
+STATIC CONST CHAR16  mRemovableBootPath[] = L"\\EFI\\BOOT\\BOOTAA64.EFI";
 
 #if 0
 STATIC
@@ -354,6 +357,93 @@ BuildFvFilePath (
   return FilePath;
 }
 
+STATIC
+BOOLEAN
+BootDevicePathOnce (
+  IN CHAR16                    *Description,
+  IN EFI_DEVICE_PATH_PROTOCOL  *DevicePath
+  )
+{
+  EFI_STATUS                    Status;
+  EFI_BOOT_MANAGER_LOAD_OPTION  BootOption;
+  EFI_STATUS                    BootStatus;
+
+  if (DevicePath == NULL) {
+    return FALSE;
+  }
+
+  Status = EfiBootManagerInitializeLoadOption (
+             &BootOption,
+             LoadOptionNumberUnassigned,
+             LoadOptionTypeBoot,
+             LOAD_OPTION_ACTIVE,
+             Description,
+             DevicePath,
+             NULL,
+             0
+             );
+  if (EFI_ERROR (Status)) {
+    DEBUG ((DEBUG_ERROR, "[A733] Failed to init boot option: %r\n", Status));
+    return FALSE;
+  }
+
+  DEBUG ((DEBUG_ERROR, "[A733] Booting option\n"));
+  EfiBootManagerBoot (&BootOption);
+  BootStatus = BootOption.Status;
+  EfiBootManagerFreeLoadOption (&BootOption);
+
+  if (EFI_ERROR (BootStatus)) {
+    DEBUG ((DEBUG_ERROR, "[A733] Boot result: %r\n", BootStatus));
+  } else {
+    DEBUG ((DEBUG_ERROR, "[A733] Boot result: EFI_SUCCESS\n"));
+  }
+  return !EFI_ERROR (BootStatus);
+}
+
+STATIC
+BOOLEAN
+TryBootRemovableMediaPath (
+  IN CHAR16  *RelativePath
+  )
+{
+  EFI_STATUS                Status;
+  EFI_HANDLE                *Handles;
+  EFI_DEVICE_PATH_PROTOCOL  *FilePath;
+  UINTN                     HandleCount;
+  UINTN                     Index;
+  BOOLEAN                   Booted;
+
+  Status = gBS->LocateHandleBuffer (
+                  ByProtocol,
+                  &gEfiSimpleFileSystemProtocolGuid,
+                  NULL,
+                  &HandleCount,
+                  &Handles
+                  );
+  if (EFI_ERROR (Status)) {
+    DEBUG ((DEBUG_ERROR, "[A733] LocateHandleBuffer(SimpleFileSystem) failed: %r\n", Status));
+    return FALSE;
+  }
+
+  Booted = FALSE;
+  for (Index = 0; Index < HandleCount; Index++) {
+    FilePath = FileDevicePath (Handles[Index], RelativePath);
+    if (FilePath == NULL) {
+      continue;
+    }
+
+    DEBUG ((DEBUG_ERROR, "[A733] Trying fs candidate %u\n", (UINT32)Index));
+    Booted = BootDevicePathOnce (L"Removable Media Boot", FilePath);
+    FreePool (FilePath);
+    if (Booted) {
+      break;
+    }
+  }
+
+  FreePool (Handles);
+  return Booted;
+}
+
 VOID
 EFIAPI
 PlatformBootManagerBeforeConsole (
@@ -379,8 +469,6 @@ PlatformBootManagerAfterConsole (
   VOID
   )
 {
-  EFI_STATUS                    Status;
-  EFI_BOOT_MANAGER_LOAD_OPTION  ShellOption;
   EFI_DEVICE_PATH_PROTOCOL      *ShellPath;
 
   DEBUG ((DEBUG_INFO, "[A733] PlatformBootManagerAfterConsole\n"));
@@ -388,39 +476,27 @@ PlatformBootManagerAfterConsole (
   // Connect all drivers so storage / console devices are available.
   EfiBootManagerConnectAll ();
 
-  // Build a boot option pointing to the Shell EFI in the FV.
-  ShellPath = BuildFvFilePath (&mShellFileGuid);
-  if (ShellPath == NULL) {
-    DEBUG ((DEBUG_ERROR, "[A733] Shell not found in any FV!\n"));
-    return;
-  }
-
-  Status = EfiBootManagerInitializeLoadOption (
-             &ShellOption,
-             LoadOptionNumberUnassigned,
-             LoadOptionTypeBoot,
-             LOAD_OPTION_ACTIVE,
-             L"UEFI Shell",
-             ShellPath,
-             NULL,
-             0
-             );
-  FreePool (ShellPath);
-
-  if (EFI_ERROR (Status)) {
-    DEBUG ((DEBUG_ERROR, "[A733] Failed to init Shell boot option: %r\n", Status));
-    return;
-  }
-
   // Second ConnectAll: SdDxe installs BlockIo during the first ConnectAll,
   // but ConnectAll may have already scanned that handle. A second pass lets
   // DiskIoDxe and PartitionDxe connect to the newly-available BlockIo handle.
   DEBUG ((DEBUG_INFO, "[A733] ConnectAll (2nd pass for storage drivers)\n"));
   EfiBootManagerConnectAll ();
 
-  DEBUG ((DEBUG_INFO, "[A733] Booting UEFI Shell...\n"));
-  EfiBootManagerBoot (&ShellOption);
-  EfiBootManagerFreeLoadOption (&ShellOption);
+  if (TryBootRemovableMediaPath ((CHAR16 *)mRemovableBootPath)) {
+    return;
+  }
+
+  // Fallback to the shell embedded in FV when no external boot file exists.
+  ShellPath = BuildFvFilePath (&mShellFileGuid);
+  if (ShellPath == NULL) {
+    DEBUG ((DEBUG_ERROR, "[A733] Shell not found in any FV!\n"));
+    return;
+  }
+
+  if (!BootDevicePathOnce (L"UEFI Shell", ShellPath)) {
+    DEBUG ((DEBUG_ERROR, "[A733] Failed to boot FV shell\n"));
+  }
+  FreePool (ShellPath);
 }
 
 VOID

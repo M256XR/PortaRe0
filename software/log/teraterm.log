@@ -1,49 +1,49 @@
 ......
 
 
-[215]HELLO! BOOT0 is starting!
-[218]BOOT0 commit : {9f6fab4f-dirty}
+[216]HELLO! BOOT0 is starting!
+[219]BOOT0 commit : {9f6fab4f-dirty}
 
-[228]vaild para:1  select dram para0
+[229]vaild para:1  select dram para0
 [232]key press : .
 [234][mmc]: mmc driver ver 2024-03-20 10:36
-[243][mmc]: Wrong media type 0x0
+[244][mmc]: Wrong media type 0x0
 [247][mmc]: ***Try SD card 0***
-[266][mmc]: HSSDR52/SDR25 4 bit
-[269][mmc]: 50000000 Hz
-[271][mmc]: 121942 MB
-[274][mmc]: ***SD/MMC 0 init OK!!!***
-[282]boot param - magic error 
-[285]DRAM BOOT DRIVE INFO: V0.601
-[289]DRAM_VCC set to 1100 mv
-[331]Training result is = ff
-[334]DRAM Pstate 0 training, frequency is 1800 Mhz
-[339]DRAM Pstate 0 training fail, fail result is 0xff!
-[2098]Training result is = 7
-[2101]DRAM Pstate 0 training, frequency is 1800 Mhz
-[2109][AUTO DEBUG]16 bit,1 ranks training success!
-[3868]Training result is = 7
-[3870]DRAM Pstate 0 training, frequency is 1800 Mhz
-[5632]Training result is = 7
-[5635]DRAM Pstate 0 training, frequency is 1800 Mhz
-[5643]DRAM CLK =1800 MHZ
-[5645]DRAM Type =8 (8:LPDDR4,9:LPDDR5)
-[5715]Training result is = 7
-[5718]DRAM Pstate 1 training, frequency is 1200 Mhz
-[5782]Training result is = 7
-[5785]DRAM Pstate 2 training, frequency is 800 Mhz
-[5899]Training result is = 7
-[5902]DRAM Pstate 3 training, frequency is 400 Mhz
+[267][mmc]: HSSDR52/SDR25 4 bit
+[270][mmc]: 50000000 Hz
+[273][mmc]: 121942 MB
+[275][mmc]: ***SD/MMC 0 init OK!!!***
+[283]boot param - magic error 
+[286]DRAM BOOT DRIVE INFO: V0.601
+[290]DRAM_VCC set to 1100 mv
+[332]Training result is = ff
+[335]DRAM Pstate 0 training, frequency is 1800 Mhz
+[340]DRAM Pstate 0 training fail, fail result is 0xff!
+[2097]Training result is = 7
+[2100]DRAM Pstate 0 training, frequency is 1800 Mhz
+[2108][AUTO DEBUG]16 bit,1 ranks training success!
+[3864]Training result is = 7
+[3866]DRAM Pstate 0 training, frequency is 1800 Mhz
+[5629]Training result is = 7
+[5631]DRAM Pstate 0 training, frequency is 1800 Mhz
+[5639]DRAM CLK =1800 MHZ
+[5642]DRAM Type =8 (8:LPDDR4,9:LPDDR5)
+[5712]Training result is = 7
+[5715]DRAM Pstate 1 training, frequency is 1200 Mhz
+[5778]Training result is = 7
+[5781]DRAM Pstate 2 training, frequency is 800 Mhz
+[5896]Training result is = 7
+[5899]DRAM Pstate 3 training, frequency is 400 Mhz
 [7632]Training result is = 7
-[7635]DRAM Pstate 0 training, frequency is 1800 Mhz
+[7634]DRAM Pstate 0 training, frequency is 1800 Mhz
 [7643]Actual DRAM SIZE =1024 M
 [7646]DRAM SIZE =1024 MBytes, para1 = 30fa, para2 = 4000001, dram_tpr13 = 6067
-[7661]DRAM simple test OK.
+[7660]DRAM simple test OK.
 [7663]key press : .
 [7670]error:bad magic.
 [7734]error: dtb not found for scp
-[7738]mmc not para
-[7740]Jump to ATF: monitor_base = 0x48000000, uboot_base = 0x4a000000, optee_base = 0x0
+[7737]mmc not para
+[7739]Jump to ATF: monitor_base = 0x48000000, uboot_base = 0x4a000000, optee_base = 0x0
 NOTICE:  BL31: OP-TEE 32bit detected
 NOTICE:  BL31: U-BOOT 64bit detected
 NOTICE:  BL31: v2.5(debug):5fc237a6a
@@ -198,4 +198,5 @@ Mapping table
      BLK0: Alias(s):
           MemoryMapped(0xB,0x4020000,0x4020FFF)/SD(0x0)
 Press ESC in 5 seconds to skip startup.nsh or any other key to continue.Press ESC in 4 seconds to skip startup.nsh or any other key to continue.Press ESC in 3 seconds to skip startup.nsh or any other key to continue.Press ESC in 2 seconds to skip startup.nsh or any other key to continue.Press ESC in 1 seconds to skip startup.nsh or any other key to continue.
+Script Error Status: Access Denied (line number 3)
 Shell> 

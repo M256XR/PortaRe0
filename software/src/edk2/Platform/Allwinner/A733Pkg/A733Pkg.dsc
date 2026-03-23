@@ -339,3 +339,6 @@
     <PcdsFeatureFlag>
       gEfiShellPkgTokenSpaceGuid.PcdShellLibAutoInitialize|FALSE
   }
+
+  # Small test app copied to ESP to prove external EFI execution works
+  Platform/Allwinner/A733Pkg/Application/BootProbe/BootProbe.inf

@@ -6,9 +6,10 @@
 ## 現在の作業箇所
 - **筐体・PCB完成待ちのため QMK/TinyUSB は保留**
 - **EDK2 移植（Windows ARM）を優先的に進行中**
-- **現在地**: DEBUG 版で `SMHC0 -> GPT -> FAT -> fs0: -> Shell` まで安定動作確認済み。現在 SD に入っている識別子は `FD_SHA256_16=14fa086e514f1353`
+- **現在地**: DEBUG 版で `SMHC0 -> GPT -> FAT -> fs0: -> Shell` まで安定動作確認済み。現行 SD の DEBUG イメージは `FD_SHA256_16=b34058618f8dac16`
+- **最新ビルド成果物**: `build/A733.fd` は `FD_SHA256_16=b34058618f8dac16`、`build/BootProbe.efi` と `build/Shell.efi` を出力済み
 - **RELEASE版の状況**: `AllocatePoolPages: failed to allocate 719611 pages` の後に `Synchronous Exception at 0xAFAFAFAFAFAFAFAF` で別系統クラッシュ
-- **次のタスク**: DEBUG 版ベースで `fs0:` 上のブート導線整備（`EFI\BOOT\BOOTAA64.EFI`、必要なら `startup.nsh`）→ 手動起動確認 → 自動起動へ
+- **次のタスク**: 最新 DEBUG 版で再起動し、`startup.nsh` から `TESTA7Z.EFI` / `BOOTAA64.EFI` の起動結果と `[A733] Boot result` ログを回収
 - **方針確定**: PCIe（M.2 SSD）は実機PCB完成まで保留 → SD カードへの Windows インストールを先行
 - 参照: `specs/windows_arm.md`（ロードマップ・参考リポジトリ一覧）、`specs/edk2_porting.md`（EDK2構成詳細）
 
@@ -45,7 +46,9 @@
 - [x] SMHC0（SD）DXE ドライバ実装・DiskIoDxe/PartitionDxe/Fat 追加（Phase B コード完）
 - [x] SMHC0 実機動作確認（DEBUG版で `map -r` → `fs0:` まで確認済み）
 - [ ] RELEASE版クラッシュ原因切り分け
-- [ ] `fs0:` 上のブート導線整備（`BOOTAA64.EFI` / `startup.nsh`）
+- [x] EDK2 側で `\EFI\BOOT\BOOTAA64.EFI` 優先・FV Shell フォールバックを実装
+- [x] ホスト側で `BOOTAA64.EFI` / `startup.nsh` 配置用スクリプトを追加
+- [ ] `fs0:` 上のブート導線整備を実機確認（`TESTA7Z.EFI` / `BOOTAA64.EFI` / `startup.nsh` 配置済み、最新 DEBUG ログ待ち）
 - [ ] Windows ARM SD インストール
 - [ ] Windows ARM 起動
 
@@ -62,6 +65,42 @@
 ---
 
 ## 直近の決定事項ログ
+
+### 2026-03-24（session10）
+- **外部 EFI 切り分け用アプリ追加**: `Platform/Allwinner/A733Pkg/Application/BootProbe/BootProbe.inf`
+  - `BootProbe.efi` は外部 EFI として起動されたらメッセージを出して数秒後に `EFI_SUCCESS` で戻るだけの最小アプリ
+  - `build/build_edk2.sh` で `build/BootProbe.efi` も回収するよう更新
+- **Boot Manager の追跡ログ強化**:
+  - `PlatformBootManagerLib` の外部 EFI 起動パスで `[A733] Trying fs candidate ...`
+  - `"[A733] Booting option"` / `"[A733] Boot result: %r"` を `DEBUG_ERROR` レベルで出すよう調整
+- **ESP / SD 反映を更新**:
+  - `python build/write_sd.py` で `PhysicalDrive3` へ再書き込みし SHA256 verify match
+  - `python build/install_esp_files.py --esp S:\ --with-startup-nsh --force-startup-nsh` 実行
+  - `S:\EFI\BOOT\BOOTAA64.EFI` と `S:\EFI\BOOT\TESTA7Z.EFI` はともに `build/BootProbe.efi` 由来
+  - `build/BootProbe.efi` の SHA256 は `c028303fb4da21bc5f987b1d40a947ecb6b7a9f01c1dc764e1255b06ad8a6cd6`
+- **直近の実機観測**:
+  - 旧ログでは `startup.nsh` 3行目の `fs0:\EFI\BOOT\TESTA7Z.EFI` で `Script Error Status: Access Denied`
+  - そのため現状の失敗点は `fs0:` 認識ではなく外部 EFI 実行 (`LoadImage/StartImage`) 側
+- **次のアクション**:
+  - 最新 `FD_SHA256_16=b34058618f8dac16` で再起動
+  - `log/teraterm.log` に `BootProbe` 文字列または `[A733] Boot result` が出るか確認
+
+### 2026-03-24（session09）
+- **DEBUG 方針をコードへ反映**: `build/build_edk2.sh` を DEBUG ビルド出力に戻し、`build/Shell.efi` も取り出すよう更新
+- **UEFI ブート導線を実装**:
+  - `PlatformBootManagerLib` が `\EFI\BOOT\BOOTAA64.EFI` を優先して探索・起動
+  - 見つからない、または起動失敗時のみ FV 内 `Shell.efi` にフォールバック
+- **ESP 配置補助を追加**: `build/install_esp_files.py`
+  - `--esp S:\` のように指定して `EFI\BOOT\BOOTAA64.EFI` を配置
+  - 必要なら `startup.nsh` のテンプレートも配置可能
+- **SD 反映完了**:
+  - `python build/write_sd.py` で `PhysicalDrive3` へフル書き込み + SHA256 verify match
+  - ESP を `S:` として割り当て、`BOOTAA64.EFI` / `startup.nsh` を配置
+  - `S:\EFI\BOOT\BOOTAA64.EFI` の SHA256 は `build/Shell.efi` と一致
+- **補足**: 現在の ESP には `BOOTAA64.EFI`（中身は `Shell.efi`）のみ存在し、`EFI\Microsoft\Boot\bootmgfw.efi` はまだ未配置
+- **次のアクション**:
+  - Windows ローダ配置後、`startup.nsh` から `fs0:\EFI\Microsoft\Boot\bootmgfw.efi` 自動起動を確認
+  - その後、自動起動確認
 
 ### 2026-03-24（session08）
 - **到達点更新**: DEBUG 版では `SMHC0 -> GPT -> FAT -> fs0: -> Shell` まで安定
