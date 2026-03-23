@@ -90,6 +90,14 @@ ArmPlatformInitialize (
   )
 {
   DbgStr ("[A733] ArmPlatformInitialize\r\n");
+
+  // TF-A drops BL33 to EL1 with CPACR_EL1.FPEN=0b00 (default after reset),
+  // which traps all FP/NEON instructions as synchronous exceptions.
+  // BaseMemoryLibOptDxe uses NEON for ZeroMem >= ~64 bytes, so the first
+  // large ZeroMem (inside UpdateRegionMappingRecursive) would freeze without this.
+  // Set FPEN=0b11 to allow FP/NEON at EL1 and EL0.
+  __asm__ volatile ("msr cpacr_el1, %0" :: "r" ((UINTN)0x00300000));
+
   return RETURN_SUCCESS;
 }
 

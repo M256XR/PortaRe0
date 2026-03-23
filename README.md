@@ -15,12 +15,12 @@ Cubie A7Z SBCベースのクラムシェル型ポータブルPC（Cyberdeck）�
 | ストレージ | M.2 2230 NVMe SSD（PCIe Gen3 x1 / Cubie A7Z F0506-16-BGR経由） |
 | オーディオ | MAX98357A × 2 (スピーカー I2S) / PCM5102A + TPA6132A2 (イヤホン DAC+アンプ) |
 | MCU | RP2040 × 2（キーボード専用 / オーディオ専用） |
-| PCB | 4層基板 / JLCPCB PCBA |
+| PCB | 6層基板 / JLCPCB PCBA |
 | 筐体 | 3Dプリンター自作（クラムシェル / 139×81mm） |
 
 ## 現在のフェーズ
 
-**Phase 3: PCBレイアウト 進行中**
+**Phase 3: PCBレイアウト完了 → 発注準備完了（資金準備待ち）**
 
 - [x] power シート（BQ25895 / TPS61023 ×2 / AP2112K）
 - [x] usb_hub シート（VL812 / W25Q32 / J_EXT_C / J_EXT_A）
@@ -31,6 +31,8 @@ Cubie A7Z SBCベースのクラムシェル型ポータブルPC（Cyberdeck）�
 - [x] usb_adapter シート（別基板 / FPCスティフナー + USB-Cオス ×2）
 - [x] m2_ssd シート（M.2 2230 NVMe / PCIe Gen3 x1 / RT9080 LDO）
 - [x] ERC（HP系のみ残存 / 想定内）
+- [x] ガーバー生成済み / CPL生成済み
+- [ ] JLCPCB発注（資金準備後）
 
 ## ドキュメント
 
@@ -48,7 +50,7 @@ Cubie A7Z SBCベースのクラムシェル型ポータブルPC（Cyberdeck）�
 kicad/PortaRe0/        KiCadプロジェクト（回路図・PCB）
 kicad/PortaRe0_lib/    カスタムシンボル・フットプリント・3Dモデル
 keyboard/              キーレイアウト・マトリクス定義・QMK設定
-cad/                   筐体 3Dデータ（未着手）
+cad/                   筐体 3Dデータ（進行中）
 docs/                  データシート
 bom/                   BOM（xlsx / csv）
 Claude/                設計ドキュメント・進捗ログ・セッションログ

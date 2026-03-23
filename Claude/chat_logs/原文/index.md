@@ -680,6 +680,19 @@
 - オーディオ: モノラル→ステレオ→RP2040×2構成: S02 L90, S10 L180
 - 過電流保護: TPS2052B（Active-High・不適）→ TPS2042BDR採用: S10 L642
 
+### Session41 (2026-03-23) - 2026-03-23_Session41.txt
+- L1: セッション開始・git status確認
+- L50: 肩ボタン配置・配線・DRC完了確認
+- L100: キースイッチ変更（SKRPAKE010→SKRPABE010/C115360）
+- L150: 肩ボタン2種類購入方針（SKSCLDE010/SKSCLBE010）
+- L200: BOM/specs/keyboard.md更新・キー数64確定（Win含む）
+- L300: Extended/在庫状況全BOM調査（VL812・M.2ソケット在庫ゼロ→プレオーダー対応）
+- L400: ガーバー生成（gerber/）・CPL生成（pos/）
+- L500: JLCPCB価格確認（基板5枚13000円・0.2/0.35mmビア）
+- L600: PCBAフロー確認・JLCPCBサーバーエラーで見積もり未完了
+
+---
+
 #### C番号確定タイミング
 - SKRPABE010: C115360: S07 L220
 - X322512MOB4SI（RP2040用水晶）: C70565: S07 L38（session08引用）

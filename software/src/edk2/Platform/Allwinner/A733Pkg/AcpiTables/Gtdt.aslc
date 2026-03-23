@@ -9,9 +9,7 @@
  *                 0x01 0x0a 0xf08  <- PPI 10 -> IRQ 26 (Hypervisor)
  **/
 
-#include <IndustryStandard/Acpi.h>
-#include <Library/AcpiLib.h>
-#include <Library/PcdLib.h>
+#include "AcpiTables.h"
 
 #define GTDT_TIMER_EDGE_TRIGGERED   EFI_ACPI_6_3_GTDT_TIMER_FLAG_TIMER_INTERRUPT_MODE
 #define GTDT_TIMER_ACTIVE_LOW       EFI_ACPI_6_3_GTDT_TIMER_FLAG_TIMER_INTERRUPT_POLARITY

@@ -152,11 +152,15 @@ FADT + MADT + GTDT + DSDT
 ```
 Step 1: A733 DTS から GIC/タイマーアドレス確認 ✅
 Step 2: TF-A BL31 を A733 向けにポート ✅ 不要（boot0内蔵）
-Step 3: EDK2 awwiniot/UEFI-aw1689 ベースでテンプレート作成 ⏳
-Step 4: UART DEBUG() ログ取得 ← 最初のマイルストーン
-Step 5: UEFI Shell 起動
-Step 6: Windows ARM 起動
+Step 3: EDK2 Platform Package 新規作成 ✅
+Step 4: UART DEBUG() ログ取得 ✅ (session02)
+Step 5: UEFI Shell 起動 ✅ (session04) ← 現在地
+Step 6: ACPI テーブル完成（FADT/DSDT/SPCR追加）← 次のステップ
+Step 7: eMMC/SD DXE ドライバ移植
+Step 8: Windows ARM 起動
 ```
+
+詳細な手順・ファイル構成・デバッグTipsは `specs/edk2_porting.md` を参照。
 
 ---
 

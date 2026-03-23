@@ -371,3 +371,21 @@
   - VBUSDET分圧: 低速アナログなので数mm〜10mm許容
 - デカップリングキャップ距離の原則: 1mm以内が理想、2mmまで許容
 - PCBレイアウト: 受動部品配置継続中
+
+### 2026-03-12（session37）
+- 部品配置完了・ルーティング開始
+- RP2040水晶: 3mm以内 → OK / QSPI Flash: 10mm以内 → OK / VL812水晶: 3mm以内 → OK
+- ルーティング推奨順: GNDベタ → 電源幹線 → 電源プレーン → スイッチングノード → 高速差動ペア → IC間信号 → 一般信号
+- FPC給電（SBCへの電源供給）ピン割り当て修正:
+  - SBC給電FPC（24pin）: Pin1〜10=5V / Pin11〜22=GND / Pin23=CC1 / Pin24=CC2
+  - CC Rp抵抗: 22kΩ → **10kΩ**に変更（Cubie A7Z 5V/2A → 3A広告が安全）
+  - UP_VBUS（SBC→VL812 upstream）: 1pinでOK（検出用のみ）
+  - HDMIコントローラ給電FPC: Pin20〜21=GND / Pin22〜24=5V（3pin・1A対応）
+  - HDMI 5V（Pin18）: 基板側5V_SYSから供給でOK（DDC/HPD用・50mA以下）
+- トレース幅目安: 一般信号0.1〜0.15mm / 3.3V/5V 0.3〜0.5mm / VSYS/5V_SYS 1.5〜2.0mm以上
+- デカップリングキャップ距離: 1mm以内理想・2mmまで許容（前回確認）
+- GNDベタ: KiCad Fill Zone（Net=GND / Solid / Direct connect）でOK
+- B.Cu電源ルーティング: J4（バッテリー）〜BQ25895間は短距離・障害物なしのためB.Cuで直結OK
+- パッド根元で0.5mm程度に細くなるのは短区間なら許容
+- Teardrops: 全配線完了後にEdit→Teardrops...で一括適用推奨
+- ビア vs マイクロビア: このプロジェクトは通常ビアのみ（マイクロビアはHDI基板が必要）

@@ -533,10 +533,10 @@
       "gencad": "",
       "idf": "",
       "netlist": "",
-      "plot": "",
+      "plot": "../../gerber/",
       "pos_files": "",
       "specctra_dsn": "",
-      "step": "",
+      "step": "../../cad/PortaRe0_PCB.step",
       "svg": "",
       "vrml": ""
     },

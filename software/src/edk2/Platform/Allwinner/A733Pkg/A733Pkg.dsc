@@ -42,6 +42,18 @@
   # Reset via PSCI (TF-A handles it)
   ResetSystemLib|ArmPkg/Library/ArmPsciResetSystemLib/ArmPsciResetSystemLib.inf
 
+  # BDS / Boot Manager
+  UefiBootManagerLib|MdeModulePkg/Library/UefiBootManagerLib/UefiBootManagerLib.inf
+  PlatformBootManagerLib|Platform/Allwinner/A733Pkg/Library/PlatformBootManagerLib/PlatformBootManagerLib.inf
+  BootLogoLib|MdeModulePkg/Library/BootLogoLib/BootLogoLib.inf
+  CustomizedDisplayLib|MdeModulePkg/Library/CustomizedDisplayLib/CustomizedDisplayLib.inf
+  FileExplorerLib|MdeModulePkg/Library/FileExplorerLib/FileExplorerLib.inf
+
+  # Capsule / Auth (NULL implementations)
+  CapsuleLib|MdeModulePkg/Library/DxeCapsuleLibNull/DxeCapsuleLibNull.inf
+  AuthVariableLib|MdeModulePkg/Library/AuthVariableLibNull/AuthVariableLibNull.inf
+  TpmMeasurementLib|MdeModulePkg/Library/TpmMeasurementLibNull/TpmMeasurementLibNull.inf
+
   # ARM extras
   ArmHvcLib|ArmPkg/Library/ArmHvcLib/ArmHvcLib.inf
   ArmMonitorLib|ArmPkg/Library/ArmMonitorLib/ArmMonitorLib.inf
@@ -136,6 +148,10 @@
 
 [LibraryClasses.common.SEC]
   # SEC phase: PrePi/PeilessSec libraries
+  # Use scalar BaseMemoryLib (no NEON) - CPTR_EL3 may trap FP/NEON before
+  # ArmCpuDxe can properly enable them, and CPACR_EL1 alone is not sufficient
+  # if CPTR_EL3.TFP=1 in TF-A.
+  BaseMemoryLib|MdePkg/Library/BaseMemoryLib/BaseMemoryLib.inf
   PcdLib|MdePkg/Library/BasePcdLibNull/BasePcdLibNull.inf
   ArmPlatformLib|Platform/Allwinner/A733Pkg/Library/PlatformLib/PlatformLib.inf
   HobLib|EmbeddedPkg/Library/PrePiHobLib/PrePiHobLib.inf
@@ -180,10 +196,10 @@
   # FD: 0x4A000000, size 0x1E0000
   # Layout: [0x000-0xFFF stub][0x1000-0x1DFFFF FVMAIN_COMPACT]
   gArmTokenSpaceGuid.PcdFdBaseAddress|0x4A000000
-  gArmTokenSpaceGuid.PcdFdSize|0x00100000   # 1MB (fits in sunxi-package u-boot slot)
+  gArmTokenSpaceGuid.PcdFdSize|0x00128000   # 1160KB (fits in sunxi-package u-boot slot 0x12B9DC)
   # DXE FV: starts at FD+0x1000
   gArmTokenSpaceGuid.PcdFvBaseAddress|0x4A001000
-  gArmTokenSpaceGuid.PcdFvSize|0x000FF000
+  gArmTokenSpaceGuid.PcdFvSize|0x00127000
 
   # PeilessSec / PrePi
   gArmPlatformTokenSpaceGuid.PcdSystemMemoryUefiRegionSize|0x08000000
@@ -211,18 +227,44 @@
   gEfiMdePkgTokenSpaceGuid.PcdDebugPrintErrorLevel|0x8000004F
   gEfiMdePkgTokenSpaceGuid.PcdDebugPropertyMask|0x2F
 
+  # Use RAM-based variable store (no NV flash storage available at this stage)
+  gEfiMdeModulePkgTokenSpaceGuid.PcdEmuVariableNvModeEnable|TRUE
+
+  # ACPI table storage file GUID = a733ac01-ac01-ac01-ac01-a733a733a733
+  # Points AcpiPlatformDxe to the FREEFORM file containing our ACPI tables
+  gEfiMdeModulePkgTokenSpaceGuid.PcdAcpiTableStorageFile|{ 0x01, 0xac, 0x33, 0xa7, 0x01, 0xac, 0x01, 0xac, 0xac, 0x01, 0xa7, 0x33, 0xa7, 0x33, 0xa7, 0x33 }
+
+  # Terminal type: 4 = TTYTERM (required by CustomizedDisplayLib)
+  gEfiMdePkgTokenSpaceGuid.PcdDefaultTerminalType|4
+
+  # Disable driver health check UI (no FormBrowser2 available)
+  gEfiMdeModulePkgTokenSpaceGuid.PcdDriverHealthConfigureForm|{0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00}
+
 [PcdsFeatureFlag.common]
   gEmbeddedTokenSpaceGuid.PcdPrePiProduceMemoryTypeInformationHob|FALSE
 
 [Components.AARCH64]
   # SEC (PeilessSec = PrePi for PEI-less ARM platforms)
-  ArmPlatformPkg/PeilessSec/PeilessSec.inf
+  # LzmaCustomDecompressLib registers the LZMA GUID handler so that
+  # DecompressFirstFv() can decompress the FVMAIN sub-FV.
+  ArmPlatformPkg/PeilessSec/PeilessSec.inf {
+    <LibraryClasses>
+      NULL|MdeModulePkg/Library/LzmaCustomDecompressLib/LzmaCustomDecompressLib.inf
+  }
 
   # Platform Library
   Platform/Allwinner/A733Pkg/Library/PlatformLib/PlatformLib.inf
 
-  # ACPI Tables (disabled for first milestone)
-  #Platform/Allwinner/A733Pkg/AcpiTables/AcpiTables.inf
+  # ACPI Tables
+  Platform/Allwinner/A733Pkg/AcpiTables/AcpiTables.inf
+
+  # PCD DXE driver - provides gEfiPcdProtocolGuid which all DXE drivers depend on
+  # BasePcdLibNull prevents self-referential DEPEX (DxePcdLib would add gEfiPcdProtocolGuid
+  # to the DEPEX, creating a circular dependency where PcdDxe depends on itself)
+  MdeModulePkg/Universal/PCD/Dxe/Pcd.inf {
+    <LibraryClasses>
+      PcdLib|MdePkg/Library/BasePcdLibNull/BasePcdLibNull.inf
+  }
 
   # ARM core drivers
   ArmPkg/Drivers/CpuDxe/CpuDxe.inf
@@ -236,6 +278,29 @@
       NULL|MdeModulePkg/Library/LzmaCustomDecompressLib/LzmaCustomDecompressLib.inf
   }
 
+  # Security stub (provides Security/Security2 Arch Protocol - required for image loading)
+  MdeModulePkg/Universal/SecurityStubDxe/SecurityStubDxe.inf
+
+  # Metronome and Watchdog Timer Arch Protocols
+  MdeModulePkg/Universal/Metronome/Metronome.inf
+  MdeModulePkg/Universal/WatchdogTimerDxe/WatchdogTimer.inf
+
+  # HII Database (provides gEfiHiiDatabaseProtocolGuid, gEfiHiiStringProtocolGuid,
+  # gEfiHiiConfigRoutingProtocolGuid - required by BdsDxe via UefiHiiServicesLib DEPEX)
+  MdeModulePkg/Universal/HiiDatabaseDxe/HiiDatabaseDxe.inf
+
+  # Unicode Collation 2 (required by Shell / UefiShellCommandLib)
+  MdeModulePkg/Universal/Disk/UnicodeCollation/EnglishDxe/EnglishDxe.inf
+
+  # Console drivers (ConOut must be non-NULL when Shell runs)
+  MdeModulePkg/Universal/SerialDxe/SerialDxe.inf
+  MdeModulePkg/Universal/Console/ConPlatformDxe/ConPlatformDxe.inf
+  MdeModulePkg/Universal/Console/ConSplitterDxe/ConSplitterDxe.inf
+  MdeModulePkg/Universal/Console/TerminalDxe/TerminalDxe.inf
+
+  # BDS (Boot Device Selection) Arch Protocol
+  MdeModulePkg/Universal/BdsDxe/BdsDxe.inf
+
   # Runtime drivers
   MdeModulePkg/Core/RuntimeDxe/RuntimeDxe.inf
   MdeModulePkg/Universal/Variable/RuntimeDxe/VariableRuntimeDxe.inf {
@@ -247,8 +312,18 @@
   MdeModulePkg/Universal/ResetSystemRuntimeDxe/ResetSystemRuntimeDxe.inf
   EmbeddedPkg/RealTimeClockRuntimeDxe/RealTimeClockRuntimeDxe.inf
 
-  # ACPI support (disabled for first milestone)
-  #MdeModulePkg/Universal/Acpi/AcpiTableDxe/AcpiTableDxe.inf
+  # ACPI support
+  MdeModulePkg/Universal/Acpi/AcpiTableDxe/AcpiTableDxe.inf
+  Platform/Allwinner/A733Pkg/Drivers/AcpiPlatformDxe/A733AcpiPlatformDxe.inf
+
+  # SD: Allwinner SMHC0 host controller + EDK2 SD protocol stack
+  Platform/Allwinner/A733Pkg/Drivers/SdMmcDxe/SunxiSmhcDxe.inf
+  MdeModulePkg/Bus/Sd/SdDxe/SdDxe.inf
+
+  # Disk I/O stack: block device → partition → filesystem
+  MdeModulePkg/Universal/Disk/DiskIoDxe/DiskIoDxe.inf
+  MdeModulePkg/Universal/Disk/PartitionDxe/PartitionDxe.inf
+  FatPkg/EnhancedFatDxe/Fat.inf
 
   # UEFI Shell
   ShellPkg/Application/Shell/Shell.inf {
@@ -259,4 +334,6 @@
       NULL|ShellPkg/Library/UefiShellLevel3CommandsLib/UefiShellLevel3CommandsLib.inf
       HandleParsingLib|ShellPkg/Library/UefiHandleParsingLib/UefiHandleParsingLib.inf
       BcfgCommandLib|ShellPkg/Library/UefiShellBcfgCommandLib/UefiShellBcfgCommandLib.inf
+    <PcdsFeatureFlag>
+      gEfiShellPkgTokenSpaceGuid.PcdShellLibAutoInitialize|FALSE
   }

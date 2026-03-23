@@ -6,8 +6,10 @@
 ## 現在の作業箇所
 - **筐体・PCB完成待ちのため QMK/TinyUSB は保留**
 - **EDK2 移植（Windows ARM）を優先的に進行中**
-- **次のタスク**: ArmMmuLibCore.c に診断プリント追加 → FillTranslationTable vs ArmEnableMmu クラッシュ切り分け
-- 参照: `specs/windows_arm.md`（ロードマップ・参考リポジトリ一覧）
+- **現在地**: SMHC0（SD）ドライバ実装済み・DiskIoDxe/PartitionDxe/Fat 追加済み → ビルド・実機確認待ち
+- **次のタスク**: ビルド → SMHC0 動作確認（UEFI Shell で `map -r` → SD パーティション認識）→ Windows ARM SD インストール
+- **方針確定**: PCIe（M.2 SSD）は実機PCB完成まで保留 → SD カードへの Windows インストールを先行
+- 参照: `specs/windows_arm.md`（ロードマップ・参考リポジトリ一覧）、`specs/edk2_porting.md`（EDK2構成詳細）
 
 ---
 
@@ -36,8 +38,12 @@
 - [x] 現在のブートチェーン確認（TF-A BL31使用有無）→ boot0→TF-A BL31→BL33(EDK2)
 - [ ] TF-A BL31 移植（不要・既存BL31をそのまま使用）
 - [x] EDK2 SD起動・UEFI表示まで到達
-- [~] EDK2 MMU初期化クラッシュ修正中（ArmConfigureMmu内部）
-- [ ] DXE Core起動・UEFI Shell
+- [x] EDK2 MMU初期化クラッシュ修正済み（CPACR_EL1.FPEN fix）
+- [x] DXE Core起動・UEFI Shell（Shell> プロンプト・キーボード入力動作確認済み）
+- [x] ACPI テーブル実機ロード確認済み（FACP/GTDT/APIC/SPCR/DSDT 全5テーブル）
+- [x] SMHC0（SD）DXE ドライバ実装・DiskIoDxe/PartitionDxe/Fat 追加（Phase B コード完）
+- [ ] SMHC0 実機動作確認（UEFI Shell `map -r`）
+- [ ] Windows ARM SD インストール
 - [ ] Windows ARM 起動
 
 ---
@@ -53,6 +59,71 @@
 ---
 
 ## 直近の決定事項ログ
+
+### 2026-03-22（session07）
+- **方針転換確定**: PCIe（M.2 SSD）は実機PCBまたはM.2-PCIeアダプタ入手まで保留
+- **Windows インストールターゲット = SD カード**（SMHC0経由）
+- **Cubie A7Z に eMMC は存在しない**ことが判明（UFS optional slot + MicroSD のみ）
+  - SMHC2 エントリを mSmhcTable から除外（初期化失敗ログ抑制）
+  - EmmcDxe を FV から削除
+- **追加ドライバ**: DiskIoDxe + PartitionDxe + FatPkg（SD→GPT→FAT32 EFI SP 認識に必要）
+- **次のアクション**: ビルド → UEFI Shell `map -r` で SD カード認識確認
+
+### 2026-03-21（session06）
+- **ACPI テーブル実機ロード完全確認**
+- **全5テーブルインストール成功**: FACP(Handle=1) / GTDT(Handle=2) / APIC(Handle=3) / SPCR(Handle=4) / DSDT(Handle=5) 全て `InstallAcpiTable = 0x0 (EFI_SUCCESS)`
+- **謎だった `Error: Image at ... start failed: 00000001` の正体判明**:
+  - `EFI_REQUEST_UNLOAD_IMAGE (0x0F)` を返したときに DxeCore が `Image->Status != EFI_SUCCESS` として印字する既知の挙動
+  - `%r` フォーマット出力 "00000001" はこの warning status の表示、エラーではない
+  - line 380 の `remove-symbol-file` で正常アンロード確認済み
+- **ビルドシステム修正**:
+  - `build_edk2.sh` に Platform シンボリックリンク作成を追加: `edk2/Platform → edk2-platforms/Platform`
+  - edk2-platforms (PACKAGES_PATH 2番目) にあるモジュールの build 出力は `AARCH64/edk2-platforms/Platform/...` に生成されるが、GenFds は `AARCH64/Platform/...` を探す不一致を解消
+- **カスタム診断ドライバ `A733AcpiPlatformDxe`**: 問題特定のため作成、そのまま本番運用に採用
+  - `Platform/Allwinner/A733Pkg/Drivers/AcpiPlatformDxe/A733AcpiPlatformDxe.{c,inf}`
+  - MdeModulePkg の汎用 AcpiPlatformDxe を置き換え、SerialPortLib で各ステップをデバッグプリント
+- **次のアクション**: Phase B — eMMC/SD DXE ドライバ実装
+
+### 2026-03-21（session05）
+- **ACPI テーブル全テーブルビルド成功・SD image 生成完了**
+- **実装完了テーブル**: FADT / MADT / GTDT / SPCR / DSDT（全5テーブル）
+- **バイナリ検証**: sig/len/rev 全て正常（FACP rev=6, APIC rev=5, GTDT rev=3, SPCR rev=2, DSDT rev=2）
+- **修正した問題**:
+  - `ACPI_HEADER` マクロに余分な `{}` があり、`EFI_ACPI_DESCRIPTION_HEADER.Signature`（UINT32スカラー）への初期化として扱われ、Length・Revision が 0 になっていた → GenFw で MADT "APIC revision check failed"
+  - Fix: マクロの外側 `{}` を削除（呼び出し側の `{ ACPI_HEADER(...) }` が `EFI_ACPI_DESCRIPTION_HEADER` 用の braces になる）
+  - `AcpiTables.inf` の FILE_GUID `a733ac01-acpi-acpi-acpi-a733a733a733` に非16進文字 'p' → GenFfs エラー → `a733ac01-ac01-ac01-ac01-a733a733a733` に修正
+- **ACPI テーブル構成**:
+  - FADT: HW_REDUCED_ACPI | LOW_POWER_S0_IDLE_CAPABLE, PSCI SMC (not HVC), PM_PROFILE_TABLET
+  - MADT: GICv3, GICD@0x3400000, GICR@0x3460000, 8CPU (A55×6 + A76×2), 各MPIDR設定
+  - GTDT: 4タイマー IRQ 26/27/29/30（DTB確認済み）
+  - SPCR: UART0@0x02500000, 16550_WITH_GAS, 115200bps, polling mode
+  - DSDT: CPU0-7 (_HID=ACPI0007), COM0 (_HID=ARMH0011, UART0)
+- **次のアクション**: SD書き込み → 実機ブートで AcpiTableDxe ロードログ確認 → eMMC/SD DXE (Phase B)
+
+### 2026-03-21（session04）
+- **UEFI Shell 完全動作達成** (`Shell>` プロンプト表示・キーボード入力OK)
+- **原因と対策**:
+  - `PcdShellLibAutoInitialize` が `PcdsFixedAtBuild` でなく `PcdsFeatureFlag` → 修正
+  - UnicodeCollation パスが間違い → `MdeModulePkg/Universal/Disk/UnicodeCollation/EnglishDxe/EnglishDxe.inf` が正解
+  - SerialDxe / ConPlatformDxe / ConSplitterDxe / TerminalDxe を FV に追加
+  - `PlatformBootManagerBeforeConsole` で ConIn/ConOut/ErrOut UEFI 変数にシリアル端末デバイスパス（VenHw→UART→VT100）を登録 → BdsDxe がTerminalDxeをConSplitterDxeに接続
+- **現在の構成**: SerialDxe(16550) + VT100 TerminalDxe が gST->ConOut に接続済み
+- **残課題**: DXE_RUNTIME_DRIVER の Section Alignment 警告 (0x1000 vs 0x10000) → 実害なし・後回し
+- **次のアクション**: Windows ARM ブートに向けた調査 or dh/memmap コマンド追加
+
+### 2026-03-21（session03）
+- **根本原因特定**: `ZeroMem(4096)` クラッシュ = `CPACR_EL1.FPEN=0b00`（NEON トラップ）
+  - TF-A が BL33 を EL1 にドロップするとき CPACR_EL1 はデフォルト値（FP/NEONトラップ有効）のまま
+  - `BaseMemoryLibOptDxe` が 4KB 以上の ZeroMem で NEON 命令を使用 → EL1 同期例外 → フリーズ
+- **修正**: `ArmPlatformInitialize()` に `msr cpacr_el1, #0x300000`（FPEN=0b11）追加
+  - `A733Platform.c` に inline asm で実装・ビルド確認済み（PeilessSec.efi に `msr cpacr_el1, x0` 0x66d0 に確認）
+- **ビルド問題の教訓**:
+  - `GCC5` は tools_def.txt 3.06 で削除済み → `-t GCC` を使うこと
+  - `-p` に絶対パスを渡すと `NormFile()` がパスを破壊する（WORKSPACE prefix string strip バグ）
+    → `-p Platform/Allwinner/A733Pkg/A733Pkg.dsc`（相対パス）で渡すこと
+  - ビルドスクリプト: `build/build_edk2.sh` に手順を記録済み
+- 新ビルド FD: `build/A733.fd` / SD image: `build/sd_boot.img`（PEILESS_ENTRY=0x4a007748）
+- **次のアクション**: SD書き込み → URR ZeroMem done 確認 → ArmEnableMmu確認 → DXE Core起動へ
 
 ### 2026-03-20（session02）
 - EDK2 SD起動: PEILESS_ENTRY を FV ZeroVector から正確に特定する手法を確立

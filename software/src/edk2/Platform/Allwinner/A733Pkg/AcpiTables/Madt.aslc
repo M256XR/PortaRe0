@@ -20,8 +20,7 @@
  * NOTE: GICR stride is 0x20000 per CPU (GICv3 standard)
  **/
 
-#include <IndustryStandard/Acpi.h>
-#include <Library/AcpiLib.h>
+#include "AcpiTables.h"
 
 #define GICD_BASE       0x03400000
 #define GICR_BASE       0x03460000
@@ -33,7 +32,7 @@
   sizeof (EFI_ACPI_6_3_GIC_STRUCTURE),                                  \
   EFI_ACPI_RESERVED_WORD,                                               \
   cpu_num,                                                              \
-  0,          /* AcpiProcessorUid */                                    \
+  cpu_num,    /* AcpiProcessorUid - must match DSDT _UID */             \
   EFI_ACPI_6_3_GIC_ENABLED,                                             \
   0,          /* ParkingProtocolVersion */                              \
   0,          /* PerformanceInterruptGsiv */                            \

@@ -1,11 +1,12 @@
 # PortaRe0 進捗ログ
 
 ## 現在のフェーズ
-**Phase 3: PCBレイアウト ほぼ完了（肩ボタンのみ残）**
+**Phase 3: PCBレイアウト完了 → 発注準備完了（資金準備待ち）**
 
 ## 現在の作業箇所
-- PCBレイアウト進行中（session32〜）
-  - **次のタスク**: 肩ボタン配置・配線（筐体CAD後）→ JLCPCB発注
+- **次のタスク**: JLCPCBにてPCBA見積もり確認（サーバーエラーで未確認）→ 発注
+  - hdmi_adapter・usb_adapterのガーバー生成はまだ
+  - Session41現在: 肩ボタン配置・配線・DRC完了 / ガーバー・CPL生成完了 / BOM確定
   - Session40現在: メインPCB完了・hdmi_adapter完了・usb_adapter（FPC基板）完了
   - Session39現在: MAX98357A I2S・BOOTSELスイッチ・M.2 PCIe配線完了
   - Session38現在: 電源幹線・HUB系・HDMI・USB・SPI Flash・RP2040 Flash・TPS2042・LED配線完了
@@ -142,6 +143,24 @@
 
 ## 直近の決定事項ログ
 
+### 2026-03-23（session41）
+- 肩ボタン（K_SW1/K_SW2）配置・配線・DRC完了（ROW0-COL0 / ROW0-COL8）
+- キースイッチ変更: SKRPAKE010(C19724062) → **SKRPABE010(C115360)** / 62個 / 手はんだ
+- 肩ボタン2種類購入して実機で選ぶ方針: SKSCLDE010(163gf・C115362) / SKSCLBE010(224gf・C115361)
+- キー数確定: **64キー**（通常62 + 肩2 / Win=ROW7-COL7含む）/ ダイオード65個（64+FAN1）
+- BOM更新: cyberdeck_bom.csv反映済み / specs/keyboard.md更新済み
+- ガーバー生成完了: `gerber/`（6層・ENIG）
+- CPL生成完了: `pos/PortaRe0-all-pos.csv`
+- JLCPCB価格確認:
+  - 基板単体5枚: **13,000円**（0.2/0.35mmビア・ENIG・6層）
+  - デフォルト(0.3/0.4mm)なら7,000円だが0.2/0.35mmビアを526個中266個使用のため変更困難
+  - PCBAはJLCPCBサーバーエラーで見積もり未確認（後日）
+- Extended/在庫状況確認:
+  - VL812(C69417) / M.2ソケット(C367029): 在庫ゼロ → プレオーダーで対応可
+  - LED橙(C19273153): JLCPCBパーツライブラリ未確認 → 手はんだなので実害なし
+  - BasicはAP2112K/RP2040/C9006/KT-0603Rの4点のみ・他全Extended
+- **残り**: hdmi_adapter・usb_adapterのガーバー生成 / PCBAの見積もり → 発注（資金準備後）
+
 ### 2026-03-17〜18（session40）
 - メインPCB DRC完了・各種制約値をJLCPCBスペックに合わせて修正
   - Defaultネットクラス: クリアランス0.1mm / ビアサイズ0.35mm / ビア穴0.2mm
@@ -192,24 +211,6 @@
 - ビアサイズ: JLCPCBスペック確認（最小ドリル0.15mm/外径0.25mm・推奨ドリル0.2mm/外径0.35mm）
 - 信号線トレース幅: 0.2mm（JLCPCBルール最小0.1mm）
 - **残り**: 電源系IC細かい配線・オーディオ系・RP2040信号線・キーマトリクス・GNDベタ・Teardrops
-
-### 2026-03-12（session37）
-- 部品配置完了・ルーティング開始
-- RP2040水晶: 3mm以内 → OK / QSPI Flash: 10mm以内 → OK / VL812水晶: 3mm以内 → OK
-- ルーティング推奨順: GNDベタ → 電源幹線 → 電源プレーン → スイッチングノード → 高速差動ペア → IC間信号 → 一般信号
-- FPC給電（SBCへの電源供給）ピン割り当て修正:
-  - SBC給電FPC（24pin）: Pin1〜10=5V / Pin11〜22=GND / Pin23=CC1 / Pin24=CC2
-  - CC Rp抵抗: 22kΩ → **10kΩ**に変更（Cubie A7Z 5V/2A → 3A広告が安全）
-  - UP_VBUS（SBC→VL812 upstream）: 1pinでOK（検出用のみ）
-  - HDMIコントローラ給電FPC: Pin20〜21=GND / Pin22〜24=5V（3pin・1A対応）
-  - HDMI 5V（Pin18）: 基板側5V_SYSから供給でOK（DDC/HPD用・50mA以下）
-- トレース幅目安: 一般信号0.1〜0.15mm / 3.3V/5V 0.3〜0.5mm / VSYS/5V_SYS 1.5〜2.0mm以上
-- デカップリングキャップ距離: 1mm以内理想・2mmまで許容（前回確認）
-- GNDベタ: KiCad Fill Zone（Net=GND / Solid / Direct connect）でOK
-- B.Cu電源ルーティング: J4（バッテリー）〜BQ25895間は短距離・障害物なしのためB.Cuで直結OK
-- パッド根元で0.5mm程度に細くなるのは短区間なら許容
-- Teardrops: 全配線完了後にEdit→Teardrops...で一括適用推奨
-- ビア vs マイクロビア: このプロジェクトは通常ビアのみ（マイクロビアはHDI基板が必要）
 
 ## JLCPCB C番号確定リスト
 
